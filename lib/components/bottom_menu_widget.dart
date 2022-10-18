@@ -1,9 +1,7 @@
-import '../chat_page/chat_page_widget.dart';
-import '../explore_page/explore_page_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../main_page/main_page_widget.dart';
+import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -90,7 +88,7 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MainPageWidget(),
+                  builder: (context) => NavBarPage(initialPage: 'mainPage'),
                 ),
               );
             },
@@ -135,7 +133,7 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
                 type: PageTransitionType.bottomToTop,
                 duration: Duration(milliseconds: 300),
                 reverseDuration: Duration(milliseconds: 300),
-                child: ExplorePageWidget(),
+                child: NavBarPage(initialPage: 'explorePage'),
               ),
               (r) => false,
             );
@@ -182,8 +180,11 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
             onTap: () async {
               await Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => ChatPageWidget(),
+                PageTransition(
+                  type: PageTransitionType.rightToLeft,
+                  duration: Duration(milliseconds: 300),
+                  reverseDuration: Duration(milliseconds: 300),
+                  child: NavBarPage(initialPage: 'allChatPage'),
                 ),
               );
             },

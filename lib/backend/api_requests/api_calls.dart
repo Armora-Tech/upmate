@@ -58,6 +58,29 @@ class AddPostCall {
   }
 }
 
+class AddUserCall {
+  static Future<ApiCallResponse> call({
+    String? uid = '',
+    String? interests = '',
+  }) {
+    final body = '''
+{
+  "uid": "${uid}",
+  "interests": "${interests}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'addUser',
+      apiUrl: 'https://upmate.armora-tech.com/recombee/addUser',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+    );
+  }
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

@@ -42,6 +42,12 @@ class FFAppState {
   void deleteSreset() {
     secureStorage.delete(key: 'ff_sreset');
   }
+
+  String tiid = '';
+
+  bool isverified = false;
+
+  bool isFirstOpen = false;
 }
 
 LatLng? _latLngFromString(String? val) {

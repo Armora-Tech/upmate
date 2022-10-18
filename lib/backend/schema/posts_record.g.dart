@@ -85,6 +85,13 @@ class _$PostsRecordSerializer implements StructuredSerializer<PostsRecord> {
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
+    value = object.iid;
+    if (value != null) {
+      result
+        ..add('iid')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -150,6 +157,10 @@ class _$PostsRecordSerializer implements StructuredSerializer<PostsRecord> {
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
           break;
+        case 'iid':
+          result.iid = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -183,6 +194,8 @@ class _$PostsRecord extends PostsRecord {
   @override
   final BuiltList<String>? interests;
   @override
+  final String? iid;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$PostsRecord([void Function(PostsRecordBuilder)? updates]) =>
@@ -198,6 +211,7 @@ class _$PostsRecord extends PostsRecord {
       this.numComments,
       this.numVotes,
       this.interests,
+      this.iid,
       this.ffRef})
       : super._();
 
@@ -221,6 +235,7 @@ class _$PostsRecord extends PostsRecord {
         numComments == other.numComments &&
         numVotes == other.numVotes &&
         interests == other.interests &&
+        iid == other.iid &&
         ffRef == other.ffRef;
   }
 
@@ -234,15 +249,17 @@ class _$PostsRecord extends PostsRecord {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, postPhoto.hashCode),
-                                        postTitle.hashCode),
-                                    postDescription.hashCode),
-                                postUser.hashCode),
-                            timePosted.hashCode),
-                        likes.hashCode),
-                    numComments.hashCode),
-                numVotes.hashCode),
-            interests.hashCode),
+                                    $jc(
+                                        $jc($jc(0, postPhoto.hashCode),
+                                            postTitle.hashCode),
+                                        postDescription.hashCode),
+                                    postUser.hashCode),
+                                timePosted.hashCode),
+                            likes.hashCode),
+                        numComments.hashCode),
+                    numVotes.hashCode),
+                interests.hashCode),
+            iid.hashCode),
         ffRef.hashCode));
   }
 
@@ -258,6 +275,7 @@ class _$PostsRecord extends PostsRecord {
           ..add('numComments', numComments)
           ..add('numVotes', numVotes)
           ..add('interests', interests)
+          ..add('iid', iid)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -308,6 +326,10 @@ class PostsRecordBuilder implements Builder<PostsRecord, PostsRecordBuilder> {
   set interests(ListBuilder<String>? interests) =>
       _$this._interests = interests;
 
+  String? _iid;
+  String? get iid => _$this._iid;
+  set iid(String? iid) => _$this._iid = iid;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -328,6 +350,7 @@ class PostsRecordBuilder implements Builder<PostsRecord, PostsRecordBuilder> {
       _numComments = $v.numComments;
       _numVotes = $v.numVotes;
       _interests = $v.interests?.toBuilder();
+      _iid = $v.iid;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -362,6 +385,7 @@ class PostsRecordBuilder implements Builder<PostsRecord, PostsRecordBuilder> {
               numComments: numComments,
               numVotes: numVotes,
               interests: _interests?.build(),
+              iid: iid,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

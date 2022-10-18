@@ -12,6 +12,7 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import '../flutter_flow/random_data_util.dart' as random_data;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NewPostPageWidget extends StatefulWidget {
@@ -28,11 +29,13 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
   TextEditingController? textController1;
   TextEditingController? textController2;
   List<String>? choiceChipsValues;
+  PostsRecord? idpost;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'newPostPage'});
     textController1 = TextEditingController();
     textController2 = TextEditingController();
   }
@@ -345,6 +348,15 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 20),
               child: FFButtonWidget(
                 onPressed: () async {
+                  setState(
+                      () => FFAppState().tiid = 'PST-${random_data.randomString(
+                            6,
+                            6,
+                            true,
+                            true,
+                            true,
+                          )}');
+
                   final postsCreateData = {
                     ...createPostsRecordData(
                       postPhoto: uploadedFileUrl,
@@ -352,18 +364,16 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                       postUser: currentUserReference,
                       timePosted: getCurrentTimestamp,
                       postTitle: textController1!.text,
+                      iid: FFAppState().tiid,
                     ),
                     'interests': choiceChipsValues,
                   };
-                  await PostsRecord.collection.doc().set(postsCreateData);
+                  var postsRecordReference = PostsRecord.collection.doc();
+                  await postsRecordReference.set(postsCreateData);
+                  idpost = PostsRecord.getDocumentFromData(
+                      postsCreateData, postsRecordReference);
                   await AddPostCall.call(
-                    iid: 'PST${random_data.randomString(
-                      10,
-                      10,
-                      true,
-                      true,
-                      true,
-                    )}',
+                    iid: FFAppState().tiid,
                     name: textController1!.text,
                     owner: currentUserUid,
                     desc: textController2!.text,
@@ -373,12 +383,14 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                     image: uploadedFileUrl,
                   );
                   Navigator.pop(context);
+
+                  setState(() {});
                 },
                 text: 'Create Post',
                 options: FFButtonOptions(
                   width: 270,
                   height: 50,
-                  color: FlutterFlowTheme.of(context).primaryColor,
+                  color: FlutterFlowTheme.of(context).btnColors,
                   textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                         fontFamily: 'Lexend Deca',
                         color: Colors.white,

@@ -3,7 +3,7 @@ import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main_page/main_page_widget.dart';
+import '../main.dart';
 import '../verif_page/verif_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -39,6 +39,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
     inpPassVisibility = false;
     inpPassConfController = TextEditingController();
     inpPassConfVisibility = false;
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'SignupPage'});
   }
 
   @override
@@ -345,7 +346,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                             mail: inpEmailController!.text,
                           );
                           _shouldSetState = true;
-                          await Navigator.pushAndRemoveUntil(
+                          await Navigator.push(
                             context,
                             PageTransition(
                               type: PageTransitionType.rightToLeft,
@@ -358,7 +359,6 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                                 pw: inpPassController!.text,
                               ),
                             ),
-                            (r) => false,
                           );
                           if (_shouldSetState) setState(() {});
                           return;
@@ -410,7 +410,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                         alignment: AlignmentDirectional(0, -0.4),
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width,
+                            width: MediaQuery.of(context).size.width * 0.8,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
@@ -466,7 +466,8 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                           await Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MainPageWidget(),
+                              builder: (context) =>
+                                  NavBarPage(initialPage: 'mainPage'),
                             ),
                             (r) => false,
                           );
@@ -487,7 +488,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 10),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,

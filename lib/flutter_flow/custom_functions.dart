@@ -30,3 +30,15 @@ String? joinLString(
   String finalstr = str.join(separator);
   return finalstr;
 }
+
+List<String> normInterests(List<String> lists) {
+  // Add your function code here!
+  for (int i = 0; i < lists.length; i++) {
+    List<String> ts = lists[i].split(" ");
+    ts.removeWhere((str) {
+      return str == "#";
+    });
+    lists[i] = ts.join(" ");
+  }
+  return lists;
+}

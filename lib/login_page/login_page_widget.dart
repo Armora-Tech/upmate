@@ -3,7 +3,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_timer.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main_page/main_page_widget.dart';
+import '../main.dart';
 import '../signup_page/signup_page_widget.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -36,6 +36,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     inpEmailController = TextEditingController();
     inpPassController = TextEditingController();
     inpPassVisibility = false;
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'LoginPage'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -221,7 +222,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       await Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MainPageWidget(),
+                          builder: (context) =>
+                              NavBarPage(initialPage: 'mainPage'),
                         ),
                         (r) => false,
                       );
@@ -396,7 +398,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         await Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MainPageWidget(),
+                            builder: (context) =>
+                                NavBarPage(initialPage: 'mainPage'),
                           ),
                           (r) => false,
                         );

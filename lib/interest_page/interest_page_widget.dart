@@ -1,10 +1,12 @@
 import '../auth/auth_util.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main_page/main_page_widget.dart';
+import '../main.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,6 +22,13 @@ class InterestPageWidget extends StatefulWidget {
 class _InterestPageWidgetState extends State<InterestPageWidget> {
   List<String>? choiceChipsValues;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'interestPage'});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,43 +75,60 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                             ),
                       ),
                     ),
-                    FlutterFlowChoiceChips(
-                      options: [
-                        ChipData('Data Science', FontAwesomeIcons.hashtag),
-                        ChipData('Statistika', FontAwesomeIcons.hashtag),
-                        ChipData('Machine Learning', FontAwesomeIcons.hashtag),
-                        ChipData('Programing', FontAwesomeIcons.hashtag),
-                        ChipData('Kalkulus', FontAwesomeIcons.hashtag),
-                        ChipData('Biologi', FontAwesomeIcons.hashtag)
-                      ],
-                      onChanged: (val) =>
-                          setState(() => choiceChipsValues = val),
-                      selectedChipStyle: ChipStyle(
-                        backgroundColor: Colors.white,
-                        textStyle:
-                            FlutterFlowTheme.of(context).bodyText1.override(
-                                  fontFamily: 'Poppins',
-                                  color: Colors.black,
-                                ),
-                        iconColor: Colors.black,
-                        iconSize: 18,
-                        elevation: 4,
-                      ),
-                      unselectedChipStyle: ChipStyle(
-                        backgroundColor: Colors.white,
-                        textStyle:
-                            FlutterFlowTheme.of(context).bodyText2.override(
-                                  fontFamily: 'Poppins',
-                                  color: Color(0xFF323B45),
-                                ),
-                        iconColor: Color(0xFF323B45),
-                        iconSize: 18,
-                        elevation: 0,
-                      ),
-                      chipSpacing: 20,
-                      multiselect: true,
-                      initialized: choiceChipsValues != null,
-                      alignment: WrapAlignment.start,
+                    StreamBuilder<List<InterestsRecord>>(
+                      stream: queryInterestsRecord(),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator(
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
+                              ),
+                            ),
+                          );
+                        }
+                        List<InterestsRecord> choiceChipsInterestsRecordList =
+                            snapshot.data!;
+                        return FlutterFlowChoiceChips(
+                          options: choiceChipsInterestsRecordList
+                              .map((e) => e.name!)
+                              .toList()
+                              .map((label) => ChipData(label))
+                              .toList(),
+                          onChanged: (val) =>
+                              setState(() => choiceChipsValues = val),
+                          selectedChipStyle: ChipStyle(
+                            backgroundColor: Colors.white,
+                            textStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.black,
+                                    ),
+                            iconColor: Colors.black,
+                            iconSize: 18,
+                            elevation: 4,
+                          ),
+                          unselectedChipStyle: ChipStyle(
+                            backgroundColor: Colors.white,
+                            textStyle:
+                                FlutterFlowTheme.of(context).bodyText2.override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF323B45),
+                                    ),
+                            iconColor: Color(0xFF323B45),
+                            iconSize: 18,
+                            elevation: 0,
+                          ),
+                          chipSpacing: 20,
+                          multiselect: true,
+                          initialized: choiceChipsValues != null,
+                          alignment: WrapAlignment.start,
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -130,16 +156,27 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                         return;
                       } else {
                         final usersUpdateData = {
-                          'interests': choiceChipsValues,
+                          'interests': functions
+                              .normInterests(choiceChipsValues!.toList()),
                         };
                         await currentUserReference!.update(usersUpdateData);
+                        await AddUserCall.call(
+                          uid: currentUserUid,
+                          interests: functions.joinLString(
+                              functions
+                                  .normInterests(choiceChipsValues!.toList())
+                                  .toList(),
+                              ';'),
+                        );
                         await Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MainPageWidget(),
+                            builder: (context) =>
+                                NavBarPage(initialPage: 'mainPage'),
                           ),
                           (r) => false,
                         );
+                        return;
                       }
                     },
                     text: 'Next',

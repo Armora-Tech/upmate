@@ -3,6 +3,12 @@ import 'package:from_css_color/from_css_color.dart';
 
 import 'users_record.dart';
 import 'posts_record.dart';
+import 'chats_record.dart';
+import 'chat_messages_record.dart';
+import 'interests_record.dart';
+import 'comments_record.dart';
+import 'ratings_record.dart';
+import 'notifications_record.dart';
 
 import 'index.dart';
 
@@ -15,6 +21,12 @@ const kDocumentReferenceField = 'Document__Reference__Field';
 @SerializersFor(const [
   UsersRecord,
   PostsRecord,
+  ChatsRecord,
+  ChatMessagesRecord,
+  InterestsRecord,
+  CommentsRecord,
+  RatingsRecord,
+  NotificationsRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())
