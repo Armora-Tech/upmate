@@ -81,6 +81,10 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                     ),
                   ),
                 ),
+                title: Text(
+                  postDetailPostsRecord.postTitle!,
+                  style: FlutterFlowTheme.of(context).bodyText1,
+                ),
                 actions: [],
                 centerTitle: true,
                 elevation: 1,
@@ -398,8 +402,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                                 .fromSTEB(0, 10,
                                                                     0, 0),
                                                         child: Icon(
-                                                          Icons
-                                                              .mode_comment_outlined,
+                                                          FFIcons.kbubble,
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .black600,

@@ -1,6 +1,6 @@
 {
-    "name": "Upmate",
-    "short_name": "Upmate",
+    "name": "UpMate",
+    "short_name": "UpMate",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

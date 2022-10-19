@@ -6,6 +6,8 @@ import '../flutter_flow/chat/index.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../custom_code/widgets/index.dart' as custom_widgets;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -29,18 +31,21 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print('FloatingActionButton pressed ...');
+        },
+        backgroundColor: Color(0xFF5ABBDE),
+        elevation: 8,
+        child: Icon(
+          Icons.add,
+          color: FlutterFlowTheme.of(context).primaryBtnText,
+          size: 24,
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
-        title: Text(
-          'All Chats',
-          style: FlutterFlowTheme.of(context).bodyText1.override(
-                fontFamily: 'Poppins',
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-        ),
         actions: [
           FlutterFlowIconButton(
             borderColor: Colors.transparent,
@@ -62,7 +67,35 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
             },
           ),
         ],
-        centerTitle: true,
+        flexibleSpace: FlexibleSpaceBar(
+          title: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              AutoSizeText(
+                'Chats',
+                style: FlutterFlowTheme.of(context).bodyText1.override(
+                      fontFamily: 'Nunito',
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w800,
+                    ),
+              ),
+              Container(
+                width: 100,
+                height: 50,
+                child: custom_widgets.SearchBar(
+                  width: 100,
+                  height: 50,
+                  color: FlutterFlowTheme.of(context).black600,
+                  sizes: 30.0,
+                ),
+              ),
+            ],
+          ),
+          centerTitle: false,
+          expandedTitleScale: 1.0,
+          titlePadding: EdgeInsetsDirectional.fromSTEB(10, 0, 20, 10),
+        ),
         elevation: 4,
       ),
       body: SafeArea(

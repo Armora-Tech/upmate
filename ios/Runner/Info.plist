@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Upmate</string>
+	<string>UpMate</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Upmate</string>
+	<string>UpMate</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 
@@ -45,7 +45,8 @@
       <string>In order to take a picture or video, this app requires permission to access the camera.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
       <string>In order to upload media, this app requires permission to access the photo library.</string>
-
+	<key>PermissionGroupNotification</key>
+      <string>In order to receive notification, this app requires permission to send notitication.</string>
     <key>UIBackgroundModes</key>
     <array>
         <string>fetch</string>

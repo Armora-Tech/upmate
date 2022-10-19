@@ -1,3 +1,4 @@
+import '../account_page/account_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
@@ -269,30 +270,86 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                           ],
                         ),
                       ),
+                      InkWell(
+                        onTap: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AccountPageWidget(),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional(-1, 0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            AccountPageWidget(),
+                                      ),
+                                    );
+                                  },
+                                  text: 'Akun',
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.userCircle,
+                                    color: Colors.black,
+                                  ),
+                                  options: FFButtonOptions(
+                                    height: 40,
+                                    color: Color(0x00FFFFFF),
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .subtitle2
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Colors.black,
+                                        ),
+                                    elevation: 0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
-                            text: 'Akun',
-                            icon: FaIcon(
-                              FontAwesomeIcons.userCircle,
-                              color: Colors.black,
-                            ),
-                            options: FFButtonOptions(
-                              height: 40,
-                              color: Color(0x00FFFFFF),
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.black,
+                          Expanded(
+                            child: Align(
+                              alignment: AlignmentDirectional(-1, 0),
+                              child: FFButtonWidget(
+                                onPressed: () {
+                                  print('Button pressed ...');
+                                },
+                                text: 'Privasi',
+                                icon: FaIcon(
+                                  FontAwesomeIcons.lock,
+                                  color: Colors.black,
+                                ),
+                                options: FFButtonOptions(
+                                  height: 40,
+                                  color: Color(0x00FFFFFF),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.black,
+                                      ),
+                                  elevation: 0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 0,
                                   ),
-                              elevation: 0,
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
+                                ),
                               ),
                             ),
                           ),
@@ -301,28 +358,33 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
-                            text: 'Privasi',
-                            icon: FaIcon(
-                              FontAwesomeIcons.lock,
-                              color: Colors.black,
-                            ),
-                            options: FFButtonOptions(
-                              height: 40,
-                              color: Color(0x00FFFFFF),
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.black,
+                          Expanded(
+                            child: Align(
+                              alignment: AlignmentDirectional(-1, 0),
+                              child: FFButtonWidget(
+                                onPressed: () {
+                                  print('Button pressed ...');
+                                },
+                                text: 'Bookmarks',
+                                icon: FaIcon(
+                                  FontAwesomeIcons.solidBookmark,
+                                  color: Colors.black,
+                                ),
+                                options: FFButtonOptions(
+                                  height: 40,
+                                  color: Color(0x00FFFFFF),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.black,
+                                      ),
+                                  elevation: 0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 0,
                                   ),
-                              elevation: 0,
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 0,
+                                ),
                               ),
                             ),
                           ),
@@ -331,58 +393,33 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
-                            text: 'Bookmarks',
-                            icon: FaIcon(
-                              FontAwesomeIcons.solidBookmark,
-                              color: Colors.black,
-                            ),
-                            options: FFButtonOptions(
-                              height: 40,
-                              color: Color(0x00FFFFFF),
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.black,
+                          Expanded(
+                            child: Align(
+                              alignment: AlignmentDirectional(-1, 0),
+                              child: FFButtonWidget(
+                                onPressed: () {
+                                  print('Button pressed ...');
+                                },
+                                text: 'Pengaturan',
+                                icon: FaIcon(
+                                  FontAwesomeIcons.cog,
+                                  color: Colors.black,
+                                ),
+                                options: FFButtonOptions(
+                                  height: 40,
+                                  color: Color(0x00FFFFFF),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.black,
+                                      ),
+                                  elevation: 0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
                                   ),
-                              elevation: 0,
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 0,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
-                            text: 'Pengaturan',
-                            icon: FaIcon(
-                              FontAwesomeIcons.cog,
-                              color: Colors.black,
-                            ),
-                            options: FFButtonOptions(
-                              height: 40,
-                              color: Color(0x00FFFFFF),
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.black,
-                                  ),
-                              elevation: 0,
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
+                                ),
                               ),
                             ),
                           ),

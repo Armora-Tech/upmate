@@ -83,13 +83,13 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
 
 final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'LoginPage': (data) async => LoginPageWidget(),
-  'SignupPage': (data) async => SignupPageWidget(),
   'VerifPage': (data) async => VerifPageWidget(
         code: getParameter(data, 'code'),
         mail: getParameter(data, 'mail'),
         name: getParameter(data, 'name'),
         pw: getParameter(data, 'pw'),
       ),
+  'SignupPage': (data) async => SignupPageWidget(),
   'surveyPage': (data) async => SurveyPageWidget(),
   'interestPage': (data) async => InterestPageWidget(),
   'explorePage': (data) async => NavBarPage(initialPage: 'explorePage'),
@@ -99,14 +99,15 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
       ),
   'notificationPage': (data) async =>
       NavBarPage(initialPage: 'notificationPage'),
-  'allChatPage': (data) async => NavBarPage(initialPage: 'allChatPage'),
   'chatPage': (data) async => ChatPageWidget(
         chatUser: await getDocumentParameter(
             data, 'chatUser', UsersRecord.serializer),
         chatRef: getParameter(data, 'chatRef'),
       ),
+  'allChatPage': (data) async => NavBarPage(initialPage: 'allChatPage'),
   'createChatPage': (data) async => CreateChatPageWidget(),
   'ratingPage': (data) async => RatingPageWidget(),
+  'accountPage': (data) async => AccountPageWidget(),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

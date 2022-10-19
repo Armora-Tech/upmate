@@ -134,7 +134,10 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                                 child: Text(
-                                  'change this to variable email',
+                                  valueOrDefault<String>(
+                                    widget.mail,
+                                    'email not recognized',
+                                  ),
                                   textAlign: TextAlign.start,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
@@ -238,7 +241,6 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                               email: widget.mail,
                               displayName: widget.name,
                               createdTime: getCurrentTimestamp,
-                              photoUrl: '',
                             );
                             await UsersRecord.collection
                                 .doc(user.uid)
@@ -410,14 +412,14 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                       ),
                   ],
                 ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (FFAppState().isverified)
+                if (FFAppState().isverified)
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
                           Expanded(
                             child: Container(
                               width: MediaQuery.of(context).size.width,
@@ -455,10 +457,10 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                               ),
                             ),
                           ),
-                      ],
-                    ),
-                  ],
-                ),
+                        ],
+                      ),
+                    ],
+                  ),
               ],
             ),
           ),

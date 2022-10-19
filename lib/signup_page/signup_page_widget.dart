@@ -3,6 +3,7 @@ import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../login_page/login_page_widget.dart';
 import '../main.dart';
 import '../verif_page/verif_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -346,19 +347,17 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                             mail: inpEmailController!.text,
                           );
                           _shouldSetState = true;
-                          await Navigator.push(
+                          await Navigator.pushAndRemoveUntil(
                             context,
-                            PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              duration: Duration(milliseconds: 300),
-                              reverseDuration: Duration(milliseconds: 300),
-                              child: VerifPageWidget(
+                            MaterialPageRoute(
+                              builder: (context) => VerifPageWidget(
                                 code: (otp?.jsonBody ?? ''),
                                 mail: inpEmailController!.text,
                                 name: inpNameController!.text,
                                 pw: inpPassController!.text,
                               ),
                             ),
+                            (r) => false,
                           );
                           if (_shouldSetState) setState(() {});
                           return;
@@ -378,8 +377,6 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                               );
                             },
                           );
-                          if (_shouldSetState) setState(() {});
-                          return;
                         }
 
                         if (_shouldSetState) setState(() {});
@@ -501,9 +498,23 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                                     fontWeight: FontWeight.normal,
                                   ),
                         ),
-                        Text(
-                          'Sign In',
-                          style: FlutterFlowTheme.of(context).bodyText1,
+                        InkWell(
+                          onTap: () async {
+                            await Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.scale,
+                                alignment: Alignment.bottomCenter,
+                                duration: Duration(milliseconds: 300),
+                                reverseDuration: Duration(milliseconds: 300),
+                                child: LoginPageWidget(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Sign In',
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          ),
                         ),
                       ],
                     ),

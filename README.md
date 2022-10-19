@@ -1,4 +1,4 @@
-# Upmate
+# UpMate
 
 A new Flutter project.
 
