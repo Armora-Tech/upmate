@@ -399,14 +399,34 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           if (user == null) {
                             return;
                           }
-                          await Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  NavBarPage(initialPage: 'mainPage'),
-                            ),
-                            (r) => false,
-                          );
+                          if (currentUserEmailVerified) {
+                            await Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    NavBarPage(initialPage: 'mainPage'),
+                              ),
+                              (r) => false,
+                            );
+                            return;
+                          } else {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  content: Text('Failed to login with google.'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            return;
+                          }
                         },
                         child: Image.asset(
                           'assets/images/th-1920417626-removebg-preview.png',
