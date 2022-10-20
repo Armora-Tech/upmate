@@ -351,7 +351,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => VerifPageWidget(
-                                code: (otp?.jsonBody ?? ''),
+                                code: '${(otp?.jsonBody ?? '')}',
                                 mail: inpEmailController!.text,
                                 name: inpNameController!.text,
                                 pw: inpPassController!.text,
