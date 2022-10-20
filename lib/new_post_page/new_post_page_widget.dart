@@ -8,6 +8,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
+import '../main.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import '../flutter_flow/random_data_util.dart' as random_data;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -382,7 +383,29 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                         functions.joinLString(choiceChipsValues!.toList(), ';'),
                     image: uploadedFileUrl,
                   );
-                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Post created successfully.',
+                        style: GoogleFonts.getFont(
+                          'Nunito',
+                          color: FlutterFlowTheme.of(context).primaryText,
+                        ),
+                      ),
+                      duration: Duration(milliseconds: 2000),
+                      backgroundColor: Color(0x00000000),
+                    ),
+                  );
+                  await Navigator.pushAndRemoveUntil(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.fade,
+                      duration: Duration(milliseconds: 300),
+                      reverseDuration: Duration(milliseconds: 300),
+                      child: NavBarPage(initialPage: 'mainPage'),
+                    ),
+                    (r) => false,
+                  );
 
                   setState(() {});
                 },

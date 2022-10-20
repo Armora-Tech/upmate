@@ -36,6 +36,8 @@ abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
 
   String? get iid;
 
+  BuiltList<DocumentReference>? get bookmarks;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -48,7 +50,8 @@ abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
     ..numComments = 0
     ..numVotes = 0
     ..interests = ListBuilder()
-    ..iid = '';
+    ..iid = ''
+    ..bookmarks = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('posts');
@@ -94,7 +97,8 @@ Map<String, dynamic> createPostsRecordData({
         ..numComments = numComments
         ..numVotes = numVotes
         ..interests = null
-        ..iid = iid,
+        ..iid = iid
+        ..bookmarks = null,
     ),
   );
 

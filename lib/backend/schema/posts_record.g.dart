@@ -92,6 +92,16 @@ class _$PostsRecordSerializer implements StructuredSerializer<PostsRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.bookmarks;
+    if (value != null) {
+      result
+        ..add('bookmarks')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(BuiltList, const [
+              const FullType(
+                  DocumentReference, const [const FullType.nullable(Object)])
+            ])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -161,6 +171,13 @@ class _$PostsRecordSerializer implements StructuredSerializer<PostsRecord> {
           result.iid = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'bookmarks':
+          result.bookmarks.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    DocumentReference, const [const FullType.nullable(Object)])
+              ]))! as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -196,6 +213,8 @@ class _$PostsRecord extends PostsRecord {
   @override
   final String? iid;
   @override
+  final BuiltList<DocumentReference<Object?>>? bookmarks;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$PostsRecord([void Function(PostsRecordBuilder)? updates]) =>
@@ -212,6 +231,7 @@ class _$PostsRecord extends PostsRecord {
       this.numVotes,
       this.interests,
       this.iid,
+      this.bookmarks,
       this.ffRef})
       : super._();
 
@@ -236,6 +256,7 @@ class _$PostsRecord extends PostsRecord {
         numVotes == other.numVotes &&
         interests == other.interests &&
         iid == other.iid &&
+        bookmarks == other.bookmarks &&
         ffRef == other.ffRef;
   }
 
@@ -250,16 +271,18 @@ class _$PostsRecord extends PostsRecord {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, postPhoto.hashCode),
-                                            postTitle.hashCode),
-                                        postDescription.hashCode),
-                                    postUser.hashCode),
-                                timePosted.hashCode),
-                            likes.hashCode),
-                        numComments.hashCode),
-                    numVotes.hashCode),
-                interests.hashCode),
-            iid.hashCode),
+                                        $jc(
+                                            $jc($jc(0, postPhoto.hashCode),
+                                                postTitle.hashCode),
+                                            postDescription.hashCode),
+                                        postUser.hashCode),
+                                    timePosted.hashCode),
+                                likes.hashCode),
+                            numComments.hashCode),
+                        numVotes.hashCode),
+                    interests.hashCode),
+                iid.hashCode),
+            bookmarks.hashCode),
         ffRef.hashCode));
   }
 
@@ -276,6 +299,7 @@ class _$PostsRecord extends PostsRecord {
           ..add('numVotes', numVotes)
           ..add('interests', interests)
           ..add('iid', iid)
+          ..add('bookmarks', bookmarks)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -330,6 +354,12 @@ class PostsRecordBuilder implements Builder<PostsRecord, PostsRecordBuilder> {
   String? get iid => _$this._iid;
   set iid(String? iid) => _$this._iid = iid;
 
+  ListBuilder<DocumentReference<Object?>>? _bookmarks;
+  ListBuilder<DocumentReference<Object?>> get bookmarks =>
+      _$this._bookmarks ??= new ListBuilder<DocumentReference<Object?>>();
+  set bookmarks(ListBuilder<DocumentReference<Object?>>? bookmarks) =>
+      _$this._bookmarks = bookmarks;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -351,6 +381,7 @@ class PostsRecordBuilder implements Builder<PostsRecord, PostsRecordBuilder> {
       _numVotes = $v.numVotes;
       _interests = $v.interests?.toBuilder();
       _iid = $v.iid;
+      _bookmarks = $v.bookmarks?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -386,6 +417,7 @@ class PostsRecordBuilder implements Builder<PostsRecord, PostsRecordBuilder> {
               numVotes: numVotes,
               interests: _interests?.build(),
               iid: iid,
+              bookmarks: _bookmarks?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
@@ -395,6 +427,9 @@ class PostsRecordBuilder implements Builder<PostsRecord, PostsRecordBuilder> {
 
         _$failedField = 'interests';
         _interests?.build();
+
+        _$failedField = 'bookmarks';
+        _bookmarks?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'PostsRecord', _$failedField, e.toString());

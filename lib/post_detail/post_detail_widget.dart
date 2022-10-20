@@ -263,214 +263,305 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                     MainAxisAlignment
                                                         .spaceEvenly,
                                                 children: [
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.share_outlined,
-                                                        color: Colors.black,
-                                                        size: 26,
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    4, 5, 0, 0),
-                                                        child: Text(
-                                                          'Dibagikan',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1,
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(4, 0,
-                                                                    0, 10),
-                                                        child: Text(
-                                                          formatNumber(
-                                                            postDetailPostsRecord
-                                                                .likes!
-                                                                .toList()
-                                                                .length,
-                                                            formatType:
-                                                                FormatType
-                                                                    .compact,
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      ToggleIcon(
-                                                        onPressed: () async {
-                                                          final likesElement =
-                                                              currentUserReference;
-                                                          final likesUpdate =
-                                                              postDetailPostsRecord
-                                                                      .likes!
-                                                                      .toList()
-                                                                      .contains(
-                                                                          likesElement)
-                                                                  ? FieldValue
-                                                                      .arrayRemove([
-                                                                      likesElement
-                                                                    ])
-                                                                  : FieldValue
-                                                                      .arrayUnion([
-                                                                      likesElement
-                                                                    ]);
-                                                          final postsUpdateData =
-                                                              {
-                                                            'likes':
-                                                                likesUpdate,
-                                                          };
-                                                          await postDetailPostsRecord
-                                                              .reference
-                                                              .update(
-                                                                  postsUpdateData);
-                                                        },
-                                                        value: postDetailPostsRecord
-                                                            .likes!
-                                                            .toList()
-                                                            .contains(
-                                                                currentUserReference),
-                                                        onIcon: Icon(
-                                                          Icons.favorite_sharp,
-                                                          color:
-                                                              Color(0xFFFF0808),
-                                                          size: 25,
-                                                        ),
-                                                        offIcon: Icon(
-                                                          Icons.favorite_border,
+                                                  Expanded(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.share_outlined,
                                                           color: Colors.black,
-                                                          size: 25,
+                                                          size: 26,
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    4, 0, 0, 0),
-                                                        child: Text(
-                                                          'Disukai',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1,
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    4, 0, 0, 0),
-                                                        child: Text(
-                                                          formatNumber(
-                                                            postDetailPostsRecord
-                                                                .likes!
-                                                                .toList()
-                                                                .length,
-                                                            formatType:
-                                                                FormatType
-                                                                    .compact,
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(4,
+                                                                      5, 0, 0),
+                                                          child: Text(
+                                                            'Dibagikan',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1,
                                                           ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1,
                                                         ),
-                                                      ),
-                                                    ],
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(4,
+                                                                      0, 0, 10),
+                                                          child: Text(
+                                                            '0',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(0, 10,
-                                                                    0, 0),
-                                                        child: Icon(
-                                                          FFIcons.kbubble,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .black600,
-                                                          size: 25,
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(15, 5,
-                                                                    0, 0),
-                                                        child: Text(
-                                                          'Komentar',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1,
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    4, 0, 0, 0),
-                                                        child: StreamBuilder<
-                                                            List<
-                                                                CommentsRecord>>(
-                                                          stream:
-                                                              queryCommentsRecord(
-                                                            parent:
-                                                                widget.postRef,
-                                                          ),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            // Customize what your widget looks like when it's loading.
-                                                            if (!snapshot
-                                                                .hasData) {
-                                                              return Center(
-                                                                child: SizedBox(
-                                                                  width: 50,
-                                                                  height: 50,
-                                                                  child:
-                                                                      CircularProgressIndicator(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryColor,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                            List<CommentsRecord>
-                                                                textCommentsRecordList =
-                                                                snapshot.data!;
-                                                            return Text(
-                                                              formatNumber(
-                                                                textCommentsRecordList
-                                                                    .length,
-                                                                formatType:
-                                                                    FormatType
-                                                                        .compact,
-                                                              ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1,
-                                                            );
+                                                  Expanded(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        ToggleIcon(
+                                                          onPressed: () async {
+                                                            final bookmarksElement =
+                                                                currentUserReference;
+                                                            final bookmarksUpdate = postDetailPostsRecord
+                                                                    .bookmarks!
+                                                                    .toList()
+                                                                    .contains(
+                                                                        bookmarksElement)
+                                                                ? FieldValue
+                                                                    .arrayRemove([
+                                                                    bookmarksElement
+                                                                  ])
+                                                                : FieldValue
+                                                                    .arrayUnion([
+                                                                    bookmarksElement
+                                                                  ]);
+                                                            final postsUpdateData =
+                                                                {
+                                                              'bookmarks':
+                                                                  bookmarksUpdate,
+                                                            };
+                                                            await postDetailPostsRecord
+                                                                .reference
+                                                                .update(
+                                                                    postsUpdateData);
                                                           },
+                                                          value: postDetailPostsRecord
+                                                              .bookmarks!
+                                                              .toList()
+                                                              .contains(
+                                                                  currentUserReference),
+                                                          onIcon: Icon(
+                                                            Icons.bookmark,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .black600,
+                                                            size: 25,
+                                                          ),
+                                                          offIcon: Icon(
+                                                            Icons
+                                                                .bookmark_border,
+                                                            color: Colors.black,
+                                                            size: 25,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(4,
+                                                                      5, 0, 0),
+                                                          child: Text(
+                                                            'Disimpan',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1,
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(4,
+                                                                      0, 0, 10),
+                                                          child: Text(
+                                                            formatNumber(
+                                                              postDetailPostsRecord
+                                                                  .bookmarks!
+                                                                  .toList()
+                                                                  .length,
+                                                              formatType:
+                                                                  FormatType
+                                                                      .compact,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(0,
+                                                                      10, 0, 0),
+                                                          child: Icon(
+                                                            FFIcons.kbubble,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .black600,
+                                                            size: 26,
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(15,
+                                                                      5, 0, 0),
+                                                          child: Text(
+                                                            'Komentar',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1,
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(4,
+                                                                      0, 0, 0),
+                                                          child: StreamBuilder<
+                                                              List<
+                                                                  CommentsRecord>>(
+                                                            stream:
+                                                                queryCommentsRecord(
+                                                              parent: widget
+                                                                  .postRef,
+                                                            ),
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              // Customize what your widget looks like when it's loading.
+                                                              if (!snapshot
+                                                                  .hasData) {
+                                                                return Center(
+                                                                  child:
+                                                                      SizedBox(
+                                                                    width: 50,
+                                                                    height: 50,
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryColor,
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }
+                                                              List<CommentsRecord>
+                                                                  textCommentsRecordList =
+                                                                  snapshot
+                                                                      .data!;
+                                                              return Text(
+                                                                formatNumber(
+                                                                  textCommentsRecordList
+                                                                      .length,
+                                                                  formatType:
+                                                                      FormatType
+                                                                          .compact,
+                                                                ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1,
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        ToggleIcon(
+                                                          onPressed: () async {
+                                                            final likesElement =
+                                                                currentUserReference;
+                                                            final likesUpdate =
+                                                                postDetailPostsRecord
+                                                                        .likes!
+                                                                        .toList()
+                                                                        .contains(
+                                                                            likesElement)
+                                                                    ? FieldValue
+                                                                        .arrayRemove([
+                                                                        likesElement
+                                                                      ])
+                                                                    : FieldValue
+                                                                        .arrayUnion([
+                                                                        likesElement
+                                                                      ]);
+                                                            final postsUpdateData =
+                                                                {
+                                                              'likes':
+                                                                  likesUpdate,
+                                                            };
+                                                            await postDetailPostsRecord
+                                                                .reference
+                                                                .update(
+                                                                    postsUpdateData);
+                                                          },
+                                                          value: postDetailPostsRecord
+                                                              .likes!
+                                                              .toList()
+                                                              .contains(
+                                                                  currentUserReference),
+                                                          onIcon: Icon(
+                                                            Icons
+                                                                .favorite_sharp,
+                                                            color: Color(
+                                                                0xFFFF0808),
+                                                            size: 25,
+                                                          ),
+                                                          offIcon: Icon(
+                                                            Icons
+                                                                .favorite_border,
+                                                            color: Colors.black,
+                                                            size: 25,
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(4,
+                                                                      0, 0, 0),
+                                                          child: Text(
+                                                            'Disukai',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1,
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(4,
+                                                                      0, 0, 0),
+                                                          child: Text(
+                                                            formatNumber(
+                                                              postDetailPostsRecord
+                                                                  .likes!
+                                                                  .toList()
+                                                                  .length,
+                                                              formatType:
+                                                                  FormatType
+                                                                      .compact,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ],
                                               ),
