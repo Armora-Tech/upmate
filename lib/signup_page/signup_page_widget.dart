@@ -355,6 +355,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                                 mail: inpEmailController!.text,
                                 name: inpNameController!.text,
                                 pw: inpPassController!.text,
+                                isVerified: false,
                               ),
                             ),
                             (r) => false,

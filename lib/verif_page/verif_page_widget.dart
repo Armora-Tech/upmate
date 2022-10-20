@@ -4,7 +4,6 @@ import '../components/verfied_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
 import 'dart:ui';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -18,12 +17,14 @@ class VerifPageWidget extends StatefulWidget {
     this.mail,
     this.name,
     this.pw,
+    this.isVerified,
   }) : super(key: key);
 
   final String? code;
   final String? mail;
   final String? name;
   final String? pw;
+  final bool? isVerified;
 
   @override
   _VerifPageWidgetState createState() => _VerifPageWidgetState();
@@ -223,7 +224,6 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          Future Function() _navigate = () async {};
                           await Future.delayed(
                               const Duration(milliseconds: 3000));
                           if (functions.compare(
@@ -246,15 +246,16 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                                 .doc(user.uid)
                                 .update(usersCreateData);
 
-                            _navigate = () => Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        NavBarPage(initialPage: 'mainPage'),
-                                  ),
-                                  (r) => false,
-                                );
                             setState(() => FFAppState().isverified = true);
+                            await Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => VerifPageWidget(
+                                  isVerified: true,
+                                ),
+                              ),
+                              (r) => false,
+                            );
                             return;
                           } else {
                             await showDialog(
@@ -274,8 +275,6 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                             );
                             return;
                           }
-
-                          await _navigate();
                         },
                         text: 'Verify',
                         options: FFButtonOptions(
@@ -412,7 +411,7 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                       ),
                   ],
                 ),
-                if (FFAppState().isverified)
+                if (widget.isVerified ?? true)
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
