@@ -8,18 +8,20 @@ import 'package:flutter/material.dart';
 
 // Begin custom widget code
 class SearchBar extends StatefulWidget {
-  const SearchBar({
-    Key? key,
-    this.width,
-    this.height,
-    required this.color,
-    this.sizes,
-  }) : super(key: key);
+  const SearchBar(
+      {Key? key,
+      this.width,
+      this.height,
+      required this.color,
+      this.sizes,
+      required this.searchRes})
+      : super(key: key);
 
   final double? width;
   final double? height;
   final Color color;
   final double? sizes;
+  final List<String> searchRes;
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -34,7 +36,7 @@ class _SearchBarState extends State<SearchBar> {
         showSearch(
             context: context,
             // delegate to customize the search bar
-            delegate: CustomSearchDelegate());
+            delegate: CustomSearchDelegate(widget.searchRes));
       },
       icon: const Icon(Icons.search),
       iconSize: widget.sizes,
@@ -43,20 +45,13 @@ class _SearchBarState extends State<SearchBar> {
 }
 
 class CustomSearchDelegate extends SearchDelegate {
-// Demo list to show querying
-  List<String> searchTerms = [
-    "Apple",
-    "Banana",
-    "Mango",
-    "Pear",
-    "Watermelons",
-    "Blueberries",
-    "Pineapples",
-    "Strawberries"
-  ];
+  // Demo list to show querying
+  final List<String> searchTerms;
 
-// first overwrite to
-// clear the search text
+  CustomSearchDelegate(this.searchTerms);
+
+  // first overwrite to
+  // clear the search text
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [

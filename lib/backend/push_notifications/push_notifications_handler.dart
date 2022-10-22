@@ -100,8 +100,8 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'SignupPage': (data) async => SignupPageWidget(),
   'surveyPage': (data) async => SurveyPageWidget(),
   'interestPage': (data) async => InterestPageWidget(),
-  'explorePage': (data) async => NavBarPage(initialPage: 'explorePage'),
   'newPostPage': (data) async => NavBarPage(initialPage: 'newPostPage'),
+  'explorePage': (data) async => NavBarPage(initialPage: 'explorePage'),
   'postDetail': (data) async => PostDetailWidget(
         postRef: getParameter(data, 'postRef'),
       ),
@@ -116,6 +116,8 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'createChatPage': (data) async => CreateChatPageWidget(),
   'ratingPage': (data) async => RatingPageWidget(),
   'accountPage': (data) async => AccountPageWidget(),
+  'bookmarkPage': (data) async => BookmarkPageWidget(),
+  'appInfo': (data) async => AppInfoWidget(),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

@@ -48,6 +48,10 @@ class FFAppState {
   bool isverified = false;
 
   bool isFirstOpen = false;
+
+  String mainMenu = 'normal';
+
+  bool unused = false;
 }
 
 LatLng? _latLngFromString(String? val) {

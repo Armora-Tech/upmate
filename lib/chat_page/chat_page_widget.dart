@@ -128,7 +128,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                   chatInfo: snapshot.data!,
                   allowImages: true,
                   backgroundColor: Color(0xFFF2F4F8),
-                  timeDisplaySetting: TimeDisplaySetting.visibleOnTap,
+                  timeDisplaySetting: TimeDisplaySetting.alwaysVisible,
                   currentUserBoxDecoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
