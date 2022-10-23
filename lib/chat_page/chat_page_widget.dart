@@ -87,33 +87,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
               ),
           ],
         ),
-        actions: [
-          Visibility(
-            visible: '0' == '1',
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
-              child: InkWell(
-                onTap: () async {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Navigate to add users page!',
-                        style: TextStyle(),
-                      ),
-                      duration: Duration(milliseconds: 4000),
-                      backgroundColor: Color(0x00000000),
-                    ),
-                  );
-                },
-                child: Icon(
-                  Icons.person_add,
-                  color: Colors.black,
-                  size: 24,
-                ),
-              ),
-            ),
-          ),
-        ],
+        actions: [],
         centerTitle: false,
         elevation: 2,
       ),

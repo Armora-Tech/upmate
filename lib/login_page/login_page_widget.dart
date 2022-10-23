@@ -28,6 +28,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   TextEditingController? inpPassController;
 
   late bool inpPassVisibility;
+  final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -89,123 +90,158 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         ),
                       ),
                     ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
-                    child: Container(
-                      width: 300,
-                      child: TextFormField(
-                        controller: inpEmailController,
-                        onChanged: (_) => EasyDebounce.debounce(
-                          'inpEmailController',
-                          Duration(milliseconds: 2000),
-                          () => setState(() {}),
+                  Form(
+                    key: formKey,
+                    autovalidateMode: AutovalidateMode.always,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                          child: Container(
+                            width: 300,
+                            child: TextFormField(
+                              controller: inpEmailController,
+                              onChanged: (_) => EasyDebounce.debounce(
+                                'inpEmailController',
+                                Duration(milliseconds: 2000),
+                                () => setState(() {}),
+                              ),
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                hintText: 'Email',
+                                hintStyle:
+                                    FlutterFlowTheme.of(context).bodyText2,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xB3FBEFEF),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xB3FBEFEF),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                suffixIcon: inpEmailController!.text.isNotEmpty
+                                    ? InkWell(
+                                        onTap: () async {
+                                          inpEmailController?.clear();
+                                          setState(() {});
+                                        },
+                                        child: Icon(
+                                          Icons.clear,
+                                          color: Color(0xFF757575),
+                                          size: 22,
+                                        ),
+                                      )
+                                    : null,
+                              ),
+                              style: FlutterFlowTheme.of(context).bodyText1,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (val) {
+                                if (val == null || val.isEmpty) {
+                                  return 'Field is required';
+                                }
+
+                                if (!RegExp(kTextValidatorEmailRegex)
+                                    .hasMatch(val)) {
+                                  return 'Has to be a valid email address.';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
                         ),
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          hintText: 'Email',
-                          hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xB3FBEFEF),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xB3FBEFEF),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          suffixIcon: inpEmailController!.text.isNotEmpty
-                              ? InkWell(
-                                  onTap: () async {
-                                    inpEmailController?.clear();
-                                    setState(() {});
-                                  },
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                          child: Container(
+                            width: 300,
+                            child: TextFormField(
+                              controller: inpPassController,
+                              obscureText: !inpPassVisibility,
+                              decoration: InputDecoration(
+                                hintText: 'Password',
+                                hintStyle:
+                                    FlutterFlowTheme.of(context).bodyText2,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xB3FBEFEF),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xB3FBEFEF),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                suffixIcon: InkWell(
+                                  onTap: () => setState(
+                                    () =>
+                                        inpPassVisibility = !inpPassVisibility,
+                                  ),
+                                  focusNode: FocusNode(skipTraversal: true),
                                   child: Icon(
-                                    Icons.clear,
+                                    inpPassVisibility
+                                        ? Icons.visibility_outlined
+                                        : Icons.visibility_off_outlined,
                                     color: Color(0xFF757575),
                                     size: 22,
                                   ),
-                                )
-                              : null,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyText1,
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                    child: Container(
-                      width: 300,
-                      child: TextFormField(
-                        controller: inpPassController,
-                        obscureText: !inpPassVisibility,
-                        decoration: InputDecoration(
-                          hintText: 'Password',
-                          hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xB3FBEFEF),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xB3FBEFEF),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          suffixIcon: InkWell(
-                            onTap: () => setState(
-                              () => inpPassVisibility = !inpPassVisibility,
-                            ),
-                            focusNode: FocusNode(skipTraversal: true),
-                            child: Icon(
-                              inpPassVisibility
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
-                              color: Color(0xFF757575),
-                              size: 22,
+                                ),
+                              ),
+                              style: FlutterFlowTheme.of(context).bodyText1,
+                              keyboardType: TextInputType.visiblePassword,
+                              validator: (val) {
+                                if (val == null || val.isEmpty) {
+                                  return 'Field is required';
+                                }
+
+                                if (val.length < 8) {
+                                  return 'Requires at least 8 characters.';
+                                }
+
+                                return null;
+                              },
                             ),
                           ),
                         ),
-                        style: FlutterFlowTheme.of(context).bodyText1,
-                        keyboardType: TextInputType.visiblePassword,
-                      ),
+                      ],
                     ),
                   ),
                   Padding(

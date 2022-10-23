@@ -1899,25 +1899,153 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 0, 5),
-                                                child: Text(
-                                                  personalizedColumnPostsRecord
-                                                      .postDescription!
-                                                      .maybeHandleOverflow(
-                                                    maxChars: 100,
-                                                    replacement: '…',
-                                                  ),
-                                                  maxLines: 3,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily: 'Nunito',
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.normal,
+                                                    .fromSTEB(5, 0, 5, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 5),
+                                                      child: Text(
+                                                        personalizedColumnPostsRecord
+                                                            .postDescription!
+                                                            .maybeHandleOverflow(
+                                                          maxChars: 100,
+                                                          replacement: '…',
+                                                        ),
+                                                        maxLines: 3,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Nunito',
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                ),
                                                       ),
+                                                    ),
+                                                  ],
                                                 ),
+                                              ),
+                                              StreamBuilder<
+                                                  List<CommentsRecord>>(
+                                                stream: queryCommentsRecord(
+                                                  parent:
+                                                      personalizedColumnPostsRecord
+                                                          .reference,
+                                                  queryBuilder:
+                                                      (commentsRecord) =>
+                                                          commentsRecord
+                                                              .orderBy('date',
+                                                                  descending:
+                                                                      true),
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50,
+                                                        height: 50,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  List<CommentsRecord>
+                                                      columnCommentsRecordList =
+                                                      snapshot.data!;
+                                                  return Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: List.generate(
+                                                        columnCommentsRecordList
+                                                            .length,
+                                                        (columnIndex) {
+                                                      final columnCommentsRecord =
+                                                          columnCommentsRecordList[
+                                                              columnIndex];
+                                                      return Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    5, 0, 5, 0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          children: [
+                                                            FutureBuilder<
+                                                                UsersRecord>(
+                                                              future: UsersRecord
+                                                                  .getDocumentOnce(
+                                                                      personalizedColumnPostsRecord
+                                                                          .postUser!),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                // Customize what your widget looks like when it's loading.
+                                                                if (!snapshot
+                                                                    .hasData) {
+                                                                  return Center(
+                                                                    child:
+                                                                        SizedBox(
+                                                                      width: 50,
+                                                                      height:
+                                                                          50,
+                                                                      child:
+                                                                          CircularProgressIndicator(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryColor,
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                final circleImageUsersRecord =
+                                                                    snapshot
+                                                                        .data!;
+                                                                return Container(
+                                                                  width: 15,
+                                                                  height: 15,
+                                                                  clipBehavior:
+                                                                      Clip.antiAlias,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                  ),
+                                                                  child: Image
+                                                                      .network(
+                                                                    circleImageUsersRecord
+                                                                        .photoUrl!,
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                            Text(
+                                                              'Hello World',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyText1,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    }),
+                                                  );
+                                                },
                                               ),
                                             ],
                                           ),
