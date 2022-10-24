@@ -3,9 +3,6 @@ import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../login_page/login_page_widget.dart';
-import '../main.dart';
-import '../verif_page/verif_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -409,19 +406,33 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                             mail: inpEmailController!.text,
                           );
                           _shouldSetState = true;
-                          await Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => VerifPageWidget(
-                                code: '${(otp?.jsonBody ?? '')}',
-                                mail: inpEmailController!.text,
-                                name: inpNameController!.text,
-                                pw: inpPassController!.text,
-                                isVerified: false,
+
+                          context.goNamed(
+                            'VerifPage',
+                            queryParams: {
+                              'code': serializeParam(
+                                '${(otp?.jsonBody ?? '')}',
+                                ParamType.String,
                               ),
-                            ),
-                            (r) => false,
+                              'mail': serializeParam(
+                                inpEmailController!.text,
+                                ParamType.String,
+                              ),
+                              'name': serializeParam(
+                                inpNameController!.text,
+                                ParamType.String,
+                              ),
+                              'pw': serializeParam(
+                                inpPassController!.text,
+                                ParamType.String,
+                              ),
+                              'isVerified': serializeParam(
+                                false,
+                                ParamType.bool,
+                              ),
+                            }.withoutNulls,
                           );
+
                           if (_shouldSetState) setState(() {});
                           return;
                         } else {
@@ -451,7 +462,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                         color: Color(0xFF3B5159),
                         textStyle:
                             FlutterFlowTheme.of(context).subtitle2.override(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'Nunito',
                                   color: Colors.white,
                                 ),
                         borderSide: BorderSide(
@@ -519,18 +530,13 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                     children: [
                       InkWell(
                         onTap: () async {
+                          GoRouter.of(context).prepareAuthEvent();
                           final user = await signInWithGoogle(context);
                           if (user == null) {
                             return;
                           }
-                          await Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  NavBarPage(initialPage: 'mainPage'),
-                            ),
-                            (r) => false,
-                          );
+
+                          context.goNamedAuth('mainPage', mounted);
                         },
                         child: Image.asset(
                           'assets/images/th-1920417626-removebg-preview.png',
@@ -557,21 +563,21 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                           'Already have an account? ',
                           style:
                               FlutterFlowTheme.of(context).bodyText1.override(
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Nunito',
                                     fontWeight: FontWeight.normal,
                                   ),
                         ),
                         InkWell(
                           onTap: () async {
-                            await Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.scale,
-                                alignment: Alignment.bottomCenter,
-                                duration: Duration(milliseconds: 300),
-                                reverseDuration: Duration(milliseconds: 300),
-                                child: LoginPageWidget(),
-                              ),
+                            context.pushNamed(
+                              'LoginPage',
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType: PageTransitionType.scale,
+                                  alignment: Alignment.bottomCenter,
+                                ),
+                              },
                             );
                           },
                           child: Text(

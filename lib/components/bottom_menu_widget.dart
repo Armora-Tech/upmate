@@ -1,7 +1,6 @@
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -85,12 +84,7 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
           padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
           child: InkWell(
             onTap: () async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => NavBarPage(initialPage: 'mainPage'),
-                ),
-              );
+              context.pushNamed('mainPage');
             },
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -127,15 +121,14 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
         ),
         InkWell(
           onTap: () async {
-            await Navigator.pushAndRemoveUntil(
-              context,
-              PageTransition(
-                type: PageTransitionType.bottomToTop,
-                duration: Duration(milliseconds: 300),
-                reverseDuration: Duration(milliseconds: 300),
-                child: NavBarPage(initialPage: 'explorePage'),
-              ),
-              (r) => false,
+            context.goNamed(
+              'explorePage',
+              extra: <String, dynamic>{
+                kTransitionInfoKey: TransitionInfo(
+                  hasTransition: true,
+                  transitionType: PageTransitionType.bottomToTop,
+                ),
+              },
             );
           },
           child: Column(
@@ -178,14 +171,14 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
           child: InkWell(
             onTap: () async {
-              await Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.rightToLeft,
-                  duration: Duration(milliseconds: 300),
-                  reverseDuration: Duration(milliseconds: 300),
-                  child: NavBarPage(initialPage: 'allChatPage'),
-                ),
+              context.pushNamed(
+                'allChatPage',
+                extra: <String, dynamic>{
+                  kTransitionInfoKey: TransitionInfo(
+                    hasTransition: true,
+                    transitionType: PageTransitionType.rightToLeft,
+                  ),
+                },
               );
             },
             child: Column(

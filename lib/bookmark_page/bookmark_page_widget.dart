@@ -308,7 +308,7 @@ class _BookmarkPageWidgetState extends State<BookmarkPageWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .bodyText1
                                                         .override(
-                                                          fontFamily: 'Poppins',
+                                                          fontFamily: 'Nunito',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryColor,

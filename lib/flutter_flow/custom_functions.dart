@@ -42,3 +42,16 @@ List<String> normInterests(List<String> lists) {
   }
   return lists;
 }
+
+List<String> hashtagInterest(List<String> interests) {
+  // Add your function code here!
+  for (int i = 0; i < interests.length; i++) {
+    interests[i] = '# ${interests[i]}';
+  }
+  return interests;
+}
+
+String sintenrest(String str) {
+  // Add your function code here!
+  return str.replaceAll('#', '').trim();
+}

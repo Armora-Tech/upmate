@@ -63,7 +63,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                           style: FlutterFlowTheme.of(context)
                               .bodyText1
                               .override(
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Nunito',
                                 color:
                                     FlutterFlowTheme.of(context).primaryBtnText,
                                 fontSize: 20,
@@ -74,7 +74,7 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
                           style: FlutterFlowTheme.of(context)
                               .bodyText1
                               .override(
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Nunito',
                                 color:
                                     FlutterFlowTheme.of(context).primaryBtnText,
                               ),

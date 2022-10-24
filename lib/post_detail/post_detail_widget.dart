@@ -72,7 +72,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                   alignment: AlignmentDirectional(0, 0),
                   child: InkWell(
                     onTap: () async {
-                      Navigator.pop(context);
+                      context.pop();
                     },
                     child: FaIcon(
                       FontAwesomeIcons.arrowLeft,
@@ -233,7 +233,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText2
                                                 .override(
-                                                  fontFamily: 'Poppins',
+                                                  fontFamily: 'Nunito',
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .black600,
@@ -967,7 +967,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                               .subtitle2
                                                               .override(
                                                                 fontFamily:
-                                                                    'Poppins',
+                                                                    'Nunito',
                                                                 color: Colors
                                                                     .white,
                                                               ),

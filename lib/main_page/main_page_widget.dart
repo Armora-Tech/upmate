@@ -1,9 +1,6 @@
-import '../account_page/account_page_widget.dart';
-import '../app_info/app_info_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
-import '../bookmark_page/bookmark_page_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_radio_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -11,8 +8,6 @@ import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
-import '../interest_page/interest_page_widget.dart';
-import '../login_page/login_page_widget.dart';
 import 'dart:ui';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -22,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MainPageWidget extends StatefulWidget {
   const MainPageWidget({Key? key}) : super(key: key);
@@ -46,13 +42,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
         return;
       }
 
-      await Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => InterestPageWidget(),
-        ),
-        (r) => false,
-      );
+      context.goNamed('interestPage');
     });
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'mainPage'});
@@ -207,7 +197,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Nunito',
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                         ),
@@ -222,7 +212,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Nunito',
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
                                       ),
@@ -260,7 +250,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     textStyle: FlutterFlowTheme.of(context)
                                         .subtitle2
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Nunito',
                                           color: Colors.black,
                                         ),
                                     elevation: 0,
@@ -273,25 +263,14 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                             ),
                             InkWell(
                               onTap: () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AccountPageWidget(),
-                                  ),
-                                );
+                                context.pushNamed('accountPage');
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              AccountPageWidget(),
-                                        ),
-                                      );
+                                      context.pushNamed('accountPage');
                                     },
                                     text: 'Akun',
                                     icon: FaIcon(
@@ -304,7 +283,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .subtitle2
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Nunito',
                                             color: Colors.black,
                                           ),
                                       elevation: 0,
@@ -340,7 +319,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .subtitle2
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Nunito',
                                             color: Colors.black,
                                           ),
                                       elevation: 0,
@@ -355,15 +334,15 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                             ),
                             InkWell(
                               onTap: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.leftToRight,
-                                    duration: Duration(milliseconds: 300),
-                                    reverseDuration:
-                                        Duration(milliseconds: 300),
-                                    child: BookmarkPageWidget(),
-                                  ),
+                                context.pushNamed(
+                                  'bookmarkPage',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType:
+                                          PageTransitionType.leftToRight,
+                                    ),
+                                  },
                                 );
                               },
                               child: Row(
@@ -371,15 +350,15 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      await Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          type: PageTransitionType.leftToRight,
-                                          duration: Duration(milliseconds: 300),
-                                          reverseDuration:
-                                              Duration(milliseconds: 300),
-                                          child: BookmarkPageWidget(),
-                                        ),
+                                      context.pushNamed(
+                                        'bookmarkPage',
+                                        extra: <String, dynamic>{
+                                          kTransitionInfoKey: TransitionInfo(
+                                            hasTransition: true,
+                                            transitionType:
+                                                PageTransitionType.leftToRight,
+                                          ),
+                                        },
                                       );
                                     },
                                     text: 'Bookmarks',
@@ -393,7 +372,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .subtitle2
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Nunito',
                                             color: Colors.black,
                                           ),
                                       elevation: 0,
@@ -424,7 +403,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     textStyle: FlutterFlowTheme.of(context)
                                         .subtitle2
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Nunito',
                                           color: Colors.black,
                                         ),
                                     elevation: 0,
@@ -454,7 +433,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     textStyle: FlutterFlowTheme.of(context)
                                         .subtitle2
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Nunito',
                                           color: Colors.black,
                                         ),
                                     elevation: 0,
@@ -468,16 +447,15 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                             ),
                             InkWell(
                               onTap: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.scale,
-                                    alignment: Alignment.bottomCenter,
-                                    duration: Duration(milliseconds: 300),
-                                    reverseDuration:
-                                        Duration(milliseconds: 300),
-                                    child: AppInfoWidget(),
-                                  ),
+                                context.pushNamed(
+                                  'appInfo',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType: PageTransitionType.scale,
+                                      alignment: Alignment.bottomCenter,
+                                    ),
+                                  },
                                 );
                               },
                               child: Row(
@@ -485,16 +463,16 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      await Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          type: PageTransitionType.scale,
-                                          alignment: Alignment.bottomCenter,
-                                          duration: Duration(milliseconds: 300),
-                                          reverseDuration:
-                                              Duration(milliseconds: 300),
-                                          child: AppInfoWidget(),
-                                        ),
+                                      context.pushNamed(
+                                        'appInfo',
+                                        extra: <String, dynamic>{
+                                          kTransitionInfoKey: TransitionInfo(
+                                            hasTransition: true,
+                                            transitionType:
+                                                PageTransitionType.scale,
+                                            alignment: Alignment.bottomCenter,
+                                          ),
+                                        },
                                       );
                                     },
                                     text: 'App Info',
@@ -508,7 +486,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .subtitle2
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Nunito',
                                             color: Colors.black,
                                           ),
                                       elevation: 0,
@@ -528,29 +506,20 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                             ),
                             InkWell(
                               onTap: () async {
+                                GoRouter.of(context).prepareAuthEvent();
                                 await signOut();
-                                await Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginPageWidget(),
-                                  ),
-                                  (r) => false,
-                                );
+
+                                context.goNamedAuth('LoginPage', mounted);
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
+                                      GoRouter.of(context).prepareAuthEvent();
                                       await signOut();
-                                      await Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              LoginPageWidget(),
-                                        ),
-                                        (r) => false,
-                                      );
+
+                                      context.goNamedAuth('LoginPage', mounted);
                                     },
                                     text: 'Keluar',
                                     icon: FaIcon(
@@ -563,7 +532,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .subtitle2
                                           .override(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Nunito',
                                             color: Colors.black,
                                           ),
                                       elevation: 0,
@@ -620,7 +589,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                         textStyle: FlutterFlowTheme.of(context)
                                             .subtitle2
                                             .override(
-                                              fontFamily: 'Poppins',
+                                              fontFamily: 'Nunito',
                                               color: Colors.black,
                                             ),
                                         elevation: 0,
@@ -638,7 +607,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Nunito',
                                           fontSize: 20,
                                         ),
                                   ),
@@ -786,7 +755,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                         textStyle: FlutterFlowTheme.of(context)
                                             .subtitle2
                                             .override(
-                                              fontFamily: 'Poppins',
+                                              fontFamily: 'Nunito',
                                               color: Colors.black,
                                             ),
                                         elevation: 0,
@@ -804,7 +773,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
-                                          fontFamily: 'Poppins',
+                                          fontFamily: 'Nunito',
                                           fontSize: 20,
                                         ),
                                   ),
@@ -867,7 +836,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodyText1
                                             .override(
-                                              fontFamily: 'Poppins',
+                                              fontFamily: 'Nunito',
                                               color: Colors.black,
                                             ),
                                         buttonPosition:
@@ -1038,9 +1007,11 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     queryBuilder: (interestsRecord) =>
                                         interestsRecord.whereNotIn(
                                             'name',
-                                            (currentUserDocument?.interests
-                                                    ?.toList() ??
-                                                [])),
+                                            functions.hashtagInterest(
+                                                (currentUserDocument?.interests
+                                                            ?.toList() ??
+                                                        [])
+                                                    .toList())),
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -1209,8 +1180,9 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                     'interests':
                                                                         FieldValue
                                                                             .arrayUnion([
-                                                                      popularRowInterestsRecord
-                                                                          .name
+                                                                      functions.sintenrest(
+                                                                          popularRowInterestsRecord
+                                                                              .name!)
                                                                     ]),
                                                                   };
                                                                   await currentUserReference!
@@ -1242,7 +1214,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                       .subtitle2
                                                                       .override(
                                                                         fontFamily:
-                                                                            'Poppins',
+                                                                            'Nunito',
                                                                         color: Colors
                                                                             .white,
                                                                       ),
@@ -1334,6 +1306,8 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                           return Card(
                                             clipBehavior:
                                                 Clip.antiAliasWithSaveLayer,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
                                             child: Container(
                                               width: 200,
                                               height: 250,
@@ -1352,6 +1326,9 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                 borderRadius:
                                                     BorderRadius.circular(15),
                                                 border: Border.all(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
                                                   width: 0,
                                                 ),
                                               ),
@@ -1456,7 +1433,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                         .subtitle2
                                                                         .override(
                                                                           fontFamily:
-                                                                              'Poppins',
+                                                                              'Nunito',
                                                                           color:
                                                                               Colors.white,
                                                                         ),
@@ -1548,17 +1525,23 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
-                                                  Container(
-                                                    width: 34,
-                                                    height: 34,
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Image.network(
-                                                      personalizedColumnPostsRecord
-                                                          .postPhoto!,
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                7, 0, 0, 0),
+                                                    child: Container(
+                                                      width: 34,
+                                                      height: 34,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Image.network(
+                                                        personalizedColumnPostsRecord
+                                                            .postPhoto!,
+                                                      ),
                                                     ),
                                                   ),
                                                   Padding(
@@ -1664,41 +1647,67 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
-                                                      ToggleIcon(
-                                                        onPressed: () async {
-                                                          setState(() =>
-                                                              FFAppState()
-                                                                      .unused =
-                                                                  !FFAppState()
-                                                                      .unused);
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          await Share.share(
+                                                              'post://upmate.com${GoRouter.of(context).location}');
                                                         },
-                                                        value:
-                                                            FFAppState().unused,
-                                                        onIcon: Icon(
-                                                          Icons.share_outlined,
-                                                          color: Colors.black,
-                                                          size: 25,
-                                                        ),
-                                                        offIcon: Icon(
-                                                          Icons.share_outlined,
-                                                          color: Colors.black,
-                                                          size: 25,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        '0',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Nunito',
-                                                                  fontSize: 10,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryBackground,
+                                                          ),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              ToggleIcon(
+                                                                onPressed:
+                                                                    () async {
+                                                                  setState(() => FFAppState()
+                                                                          .unused =
+                                                                      !FFAppState()
+                                                                          .unused);
+                                                                },
+                                                                value:
+                                                                    FFAppState()
+                                                                        .unused,
+                                                                onIcon: Icon(
+                                                                  Icons
+                                                                      .share_outlined,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  size: 25,
                                                                 ),
+                                                                offIcon: Icon(
+                                                                  Icons
+                                                                      .share_outlined,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  size: 25,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                '0',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Nunito',
+                                                                      fontSize:
+                                                                          10,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                    ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
@@ -1946,6 +1955,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                               .orderBy('date',
                                                                   descending:
                                                                       true),
+                                                  limit: 5,
                                                 ),
                                                 builder: (context, snapshot) {
                                                   // Customize what your widget looks like when it's loading.
@@ -1976,24 +1986,27 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                       final columnCommentsRecord =
                                                           columnCommentsRecordList[
                                                               columnIndex];
-                                                      return Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    5, 0, 5, 0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceEvenly,
-                                                          children: [
-                                                            FutureBuilder<
+                                                      return Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        5,
+                                                                        0,
+                                                                        5,
+                                                                        0),
+                                                            child: StreamBuilder<
                                                                 UsersRecord>(
-                                                              future: UsersRecord
-                                                                  .getDocumentOnce(
-                                                                      personalizedColumnPostsRecord
-                                                                          .postUser!),
+                                                              stream: UsersRecord
+                                                                  .getDocument(
+                                                                      columnCommentsRecord
+                                                                          .userRef!),
                                                               builder: (context,
                                                                   snapshot) {
                                                                 // Customize what your widget looks like when it's loading.
@@ -2013,35 +2026,112 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                     ),
                                                                   );
                                                                 }
-                                                                final circleImageUsersRecord =
+                                                                final rowUsersRecord =
                                                                     snapshot
                                                                         .data!;
-                                                                return Container(
-                                                                  width: 15,
-                                                                  height: 15,
-                                                                  clipBehavior:
-                                                                      Clip.antiAlias,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                  ),
-                                                                  child: Image
-                                                                      .network(
-                                                                    circleImageUsersRecord
-                                                                        .photoUrl!,
-                                                                  ),
+                                                                return Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Container(
+                                                                      width: 15,
+                                                                      height:
+                                                                          15,
+                                                                      clipBehavior:
+                                                                          Clip.antiAlias,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                      ),
+                                                                      child: Image
+                                                                          .network(
+                                                                        rowUsersRecord
+                                                                            .photoUrl!,
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              7,
+                                                                              0,
+                                                                              0,
+                                                                              0),
+                                                                      child:
+                                                                          Text(
+                                                                        rowUsersRecord
+                                                                            .displayName!,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyText1
+                                                                            .override(
+                                                                              fontFamily: 'Nunito',
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              7,
+                                                                              0,
+                                                                              0,
+                                                                              0),
+                                                                      child:
+                                                                          Text(
+                                                                        columnCommentsRecord
+                                                                            .text!
+                                                                            .maybeHandleOverflow(
+                                                                          maxChars:
+                                                                              100,
+                                                                          replacement:
+                                                                              '…',
+                                                                        ),
+                                                                        maxLines:
+                                                                            3,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyText1,
+                                                                      ),
+                                                                    ),
+                                                                  ],
                                                                 );
                                                               },
                                                             ),
-                                                            Text(
-                                                              'Hello World',
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        5,
+                                                                        0,
+                                                                        0,
+                                                                        7),
+                                                            child: Text(
+                                                              dateTimeFormat(
+                                                                'relative',
+                                                                columnCommentsRecord
+                                                                    .date!,
+                                                                locale: FFLocalizations.of(
+                                                                        context)
+                                                                    .languageCode,
+                                                              ),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .bodyText1,
+                                                                  .bodyText1
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Nunito',
+                                                                    fontSize: 8,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
                                                             ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                        ],
                                                       );
                                                     }),
                                                   );

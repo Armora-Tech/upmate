@@ -97,7 +97,7 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
                   onChanged: (val) => setState(() => radioButtonValue = val),
                   optionHeight: 25,
                   textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                        fontFamily: 'Poppins',
+                        fontFamily: 'Nunito',
                         color: Colors.black,
                       ),
                   buttonPosition: RadioButtonPosition.left,
@@ -121,7 +121,7 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
                       color: Color(0xFF3B5159),
                       textStyle:
                           FlutterFlowTheme.of(context).subtitle2.override(
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Nunito',
                                 color: Colors.white,
                               ),
                       borderSide: BorderSide(

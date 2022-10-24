@@ -1,7 +1,6 @@
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../interest_page/interest_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -52,13 +51,7 @@ class _VerfiedWidgetState extends State<VerfiedWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
             child: FFButtonWidget(
               onPressed: () async {
-                await Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => InterestPageWidget(),
-                  ),
-                  (r) => false,
-                );
+                context.goNamed('interestPage');
               },
               text: 'Get started!',
               options: FFButtonOptions(
@@ -66,7 +59,7 @@ class _VerfiedWidgetState extends State<VerfiedWidget> {
                 height: 40,
                 color: Color(0xFF3B5159),
                 textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                      fontFamily: 'Poppins',
+                      fontFamily: 'Nunito',
                       color: Colors.white,
                       lineHeight: 1,
                     ),

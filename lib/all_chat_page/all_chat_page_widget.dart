@@ -1,7 +1,5 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../chat_page/chat_page_widget.dart';
-import '../create_chat_page/create_chat_page_widget.dart';
 import '../flutter_flow/chat/index.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -52,28 +50,28 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
           key: scaffoldKey,
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
-              await Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.bottomToTop,
-                  duration: Duration(milliseconds: 300),
-                  reverseDuration: Duration(milliseconds: 300),
-                  child: CreateChatPageWidget(),
-                ),
+              context.pushNamed(
+                'createChatPage',
+                extra: <String, dynamic>{
+                  kTransitionInfoKey: TransitionInfo(
+                    hasTransition: true,
+                    transitionType: PageTransitionType.bottomToTop,
+                  ),
+                },
               );
             },
             backgroundColor: Color(0xFF5ABBDE),
             elevation: 8,
             child: InkWell(
               onTap: () async {
-                await Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.bottomToTop,
-                    duration: Duration(milliseconds: 300),
-                    reverseDuration: Duration(milliseconds: 300),
-                    child: CreateChatPageWidget(),
-                  ),
+                context.pushNamed(
+                  'createChatPage',
+                  extra: <String, dynamic>{
+                    kTransitionInfoKey: TransitionInfo(
+                      hasTransition: true,
+                      transitionType: PageTransitionType.bottomToTop,
+                    ),
+                  },
                 );
               },
               child: Icon(
@@ -162,16 +160,25 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                               final chatInfo = snapshot.data ??
                                   FFChatInfo(listViewChatsRecord);
                               return FFChatPreview(
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ChatPageWidget(
-                                      chatUser: chatInfo.otherUsers.length == 1
+                                onTap: () => context.pushNamed(
+                                  'chatPage',
+                                  queryParams: {
+                                    'chatUser': serializeParam(
+                                      chatInfo.otherUsers.length == 1
                                           ? chatInfo.otherUsersList.first
                                           : null,
-                                      chatRef: chatInfo.chatRecord.reference,
+                                      ParamType.Document,
                                     ),
-                                  ),
+                                    'chatRef': serializeParam(
+                                      chatInfo.chatRecord.reference,
+                                      ParamType.DocumentReference,
+                                    ),
+                                  }.withoutNulls,
+                                  extra: <String, dynamic>{
+                                    'chatUser': chatInfo.otherUsers.length == 1
+                                        ? chatInfo.otherUsersList.first
+                                        : null,
+                                  },
                                 ),
                                 lastChatText: chatInfo.chatPreviewMessage(),
                                 lastChatTime:

@@ -191,7 +191,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                         'interests': checkboxGroupValues,
                       };
                       await currentUserReference!.update(usersUpdateData);
-                      Navigator.pop(context);
+                      context.pop();
                     },
                     text: 'Save Changes',
                     options: FFButtonOptions(

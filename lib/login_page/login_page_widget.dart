@@ -3,8 +3,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_timer.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
-import '../signup_page/signup_page_widget.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -248,6 +246,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        GoRouter.of(context).prepareAuthEvent();
+
                         final user = await signInWithEmail(
                           context,
                           inpEmailController!.text,
@@ -257,14 +257,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           return;
                         }
 
-                        await Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                NavBarPage(initialPage: 'mainPage'),
-                          ),
-                          (r) => false,
-                        );
+                        context.goNamedAuth('mainPage', mounted);
                       },
                       text: 'Sign In',
                       options: FFButtonOptions(
@@ -273,7 +266,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         color: Color(0xFF3B5159),
                         textStyle:
                             FlutterFlowTheme.of(context).subtitle2.override(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'Nunito',
                                   color: Colors.white,
                                 ),
                         borderSide: BorderSide(
@@ -431,19 +424,14 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                     children: [
                       InkWell(
                         onTap: () async {
+                          GoRouter.of(context).prepareAuthEvent();
                           final user = await signInWithGoogle(context);
                           if (user == null) {
                             return;
                           }
                           if (currentUserEmailVerified) {
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    NavBarPage(initialPage: 'mainPage'),
-                              ),
-                              (r) => false,
-                            );
+                            context.goNamedAuth('mainPage', mounted);
+
                             return;
                           } else {
                             await showDialog(
@@ -489,20 +477,21 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           'Don\'t have an account? ',
                           style:
                               FlutterFlowTheme.of(context).bodyText1.override(
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Nunito',
                                     fontWeight: FontWeight.normal,
                                   ),
                         ),
                         InkWell(
                           onTap: () async {
-                            await Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.bottomToTop,
-                                duration: Duration(milliseconds: 300),
-                                reverseDuration: Duration(milliseconds: 300),
-                                child: SignupPageWidget(),
-                              ),
+                            context.pushNamed(
+                              'SignupPage',
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType:
+                                      PageTransitionType.bottomToTop,
+                                ),
+                              },
                             );
                           },
                           child: Text(

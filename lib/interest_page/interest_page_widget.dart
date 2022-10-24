@@ -5,10 +5,10 @@ import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -26,6 +26,17 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
   @override
   void initState() {
     super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if ((currentUserDocument?.interests?.toList() ?? []).length != 0) {
+        context.goNamed('mainPage');
+
+        return;
+      } else {
+        return;
+      }
+    });
+
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'interestPage'});
   }
@@ -103,11 +114,7 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                               setState(() => choiceChipsValues = val),
                           selectedChipStyle: ChipStyle(
                             backgroundColor: Colors.white,
-                            textStyle:
-                                FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.black,
-                                    ),
+                            textStyle: FlutterFlowTheme.of(context).subtitle1,
                             iconColor: Colors.black,
                             iconSize: 18,
                             elevation: 4,
@@ -115,9 +122,9 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                           unselectedChipStyle: ChipStyle(
                             backgroundColor: Colors.white,
                             textStyle:
-                                FlutterFlowTheme.of(context).bodyText2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF323B45),
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Nunito',
+                                      fontSize: 18,
                                     ),
                             iconColor: Color(0xFF323B45),
                             iconSize: 18,
@@ -168,14 +175,9 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                                   .toList(),
                               ';'),
                         );
-                        await Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                NavBarPage(initialPage: 'mainPage'),
-                          ),
-                          (r) => false,
-                        );
+
+                        context.goNamed('mainPage');
+
                         return;
                       }
                     },
@@ -186,7 +188,7 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                       color: Color(0xFF3B5159),
                       textStyle:
                           FlutterFlowTheme.of(context).subtitle2.override(
-                                fontFamily: 'Poppins',
+                                fontFamily: 'Nunito',
                                 color: Colors.white,
                               ),
                       borderSide: BorderSide(

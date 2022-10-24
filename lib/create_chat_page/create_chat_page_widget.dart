@@ -1,6 +1,5 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../chat_page/chat_page_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -54,7 +53,7 @@ class _CreateChatPageWidgetState extends State<CreateChatPageWidget> {
             size: 24,
           ),
           onPressed: () async {
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         title: Column(
@@ -226,13 +225,20 @@ class _CreateChatPageWidgetState extends State<CreateChatPageWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 2),
                         child: InkWell(
                           onTap: () async {
-                            await Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChatPageWidget(
-                                  chatUser: listViewNormalUsersRecord,
+                            if (Navigator.of(context).canPop()) {
+                              context.pop();
+                            }
+                            context.pushNamed(
+                              'chatPage',
+                              queryParams: {
+                                'chatUser': serializeParam(
+                                  listViewNormalUsersRecord,
+                                  ParamType.Document,
                                 ),
-                              ),
+                              }.withoutNulls,
+                              extra: <String, dynamic>{
+                                'chatUser': listViewNormalUsersRecord,
+                              },
                             );
                           },
                           child: Container(
@@ -304,7 +310,7 @@ class _CreateChatPageWidgetState extends State<CreateChatPageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
-                                                fontFamily: 'Poppins',
+                                                fontFamily: 'Nunito',
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .grayIcon,
@@ -353,13 +359,20 @@ class _CreateChatPageWidgetState extends State<CreateChatPageWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 2),
                         child: InkWell(
                           onTap: () async {
-                            await Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChatPageWidget(
-                                  chatUser: searchResItem,
+                            if (Navigator.of(context).canPop()) {
+                              context.pop();
+                            }
+                            context.pushNamed(
+                              'chatPage',
+                              queryParams: {
+                                'chatUser': serializeParam(
+                                  searchResItem,
+                                  ParamType.Document,
                                 ),
-                              ),
+                              }.withoutNulls,
+                              extra: <String, dynamic>{
+                                'chatUser': searchResItem,
+                              },
                             );
                           },
                           child: Container(
@@ -429,7 +442,7 @@ class _CreateChatPageWidgetState extends State<CreateChatPageWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
-                                                fontFamily: 'Poppins',
+                                                fontFamily: 'Nunito',
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .grayIcon,

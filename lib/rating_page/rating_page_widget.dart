@@ -156,7 +156,7 @@ class _RatingPageWidgetState extends State<RatingPageWidget> {
                         await RatingsRecord.collection
                             .doc()
                             .set(ratingsCreateData);
-                        Navigator.pop(context);
+                        context.pop();
                       },
                       text: 'Send',
                       options: FFButtonOptions(
@@ -165,7 +165,7 @@ class _RatingPageWidgetState extends State<RatingPageWidget> {
                         color: FlutterFlowTheme.of(context).btnColors,
                         textStyle:
                             FlutterFlowTheme.of(context).subtitle2.override(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'Nunito',
                                   color: Colors.white,
                                 ),
                         borderSide: BorderSide(

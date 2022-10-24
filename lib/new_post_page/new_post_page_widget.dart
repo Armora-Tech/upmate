@@ -8,7 +8,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
-import '../main.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import '../flutter_flow/random_data_util.dart' as random_data;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -75,7 +74,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                 size: 30,
               ),
               onPressed: () async {
-                Navigator.pop(context);
+                context.pop();
               },
             ),
           ),
@@ -193,7 +192,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
                                             .override(
-                                              fontFamily: 'Poppins',
+                                              fontFamily: 'Nunito',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .grayIcon,
@@ -367,7 +366,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                   selectedChipStyle: ChipStyle(
                     backgroundColor: Color(0xFF323B45),
                     textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
+                          fontFamily: 'Nunito',
                           color: Colors.white,
                         ),
                     iconColor: Colors.white,
@@ -377,7 +376,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                   unselectedChipStyle: ChipStyle(
                     backgroundColor: Colors.white,
                     textStyle: FlutterFlowTheme.of(context).bodyText2.override(
-                          fontFamily: 'Poppins',
+                          fontFamily: 'Nunito',
                           color: Color(0xFF323B45),
                         ),
                     iconColor: Color(0xFF323B45),
@@ -463,16 +462,17 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                         backgroundColor: Color(0x00000000),
                       ),
                     );
-                    await Navigator.pushAndRemoveUntil(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.fade,
-                        duration: Duration(milliseconds: 300),
-                        reverseDuration: Duration(milliseconds: 300),
-                        child: NavBarPage(initialPage: 'mainPage'),
-                      ),
-                      (r) => false,
+
+                    context.goNamed(
+                      'mainPage',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                        ),
+                      },
                     );
+
                     if (_shouldSetState) setState(() {});
                   },
                   text: 'Create Post',

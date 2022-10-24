@@ -2,7 +2,6 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../post_detail/post_detail_widget.dart';
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -162,21 +161,25 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                               staggeredViewIndex];
                                       return InkWell(
                                         onTap: () async {
-                                          await Navigator.push(
-                                            context,
-                                            PageTransition(
-                                              type: PageTransitionType.scale,
-                                              alignment: Alignment.bottomCenter,
-                                              duration:
-                                                  Duration(milliseconds: 300),
-                                              reverseDuration:
-                                                  Duration(milliseconds: 300),
-                                              child: PostDetailWidget(
-                                                postRef:
-                                                    staggeredViewPostsRecord
-                                                        .reference,
+                                          context.pushNamed(
+                                            'postDetail',
+                                            queryParams: {
+                                              'postRef': serializeParam(
+                                                staggeredViewPostsRecord
+                                                    .reference,
+                                                ParamType.DocumentReference,
                                               ),
-                                            ),
+                                            }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              kTransitionInfoKey:
+                                                  TransitionInfo(
+                                                hasTransition: true,
+                                                transitionType:
+                                                    PageTransitionType.scale,
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                              ),
+                                            },
                                           );
                                         },
                                         child: Card(
@@ -310,7 +313,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                               textStyle: FlutterFlowTheme.of(context)
                                   .subtitle2
                                   .override(
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Nunito',
                                     color: Colors.white,
                                   ),
                               borderSide: BorderSide(

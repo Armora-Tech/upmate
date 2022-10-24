@@ -70,7 +70,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
             size: 24,
           ),
           onPressed: () async {
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         title: Stack(

@@ -160,7 +160,7 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                       textStyle: FlutterFlowTheme.of(context)
                           .subtitle2
                           .override(
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Nunito',
                             color: FlutterFlowTheme.of(context).secondaryColor,
                           ),
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -228,6 +228,8 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                               const Duration(milliseconds: 3000));
                           if (functions.compare(
                               widget.code!, mailVerif!.text)) {
+                            GoRouter.of(context).prepareAuthEvent();
+
                             final user = await createAccountWithEmail(
                               context,
                               fMailController!.text,
@@ -247,15 +249,18 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                                 .update(usersCreateData);
 
                             setState(() => FFAppState().isverified = true);
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => VerifPageWidget(
-                                  isVerified: true,
+
+                            context.goNamedAuth(
+                              'VerifPage',
+                              mounted,
+                              queryParams: {
+                                'isVerified': serializeParam(
+                                  true,
+                                  ParamType.bool,
                                 ),
-                              ),
-                              (r) => false,
+                              }.withoutNulls,
                             );
+
                             return;
                           } else {
                             await showDialog(
@@ -283,7 +288,7 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                           color: Color(0xFF3B5159),
                           textStyle:
                               FlutterFlowTheme.of(context).subtitle2.override(
-                                    fontFamily: 'Poppins',
+                                    fontFamily: 'Nunito',
                                     color: Colors.white,
                                   ),
                           borderSide: BorderSide(
