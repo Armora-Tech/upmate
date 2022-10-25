@@ -1721,6 +1721,9 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                     replacement:
                                                                         '…',
                                                                   ),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .justify,
                                                                   maxLines: 3,
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
@@ -2012,110 +2015,186 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
-                                                      if (personalizedColumnPostsRecord
-                                                                  .postPhoto !=
-                                                              null &&
-                                                          personalizedColumnPostsRecord
-                                                                  .postPhoto !=
-                                                              '')
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(24,
-                                                                      5, 24, 5),
-                                                          child: Text(
-                                                            personalizedColumnPostsRecord
-                                                                .postDescription!
-                                                                .maybeHandleOverflow(
-                                                                    maxChars:
-                                                                        50),
-                                                            textAlign: TextAlign
-                                                                .justify,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Nunito',
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
+                                                      Expanded(
+                                                        child: Wrap(
+                                                          spacing: 0,
+                                                          runSpacing: 0,
+                                                          alignment:
+                                                              WrapAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              WrapCrossAlignment
+                                                                  .start,
+                                                          direction:
+                                                              Axis.horizontal,
+                                                          runAlignment:
+                                                              WrapAlignment
+                                                                  .start,
+                                                          verticalDirection:
+                                                              VerticalDirection
+                                                                  .down,
+                                                          clipBehavior:
+                                                              Clip.none,
+                                                          children: [
+                                                            Visibility(
+                                                              visible: personalizedColumnPostsRecord
+                                                                          .postPhoto !=
+                                                                      null &&
+                                                                  personalizedColumnPostsRecord
+                                                                          .postPhoto !=
+                                                                      '',
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            24,
+                                                                            5,
+                                                                            24,
+                                                                            5),
+                                                                child: Text(
+                                                                  personalizedColumnPostsRecord
+                                                                      .postDescription!
+                                                                      .maybeHandleOverflow(
+                                                                          maxChars:
+                                                                              50),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .justify,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Nunito',
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.normal,
+                                                                      ),
                                                                 ),
-                                                          ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(5, 0, 5, 0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(24, 5,
-                                                                    24, 5),
-                                                        child: FutureBuilder<
-                                                            List<
-                                                                CommentsRecord>>(
-                                                          future:
-                                                              queryCommentsRecordOnce(
-                                                            parent:
-                                                                personalizedColumnPostsRecord
-                                                                    .reference,
-                                                          ),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            // Customize what your widget looks like when it's loading.
-                                                            if (!snapshot
-                                                                .hasData) {
-                                                              return Center(
-                                                                child: SizedBox(
-                                                                  width: 50,
-                                                                  height: 50,
-                                                                  child:
-                                                                      CircularProgressIndicator(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryColor,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                            List<CommentsRecord>
-                                                                textCommentsRecordList =
-                                                                snapshot.data!;
-                                                            return Text(
-                                                              'Lihat semua ${functions.subtraction(textCommentsRecordList.length, 5).toString()} komentar'
-                                                                  .maybeHandleOverflow(
-                                                                maxChars: 100,
-                                                                replacement:
-                                                                    '…',
-                                                              ),
-                                                              maxLines: 3,
-                                                              style: FlutterFlowTheme
+                                                  child: FutureBuilder<
+                                                      List<CommentsRecord>>(
+                                                    future:
+                                                        queryCommentsRecordOnce(
+                                                      parent:
+                                                          personalizedColumnPostsRecord
+                                                              .reference,
+                                                    ),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50,
+                                                            height: 50,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Nunito',
-                                                                    color: Color(
-                                                                        0xFF767676),
-                                                                    fontSize:
-                                                                        12,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                  ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ],
+                                                                  .primaryColor,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      List<CommentsRecord>
+                                                          showMoreCommentsCommentsRecordList =
+                                                          snapshot.data!;
+                                                      return Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: List.generate(
+                                                            showMoreCommentsCommentsRecordList
+                                                                .length,
+                                                            (showMoreCommentsIndex) {
+                                                          final showMoreCommentsCommentsRecord =
+                                                              showMoreCommentsCommentsRecordList[
+                                                                  showMoreCommentsIndex];
+                                                          return Visibility(
+                                                            visible:
+                                                                showMoreCommentsIndex ==
+                                                                    0,
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          24,
+                                                                          5,
+                                                                          24,
+                                                                          5),
+                                                              child: FutureBuilder<
+                                                                  List<
+                                                                      CommentsRecord>>(
+                                                                future:
+                                                                    queryCommentsRecordOnce(
+                                                                  parent: personalizedColumnPostsRecord
+                                                                      .reference,
+                                                                ),
+                                                                builder: (context,
+                                                                    snapshot) {
+                                                                  // Customize what your widget looks like when it's loading.
+                                                                  if (!snapshot
+                                                                      .hasData) {
+                                                                    return Center(
+                                                                      child:
+                                                                          SizedBox(
+                                                                        width:
+                                                                            50,
+                                                                        height:
+                                                                            50,
+                                                                        child:
+                                                                            CircularProgressIndicator(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                  List<CommentsRecord>
+                                                                      textCommentsRecordList =
+                                                                      snapshot
+                                                                          .data!;
+                                                                  return Text(
+                                                                    'Lihat semua ${functions.subtraction(textCommentsRecordList.length, 5).toString()} komentar'
+                                                                        .maybeHandleOverflow(
+                                                                      maxChars:
+                                                                          100,
+                                                                      replacement:
+                                                                          '…',
+                                                                    ),
+                                                                    maxLines: 3,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Nunito',
+                                                                          color:
+                                                                              Color(0xFF767676),
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.normal,
+                                                                        ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }),
+                                                      );
+                                                    },
                                                   ),
                                                 ),
                                                 FutureBuilder<
