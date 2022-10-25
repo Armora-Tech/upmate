@@ -55,3 +55,11 @@ String sintenrest(String str) {
   // Add your function code here!
   return str.replaceAll('#', '').trim();
 }
+
+int subtraction(
+  int n1,
+  int n2,
+) {
+  // Add your function code here!
+  return n1 - n2;
+}
