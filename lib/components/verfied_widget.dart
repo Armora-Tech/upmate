@@ -52,6 +52,8 @@ class _VerfiedWidgetState extends State<VerfiedWidget> {
             child: FFButtonWidget(
               onPressed: () async {
                 context.goNamed('interestPage');
+
+                setState(() => FFAppState().isFirstOpen = true);
               },
               text: 'Get started!',
               options: FFButtonOptions(

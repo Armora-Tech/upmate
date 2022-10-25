@@ -900,15 +900,19 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                       scaffoldKey.currentState!.openDrawer();
                                     },
                                   ),
-                                  Text(
-                                    'Selamat Datang',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Nunito',
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.normal,
-                                        ),
+                                  AuthUserStreamWidget(
+                                    child: Text(
+                                      FFAppState().isFirstOpen
+                                          ? 'Selamat Datang'
+                                          : currentUserDisplayName,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Nunito',
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                    ),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -946,42 +950,44 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        2, 0, 0, 0),
-                                    child: AuthUserStreamWidget(
-                                      child: Text(
-                                        currentUserDisplayName,
-                                        style: FlutterFlowTheme.of(context)
-                                            .title1
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              color: Colors.black,
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.w600,
-                                            ),
+                                  if (FFAppState().isFirstOpen)
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          2, 0, 0, 0),
+                                      child: AuthUserStreamWidget(
+                                        child: Text(
+                                          currentUserDisplayName,
+                                          style: FlutterFlowTheme.of(context)
+                                              .title1
+                                              .override(
+                                                fontFamily: 'Outfit',
+                                                color: Colors.black,
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                        ),
                                       ),
                                     ),
-                                  ),
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
-                              child: Text(
-                                'Ikuti orang, forum, event, atau topik yang anda tertarik untuk melihat postingan yang mereka bagikan',
-                                textAlign: TextAlign.justify,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText2
-                                    .override(
-                                      fontFamily: 'Nunito',
-                                      color: Color(0xFF57636C),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal,
-                                    ),
+                            if (FFAppState().isFirstOpen)
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24, 0, 24, 0),
+                                child: Text(
+                                  'Ikuti orang, forum, event, atau topik yang anda tertarik untuk melihat postingan yang mereka bagikan',
+                                  textAlign: TextAlign.justify,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText2
+                                      .override(
+                                        fontFamily: 'Nunito',
+                                        color: Color(0xFF57636C),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
                               ),
-                            ),
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(24, 20, 24, 0),
@@ -1512,8 +1518,6 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                           width:
                                               MediaQuery.of(context).size.width,
                                           decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
                                             border: Border.all(
                                               color: Color(0xFFC8C8C8),
                                             ),
@@ -1528,7 +1532,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                     padding:
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(
-                                                                7, 0, 0, 0),
+                                                                24, 0, 0, 0),
                                                     child: Container(
                                                       width: 34,
                                                       height: 34,
@@ -1627,7 +1631,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                       '')
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 5, 0, 5),
+                                                      .fromSTEB(24, 5, 24, 5),
                                                   child: Image.network(
                                                     personalizedColumnPostsRecord
                                                         .postPhoto!,
@@ -1648,11 +1652,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                     children: [
                                                       Container(
                                                         decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
-                                                        ),
+                                                            BoxDecoration(),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -1909,7 +1909,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                       padding:
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  0, 0, 0, 5),
+                                                                  24, 0, 24, 5),
                                                       child: Text(
                                                         personalizedColumnPostsRecord
                                                             .postDescription!
@@ -1989,9 +1989,9 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                             padding:
                                                                 EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        5,
+                                                                        24,
                                                                         0,
-                                                                        5,
+                                                                        24,
                                                                         0),
                                                             child: StreamBuilder<
                                                                 UsersRecord>(
@@ -2097,9 +2097,9 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                             padding:
                                                                 EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        5,
+                                                                        24,
                                                                         0,
-                                                                        0,
+                                                                        24,
                                                                         7),
                                                             child: Text(
                                                               dateTimeFormat(
