@@ -17,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:share_plus/share_plus.dart';
 
 class MainPageWidget extends StatefulWidget {
   const MainPageWidget({Key? key}) : super(key: key);
@@ -1647,66 +1646,59 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
-                                                      InkWell(
-                                                        onTap: () async {
-                                                          await Share.share(
-                                                              'post://upmate.com${GoRouter.of(context).location}');
-                                                        },
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondaryBackground,
-                                                          ),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              ToggleIcon(
-                                                                onPressed:
-                                                                    () async {
-                                                                  setState(() => FFAppState()
-                                                                          .unused =
-                                                                      !FFAppState()
-                                                                          .unused);
-                                                                },
-                                                                value:
-                                                                    FFAppState()
-                                                                        .unused,
-                                                                onIcon: Icon(
-                                                                  Icons
-                                                                      .share_outlined,
-                                                                  color: Colors
-                                                                      .black,
-                                                                  size: 25,
-                                                                ),
-                                                                offIcon: Icon(
-                                                                  Icons
-                                                                      .share_outlined,
-                                                                  color: Colors
-                                                                      .black,
-                                                                  size: 25,
-                                                                ),
+                                                      Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            ToggleIcon(
+                                                              onPressed:
+                                                                  () async {
+                                                                setState(() => FFAppState()
+                                                                        .unused =
+                                                                    !FFAppState()
+                                                                        .unused);
+                                                              },
+                                                              value:
+                                                                  FFAppState()
+                                                                      .unused,
+                                                              onIcon: Icon(
+                                                                Icons
+                                                                    .share_outlined,
+                                                                color: Colors
+                                                                    .black,
+                                                                size: 25,
                                                               ),
-                                                              Text(
-                                                                '0',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Nunito',
-                                                                      fontSize:
-                                                                          10,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                    ),
+                                                              offIcon: Icon(
+                                                                Icons
+                                                                    .share_outlined,
+                                                                color: Colors
+                                                                    .black,
+                                                                size: 25,
                                                               ),
-                                                            ],
-                                                          ),
+                                                            ),
+                                                            Text(
+                                                              '0',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyText1
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Nunito',
+                                                                    fontSize:
+                                                                        10,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                  ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
                                                     ],

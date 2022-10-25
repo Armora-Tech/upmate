@@ -37,10 +37,10 @@
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
         <key>CFBundleURLName</key>
-        <string>upmate.com</string>
+        <string>up_mate</string>
         <key>CFBundleURLSchemes</key>
         <array>
-        <string>post</string>
+        <string>com.armoratech.upmate</string>
         </array>
         </dict>
     </array>

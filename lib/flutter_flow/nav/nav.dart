@@ -8,7 +8,8 @@ import '../../backend/backend.dart';
 import '../../auth/firebase_user_provider.dart';
 import '../../backend/push_notifications/push_notifications_handler.dart'
     show PushNotificationsHandler;
-
+import '../../backend/firebase_dynamic_links/firebase_dynamic_links.dart'
+    show DynamicLinksHandler;
 import '../../index.dart';
 import '../../main.dart';
 import '../lat_lng.dart';
@@ -17,6 +18,8 @@ import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
+export '../../backend/firebase_dynamic_links/firebase_dynamic_links.dart'
+    show generateCurrentPageLink;
 
 const kTransitionInfoKey = '__transition_info__';
 
@@ -71,6 +74,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       errorBuilder: (context, _) =>
           appStateNotifier.loggedIn ? NavBarPage() : LoginPageWidget(),
+      navigatorBuilder: (_, __, child) => DynamicLinksHandler(child: child),
       routes: [
         FFRoute(
           name: '_initialize',
@@ -131,7 +135,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'postDetail',
-              path: 'postDetail',
+              path: 'post',
               requireAuth: true,
               builder: (context, params) => PostDetailWidget(
                 postRef: params.getParam(
