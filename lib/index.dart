@@ -18,3 +18,4 @@ export 'rating_page/rating_page_widget.dart' show RatingPageWidget;
 export 'account_page/account_page_widget.dart' show AccountPageWidget;
 export 'bookmark_page/bookmark_page_widget.dart' show BookmarkPageWidget;
 export 'app_info/app_info_widget.dart' show AppInfoWidget;
+export 'comments_page/comments_page_widget.dart' show CommentsPageWidget;

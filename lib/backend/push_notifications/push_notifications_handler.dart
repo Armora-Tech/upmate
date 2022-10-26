@@ -118,6 +118,7 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'accountPage': (data) async => AccountPageWidget(),
   'bookmarkPage': (data) async => BookmarkPageWidget(),
   'appInfo': (data) async => AppInfoWidget(),
+  'commentsPage': (data) async => CommentsPageWidget(),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

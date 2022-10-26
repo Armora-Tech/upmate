@@ -62,5 +62,12 @@ service cloud.firestore {
       allow write: if false;
       allow delete: if false;
     }
+
+    match /utils/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
   }
 }

@@ -206,6 +206,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'appInfo',
               requireAuth: true,
               builder: (context, params) => AppInfoWidget(),
+            ),
+            FFRoute(
+              name: 'commentsPage',
+              path: 'commentsPage',
+              requireAuth: true,
+              builder: (context, params) => CommentsPageWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

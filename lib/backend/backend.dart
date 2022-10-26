@@ -12,6 +12,7 @@ import 'schema/interests_record.dart';
 import 'schema/comments_record.dart';
 import 'schema/ratings_record.dart';
 import 'schema/notifications_record.dart';
+import 'schema/utils_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -27,6 +28,7 @@ export 'schema/interests_record.dart';
 export 'schema/comments_record.dart';
 export 'schema/ratings_record.dart';
 export 'schema/notifications_record.dart';
+export 'schema/utils_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Stream<List<UsersRecord>> queryUsersRecord({
@@ -361,6 +363,48 @@ Future<FFFirestorePage<NotificationsRecord>> queryNotificationsRecordPage({
     queryCollectionPage(
       NotificationsRecord.collection,
       NotificationsRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query UtilsRecords (as a Stream and as a Future).
+Stream<List<UtilsRecord>> queryUtilsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      UtilsRecord.collection,
+      UtilsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<UtilsRecord>> queryUtilsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      UtilsRecord.collection,
+      UtilsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<UtilsRecord>> queryUtilsRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      UtilsRecord.collection,
+      UtilsRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

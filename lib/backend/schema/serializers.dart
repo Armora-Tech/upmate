@@ -9,6 +9,7 @@ import 'interests_record.dart';
 import 'comments_record.dart';
 import 'ratings_record.dart';
 import 'notifications_record.dart';
+import 'utils_record.dart';
 
 import 'index.dart';
 
@@ -27,6 +28,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   CommentsRecord,
   RatingsRecord,
   NotificationsRecord,
+  UtilsRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())
