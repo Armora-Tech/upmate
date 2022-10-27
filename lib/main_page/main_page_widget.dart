@@ -31,7 +31,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
   String uploadedFileUrl = '';
 
   String? radioButtonValue;
-  Completer<List<PostsRecord>>? _firestoreRequestCompleter;
+  Completer<UsersRecord>? _documentRequestCompleter;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -52,7 +52,9 @@ class _MainPageWidgetState extends State<MainPageWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<UsersRecord>(
-      future: UsersRecord.getDocumentOnce(currentUserReference!),
+      future: (_documentRequestCompleter ??= Completer<UsersRecord>()
+            ..complete(UsersRecord.getDocumentOnce(currentUserReference!)))
+          .future,
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -877,8 +879,8 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                     Expanded(
                       child: RefreshIndicator(
                         onRefresh: () async {
-                          setState(() => _firestoreRequestCompleter = null);
-                          await waitForFirestoreRequestCompleter();
+                          setState(() => _documentRequestCompleter = null);
+                          await waitForDocumentRequestCompleter();
                         },
                         child: SingleChildScrollView(
                           physics: const AlwaysScrollableScrollPhysics(),
@@ -1488,23 +1490,18 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 child: AuthUserStreamWidget(
-                                  child: FutureBuilder<List<PostsRecord>>(
-                                    future: (_firestoreRequestCompleter ??=
-                                            Completer<List<PostsRecord>>()
-                                              ..complete(queryPostsRecordOnce(
-                                                queryBuilder: (postsRecord) =>
-                                                    postsRecord
-                                                        .whereArrayContainsAny(
-                                                            'interests',
-                                                            (currentUserDocument
-                                                                    ?.interests
-                                                                    ?.toList() ??
-                                                                []))
-                                                        .orderBy('time_posted',
-                                                            descending: true),
-                                                limit: 50,
-                                              )))
-                                        .future,
+                                  child: StreamBuilder<List<PostsRecord>>(
+                                    stream: queryPostsRecord(
+                                      queryBuilder: (postsRecord) => postsRecord
+                                          .whereArrayContainsAny(
+                                              'interests',
+                                              (currentUserDocument?.interests
+                                                      ?.toList() ??
+                                                  []))
+                                          .orderBy('time_posted',
+                                              descending: true),
+                                      limit: 50,
+                                    ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
                                       if (!snapshot.hasData) {
@@ -2391,7 +2388,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
     );
   }
 
-  Future waitForFirestoreRequestCompleter({
+  Future waitForDocumentRequestCompleter({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -2399,7 +2396,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
     while (true) {
       await Future.delayed(Duration(milliseconds: 50));
       final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete = _firestoreRequestCompleter?.isCompleted ?? false;
+      final requestComplete = _documentRequestCompleter?.isCompleted ?? false;
       if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
         break;
       }
