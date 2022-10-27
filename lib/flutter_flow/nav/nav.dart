@@ -151,6 +151,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : NotificationPageWidget(),
             ),
             FFRoute(
+              name: 'surveyPage',
+              path: 'surveyPage',
+              requireAuth: true,
+              builder: (context, params) => SurveyPageWidget(),
+            ),
+            FFRoute(
               name: 'chatPage',
               path: 'chatPage',
               requireAuth: true,
@@ -176,12 +182,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'createChatPage',
               requireAuth: true,
               builder: (context, params) => CreateChatPageWidget(),
-            ),
-            FFRoute(
-              name: 'surveyPage',
-              path: 'surveyPage',
-              requireAuth: true,
-              builder: (context, params) => SurveyPageWidget(),
             ),
             FFRoute(
               name: 'ratingPage',

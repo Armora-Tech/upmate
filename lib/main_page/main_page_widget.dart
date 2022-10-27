@@ -1567,8 +1567,12 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                 BoxShape.circle,
                                                           ),
                                                           child: Image.network(
-                                                            personalizedColumnPostsRecord
-                                                                .postPhoto!,
+                                                            valueOrDefault<
+                                                                String>(
+                                                              personalizedColumnPostsRecord
+                                                                  .postPhoto,
+                                                              'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VORoQXOzfnrc1yOV4anzxQHaHa%26pid%3DApi%26h%3D160&f=1&ipt=6e1ae93c3fc52057f78d8a58710494b23a6881a41b9dd2185da8e430dfe53e1e&ipo=images',
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -1950,70 +1954,103 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                         ],
                                                       ),
                                                     ),
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        ToggleIcon(
-                                                          onPressed: () async {
-                                                            final likesElement =
-                                                                currentUserReference;
-                                                            final likesUpdate =
-                                                                personalizedColumnPostsRecord
-                                                                        .likes!
-                                                                        .toList()
-                                                                        .contains(
-                                                                            likesElement)
-                                                                    ? FieldValue
-                                                                        .arrayRemove([
-                                                                        likesElement
-                                                                      ])
-                                                                    : FieldValue
-                                                                        .arrayUnion([
-                                                                        likesElement
-                                                                      ]);
-                                                            final postsUpdateData =
-                                                                {
-                                                              'likes':
-                                                                  likesUpdate,
-                                                            };
-                                                            await personalizedColumnPostsRecord
-                                                                .reference
-                                                                .update(
-                                                                    postsUpdateData);
-                                                          },
-                                                          value: personalizedColumnPostsRecord
-                                                              .likes!
-                                                              .toList()
-                                                              .contains(
-                                                                  currentUserReference),
-                                                          onIcon: Icon(
-                                                            Icons.favorite,
-                                                            color: Color(
-                                                                0xFFFF0808),
-                                                            size: 25,
-                                                          ),
-                                                          offIcon: Icon(
-                                                            Icons
-                                                                .favorite_border,
-                                                            size: 25,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          formatNumber(
-                                                            personalizedColumnPostsRecord
+                                                    InkWell(
+                                                      onTap: () async {
+                                                        if (personalizedColumnPostsRecord
+                                                            .likes!
+                                                            .toList()
+                                                            .contains(
+                                                                currentUserReference)) {
+                                                          final postsUpdateData =
+                                                              {
+                                                            'likes': FieldValue
+                                                                .arrayRemove([
+                                                              currentUserReference
+                                                            ]),
+                                                          };
+                                                          await personalizedColumnPostsRecord
+                                                              .reference
+                                                              .update(
+                                                                  postsUpdateData);
+                                                        } else {
+                                                          final postsUpdateData =
+                                                              {
+                                                            'likes': FieldValue
+                                                                .arrayRemove([
+                                                              currentUserReference
+                                                            ]),
+                                                          };
+                                                          await personalizedColumnPostsRecord
+                                                              .reference
+                                                              .update(
+                                                                  postsUpdateData);
+                                                        }
+                                                      },
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          ToggleIcon(
+                                                            onPressed:
+                                                                () async {
+                                                              final likesElement =
+                                                                  currentUserReference;
+                                                              final likesUpdate = personalizedColumnPostsRecord
+                                                                      .likes!
+                                                                      .toList()
+                                                                      .contains(
+                                                                          likesElement)
+                                                                  ? FieldValue
+                                                                      .arrayRemove([
+                                                                      likesElement
+                                                                    ])
+                                                                  : FieldValue
+                                                                      .arrayUnion([
+                                                                      likesElement
+                                                                    ]);
+                                                              final postsUpdateData =
+                                                                  {
+                                                                'likes':
+                                                                    likesUpdate,
+                                                              };
+                                                              await personalizedColumnPostsRecord
+                                                                  .reference
+                                                                  .update(
+                                                                      postsUpdateData);
+                                                            },
+                                                            value: personalizedColumnPostsRecord
                                                                 .likes!
                                                                 .toList()
-                                                                .length,
-                                                            formatType:
-                                                                FormatType
-                                                                    .compact,
+                                                                .contains(
+                                                                    currentUserReference),
+                                                            onIcon: Icon(
+                                                              Icons.favorite,
+                                                              color: Color(
+                                                                  0xFFFF0808),
+                                                              size: 25,
+                                                            ),
+                                                            offIcon: Icon(
+                                                              Icons
+                                                                  .favorite_border,
+                                                              size: 25,
+                                                            ),
                                                           ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1,
-                                                        ),
-                                                      ],
+                                                          Text(
+                                                            formatNumber(
+                                                              personalizedColumnPostsRecord
+                                                                  .likes!
+                                                                  .toList()
+                                                                  .length,
+                                                              formatType:
+                                                                  FormatType
+                                                                      .compact,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1,
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -2241,8 +2278,11 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                         ),
                                                                         child: Image
                                                                             .network(
-                                                                          rowUsersRecord
-                                                                              .photoUrl!,
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            rowUsersRecord.photoUrl,
+                                                                            'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VORoQXOzfnrc1yOV4anzxQHaHa%26pid%3DApi%26h%3D160&f=1&ipt=6e1ae93c3fc52057f78d8a58710494b23a6881a41b9dd2185da8e430dfe53e1e&ipo=images',
+                                                                          ),
                                                                         ),
                                                                       ),
                                                                       Padding(

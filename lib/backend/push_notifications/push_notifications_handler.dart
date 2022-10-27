@@ -106,6 +106,7 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
       ),
   'notificationPage': (data) async =>
       NavBarPage(initialPage: 'notificationPage'),
+  'surveyPage': (data) async => SurveyPageWidget(),
   'chatPage': (data) async => ChatPageWidget(
         chatUser: await getDocumentParameter(
             data, 'chatUser', UsersRecord.serializer),
@@ -113,7 +114,6 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
       ),
   'allChatPage': (data) async => NavBarPage(initialPage: 'allChatPage'),
   'createChatPage': (data) async => CreateChatPageWidget(),
-  'surveyPage': (data) async => SurveyPageWidget(),
   'ratingPage': (data) async => RatingPageWidget(),
   'accountPage': (data) async => AccountPageWidget(),
   'bookmarkPage': (data) async => BookmarkPageWidget(),

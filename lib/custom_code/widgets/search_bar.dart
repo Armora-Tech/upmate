@@ -84,6 +84,8 @@ class CustomSearchDelegate extends SearchDelegate {
         matchQuery.add(fruit);
       }
     }
+    return SizedBox.shrink();
+    /*
     return ListView.builder(
       itemCount: matchQuery.length,
       itemBuilder: (context, index) {
@@ -92,7 +94,7 @@ class CustomSearchDelegate extends SearchDelegate {
           title: Text(result),
         );
       },
-    );
+    );*/
   }
 
 // last overwrite to show the
@@ -105,6 +107,8 @@ class CustomSearchDelegate extends SearchDelegate {
         matchQuery.add(fruit);
       }
     }
+    return SizedBox.shrink();
+    /*
     return ListView.builder(
       itemCount: matchQuery.length,
       itemBuilder: (context, index) {
@@ -113,6 +117,6 @@ class CustomSearchDelegate extends SearchDelegate {
           title: Text(result),
         );
       },
-    );
+    );*/
   }
 }
