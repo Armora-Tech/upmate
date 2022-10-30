@@ -1,5 +1,4 @@
 import '../auth/auth_util.dart';
-import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -167,14 +166,6 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                               .normInterests(choiceChipsValues!.toList()),
                         };
                         await currentUserReference!.update(usersUpdateData);
-                        await AddUserCall.call(
-                          uid: currentUserUid,
-                          interests: functions.joinLString(
-                              functions
-                                  .normInterests(choiceChipsValues!.toList())
-                                  .toList(),
-                              ';'),
-                        );
 
                         context.goNamed('mainPage');
 

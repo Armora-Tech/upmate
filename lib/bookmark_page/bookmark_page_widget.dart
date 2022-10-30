@@ -155,7 +155,6 @@ class _BookmarkPageWidgetState extends State<BookmarkPageWidget> {
                                     ),
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,
-                                    maxLines: 1,
                                   ),
                                 ),
                               ),

@@ -4,7 +4,6 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -25,19 +24,19 @@ class PostDetailWidget extends StatefulWidget {
 
 class _PostDetailWidgetState extends State<PostDetailWidget> {
   String _currentPageLink = '';
-  TextEditingController? commentBoxController;
+  TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    commentBoxController = TextEditingController();
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'postDetail'});
+    textController = TextEditingController();
   }
 
   @override
   void dispose() {
-    commentBoxController?.dispose();
+    textController?.dispose();
     super.dispose();
   }
 
@@ -256,112 +255,105 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                       ),
                                             ),
                                           ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 5, 0, 0),
-                                            child: Material(
-                                              color: Colors.transparent,
-                                              elevation: 10,
-                                              child: Container(
-                                                width: MediaQuery.of(context)
+                                          Divider(
+                                            thickness: 1,
+                                            color: Color(0xFFC8C8C8),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
                                                     .size
-                                                    .width,
-                                                height: 100,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
+                                                    .width *
+                                                1.01,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
                                                       .secondaryBackground,
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Expanded(
-                                                      child: InkWell(
-                                                        onTap: () async {
-                                                          _currentPageLink =
-                                                              await generateCurrentPageLink(
-                                                            context,
-                                                            title:
-                                                                postDetailPostsRecord
-                                                                    .postTitle,
-                                                            imageUrl:
-                                                                postDetailPostsRecord
-                                                                    .postPhoto,
-                                                            description:
-                                                                postDetailPostsRecord
-                                                                    .postDescription,
-                                                          );
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Expanded(
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      _currentPageLink =
+                                                          await generateCurrentPageLink(
+                                                        context,
+                                                        title:
+                                                            postDetailPostsRecord
+                                                                .postTitle,
+                                                        imageUrl:
+                                                            postDetailPostsRecord
+                                                                .postPhoto,
+                                                        description:
+                                                            postDetailPostsRecord
+                                                                .postDescription,
+                                                      );
 
-                                                          await Share.share(
-                                                              _currentPageLink);
-                                                        },
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Icon(
-                                                              Icons
-                                                                  .share_outlined,
-                                                              color:
-                                                                  Colors.black,
-                                                              size: 26,
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          4,
-                                                                          5,
-                                                                          0,
-                                                                          0),
-                                                              child: Text(
-                                                                'Dibagikan',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1,
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          4,
-                                                                          0,
-                                                                          0,
-                                                                          10),
-                                                              child: Text(
-                                                                '0',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1,
-                                                              ),
-                                                            ),
-                                                          ],
+                                                      await Share.share(
+                                                          _currentPageLink);
+                                                    },
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        ToggleIcon(
+                                                          onPressed: () async {
+                                                            setState(() =>
+                                                                FFAppState()
+                                                                        .unused =
+                                                                    !FFAppState()
+                                                                        .unused);
+                                                          },
+                                                          value: FFAppState()
+                                                              .unused,
+                                                          onIcon: Icon(
+                                                            Icons
+                                                                .share_outlined,
+                                                            color: Colors.black,
+                                                            size: 25,
+                                                          ),
+                                                          offIcon: Icon(
+                                                            Icons
+                                                                .share_outlined,
+                                                            color: Colors.black,
+                                                            size: 25,
+                                                          ),
                                                         ),
-                                                      ),
+                                                        Text(
+                                                          'Dibagikan',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1,
+                                                        ),
+                                                        Text(
+                                                          '0',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1,
+                                                        ),
+                                                      ],
                                                     ),
-                                                    Expanded(
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          ToggleIcon(
-                                                            onPressed:
-                                                                () async {
-                                                              final bookmarksElement =
-                                                                  currentUserReference;
-                                                              final bookmarksUpdate = postDetailPostsRecord
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      ToggleIcon(
+                                                        onPressed: () async {
+                                                          final bookmarksElement =
+                                                              currentUserReference;
+                                                          final bookmarksUpdate =
+                                                              postDetailPostsRecord
                                                                       .bookmarks!
                                                                       .toList()
                                                                       .contains(
@@ -374,181 +366,147 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                                       .arrayUnion([
                                                                       bookmarksElement
                                                                     ]);
-                                                              final postsUpdateData =
-                                                                  {
-                                                                'bookmarks':
-                                                                    bookmarksUpdate,
-                                                              };
-                                                              await postDetailPostsRecord
-                                                                  .reference
-                                                                  .update(
-                                                                      postsUpdateData);
-                                                            },
-                                                            value: postDetailPostsRecord
-                                                                .bookmarks!
-                                                                .toList()
-                                                                .contains(
-                                                                    currentUserReference),
-                                                            onIcon: Icon(
-                                                              Icons.bookmark,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .black600,
-                                                              size: 25,
-                                                            ),
-                                                            offIcon: Icon(
-                                                              Icons
-                                                                  .bookmark_border,
-                                                              color:
-                                                                  Colors.black,
-                                                              size: 25,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        4,
-                                                                        5,
-                                                                        0,
-                                                                        0),
-                                                            child: Text(
-                                                              'Disimpan',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        4,
-                                                                        0,
-                                                                        0,
-                                                                        10),
-                                                            child: Text(
-                                                              formatNumber(
-                                                                postDetailPostsRecord
-                                                                    .bookmarks!
-                                                                    .toList()
-                                                                    .length,
-                                                                formatType:
-                                                                    FormatType
-                                                                        .compact,
-                                                              ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1,
-                                                            ),
-                                                          ),
-                                                        ],
+                                                          final postsUpdateData =
+                                                              {
+                                                            'bookmarks':
+                                                                bookmarksUpdate,
+                                                          };
+                                                          await postDetailPostsRecord
+                                                              .reference
+                                                              .update(
+                                                                  postsUpdateData);
+                                                        },
+                                                        value: postDetailPostsRecord
+                                                            .bookmarks!
+                                                            .toList()
+                                                            .contains(
+                                                                currentUserReference),
+                                                        onIcon: Icon(
+                                                          Icons.bookmark,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .black600,
+                                                          size: 25,
+                                                        ),
+                                                        offIcon: Icon(
+                                                          Icons.bookmark_border,
+                                                          color: Colors.black,
+                                                          size: 25,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        10,
-                                                                        0,
-                                                                        0),
-                                                            child: Icon(
-                                                              FFIcons.kbubble,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .black600,
-                                                              size: 26,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        15,
-                                                                        5,
-                                                                        0,
-                                                                        0),
-                                                            child: Text(
-                                                              'Komentar',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        4,
-                                                                        0,
-                                                                        0,
-                                                                        0),
-                                                            child: StreamBuilder<
-                                                                List<
-                                                                    CommentsRecord>>(
-                                                              stream:
-                                                                  queryCommentsRecord(
-                                                                parent: widget
-                                                                    .postRef,
-                                                              ),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                // Customize what your widget looks like when it's loading.
-                                                                if (!snapshot
-                                                                    .hasData) {
-                                                                  return Center(
-                                                                    child:
-                                                                        SizedBox(
-                                                                      width: 50,
-                                                                      height:
-                                                                          50,
-                                                                      child:
-                                                                          CircularProgressIndicator(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                }
-                                                                List<CommentsRecord>
-                                                                    textCommentsRecordList =
-                                                                    snapshot
-                                                                        .data!;
-                                                                return Text(
-                                                                  formatNumber(
-                                                                    textCommentsRecordList
-                                                                        .length,
-                                                                    formatType:
-                                                                        FormatType
-                                                                            .compact,
-                                                                  ),
-                                                                  style: FlutterFlowTheme.of(
+                                                      Text(
+                                                        'Disimpan',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1,
+                                                      ),
+                                                      Text(
+                                                        formatNumber(
+                                                          postDetailPostsRecord
+                                                              .bookmarks!
+                                                              .toList()
+                                                              .length,
+                                                          formatType: FormatType
+                                                              .compact,
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      ToggleIcon(
+                                                        onPressed: () async {
+                                                          setState(() =>
+                                                              FFAppState()
+                                                                      .unused =
+                                                                  !FFAppState()
+                                                                      .unused);
+                                                        },
+                                                        value:
+                                                            FFAppState().unused,
+                                                        onIcon: Icon(
+                                                          FFIcons.kbubble,
+                                                          color: Colors.black,
+                                                          size: 25,
+                                                        ),
+                                                        offIcon: Icon(
+                                                          FFIcons.kbubble,
+                                                          color: Colors.black,
+                                                          size: 25,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Komentar',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1,
+                                                      ),
+                                                      StreamBuilder<
+                                                          List<CommentsRecord>>(
+                                                        stream:
+                                                            queryCommentsRecord(
+                                                          parent:
+                                                              widget.postRef,
+                                                        ),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 50,
+                                                                height: 50,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1,
-                                                                );
-                                                              },
+                                                                      .primaryColor,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                          List<CommentsRecord>
+                                                              textCommentsRecordList =
+                                                              snapshot.data!;
+                                                          return Text(
+                                                            formatNumber(
+                                                              postDetailPostsRecord
+                                                                  .numComments!,
+                                                              formatType:
+                                                                  FormatType
+                                                                      .compact,
                                                             ),
-                                                          ),
-                                                        ],
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1,
+                                                          );
+                                                        },
                                                       ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          ToggleIcon(
-                                                            onPressed:
-                                                                () async {
-                                                              final likesElement =
-                                                                  currentUserReference;
-                                                              final likesUpdate = postDetailPostsRecord
+                                                    ],
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      ToggleIcon(
+                                                        onPressed: () async {
+                                                          final likesElement =
+                                                              currentUserReference;
+                                                          final likesUpdate =
+                                                              postDetailPostsRecord
                                                                       .likes!
                                                                       .toList()
                                                                       .contains(
@@ -561,81 +519,63 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                                       .arrayUnion([
                                                                       likesElement
                                                                     ]);
-                                                              final postsUpdateData =
-                                                                  {
-                                                                'likes':
-                                                                    likesUpdate,
-                                                              };
-                                                              await postDetailPostsRecord
-                                                                  .reference
-                                                                  .update(
-                                                                      postsUpdateData);
-                                                            },
-                                                            value: postDetailPostsRecord
-                                                                .likes!
-                                                                .toList()
-                                                                .contains(
-                                                                    currentUserReference),
-                                                            onIcon: Icon(
-                                                              Icons
-                                                                  .favorite_sharp,
-                                                              color: Color(
-                                                                  0xFFFF0808),
-                                                              size: 25,
-                                                            ),
-                                                            offIcon: Icon(
-                                                              Icons
-                                                                  .favorite_border,
-                                                              color:
-                                                                  Colors.black,
-                                                              size: 25,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        4,
-                                                                        0,
-                                                                        0,
-                                                                        0),
-                                                            child: Text(
-                                                              'Disukai',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        4,
-                                                                        0,
-                                                                        0,
-                                                                        0),
-                                                            child: Text(
-                                                              formatNumber(
-                                                                postDetailPostsRecord
-                                                                    .likes!
-                                                                    .toList()
-                                                                    .length,
-                                                                formatType:
-                                                                    FormatType
-                                                                        .compact,
-                                                              ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1,
-                                                            ),
-                                                          ),
-                                                        ],
+                                                          final postsUpdateData =
+                                                              {
+                                                            'likes':
+                                                                likesUpdate,
+                                                          };
+                                                          await postDetailPostsRecord
+                                                              .reference
+                                                              .update(
+                                                                  postsUpdateData);
+                                                        },
+                                                        value: postDetailPostsRecord
+                                                            .likes!
+                                                            .toList()
+                                                            .contains(
+                                                                currentUserReference),
+                                                        onIcon: Icon(
+                                                          Icons.favorite_sharp,
+                                                          color:
+                                                              Color(0xFFFF0808),
+                                                          size: 25,
+                                                        ),
+                                                        offIcon: Icon(
+                                                          Icons.favorite_border,
+                                                          color: Colors.black,
+                                                          size: 25,
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                      Text(
+                                                        'Disukai',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1,
+                                                      ),
+                                                      Text(
+                                                        formatNumber(
+                                                          postDetailPostsRecord
+                                                              .likes!
+                                                              .toList()
+                                                              .length,
+                                                          formatType: FormatType
+                                                              .compact,
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1,
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
+                                          ),
+                                          Divider(
+                                            thickness: 1,
+                                            color: Color(0xFFC8C8C8),
                                           ),
                                           Padding(
                                             padding:
@@ -771,89 +711,101 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             12),
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .tertiary400,
-                                                                    ),
                                                                   ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            12,
-                                                                            8,
-                                                                            12,
-                                                                            8),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        StreamBuilder<
-                                                                            UsersRecord>(
-                                                                          stream:
-                                                                              UsersRecord.getDocument(listViewCommentsRecord.userRef!),
-                                                                          builder:
-                                                                              (context, snapshot) {
-                                                                            // Customize what your widget looks like when it's loading.
-                                                                            if (!snapshot.hasData) {
-                                                                              return Center(
-                                                                                child: SizedBox(
-                                                                                  width: 50,
-                                                                                  height: 50,
-                                                                                  child: CircularProgressIndicator(
-                                                                                    color: FlutterFlowTheme.of(context).primaryColor,
-                                                                                  ),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      StreamBuilder<
+                                                                          UsersRecord>(
+                                                                        stream:
+                                                                            UsersRecord.getDocument(listViewCommentsRecord.userRef!),
+                                                                        builder:
+                                                                            (context,
+                                                                                snapshot) {
+                                                                          // Customize what your widget looks like when it's loading.
+                                                                          if (!snapshot
+                                                                              .hasData) {
+                                                                            return Center(
+                                                                              child: SizedBox(
+                                                                                width: 50,
+                                                                                height: 50,
+                                                                                child: CircularProgressIndicator(
+                                                                                  color: FlutterFlowTheme.of(context).primaryColor,
                                                                                 ),
-                                                                              );
-                                                                            }
-                                                                            final commenterNameUsersRecord =
-                                                                                snapshot.data!;
-                                                                            return Text(
-                                                                              commenterNameUsersRecord.displayName!,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1,
+                                                                              ),
                                                                             );
-                                                                          },
-                                                                        ),
-                                                                        Text(
+                                                                          }
+                                                                          final commenterNameUsersRecord =
+                                                                              snapshot.data!;
+                                                                          return Text(
+                                                                            commenterNameUsersRecord.displayName!,
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Nunito',
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                ),
+                                                                          );
+                                                                        },
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                        child:
+                                                                            Text(
                                                                           listViewCommentsRecord
                                                                               .text!,
                                                                           style:
                                                                               FlutterFlowTheme.of(context).bodyText2,
                                                                         ),
-                                                                      ],
-                                                                    ),
+                                                                      ),
+                                                                    ],
                                                                   ),
                                                                 ),
                                                               ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             12,
                                                                             4,
                                                                             0,
                                                                             0),
-                                                                child: Text(
-                                                                  dateTimeFormat(
-                                                                    'relative',
-                                                                    listViewCommentsRecord
-                                                                        .date!,
-                                                                    locale: FFLocalizations.of(
-                                                                            context)
-                                                                        .languageCode,
+                                                                    child: Text(
+                                                                      dateTimeFormat(
+                                                                        'relative',
+                                                                        listViewCommentsRecord
+                                                                            .date!,
+                                                                        locale:
+                                                                            FFLocalizations.of(context).languageCode,
+                                                                      ),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyText2,
+                                                                    ),
                                                                   ),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText2,
-                                                                ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            12,
+                                                                            4,
+                                                                            0,
+                                                                            0),
+                                                                    child: Text(
+                                                                      'Balas',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyText2,
+                                                                    ),
+                                                                  ),
+                                                                ],
                                                               ),
                                                             ],
                                                           ),
@@ -870,153 +822,226 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 4,
-                                        color: Color(0x26000000),
-                                        offset: Offset(0, 2),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(0),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 34),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            width: double.infinity,
-                                            height: 60,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                              borderRadius:
-                                                  BorderRadius.circular(0),
-                                            ),
-                                            alignment:
-                                                AlignmentDirectional(0, 0),
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF4089A0),
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(0),
+                                          bottomRight: Radius.circular(0),
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Expanded(
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 5, 0, 0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Expanded(
-                                                    child: Padding(
+                                                  .fromSTEB(10, 10, 10, 10),
+                                              child: Container(
+                                                width: double.infinity,
+                                                height: 60,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
+                                                ),
+                                                alignment:
+                                                    AlignmentDirectional(0, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Padding(
                                                       padding:
                                                           EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  12, 0, 4, 0),
+                                                              .fromSTEB(10, 10,
+                                                                  10, 10),
+                                                      child: Container(
+                                                        width: 40,
+                                                        height: 40,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0xFF4089A0),
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    20),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    0),
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    20),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    20),
+                                                          ),
+                                                        ),
+                                                        child:
+                                                            AuthUserStreamWidget(
+                                                          child: Container(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.03,
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.03,
+                                                            clipBehavior:
+                                                                Clip.antiAlias,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child:
+                                                                Image.network(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                currentUserPhoto,
+                                                                'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.DVoj_J9g7E8eCEUpphqyvQHaHa%26pid%3DApi&f=1&ipt=c4e1cebc560410117940eca553bb10f9fd005b23004f7c72ace41474f8c57471&ipo=images',
+                                                              ),
+                                                              fit: BoxFit
+                                                                  .scaleDown,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Expanded(
                                                       child: TextFormField(
                                                         controller:
-                                                            commentBoxController,
+                                                            textController,
+                                                        autofocus: true,
                                                         obscureText: false,
                                                         decoration:
                                                             InputDecoration(
-                                                          labelText:
-                                                              'Leave comment...',
-                                                          labelStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyText2,
                                                           hintText:
-                                                              'Leave comment...',
+                                                              'Ketik Komentarmu...',
                                                           hintStyle:
                                                               FlutterFlowTheme.of(
                                                                       context)
-                                                                  .bodyText1,
+                                                                  .bodyText2,
                                                           enabledBorder:
-                                                              OutlineInputBorder(
+                                                              UnderlineInputBorder(
                                                             borderSide:
                                                                 BorderSide(
                                                               color: Color(
                                                                   0x00000000),
-                                                              width: 0,
+                                                              width: 1,
                                                             ),
                                                             borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                            ),
                                                           ),
                                                           focusedBorder:
-                                                              OutlineInputBorder(
+                                                              UnderlineInputBorder(
                                                             borderSide:
                                                                 BorderSide(
                                                               color: Color(
                                                                   0x00000000),
-                                                              width: 0,
+                                                              width: 1,
                                                             ),
                                                             borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                            ),
                                                           ),
                                                           errorBorder:
-                                                              OutlineInputBorder(
+                                                              UnderlineInputBorder(
                                                             borderSide:
                                                                 BorderSide(
                                                               color: Color(
                                                                   0x00000000),
-                                                              width: 0,
+                                                              width: 1,
                                                             ),
                                                             borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                            ),
                                                           ),
                                                           focusedErrorBorder:
-                                                              OutlineInputBorder(
+                                                              UnderlineInputBorder(
                                                             borderSide:
                                                                 BorderSide(
                                                               color: Color(
                                                                   0x00000000),
-                                                              width: 0,
+                                                              width: 1,
                                                             ),
                                                             borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8),
+                                                                const BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      4.0),
+                                                            ),
                                                           ),
-                                                          contentPadding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      16, 0, 0),
                                                         ),
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .bodyText1,
-                                                        maxLines: 4,
-                                                        keyboardType:
-                                                            TextInputType
-                                                                .multiline,
                                                       ),
                                                     ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                0, 0, 8, 0),
-                                                    child: FFButtonWidget(
+                                                    FlutterFlowIconButton(
+                                                      borderColor:
+                                                          Colors.transparent,
+                                                      borderRadius: 30,
+                                                      borderWidth: 1,
+                                                      buttonSize: 60,
+                                                      icon: Icon(
+                                                        Icons.send,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        size: 30,
+                                                      ),
                                                       onPressed: () async {
                                                         final commentsCreateData =
                                                             createCommentsRecordData(
-                                                          text:
-                                                              commentBoxController!
-                                                                  .text,
+                                                          text: textController!
+                                                              .text,
                                                           date:
                                                               getCurrentTimestamp,
                                                           postRef:
@@ -1030,45 +1055,20 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                             .set(
                                                                 commentsCreateData);
                                                         setState(() {
-                                                          commentBoxController
+                                                          textController
                                                               ?.clear();
                                                         });
                                                       },
-                                                      text: 'Post',
-                                                      options: FFButtonOptions(
-                                                        width: 70,
-                                                        height: 40,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                        textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .subtitle2
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Nunito',
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                        elevation: 2,
-                                                        borderSide: BorderSide(
-                                                          color: Colors
-                                                              .transparent,
-                                                          width: 1,
-                                                        ),
-                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ],
                             ),

@@ -1,5 +1,4 @@
 import '../auth/auth_util.dart';
-import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
@@ -8,7 +7,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
 import '../flutter_flow/random_data_util.dart' as random_data;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -274,7 +272,6 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,
                                     textAlign: TextAlign.start,
-                                    maxLines: 1,
                                     validator: (val) {
                                       if (val == null || val.isEmpty) {
                                         return 'Field is required';
@@ -439,16 +436,6 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                     idpost = PostsRecord.getDocumentFromData(
                         postsCreateData, postsRecordReference);
                     _shouldSetState = true;
-                    await AddPostCall.call(
-                      iid: FFAppState().tiid,
-                      name: postInpController!.text,
-                      owner: currentUserUid,
-                      desc: descInpController!.text,
-                      tsmt: getCurrentTimestamp.toString(),
-                      tags: functions.joinLString(
-                          choiceChipsValues!.toList(), ';'),
-                      image: uploadedFileUrl,
-                    );
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(

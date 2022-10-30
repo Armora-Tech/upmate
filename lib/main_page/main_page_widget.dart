@@ -1438,7 +1438,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                           'Button pressed ...');
                                                                     },
                                                                     text:
-                                                                        'Ikuti',
+                                                                        'Chat',
                                                                     options:
                                                                         FFButtonOptions(
                                                                       width: double
@@ -1863,92 +1863,119 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                         ),
                                                       ],
                                                     ),
-                                                    Container(
-                                                      decoration:
-                                                          BoxDecoration(),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          ToggleIcon(
-                                                            onPressed:
-                                                                () async {
-                                                              setState(() => FFAppState()
-                                                                      .unused =
-                                                                  !FFAppState()
-                                                                      .unused);
-                                                            },
-                                                            value: FFAppState()
-                                                                .unused,
-                                                            onIcon: Icon(
-                                                              FFIcons.kbubble,
-                                                              color:
-                                                                  Colors.black,
-                                                              size: 25,
+                                                    InkWell(
+                                                      onTap: () async {
+                                                        context.pushNamed(
+                                                          'postDetail',
+                                                          queryParams: {
+                                                            'postRef':
+                                                                serializeParam(
+                                                              personalizedColumnPostsRecord
+                                                                  .reference,
+                                                              ParamType
+                                                                  .DocumentReference,
                                                             ),
-                                                            offIcon: Icon(
-                                                              FFIcons.kbubble,
-                                                              color:
-                                                                  Colors.black,
-                                                              size: 25,
+                                                          }.withoutNulls,
+                                                          extra: <String,
+                                                              dynamic>{
+                                                            kTransitionInfoKey:
+                                                                TransitionInfo(
+                                                              hasTransition:
+                                                                  true,
+                                                              transitionType:
+                                                                  PageTransitionType
+                                                                      .bottomToTop,
                                                             ),
-                                                          ),
-                                                          FutureBuilder<
-                                                              List<
-                                                                  CommentsRecord>>(
-                                                            future:
-                                                                queryCommentsRecordOnce(
-                                                              parent:
-                                                                  personalizedColumnPostsRecord
-                                                                      .reference,
+                                                          },
+                                                        );
+                                                      },
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            ToggleIcon(
+                                                              onPressed:
+                                                                  () async {
+                                                                setState(() => FFAppState()
+                                                                        .unused =
+                                                                    !FFAppState()
+                                                                        .unused);
+                                                              },
+                                                              value:
+                                                                  FFAppState()
+                                                                      .unused,
+                                                              onIcon: Icon(
+                                                                FFIcons.kbubble,
+                                                                color: Colors
+                                                                    .black,
+                                                                size: 25,
+                                                              ),
+                                                              offIcon: Icon(
+                                                                FFIcons.kbubble,
+                                                                color: Colors
+                                                                    .black,
+                                                                size: 25,
+                                                              ),
                                                             ),
-                                                            builder: (context,
-                                                                snapshot) {
-                                                              // Customize what your widget looks like when it's loading.
-                                                              if (!snapshot
-                                                                  .hasData) {
-                                                                return Center(
-                                                                  child:
-                                                                      SizedBox(
-                                                                    width: 50,
-                                                                    height: 50,
+                                                            FutureBuilder<
+                                                                List<
+                                                                    CommentsRecord>>(
+                                                              future:
+                                                                  queryCommentsRecordOnce(
+                                                                parent:
+                                                                    personalizedColumnPostsRecord
+                                                                        .reference,
+                                                              ),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                // Customize what your widget looks like when it's loading.
+                                                                if (!snapshot
+                                                                    .hasData) {
+                                                                  return Center(
                                                                     child:
-                                                                        CircularProgressIndicator(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryColor,
+                                                                        SizedBox(
+                                                                      width: 50,
+                                                                      height:
+                                                                          50,
+                                                                      child:
+                                                                          CircularProgressIndicator(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryColor,
+                                                                      ),
                                                                     ),
+                                                                  );
+                                                                }
+                                                                List<CommentsRecord>
+                                                                    textCommentsRecordList =
+                                                                    snapshot
+                                                                        .data!;
+                                                                return Text(
+                                                                  formatNumber(
+                                                                    personalizedColumnPostsRecord
+                                                                        .numComments!,
+                                                                    formatType:
+                                                                        FormatType
+                                                                            .compact,
                                                                   ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Nunito',
+                                                                        fontSize:
+                                                                            10,
+                                                                        fontWeight:
+                                                                            FontWeight.normal,
+                                                                      ),
                                                                 );
-                                                              }
-                                                              List<CommentsRecord>
-                                                                  textCommentsRecordList =
-                                                                  snapshot
-                                                                      .data!;
-                                                              return Text(
-                                                                formatNumber(
-                                                                  personalizedColumnPostsRecord
-                                                                      .numComments!,
-                                                                  formatType:
-                                                                      FormatType
-                                                                          .compact,
-                                                                ),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Nunito',
-                                                                      fontSize:
-                                                                          10,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                    ),
-                                                              );
-                                                            },
-                                                          ),
-                                                        ],
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                     InkWell(
