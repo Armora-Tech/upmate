@@ -43,7 +43,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
         return;
       }
 
-      context.goNamed('interestPage');
+      context.pushNamed('surveyPage');
     });
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'mainPage'});

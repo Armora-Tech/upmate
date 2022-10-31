@@ -51,7 +51,7 @@ class _VerfiedWidgetState extends State<VerfiedWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
             child: FFButtonWidget(
               onPressed: () async {
-                context.goNamed('interestPage');
+                context.pushNamed('surveyPage');
 
                 setState(() => FFAppState().isFirstOpen = true);
               },
