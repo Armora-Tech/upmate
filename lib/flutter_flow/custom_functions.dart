@@ -63,3 +63,11 @@ int subtraction(
   // Add your function code here!
   return n1 - n2;
 }
+
+int getIndex(
+  List<String> lst,
+  String item,
+) {
+  // Add your function code here!
+  return lst.indexWhere((element) => element == item);
+}

@@ -107,7 +107,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'interestPage',
               path: 'interestPage',
               requireAuth: true,
-              builder: (context, params) => InterestPageWidget(),
+              builder: (context, params) => InterestPageWidget(
+                ijob: params.getParam('ijob', ParamType.String),
+              ),
+            ),
+            FFRoute(
+              name: 'surveyPage',
+              path: 'surveyPage',
+              requireAuth: true,
+              builder: (context, params) => SurveyPageWidget(),
             ),
             FFRoute(
               name: 'mainPage',
@@ -149,12 +157,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'notificationPage')
                   : NotificationPageWidget(),
-            ),
-            FFRoute(
-              name: 'surveyPage',
-              path: 'surveyPage',
-              requireAuth: true,
-              builder: (context, params) => SurveyPageWidget(),
             ),
             FFRoute(
               name: 'chatPage',
@@ -206,12 +208,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'appInfo',
               requireAuth: true,
               builder: (context, params) => AppInfoWidget(),
-            ),
-            FFRoute(
-              name: 'commentsPage',
-              path: 'commentsPage',
-              requireAuth: true,
-              builder: (context, params) => CommentsPageWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

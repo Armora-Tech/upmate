@@ -1,4 +1,5 @@
-import '../flutter_flow/flutter_flow_radio_button.dart';
+import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -13,7 +14,8 @@ class SurveyPageWidget extends StatefulWidget {
 }
 
 class _SurveyPageWidgetState extends State<SurveyPageWidget> {
-  String? radioButtonValue;
+  String? jobDropDownValue;
+  final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -81,7 +83,7 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: Text(
-                        'Apakah kamu suka logika matematika ?',
+                        'Apa pekerjaan utama kamu?',
                         style: GoogleFonts.getFont(
                           'Nunito',
                           color: Colors.black,
@@ -92,27 +94,69 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
                     ),
                   ],
                 ),
-                FlutterFlowRadioButton(
-                  options: ['Option 1'].toList(),
-                  onChanged: (val) => setState(() => radioButtonValue = val),
-                  optionHeight: 25,
-                  textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                        fontFamily: 'Nunito',
-                        color: Colors.black,
+                FutureBuilder<List<UtilsRecord>>(
+                  future: queryUtilsRecordOnce(
+                    singleRecord: true,
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: CircularProgressIndicator(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                          ),
+                        ),
+                      );
+                    }
+                    List<UtilsRecord> formUtilsRecordList = snapshot.data!;
+                    final formUtilsRecord = formUtilsRecordList.isNotEmpty
+                        ? formUtilsRecordList.first
+                        : null;
+                    return Container(
+                      width: double.infinity,
+                      child: Form(
+                        key: formKey,
+                        autovalidateMode: AutovalidateMode.disabled,
+                        child: FlutterFlowDropDown(
+                          options: formUtilsRecord!.joblist!.toList().toList(),
+                          onChanged: (val) =>
+                              setState(() => jobDropDownValue = val),
+                          width: 180,
+                          height: 50,
+                          textStyle:
+                              FlutterFlowTheme.of(context).bodyText1.override(
+                                    fontFamily: 'Nunito',
+                                    color: Colors.black,
+                                  ),
+                          hintText: 'Pilih salah satu...',
+                          fillColor: Colors.white,
+                          elevation: 2,
+                          borderColor: Colors.transparent,
+                          borderWidth: 0,
+                          borderRadius: 0,
+                          margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                          hidesUnderline: true,
+                        ),
                       ),
-                  buttonPosition: RadioButtonPosition.left,
-                  direction: Axis.vertical,
-                  radioButtonColor: Colors.blue,
-                  inactiveRadioButtonColor: Color(0x8A000000),
-                  toggleable: false,
-                  horizontalAlignment: WrapAlignment.start,
-                  verticalAlignment: WrapCrossAlignment.start,
+                    );
+                  },
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                   child: FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
+                    onPressed: () async {
+                      context.pushNamed(
+                        'interestPage',
+                        queryParams: {
+                          'ijob': serializeParam(
+                            jobDropDownValue,
+                            ParamType.String,
+                          ),
+                        }.withoutNulls,
+                      );
                     },
                     text: 'Next',
                     options: FFButtonOptions(

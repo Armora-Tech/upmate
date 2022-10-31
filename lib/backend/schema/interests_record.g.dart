@@ -45,6 +45,14 @@ class _$InterestsRecordSerializer
                   DocumentReference, const [const FullType.nullable(Object)])
             ])));
     }
+    value = object.jobs;
+    if (value != null) {
+      result
+        ..add('jobs')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(int)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -83,6 +91,12 @@ class _$InterestsRecordSerializer
                     DocumentReference, const [const FullType.nullable(Object)])
               ]))! as BuiltList<Object?>);
           break;
+        case 'jobs':
+          result.jobs.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(int)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -104,12 +118,15 @@ class _$InterestsRecord extends InterestsRecord {
   @override
   final BuiltList<DocumentReference<Object?>>? followers;
   @override
+  final BuiltList<int>? jobs;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$InterestsRecord([void Function(InterestsRecordBuilder)? updates]) =>
       (new InterestsRecordBuilder()..update(updates))._build();
 
-  _$InterestsRecord._({this.name, this.photoUrl, this.followers, this.ffRef})
+  _$InterestsRecord._(
+      {this.name, this.photoUrl, this.followers, this.jobs, this.ffRef})
       : super._();
 
   @override
@@ -127,13 +144,17 @@ class _$InterestsRecord extends InterestsRecord {
         name == other.name &&
         photoUrl == other.photoUrl &&
         followers == other.followers &&
+        jobs == other.jobs &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, name.hashCode), photoUrl.hashCode), followers.hashCode),
+        $jc(
+            $jc($jc($jc(0, name.hashCode), photoUrl.hashCode),
+                followers.hashCode),
+            jobs.hashCode),
         ffRef.hashCode));
   }
 
@@ -143,6 +164,7 @@ class _$InterestsRecord extends InterestsRecord {
           ..add('name', name)
           ..add('photoUrl', photoUrl)
           ..add('followers', followers)
+          ..add('jobs', jobs)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -166,6 +188,10 @@ class InterestsRecordBuilder
   set followers(ListBuilder<DocumentReference<Object?>>? followers) =>
       _$this._followers = followers;
 
+  ListBuilder<int>? _jobs;
+  ListBuilder<int> get jobs => _$this._jobs ??= new ListBuilder<int>();
+  set jobs(ListBuilder<int>? jobs) => _$this._jobs = jobs;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -180,6 +206,7 @@ class InterestsRecordBuilder
       _name = $v.name;
       _photoUrl = $v.photoUrl;
       _followers = $v.followers?.toBuilder();
+      _jobs = $v.jobs?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -208,12 +235,15 @@ class InterestsRecordBuilder
               name: name,
               photoUrl: photoUrl,
               followers: _followers?.build(),
+              jobs: _jobs?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'followers';
         _followers?.build();
+        _$failedField = 'jobs';
+        _jobs?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'InterestsRecord', _$failedField, e.toString());

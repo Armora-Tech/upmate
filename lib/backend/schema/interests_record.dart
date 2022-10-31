@@ -18,6 +18,8 @@ abstract class InterestsRecord
 
   BuiltList<DocumentReference>? get followers;
 
+  BuiltList<int>? get jobs;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -25,7 +27,8 @@ abstract class InterestsRecord
   static void _initializeBuilder(InterestsRecordBuilder builder) => builder
     ..name = ''
     ..photoUrl = ''
-    ..followers = ListBuilder();
+    ..followers = ListBuilder()
+    ..jobs = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('interests');
@@ -58,7 +61,8 @@ Map<String, dynamic> createInterestsRecordData({
       (i) => i
         ..name = name
         ..photoUrl = photoUrl
-        ..followers = null,
+        ..followers = null
+        ..jobs = null,
     ),
   );
 
