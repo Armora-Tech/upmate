@@ -76,12 +76,14 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
 
   @override
   Widget build(BuildContext context) => _loading
-      ? Center(
-          child: SizedBox(
-            width: 50,
-            height: 50,
-            child: CircularProgressIndicator(
-              color: FlutterFlowTheme.of(context).primaryColor,
+      ? Container(
+          color: Colors.transparent,
+          child: Center(
+            child: Image.asset(
+              'assets/images/Upmate_Splash.png',
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.fill,
             ),
           ),
         )

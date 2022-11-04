@@ -43,7 +43,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
         return;
       }
 
-      context.pushNamed('surveyPage');
+      context.goNamed('surveyPage');
     });
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'mainPage'});
@@ -266,14 +266,32 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                             ),
                             InkWell(
                               onTap: () async {
-                                context.pushNamed('accountPage');
+                                context.pushNamed(
+                                  'accountPage',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType:
+                                          PageTransitionType.leftToRight,
+                                    ),
+                                  },
+                                );
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      context.pushNamed('accountPage');
+                                      context.pushNamed(
+                                        'accountPage',
+                                        extra: <String, dynamic>{
+                                          kTransitionInfoKey: TransitionInfo(
+                                            hasTransition: true,
+                                            transitionType:
+                                                PageTransitionType.leftToRight,
+                                          ),
+                                        },
+                                      );
                                     },
                                     text: 'Akun',
                                     icon: FaIcon(
@@ -1818,14 +1836,36 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                       children: [
                                                         ToggleIcon(
                                                           onPressed: () async {
-                                                            setState(() =>
-                                                                FFAppState()
-                                                                        .unused =
-                                                                    !FFAppState()
-                                                                        .unused);
+                                                            final bookmarksElement =
+                                                                currentUserReference;
+                                                            final bookmarksUpdate = personalizedColumnPostsRecord
+                                                                    .bookmarks!
+                                                                    .toList()
+                                                                    .contains(
+                                                                        bookmarksElement)
+                                                                ? FieldValue
+                                                                    .arrayRemove([
+                                                                    bookmarksElement
+                                                                  ])
+                                                                : FieldValue
+                                                                    .arrayUnion([
+                                                                    bookmarksElement
+                                                                  ]);
+                                                            final postsUpdateData =
+                                                                {
+                                                              'bookmarks':
+                                                                  bookmarksUpdate,
+                                                            };
+                                                            await personalizedColumnPostsRecord
+                                                                .reference
+                                                                .update(
+                                                                    postsUpdateData);
                                                           },
-                                                          value: FFAppState()
-                                                              .unused,
+                                                          value: personalizedColumnPostsRecord
+                                                              .bookmarks!
+                                                              .toList()
+                                                              .contains(
+                                                                  currentUserReference),
                                                           onIcon: Icon(
                                                             Icons
                                                                 .bookmark_border_outlined,
@@ -1884,7 +1924,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                   true,
                                                               transitionType:
                                                                   PageTransitionType
-                                                                      .bottomToTop,
+                                                                      .rightToLeft,
                                                             ),
                                                           },
                                                         );
@@ -1892,89 +1932,146 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                       child: Container(
                                                         decoration:
                                                             BoxDecoration(),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            ToggleIcon(
-                                                              onPressed:
-                                                                  () async {
-                                                                setState(() => FFAppState()
-                                                                        .unused =
-                                                                    !FFAppState()
-                                                                        .unused);
+                                                        child: InkWell(
+                                                          onTap: () async {
+                                                            context.pushNamed(
+                                                              'postDetail',
+                                                              queryParams: {
+                                                                'postRef':
+                                                                    serializeParam(
+                                                                  personalizedColumnPostsRecord
+                                                                      .reference,
+                                                                  ParamType
+                                                                      .DocumentReference,
+                                                                ),
+                                                              }.withoutNulls,
+                                                              extra: <String,
+                                                                  dynamic>{
+                                                                kTransitionInfoKey:
+                                                                    TransitionInfo(
+                                                                  hasTransition:
+                                                                      true,
+                                                                  transitionType:
+                                                                      PageTransitionType
+                                                                          .rightToLeft,
+                                                                ),
                                                               },
-                                                              value:
-                                                                  FFAppState()
-                                                                      .unused,
-                                                              onIcon: Icon(
-                                                                FFIcons.kbubble,
-                                                                color: Colors
-                                                                    .black,
-                                                                size: 25,
+                                                            );
+                                                          },
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              ToggleIcon(
+                                                                onPressed:
+                                                                    () async {
+                                                                  setState(() => FFAppState()
+                                                                          .unused =
+                                                                      !FFAppState()
+                                                                          .unused);
+                                                                },
+                                                                value:
+                                                                    FFAppState()
+                                                                        .unused,
+                                                                onIcon: Icon(
+                                                                  FFIcons
+                                                                      .kbubble,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  size: 25,
+                                                                ),
+                                                                offIcon: Icon(
+                                                                  FFIcons
+                                                                      .kbubble,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  size: 25,
+                                                                ),
                                                               ),
-                                                              offIcon: Icon(
-                                                                FFIcons.kbubble,
-                                                                color: Colors
-                                                                    .black,
-                                                                size: 25,
-                                                              ),
-                                                            ),
-                                                            FutureBuilder<
-                                                                List<
-                                                                    CommentsRecord>>(
-                                                              future:
-                                                                  queryCommentsRecordOnce(
-                                                                parent:
-                                                                    personalizedColumnPostsRecord
-                                                                        .reference,
-                                                              ),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                // Customize what your widget looks like when it's loading.
-                                                                if (!snapshot
-                                                                    .hasData) {
-                                                                  return Center(
-                                                                    child:
-                                                                        SizedBox(
-                                                                      width: 50,
-                                                                      height:
-                                                                          50,
+                                                              FutureBuilder<
+                                                                  List<
+                                                                      CommentsRecord>>(
+                                                                future:
+                                                                    queryCommentsRecordOnce(
+                                                                  parent: personalizedColumnPostsRecord
+                                                                      .reference,
+                                                                ),
+                                                                builder: (context,
+                                                                    snapshot) {
+                                                                  // Customize what your widget looks like when it's loading.
+                                                                  if (!snapshot
+                                                                      .hasData) {
+                                                                    return Center(
                                                                       child:
-                                                                          CircularProgressIndicator(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
+                                                                          SizedBox(
+                                                                        width:
+                                                                            50,
+                                                                        height:
+                                                                            50,
+                                                                        child:
+                                                                            CircularProgressIndicator(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                        ),
                                                                       ),
+                                                                    );
+                                                                  }
+                                                                  List<CommentsRecord>
+                                                                      textCommentsRecordList =
+                                                                      snapshot
+                                                                          .data!;
+                                                                  return InkWell(
+                                                                    onTap:
+                                                                        () async {
+                                                                      context
+                                                                          .pushNamed(
+                                                                        'postDetail',
+                                                                        queryParams:
+                                                                            {
+                                                                          'postRef':
+                                                                              serializeParam(
+                                                                            personalizedColumnPostsRecord.reference,
+                                                                            ParamType.DocumentReference,
+                                                                          ),
+                                                                        }.withoutNulls,
+                                                                        extra: <
+                                                                            String,
+                                                                            dynamic>{
+                                                                          kTransitionInfoKey:
+                                                                              TransitionInfo(
+                                                                            hasTransition:
+                                                                                true,
+                                                                            transitionType:
+                                                                                PageTransitionType.rightToLeft,
+                                                                          ),
+                                                                        },
+                                                                      );
+                                                                    },
+                                                                    child: Text(
+                                                                      formatNumber(
+                                                                        personalizedColumnPostsRecord
+                                                                            .numComments!,
+                                                                        formatType:
+                                                                            FormatType.compact,
+                                                                      ),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyText1
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Nunito',
+                                                                            fontSize:
+                                                                                10,
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
+                                                                          ),
                                                                     ),
                                                                   );
-                                                                }
-                                                                List<CommentsRecord>
-                                                                    textCommentsRecordList =
-                                                                    snapshot
-                                                                        .data!;
-                                                                return Text(
-                                                                  formatNumber(
-                                                                    personalizedColumnPostsRecord
-                                                                        .numComments!,
-                                                                    formatType:
-                                                                        FormatType
-                                                                            .compact,
-                                                                  ),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Nunito',
-                                                                        fontSize:
-                                                                            10,
-                                                                        fontWeight:
-                                                                            FontWeight.normal,
-                                                                      ),
-                                                                );
-                                                              },
-                                                            ),
-                                                          ],
+                                                                },
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),

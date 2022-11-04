@@ -99,203 +99,193 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                           style: FlutterFlowTheme.of(context).bodyText1,
                         ),
                       ),
-                      Align(
-                        alignment: AlignmentDirectional(-0.9, 0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        child: Container(
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.7,
+                          child: Stack(
                             children: [
-                              Text(
-                                'Rrekomendasi untuk anda',
-                                textAlign: TextAlign.start,
-                                style: FlutterFlowTheme.of(context).bodyText1,
+                              FutureBuilder<List<PostsRecord>>(
+                                future: (_firestoreRequestCompleter ??=
+                                        Completer<List<PostsRecord>>()
+                                          ..complete(queryPostsRecordOnce()))
+                                    .future,
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 40,
+                                        height: 40,
+                                        child: CircularProgressIndicator(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<PostsRecord>
+                                      staggeredViewPostsRecordList =
+                                      snapshot.data!;
+                                  return RefreshIndicator(
+                                    onRefresh: () async {
+                                      setState(() =>
+                                          _firestoreRequestCompleter = null);
+                                      await waitForFirestoreRequestCompleter();
+                                    },
+                                    child: MasonryGridView.count(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 5,
+                                      mainAxisSpacing: 5,
+                                      itemCount:
+                                          staggeredViewPostsRecordList.length,
+                                      shrinkWrap: true,
+                                      itemBuilder:
+                                          (context, staggeredViewIndex) {
+                                        final staggeredViewPostsRecord =
+                                            staggeredViewPostsRecordList[
+                                                staggeredViewIndex];
+                                        return InkWell(
+                                          onTap: () async {
+                                            context.pushNamed(
+                                              'postDetail',
+                                              queryParams: {
+                                                'postRef': serializeParam(
+                                                  staggeredViewPostsRecord
+                                                      .reference,
+                                                  ParamType.DocumentReference,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                kTransitionInfoKey:
+                                                    TransitionInfo(
+                                                  hasTransition: true,
+                                                  transitionType:
+                                                      PageTransitionType.scale,
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                ),
+                                              },
+                                            );
+                                          },
+                                          child: Card(
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            color: Color(0xFFF5F5F5),
+                                            child: Container(
+                                              constraints: BoxConstraints(
+                                                maxWidth: double.infinity,
+                                                maxHeight: double.infinity,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                image: DecorationImage(
+                                                  fit: BoxFit.fill,
+                                                  image:
+                                                      CachedNetworkImageProvider(
+                                                    staggeredViewPostsRecord
+                                                        .postPhoto!,
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Container(
+                                                    width: 100,
+                                                    height: 100,
+                                                    decoration: BoxDecoration(),
+                                                  ),
+                                                  Stack(
+                                                    children: [
+                                                      Container(
+                                                        width: double.infinity,
+                                                        height: 60,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0x80272727),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(0,
+                                                                      0, 0, 5),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .end,
+                                                            children: [
+                                                              Text(
+                                                                staggeredViewPostsRecord
+                                                                    .postTitle!,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Nunito',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryBtnText,
+                                                                      fontSize:
+                                                                          20,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                              ),
+                                                              Text(
+                                                                staggeredViewPostsRecord
+                                                                    .postDescription!
+                                                                    .maybeHandleOverflow(
+                                                                        maxChars:
+                                                                            50),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Nunito',
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          10,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                    ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height * 0.7,
-                        child: Stack(
-                          children: [
-                            FutureBuilder<List<PostsRecord>>(
-                              future: (_firestoreRequestCompleter ??=
-                                      Completer<List<PostsRecord>>()
-                                        ..complete(queryPostsRecordOnce()))
-                                  .future,
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 40,
-                                      height: 40,
-                                      child: CircularProgressIndicator(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                List<PostsRecord> staggeredViewPostsRecordList =
-                                    snapshot.data!;
-                                return RefreshIndicator(
-                                  onRefresh: () async {
-                                    setState(() =>
-                                        _firestoreRequestCompleter = null);
-                                    await waitForFirestoreRequestCompleter();
-                                  },
-                                  child: MasonryGridView.count(
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 5,
-                                    mainAxisSpacing: 5,
-                                    itemCount:
-                                        staggeredViewPostsRecordList.length,
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, staggeredViewIndex) {
-                                      final staggeredViewPostsRecord =
-                                          staggeredViewPostsRecordList[
-                                              staggeredViewIndex];
-                                      return InkWell(
-                                        onTap: () async {
-                                          context.pushNamed(
-                                            'postDetail',
-                                            queryParams: {
-                                              'postRef': serializeParam(
-                                                staggeredViewPostsRecord
-                                                    .reference,
-                                                ParamType.DocumentReference,
-                                              ),
-                                            }.withoutNulls,
-                                            extra: <String, dynamic>{
-                                              kTransitionInfoKey:
-                                                  TransitionInfo(
-                                                hasTransition: true,
-                                                transitionType:
-                                                    PageTransitionType.scale,
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                              ),
-                                            },
-                                          );
-                                        },
-                                        child: Card(
-                                          clipBehavior:
-                                              Clip.antiAliasWithSaveLayer,
-                                          color: Color(0xFFF5F5F5),
-                                          child: Container(
-                                            constraints: BoxConstraints(
-                                              maxWidth: double.infinity,
-                                              maxHeight: double.infinity,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              image: DecorationImage(
-                                                fit: BoxFit.fill,
-                                                image:
-                                                    CachedNetworkImageProvider(
-                                                  staggeredViewPostsRecord
-                                                      .postPhoto!,
-                                                ),
-                                              ),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Container(
-                                                  width: 100,
-                                                  height: 100,
-                                                  decoration: BoxDecoration(),
-                                                ),
-                                                Stack(
-                                                  children: [
-                                                    Container(
-                                                      width: double.infinity,
-                                                      height: 60,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0x80272727),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0, 0, 0, 5),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
-                                                          children: [
-                                                            Text(
-                                                              staggeredViewPostsRecord
-                                                                  .postTitle!,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Nunito',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryBtnText,
-                                                                    fontSize:
-                                                                        20,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                            ),
-                                                            Text(
-                                                              staggeredViewPostsRecord
-                                                                  .postDescription!
-                                                                  .maybeHandleOverflow(
-                                                                      maxChars:
-                                                                          50),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Nunito',
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        10,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
                         ),
                       ),
                       if ('0' == '1')
