@@ -3,6 +3,7 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
+import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +16,7 @@ class BookmarkPageWidget extends StatefulWidget {
 }
 
 class _BookmarkPageWidgetState extends State<BookmarkPageWidget> {
+  Completer<List<PostsRecord>>? _firestoreRequestCompleter;
   TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -105,7 +107,11 @@ class _BookmarkPageWidgetState extends State<BookmarkPageWidget> {
                                     onChanged: (_) => EasyDebounce.debounce(
                                       'textController',
                                       Duration(milliseconds: 2000),
-                                      () => setState(() {}),
+                                      () async {
+                                        setState(() =>
+                                            _firestoreRequestCompleter = null);
+                                        await waitForFirestoreRequestCompleter();
+                                      },
                                     ),
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -178,12 +184,19 @@ class _BookmarkPageWidgetState extends State<BookmarkPageWidget> {
                 ),
               ),
               Expanded(
-                child: StreamBuilder<List<PostsRecord>>(
-                  stream: queryPostsRecord(
-                    queryBuilder: (postsRecord) => postsRecord.where(
-                        'bookmarks',
-                        arrayContains: currentUserReference),
-                  ),
+                child: FutureBuilder<List<PostsRecord>>(
+                  future: (_firestoreRequestCompleter ??=
+                          Completer<List<PostsRecord>>()
+                            ..complete(queryPostsRecordOnce(
+                              queryBuilder: (postsRecord) => postsRecord
+                                  .where('bookmarks',
+                                      arrayContains: currentUserReference)
+                                  .where('post_title',
+                                      isEqualTo: textController!.text != ''
+                                          ? textController!.text
+                                          : null),
+                            )))
+                      .future,
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {
@@ -198,151 +211,164 @@ class _BookmarkPageWidgetState extends State<BookmarkPageWidget> {
                       );
                     }
                     List<PostsRecord> columnPostsRecordList = snapshot.data!;
-                    return SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: List.generate(columnPostsRecordList.length,
-                            (columnIndex) {
-                          final columnPostsRecord =
-                              columnPostsRecordList[columnIndex];
-                          return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
-                            child: Container(
-                              width: double.infinity,
-                              height: 90,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 8, 8, 8),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          child: Image.network(
-                                            columnPostsRecord.postPhoto!,
-                                            width: 74,
-                                            height: 74,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8, 1, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                columnPostsRecord.postTitle!,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .subtitle2,
-                                              ),
-                                            ],
-                                          ),
-                                          StreamBuilder<UsersRecord>(
-                                            stream: UsersRecord.getDocument(
-                                                columnPostsRecord.postUser!),
-                                            builder: (context, snapshot) {
-                                              // Customize what your widget looks like when it's loading.
-                                              if (!snapshot.hasData) {
-                                                return Center(
-                                                  child: SizedBox(
-                                                    width: 50,
-                                                    height: 50,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryColor,
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                              final rowUsersRecord =
-                                                  snapshot.data!;
-                                              return Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    rowUsersRecord.displayName!,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText2,
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                valueOrDefault<String>(
-                                                  functions.joinLString(
-                                                      columnPostsRecord
-                                                          .interests!
-                                                          .toList(),
-                                                      ', '),
-                                                  'Interest not set',
-                                                ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Nunito',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryColor,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
+                    return RefreshIndicator(
+                      onRefresh: () async {
+                        setState(() => _firestoreRequestCompleter = null);
+                        await waitForFirestoreRequestCompleter();
+                      },
+                      child: SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: List.generate(columnPostsRecordList.length,
+                              (columnIndex) {
+                            final columnPostsRecord =
+                                columnPostsRecordList[columnIndex];
+                            return Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
+                              child: Container(
+                                width: double.infinity,
+                                height: 90,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 8, 0),
-                                          child: Icon(
-                                            Icons.chevron_right_outlined,
-                                            color: Color(0xFF95A1AC),
-                                            size: 24,
+                                                  8, 8, 8, 8),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            child: Image.network(
+                                              columnPostsRecord.postPhoto!,
+                                              width: 74,
+                                              height: 74,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
+                                      ],
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 1, 0, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  columnPostsRecord.postTitle!,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .subtitle2,
+                                                ),
+                                              ],
+                                            ),
+                                            StreamBuilder<UsersRecord>(
+                                              stream: UsersRecord.getDocument(
+                                                  columnPostsRecord.postUser!),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50,
+                                                      height: 50,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                final rowUsersRecord =
+                                                    snapshot.data!;
+                                                return Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      rowUsersRecord
+                                                          .displayName!,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText2,
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  valueOrDefault<String>(
+                                                    functions.joinLString(
+                                                        columnPostsRecord
+                                                            .interests!
+                                                            .toList(),
+                                                        ', '),
+                                                    'Interest not set',
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Nunito',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                ],
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 8, 0),
+                                            child: Icon(
+                                              Icons.chevron_right_outlined,
+                                              color: Color(0xFF95A1AC),
+                                              size: 24,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        }),
+                            );
+                          }),
+                        ),
                       ),
                     );
                   },
@@ -353,5 +379,20 @@ class _BookmarkPageWidgetState extends State<BookmarkPageWidget> {
         ],
       ),
     );
+  }
+
+  Future waitForFirestoreRequestCompleter({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = _firestoreRequestCompleter?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
   }
 }
