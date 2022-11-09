@@ -2,7 +2,6 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_radio_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -30,7 +29,6 @@ class _MainPageWidgetState extends State<MainPageWidget> {
   bool isMediaUploading = false;
   String uploadedFileUrl = '';
 
-  String? radioButtonValue;
   Completer<UsersRecord>? _documentRequestCompleter;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -436,35 +434,42 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                 ),
                               ],
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                FFButtonWidget(
-                                  onPressed: () {
-                                    print('Button pressed ...');
-                                  },
-                                  text: 'Pusat Bantuan',
-                                  icon: FaIcon(
-                                    FontAwesomeIcons.questionCircle,
-                                    color: Colors.black,
-                                  ),
-                                  options: FFButtonOptions(
-                                    height: 40,
-                                    color: Color(0x00FFFFFF),
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .subtitle2
-                                        .override(
-                                          fontFamily: 'Nunito',
-                                          color: Colors.black,
-                                        ),
-                                    elevation: 0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 0,
+                            InkWell(
+                              onTap: () async {
+                                setState(
+                                    () => FFAppState().mainMenu = 'helpMenu');
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  FFButtonWidget(
+                                    onPressed: () async {
+                                      setState(() =>
+                                          FFAppState().mainMenu = 'helpMenu');
+                                    },
+                                    text: 'Pusat Bantuan',
+                                    icon: FaIcon(
+                                      FontAwesomeIcons.questionCircle,
+                                      color: Colors.black,
+                                    ),
+                                    options: FFButtonOptions(
+                                      height: 40,
+                                      color: Color(0x00FFFFFF),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'Nunito',
+                                            color: Colors.black,
+                                          ),
+                                      elevation: 0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 0,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                             InkWell(
                               onTap: () async {
@@ -496,7 +501,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                         },
                                       );
                                     },
-                                    text: 'App Info',
+                                    text: 'Info Aplikasi',
                                     icon: FaIcon(
                                       FontAwesomeIcons.infoCircle,
                                       color: Colors.black,
@@ -737,10 +742,9 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                       ),
                     ],
                   ),
-                if (FFAppState().mainMenu == 'profileMenu')
+                if (FFAppState().mainMenu == 'helpMenu')
                   Column(
                     mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         width: double.infinity,
@@ -749,12 +753,10 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                               FlutterFlowTheme.of(context).secondaryBackground,
                         ),
                         child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
                           children: [
                             Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Expanded(
                                   child: Align(
@@ -762,46 +764,49 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         setState(() =>
-                                            FFAppState().mainMenu = 'privacy');
+                                            FFAppState().mainMenu = 'normal');
                                       },
                                       text: '',
                                       icon: Icon(
                                         Icons.arrow_back,
-                                        color: Colors.black,
+                                        color: FlutterFlowTheme.of(context)
+                                            .black600,
                                         size: 15,
                                       ),
                                       options: FFButtonOptions(
                                         height: 40,
-                                        color: Color(0x00FFFFFF),
+                                        color: Color(0x004B39EF),
                                         textStyle: FlutterFlowTheme.of(context)
                                             .subtitle2
                                             .override(
                                               fontFamily: 'Nunito',
-                                              color: Colors.black,
+                                              color: Colors.white,
                                             ),
-                                        elevation: 0,
                                         borderSide: BorderSide(
                                           color: Colors.transparent,
+                                          width: 1,
                                         ),
                                       ),
                                       showLoadingIndicator: false,
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    'Privacy',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Nunito',
-                                          fontSize: 20,
-                                        ),
-                                  ),
+                                Text(
+                                  'Pusat Bantuan',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Nunito',
+                                        fontSize: 20,
+                                      ),
                                 ),
                                 Container(
                                   width: 100,
-                                  decoration: BoxDecoration(),
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                  ),
                                 ),
                               ],
                             ),
@@ -810,70 +815,41 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                       ),
                       InkWell(
                         onTap: () async {
-                          setState(() => FFAppState().mainMenu = 'profileMenu');
+                          await launchURL(
+                              'https://upmate.armora-tech.com/privacy-policy.html');
                         },
                         child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 100,
+                          width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 3,
-                                color: Color(0x411D2429),
-                                offset: Offset(0, 1),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(16),
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                           ),
-                          child: Column(
+                          child: Row(
                             mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                child: Text(
-                                  'Siapa yang bisa melihat foto profileku',
-                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                child: Icon(
+                                  Icons.description_outlined,
+                                  color: Colors.black,
+                                  size: 30,
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: FlutterFlowRadioButton(
-                                        options: [
-                                          'Semua Orang',
-                                          'Hanya Teman',
-                                          'Tidak Ada'
-                                        ].toList(),
-                                        onChanged: (val) => setState(
-                                            () => radioButtonValue = val),
-                                        optionHeight: 25,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Nunito',
-                                              color: Colors.black,
-                                            ),
-                                        buttonPosition:
-                                            RadioButtonPosition.left,
-                                        direction: Axis.vertical,
-                                        radioButtonColor: Colors.blue,
-                                        inactiveRadioButtonColor:
-                                            Color(0x8A000000),
-                                        toggleable: false,
-                                        horizontalAlignment:
-                                            WrapAlignment.start,
-                                        verticalAlignment:
-                                            WrapCrossAlignment.start,
-                                      ),
-                                    ),
-                                  ],
+                              Align(
+                                alignment: AlignmentDirectional(0, 0),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      5, 0, 0, 0),
+                                  child: Text(
+                                    'Terms and Conditions',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Nunito',
+                                          fontSize: 20,
+                                        ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -1145,7 +1121,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                       alignment:
                                                           AlignmentDirectional(
                                                               1, 1),
-                                                      child: ClipRect(
+                                                      child: ClipRRect(
                                                         child: BackdropFilter(
                                                           filter:
                                                               ImageFilter.blur(
@@ -1376,7 +1352,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                       alignment:
                                                           AlignmentDirectional(
                                                               1, 1),
-                                                      child: ClipRect(
+                                                      child: ClipRRect(
                                                         child: BackdropFilter(
                                                           filter:
                                                               ImageFilter.blur(

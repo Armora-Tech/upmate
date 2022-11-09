@@ -23,6 +23,7 @@ class GetOTPCall {
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      cache: false,
     );
   }
 }

@@ -431,7 +431,7 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                               decoration: BoxDecoration(
                                 color: Color(0x00FFFFFF),
                               ),
-                              child: ClipRect(
+                              child: ClipRRect(
                                 child: BackdropFilter(
                                   filter: ImageFilter.blur(
                                     sigmaX: 5,

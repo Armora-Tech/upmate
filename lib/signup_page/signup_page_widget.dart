@@ -26,6 +26,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
   TextEditingController? inpPassConfController;
 
   late bool inpPassConfVisibility;
+  bool? tosCheckboxValue;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -392,6 +393,57 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                             ),
                           ),
                         ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Theme(
+                              data: ThemeData(
+                                checkboxTheme: CheckboxThemeData(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0),
+                                  ),
+                                ),
+                                unselectedWidgetColor: Color(0xFFF5F5F5),
+                              ),
+                              child: Checkbox(
+                                value: tosCheckboxValue ??= true,
+                                onChanged: (newValue) async {
+                                  setState(() => tosCheckboxValue = newValue!);
+                                },
+                                activeColor:
+                                    FlutterFlowTheme.of(context).primaryColor,
+                              ),
+                            ),
+                            SelectionArea(
+                                child: Text(
+                              'I agree to all ',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Nunito',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            )),
+                            InkWell(
+                              onTap: () async {
+                                await launchURL(
+                                    'https://upmate.armora-tech.com/privacy-policy.html');
+                              },
+                              child: SelectionArea(
+                                  child: Text(
+                                'UpMate Terms and Conditions',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Nunito',
+                                      color: Color(0xFF3838F8),
+                                      decoration: TextDecoration.underline,
+                                    ),
+                              )),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -400,6 +452,26 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         var _shouldSetState = false;
+                        if (!tosCheckboxValue!) {
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                content: Text(
+                                    'You must accept all Terms and Conditions to continue using UpMate.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          if (_shouldSetState) setState(() {});
+                          return;
+                        }
                         if (inpPassController!.text ==
                             inpPassConfController!.text) {
                           otp = await GetOTPCall.call(
