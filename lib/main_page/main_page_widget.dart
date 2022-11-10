@@ -775,7 +775,8 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                       ),
                                       options: FFButtonOptions(
                                         height: 40,
-                                        color: Color(0x004B39EF),
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .subtitle2
                                             .override(
@@ -1939,30 +1940,50 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                 MainAxisSize
                                                                     .max,
                                                             children: [
-                                                              ToggleIcon(
-                                                                onPressed:
-                                                                    () async {
-                                                                  setState(() => FFAppState()
-                                                                          .unused =
-                                                                      !FFAppState()
-                                                                          .unused);
-                                                                },
-                                                                value:
-                                                                    FFAppState()
-                                                                        .unused,
-                                                                onIcon: Icon(
-                                                                  FFIcons
-                                                                      .kbubble,
-                                                                  color: Colors
-                                                                      .black,
-                                                                  size: 25,
-                                                                ),
-                                                                offIcon: Icon(
-                                                                  FFIcons
-                                                                      .kbubble,
-                                                                  color: Colors
-                                                                      .black,
-                                                                  size: 25,
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            9,
+                                                                            9,
+                                                                            9,
+                                                                            9),
+                                                                child: InkWell(
+                                                                  onTap:
+                                                                      () async {
+                                                                    context
+                                                                        .pushNamed(
+                                                                      'postDetail',
+                                                                      queryParams:
+                                                                          {
+                                                                        'postRef':
+                                                                            serializeParam(
+                                                                          personalizedColumnPostsRecord
+                                                                              .reference,
+                                                                          ParamType
+                                                                              .DocumentReference,
+                                                                        ),
+                                                                      }.withoutNulls,
+                                                                      extra: <
+                                                                          String,
+                                                                          dynamic>{
+                                                                        kTransitionInfoKey:
+                                                                            TransitionInfo(
+                                                                          hasTransition:
+                                                                              true,
+                                                                          transitionType:
+                                                                              PageTransitionType.rightToLeft,
+                                                                        ),
+                                                                      },
+                                                                    );
+                                                                  },
+                                                                  child: Icon(
+                                                                    FFIcons
+                                                                        .kbubble,
+                                                                    color: Colors
+                                                                        .black,
+                                                                    size: 24,
+                                                                  ),
                                                                 ),
                                                               ),
                                                               FutureBuilder<
