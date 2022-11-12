@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../../flutter_flow/flutter_flow_util.dart';
+import '../cloud_functions/cloud_functions.dart';
 
 import 'api_manager.dart';
 
@@ -26,6 +27,48 @@ class GetOTPCall {
       cache: false,
     );
   }
+}
+
+class AlgoQueryCall {
+  static Future<ApiCallResponse> call({
+    String? query = '',
+  }) async {
+    final response = await makeCloudCall(
+      _kPrivateApiFunctionName,
+      {
+        'callName': 'AlgoQueryCall',
+        'variables': {
+          'query': query,
+        },
+      },
+    );
+    return ApiCallResponse.fromCloudCallResponse(response);
+  }
+
+  static dynamic photo(dynamic response) => getJsonField(
+        response,
+        r'''$.hits[:].post_photo''',
+      );
+  static dynamic title(dynamic response) => getJsonField(
+        response,
+        r'''$.hits[:].post_title''',
+      );
+  static dynamic desc(dynamic response) => getJsonField(
+        response,
+        r'''$.hits[:].post_description''',
+      );
+  static dynamic user(dynamic response) => getJsonField(
+        response,
+        r'''$.hits[:].post_user''',
+      );
+  static dynamic interests(dynamic response) => getJsonField(
+        response,
+        r'''$.hits[:].interests''',
+      );
+  static dynamic postRef(dynamic response) => getJsonField(
+        response,
+        r'''$.hits[:].path''',
+      );
 }
 
 class ApiPagingParams {

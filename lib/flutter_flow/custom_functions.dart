@@ -80,3 +80,8 @@ bool cregex(
   RegExp pattern = RegExp(r'$regex');
   return pattern.hasMatch(str);
 }
+
+DocumentReference storefp(String? path) {
+  // Add your function code here!
+  return path as DocumentReference;
+}
