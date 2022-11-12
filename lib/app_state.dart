@@ -52,6 +52,8 @@ class FFAppState {
   String mainMenu = 'normal';
 
   bool unused = false;
+
+  bool cs = false;
 }
 
 LatLng? _latLngFromString(String? val) {

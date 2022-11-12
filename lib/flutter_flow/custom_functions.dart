@@ -71,3 +71,12 @@ int getIndex(
   // Add your function code here!
   return lst.indexWhere((element) => element == item);
 }
+
+bool cregex(
+  String str,
+  String? regex,
+) {
+  // Add your function code here!
+  RegExp pattern = RegExp(r'$regex');
+  return pattern.hasMatch(str);
+}

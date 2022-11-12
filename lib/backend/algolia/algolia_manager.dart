@@ -9,7 +9,7 @@ import '../backend.dart';
 export 'package:algolia/algolia.dart';
 
 const kAlgoliaApplicationId = '45K9A3I014';
-const kAlgoliaApiKey = 'c903693c55377180ba7e65a84d423b74';
+const kAlgoliaApiKey = '6d1a46bb5ba61f8404f37bfdf2234a63';
 
 class AlgoliaQueryParams extends Equatable {
   const AlgoliaQueryParams(

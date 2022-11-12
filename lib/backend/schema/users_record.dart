@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:from_css_color/from_css_color.dart';
-
 import 'index.dart';
 import 'serializers.dart';
 import 'package:built_value/built_value.dart';
@@ -55,35 +53,6 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   static Future<UsersRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
       .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
-
-  static UsersRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) => UsersRecord(
-        (c) => c
-          ..email = snapshot.data['email']
-          ..displayName = snapshot.data['display_name']
-          ..photoUrl = snapshot.data['photo_url']
-          ..uid = snapshot.data['uid']
-          ..createdTime = safeGet(() => DateTime.fromMillisecondsSinceEpoch(
-              snapshot.data['created_time']))
-          ..phoneNumber = snapshot.data['phone_number']
-          ..interests = safeGet(() => ListBuilder(snapshot.data['interests']))
-          ..postTmpImg = snapshot.data['post_tmp_img']
-          ..ffRef = UsersRecord.collection.doc(snapshot.objectID),
-      );
-
-  static Future<List<UsersRecord>> search(
-          {String? term,
-          FutureOr<LatLng>? location,
-          int? maxResults,
-          double? searchRadiusMeters}) =>
-      FFAlgoliaManager.instance
-          .algoliaQuery(
-            index: 'users',
-            term: term,
-            maxResults: maxResults,
-            location: location,
-            searchRadiusMeters: searchRadiusMeters,
-          )
-          .then((r) => r.map(fromAlgolia).toList());
 
   UsersRecord._();
   factory UsersRecord([void Function(UsersRecordBuilder) updates]) =
