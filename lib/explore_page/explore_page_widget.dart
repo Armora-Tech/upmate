@@ -1,10 +1,11 @@
+import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,9 +19,8 @@ class ExplorePageWidget extends StatefulWidget {
 }
 
 class _ExplorePageWidgetState extends State<ExplorePageWidget> {
-  Completer<List<PostsRecord>>? _algoliaRequestCompleter1;
+  Completer<ApiCallResponse>? _apiRequestCompleter;
   TextEditingController? textController;
-  Completer<List<PostsRecord>>? _algoliaRequestCompleter2;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -58,14 +58,10 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: TextFormField(
                           controller: textController,
-                          onChanged: (_) => EasyDebounce.debounce(
-                            'textController',
-                            Duration(milliseconds: 500),
-                            () async {
-                              setState(() => _algoliaRequestCompleter1 = null);
-                              await waitForAlgoliaRequestCompleter1();
-                            },
-                          ),
+                          onFieldSubmitted: (_) async {
+                            setState(() => _apiRequestCompleter = null);
+                            await waitForApiRequestCompleter();
+                          },
                           obscureText: false,
                           decoration: InputDecoration(
                             hintText: 'Search',
@@ -118,13 +114,8 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                             children: [
                               if (textController!.text == null ||
                                   textController!.text == '')
-                                FutureBuilder<List<PostsRecord>>(
-                                  future: (_algoliaRequestCompleter2 ??=
-                                          Completer<List<PostsRecord>>()
-                                            ..complete(PostsRecord.search(
-                                              term: 'ar',
-                                            )))
-                                      .future,
+                                StreamBuilder<List<PostsRecord>>(
+                                  stream: queryPostsRecord(),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
                                     if (!snapshot.hasData) {
@@ -142,228 +133,24 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                     List<PostsRecord>
                                         normalViewPostsRecordList =
                                         snapshot.data!;
-                                    // Customize what your widget looks like with no search results.
-                                    if (snapshot.data!.isEmpty) {
-                                      return Container(
-                                        height: 100,
-                                        child: Center(
-                                          child: Text('No results.'),
-                                        ),
-                                      );
-                                    }
-                                    return RefreshIndicator(
-                                      onRefresh: () async {
-                                        setState(() =>
-                                            _algoliaRequestCompleter2 = null);
-                                        await waitForAlgoliaRequestCompleter2();
-                                      },
-                                      child: MasonryGridView.count(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 5,
-                                        mainAxisSpacing: 5,
-                                        itemCount:
-                                            normalViewPostsRecordList.length,
-                                        shrinkWrap: true,
-                                        itemBuilder:
-                                            (context, normalViewIndex) {
-                                          final normalViewPostsRecord =
-                                              normalViewPostsRecordList[
-                                                  normalViewIndex];
-                                          return InkWell(
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                'postDetail',
-                                                queryParams: {
-                                                  'postRef': serializeParam(
-                                                    normalViewPostsRecord
-                                                        .reference,
-                                                    ParamType.DocumentReference,
-                                                  ),
-                                                }.withoutNulls,
-                                                extra: <String, dynamic>{
-                                                  kTransitionInfoKey:
-                                                      TransitionInfo(
-                                                    hasTransition: true,
-                                                    transitionType:
-                                                        PageTransitionType
-                                                            .scale,
-                                                    alignment:
-                                                        Alignment.bottomCenter,
-                                                  ),
-                                                },
-                                              );
-                                            },
-                                            child: Card(
-                                              clipBehavior:
-                                                  Clip.antiAliasWithSaveLayer,
-                                              color: Color(0xFFF5F5F5),
-                                              child: Container(
-                                                constraints: BoxConstraints(
-                                                  maxWidth: double.infinity,
-                                                  maxHeight: double.infinity,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  image: DecorationImage(
-                                                    fit: BoxFit.fill,
-                                                    image:
-                                                        CachedNetworkImageProvider(
-                                                      normalViewPostsRecord
-                                                          .postPhoto!,
-                                                    ),
-                                                  ),
-                                                ),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Container(
-                                                      width: 100,
-                                                      height: 100,
-                                                      decoration:
-                                                          BoxDecoration(),
-                                                    ),
-                                                    Stack(
-                                                      children: [
-                                                        Container(
-                                                          width:
-                                                              double.infinity,
-                                                          height: 60,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Color(
-                                                                0x80272727),
-                                                          ),
-                                                          child: Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        0,
-                                                                        0,
-                                                                        5),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .end,
-                                                              children: [
-                                                                Text(
-                                                                  normalViewPostsRecord
-                                                                      .postTitle!,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Nunito',
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryBtnText,
-                                                                        fontSize:
-                                                                            20,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                      ),
-                                                                ),
-                                                                Text(
-                                                                  normalViewPostsRecord
-                                                                      .postDescription!
-                                                                      .maybeHandleOverflow(
-                                                                          maxChars:
-                                                                              50),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Nunito',
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            10,
-                                                                        fontWeight:
-                                                                            FontWeight.normal,
-                                                                      ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
-                                ),
-                              if (textController!.text != null &&
-                                  textController!.text != '')
-                                FutureBuilder<List<PostsRecord>>(
-                                  future: (_algoliaRequestCompleter1 ??=
-                                          Completer<List<PostsRecord>>()
-                                            ..complete(PostsRecord.search(
-                                              term: 'Design',
-                                            )))
-                                      .future,
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 40,
-                                          height: 40,
-                                          child: CircularProgressIndicator(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    List<PostsRecord>
-                                        searchViewPostsRecordList =
-                                        snapshot.data!;
-                                    // Customize what your widget looks like with no search results.
-                                    if (snapshot.data!.isEmpty) {
-                                      return Container(
-                                        height: 100,
-                                        child: Center(
-                                          child: Text('No results.'),
-                                        ),
-                                      );
-                                    }
                                     return MasonryGridView.count(
                                       crossAxisCount: 2,
                                       crossAxisSpacing: 5,
                                       mainAxisSpacing: 5,
                                       itemCount:
-                                          searchViewPostsRecordList.length,
+                                          normalViewPostsRecordList.length,
                                       shrinkWrap: true,
-                                      itemBuilder: (context, searchViewIndex) {
-                                        final searchViewPostsRecord =
-                                            searchViewPostsRecordList[
-                                                searchViewIndex];
+                                      itemBuilder: (context, normalViewIndex) {
+                                        final normalViewPostsRecord =
+                                            normalViewPostsRecordList[
+                                                normalViewIndex];
                                         return InkWell(
                                           onTap: () async {
                                             context.pushNamed(
                                               'postDetail',
                                               queryParams: {
                                                 'postRef': serializeParam(
-                                                  searchViewPostsRecord
+                                                  normalViewPostsRecord
                                                       .reference,
                                                   ParamType.DocumentReference,
                                                 ),
@@ -397,7 +184,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                   fit: BoxFit.fill,
                                                   image:
                                                       CachedNetworkImageProvider(
-                                                    searchViewPostsRecord
+                                                    normalViewPostsRecord
                                                         .postPhoto!,
                                                   ),
                                                 ),
@@ -434,7 +221,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                                     .end,
                                                             children: [
                                                               Text(
-                                                                searchViewPostsRecord
+                                                                normalViewPostsRecord
                                                                     .postTitle!,
                                                                 textAlign:
                                                                     TextAlign
@@ -456,7 +243,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                                     ),
                                                               ),
                                                               Text(
-                                                                searchViewPostsRecord
+                                                                normalViewPostsRecord
                                                                     .postDescription!
                                                                     .maybeHandleOverflow(
                                                                         maxChars:
@@ -491,6 +278,191 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                           ),
                                         );
                                       },
+                                    );
+                                  },
+                                ),
+                              if (textController!.text != null &&
+                                  textController!.text != '')
+                                FutureBuilder<ApiCallResponse>(
+                                  future: (_apiRequestCompleter ??=
+                                          Completer<ApiCallResponse>()
+                                            ..complete(AlgoQueryCall.call(
+                                              query: textController!.text,
+                                            )))
+                                      .future,
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 40,
+                                          height: 40,
+                                          child: CircularProgressIndicator(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    final searchViewAlgoQueryResponse =
+                                        snapshot.data!;
+                                    return RefreshIndicator(
+                                      onRefresh: () async {
+                                        setState(
+                                            () => _apiRequestCompleter = null);
+                                        await waitForApiRequestCompleter();
+                                      },
+                                      child: MasonryGridView.count(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 5,
+                                        mainAxisSpacing: 5,
+                                        itemCount: 1,
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) {
+                                          return [
+                                            () => InkWell(
+                                                  onTap: () async {
+                                                    context.pushNamed(
+                                                      'postDetail',
+                                                      queryParams: {
+                                                        'postRef':
+                                                            serializeParam(
+                                                          functions.storefp(
+                                                              AlgoQueryCall
+                                                                  .postRef(
+                                                            searchViewAlgoQueryResponse
+                                                                .jsonBody,
+                                                          ).toString()),
+                                                          ParamType
+                                                              .DocumentReference,
+                                                        ),
+                                                      }.withoutNulls,
+                                                      extra: <String, dynamic>{
+                                                        kTransitionInfoKey:
+                                                            TransitionInfo(
+                                                          hasTransition: true,
+                                                          transitionType:
+                                                              PageTransitionType
+                                                                  .scale,
+                                                          alignment: Alignment
+                                                              .bottomCenter,
+                                                        ),
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Card(
+                                                    clipBehavior: Clip
+                                                        .antiAliasWithSaveLayer,
+                                                    color: Color(0xFFF5F5F5),
+                                                    child: Container(
+                                                      constraints:
+                                                          BoxConstraints(
+                                                        maxWidth:
+                                                            double.infinity,
+                                                        maxHeight:
+                                                            double.infinity,
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        image: DecorationImage(
+                                                          fit: BoxFit.fill,
+                                                          image:
+                                                              CachedNetworkImageProvider(
+                                                            AlgoQueryCall.photo(
+                                                              searchViewAlgoQueryResponse
+                                                                  .jsonBody,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Container(
+                                                            width: 100,
+                                                            height: 100,
+                                                            decoration:
+                                                                BoxDecoration(),
+                                                          ),
+                                                          Stack(
+                                                            children: [
+                                                              Container(
+                                                                width: double
+                                                                    .infinity,
+                                                                height: 60,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Color(
+                                                                      0x80272727),
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          0,
+                                                                          0,
+                                                                          5),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .end,
+                                                                    children: [
+                                                                      Text(
+                                                                        AlgoQueryCall
+                                                                            .title(
+                                                                          searchViewAlgoQueryResponse
+                                                                              .jsonBody,
+                                                                        ).toString(),
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyText1
+                                                                            .override(
+                                                                              fontFamily: 'Nunito',
+                                                                              color: FlutterFlowTheme.of(context).primaryBtnText,
+                                                                              fontSize: 20,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                      ),
+                                                                      Text(
+                                                                        AlgoQueryCall
+                                                                            .desc(
+                                                                          searchViewAlgoQueryResponse
+                                                                              .jsonBody,
+                                                                        ).toString().maybeHandleOverflow(
+                                                                            maxChars:
+                                                                                50),
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyText1
+                                                                            .override(
+                                                                              fontFamily: 'Nunito',
+                                                                              color: Colors.white,
+                                                                              fontSize: 10,
+                                                                              fontWeight: FontWeight.normal,
+                                                                            ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                          ][index]();
+                                        },
+                                      ),
                                     );
                                   },
                                 ),
@@ -535,7 +507,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
     );
   }
 
-  Future waitForAlgoliaRequestCompleter1({
+  Future waitForApiRequestCompleter({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -543,22 +515,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
     while (true) {
       await Future.delayed(Duration(milliseconds: 50));
       final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete = _algoliaRequestCompleter1?.isCompleted ?? false;
-      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
-        break;
-      }
-    }
-  }
-
-  Future waitForAlgoliaRequestCompleter2({
-    double minWait = 0,
-    double maxWait = double.infinity,
-  }) async {
-    final stopwatch = Stopwatch()..start();
-    while (true) {
-      await Future.delayed(Duration(milliseconds: 50));
-      final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete = _algoliaRequestCompleter2?.isCompleted ?? false;
+      final requestComplete = _apiRequestCompleter?.isCompleted ?? false;
       if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
         break;
       }
