@@ -1,9 +1,11 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SurveyPageWidget extends StatefulWidget {
@@ -21,6 +23,17 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
   @override
   void initState() {
     super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if ((currentUserDocument?.interests?.toList() ?? []).length > 0) {
+        context.goNamed('mainPage');
+
+        return;
+      } else {
+        return;
+      }
+    });
+
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'surveyPage'});
   }
 

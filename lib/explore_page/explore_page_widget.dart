@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,8 +18,9 @@ class ExplorePageWidget extends StatefulWidget {
 }
 
 class _ExplorePageWidgetState extends State<ExplorePageWidget> {
-  Completer<List<PostsRecord>>? _firestoreRequestCompleter;
+  Completer<List<PostsRecord>>? _algoliaRequestCompleter1;
   TextEditingController? textController;
+  Completer<List<PostsRecord>>? _algoliaRequestCompleter2;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -56,6 +58,14 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: TextFormField(
                           controller: textController,
+                          onChanged: (_) => EasyDebounce.debounce(
+                            'textController',
+                            Duration(milliseconds: 500),
+                            () async {
+                              setState(() => _algoliaRequestCompleter1 = null);
+                              await waitForAlgoliaRequestCompleter1();
+                            },
+                          ),
                           obscureText: false,
                           decoration: InputDecoration(
                             hintText: 'Search',
@@ -106,53 +116,254 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                           height: MediaQuery.of(context).size.height * 0.7,
                           child: Stack(
                             children: [
-                              FutureBuilder<List<PostsRecord>>(
-                                future: (_firestoreRequestCompleter ??=
-                                        Completer<List<PostsRecord>>()
-                                          ..complete(queryPostsRecordOnce()))
-                                    .future,
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 40,
-                                        height: 40,
-                                        child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                              if (textController!.text == null ||
+                                  textController!.text == '')
+                                FutureBuilder<List<PostsRecord>>(
+                                  future: (_algoliaRequestCompleter2 ??=
+                                          Completer<List<PostsRecord>>()
+                                            ..complete(PostsRecord.search(
+                                              term: 'ar',
+                                            )))
+                                      .future,
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 40,
+                                          height: 40,
+                                          child: CircularProgressIndicator(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                          ),
                                         ),
+                                      );
+                                    }
+                                    List<PostsRecord>
+                                        normalViewPostsRecordList =
+                                        snapshot.data!;
+                                    // Customize what your widget looks like with no search results.
+                                    if (snapshot.data!.isEmpty) {
+                                      return Container(
+                                        height: 100,
+                                        child: Center(
+                                          child: Text('No results.'),
+                                        ),
+                                      );
+                                    }
+                                    return RefreshIndicator(
+                                      onRefresh: () async {
+                                        setState(() =>
+                                            _algoliaRequestCompleter2 = null);
+                                        await waitForAlgoliaRequestCompleter2();
+                                      },
+                                      child: MasonryGridView.count(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 5,
+                                        mainAxisSpacing: 5,
+                                        itemCount:
+                                            normalViewPostsRecordList.length,
+                                        shrinkWrap: true,
+                                        itemBuilder:
+                                            (context, normalViewIndex) {
+                                          final normalViewPostsRecord =
+                                              normalViewPostsRecordList[
+                                                  normalViewIndex];
+                                          return InkWell(
+                                            onTap: () async {
+                                              context.pushNamed(
+                                                'postDetail',
+                                                queryParams: {
+                                                  'postRef': serializeParam(
+                                                    normalViewPostsRecord
+                                                        .reference,
+                                                    ParamType.DocumentReference,
+                                                  ),
+                                                }.withoutNulls,
+                                                extra: <String, dynamic>{
+                                                  kTransitionInfoKey:
+                                                      TransitionInfo(
+                                                    hasTransition: true,
+                                                    transitionType:
+                                                        PageTransitionType
+                                                            .scale,
+                                                    alignment:
+                                                        Alignment.bottomCenter,
+                                                  ),
+                                                },
+                                              );
+                                            },
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color: Color(0xFFF5F5F5),
+                                              child: Container(
+                                                constraints: BoxConstraints(
+                                                  maxWidth: double.infinity,
+                                                  maxHeight: double.infinity,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.fill,
+                                                    image:
+                                                        CachedNetworkImageProvider(
+                                                      normalViewPostsRecord
+                                                          .postPhoto!,
+                                                    ),
+                                                  ),
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Container(
+                                                      width: 100,
+                                                      height: 100,
+                                                      decoration:
+                                                          BoxDecoration(),
+                                                    ),
+                                                    Stack(
+                                                      children: [
+                                                        Container(
+                                                          width:
+                                                              double.infinity,
+                                                          height: 60,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Color(
+                                                                0x80272727),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0,
+                                                                        0,
+                                                                        0,
+                                                                        5),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .end,
+                                                              children: [
+                                                                Text(
+                                                                  normalViewPostsRecord
+                                                                      .postTitle!,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Nunito',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryBtnText,
+                                                                        fontSize:
+                                                                            20,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                ),
+                                                                Text(
+                                                                  normalViewPostsRecord
+                                                                      .postDescription!
+                                                                      .maybeHandleOverflow(
+                                                                          maxChars:
+                                                                              50),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Nunito',
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            10,
+                                                                        fontWeight:
+                                                                            FontWeight.normal,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
                                       ),
                                     );
-                                  }
-                                  List<PostsRecord>
-                                      staggeredViewPostsRecordList =
-                                      snapshot.data!;
-                                  return RefreshIndicator(
-                                    onRefresh: () async {
-                                      setState(() =>
-                                          _firestoreRequestCompleter = null);
-                                      await waitForFirestoreRequestCompleter();
-                                    },
-                                    child: MasonryGridView.count(
+                                  },
+                                ),
+                              if (textController!.text != null &&
+                                  textController!.text != '')
+                                FutureBuilder<List<PostsRecord>>(
+                                  future: (_algoliaRequestCompleter1 ??=
+                                          Completer<List<PostsRecord>>()
+                                            ..complete(PostsRecord.search(
+                                              term: 'Design',
+                                            )))
+                                      .future,
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 40,
+                                          height: 40,
+                                          child: CircularProgressIndicator(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    List<PostsRecord>
+                                        searchViewPostsRecordList =
+                                        snapshot.data!;
+                                    // Customize what your widget looks like with no search results.
+                                    if (snapshot.data!.isEmpty) {
+                                      return Container(
+                                        height: 100,
+                                        child: Center(
+                                          child: Text('No results.'),
+                                        ),
+                                      );
+                                    }
+                                    return MasonryGridView.count(
                                       crossAxisCount: 2,
                                       crossAxisSpacing: 5,
                                       mainAxisSpacing: 5,
                                       itemCount:
-                                          staggeredViewPostsRecordList.length,
+                                          searchViewPostsRecordList.length,
                                       shrinkWrap: true,
-                                      itemBuilder:
-                                          (context, staggeredViewIndex) {
-                                        final staggeredViewPostsRecord =
-                                            staggeredViewPostsRecordList[
-                                                staggeredViewIndex];
+                                      itemBuilder: (context, searchViewIndex) {
+                                        final searchViewPostsRecord =
+                                            searchViewPostsRecordList[
+                                                searchViewIndex];
                                         return InkWell(
                                           onTap: () async {
                                             context.pushNamed(
                                               'postDetail',
                                               queryParams: {
                                                 'postRef': serializeParam(
-                                                  staggeredViewPostsRecord
+                                                  searchViewPostsRecord
                                                       .reference,
                                                   ParamType.DocumentReference,
                                                 ),
@@ -186,7 +397,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                   fit: BoxFit.fill,
                                                   image:
                                                       CachedNetworkImageProvider(
-                                                    staggeredViewPostsRecord
+                                                    searchViewPostsRecord
                                                         .postPhoto!,
                                                   ),
                                                 ),
@@ -223,7 +434,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                                     .end,
                                                             children: [
                                                               Text(
-                                                                staggeredViewPostsRecord
+                                                                searchViewPostsRecord
                                                                     .postTitle!,
                                                                 textAlign:
                                                                     TextAlign
@@ -245,7 +456,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                                     ),
                                                               ),
                                                               Text(
-                                                                staggeredViewPostsRecord
+                                                                searchViewPostsRecord
                                                                     .postDescription!
                                                                     .maybeHandleOverflow(
                                                                         maxChars:
@@ -280,10 +491,9 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                           ),
                                         );
                                       },
-                                    ),
-                                  );
-                                },
-                              ),
+                                    );
+                                  },
+                                ),
                             ],
                           ),
                         ),
@@ -325,7 +535,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
     );
   }
 
-  Future waitForFirestoreRequestCompleter({
+  Future waitForAlgoliaRequestCompleter1({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -333,7 +543,22 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
     while (true) {
       await Future.delayed(Duration(milliseconds: 50));
       final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete = _firestoreRequestCompleter?.isCompleted ?? false;
+      final requestComplete = _algoliaRequestCompleter1?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
+
+  Future waitForAlgoliaRequestCompleter2({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = _algoliaRequestCompleter2?.isCompleted ?? false;
       if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
         break;
       }
