@@ -45,29 +45,10 @@ class AlgoQueryCall {
     return ApiCallResponse.fromCloudCallResponse(response);
   }
 
-  static dynamic photo(dynamic response) => getJsonField(
+  static dynamic data(dynamic response) => getJsonField(
         response,
-        r'''$.hits[:].post_photo''',
-      );
-  static dynamic title(dynamic response) => getJsonField(
-        response,
-        r'''$.hits[:].post_title''',
-      );
-  static dynamic desc(dynamic response) => getJsonField(
-        response,
-        r'''$.hits[:].post_description''',
-      );
-  static dynamic user(dynamic response) => getJsonField(
-        response,
-        r'''$.hits[:].post_user''',
-      );
-  static dynamic interests(dynamic response) => getJsonField(
-        response,
-        r'''$.hits[:].interests''',
-      );
-  static dynamic postRef(dynamic response) => getJsonField(
-        response,
-        r'''$.hits[:].path''',
+        r'''$.data''',
+        true,
       );
 }
 

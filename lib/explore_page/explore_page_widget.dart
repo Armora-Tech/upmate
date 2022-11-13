@@ -306,163 +306,176 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                     }
                                     final searchViewAlgoQueryResponse =
                                         snapshot.data!;
-                                    return RefreshIndicator(
-                                      onRefresh: () async {
-                                        setState(
-                                            () => _apiRequestCompleter = null);
-                                        await waitForApiRequestCompleter();
-                                      },
-                                      child: MasonryGridView.count(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 5,
-                                        mainAxisSpacing: 5,
-                                        itemCount: 1,
-                                        shrinkWrap: true,
-                                        itemBuilder: (context, index) {
-                                          return [
-                                            () => InkWell(
-                                                  onTap: () async {
-                                                    context.pushNamed(
-                                                      'postDetail',
-                                                      queryParams: {
-                                                        'postRef':
-                                                            serializeParam(
-                                                          functions.storefp(
-                                                              AlgoQueryCall
-                                                                  .postRef(
-                                                            searchViewAlgoQueryResponse
-                                                                .jsonBody,
-                                                          ).toString()),
-                                                          ParamType
-                                                              .DocumentReference,
-                                                        ),
-                                                      }.withoutNulls,
-                                                      extra: <String, dynamic>{
-                                                        kTransitionInfoKey:
-                                                            TransitionInfo(
-                                                          hasTransition: true,
-                                                          transitionType:
-                                                              PageTransitionType
-                                                                  .scale,
-                                                          alignment: Alignment
-                                                              .bottomCenter,
-                                                        ),
-                                                      },
-                                                    );
-                                                  },
-                                                  child: Card(
-                                                    clipBehavior: Clip
-                                                        .antiAliasWithSaveLayer,
-                                                    color: Color(0xFFF5F5F5),
-                                                    child: Container(
-                                                      constraints:
-                                                          BoxConstraints(
-                                                        maxWidth:
-                                                            double.infinity,
-                                                        maxHeight:
-                                                            double.infinity,
+                                    return Builder(
+                                      builder: (context) {
+                                        final sr = AlgoQueryCall.data(
+                                          searchViewAlgoQueryResponse.jsonBody,
+                                        ).toList();
+                                        return RefreshIndicator(
+                                          onRefresh: () async {
+                                            setState(() =>
+                                                _apiRequestCompleter = null);
+                                            await waitForApiRequestCompleter();
+                                          },
+                                          child: MasonryGridView.count(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 5,
+                                            mainAxisSpacing: 5,
+                                            itemCount: sr.length,
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, srIndex) {
+                                              final srItem = sr[srIndex];
+                                              return InkWell(
+                                                onTap: () async {
+                                                  context.pushNamed(
+                                                    'postDetail',
+                                                    queryParams: {
+                                                      'postRef': serializeParam(
+                                                        functions.storefp(
+                                                            getJsonField(
+                                                          srItem,
+                                                          r'''$.path''',
+                                                        ).toString()),
+                                                        ParamType
+                                                            .DocumentReference,
                                                       ),
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        image: DecorationImage(
-                                                          fit: BoxFit.fill,
-                                                          image:
-                                                              CachedNetworkImageProvider(
-                                                            AlgoQueryCall.photo(
-                                                              searchViewAlgoQueryResponse
-                                                                  .jsonBody,
-                                                            ),
+                                                    }.withoutNulls,
+                                                    extra: <String, dynamic>{
+                                                      kTransitionInfoKey:
+                                                          TransitionInfo(
+                                                        hasTransition: true,
+                                                        transitionType:
+                                                            PageTransitionType
+                                                                .scale,
+                                                        alignment: Alignment
+                                                            .bottomCenter,
+                                                      ),
+                                                    },
+                                                  );
+                                                },
+                                                child: Card(
+                                                  clipBehavior: Clip
+                                                      .antiAliasWithSaveLayer,
+                                                  color: Color(0xFFF5F5F5),
+                                                  child: Container(
+                                                    constraints: BoxConstraints(
+                                                      maxWidth: double.infinity,
+                                                      maxHeight:
+                                                          double.infinity,
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                      image: DecorationImage(
+                                                        fit: BoxFit.fill,
+                                                        image:
+                                                            CachedNetworkImageProvider(
+                                                          getJsonField(
+                                                            srItem,
+                                                            r'''$.post_photo''',
                                                           ),
                                                         ),
                                                       ),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Container(
-                                                            width: 100,
-                                                            height: 100,
-                                                            decoration:
-                                                                BoxDecoration(),
-                                                          ),
-                                                          Stack(
-                                                            children: [
-                                                              Container(
-                                                                width: double
-                                                                    .infinity,
-                                                                height: 60,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Color(
-                                                                      0x80272727),
-                                                                ),
-                                                                child: Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          0,
-                                                                          0,
-                                                                          5),
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .end,
-                                                                    children: [
-                                                                      Text(
-                                                                        AlgoQueryCall
-                                                                            .title(
-                                                                          searchViewAlgoQueryResponse
-                                                                              .jsonBody,
-                                                                        ).toString(),
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyText1
-                                                                            .override(
-                                                                              fontFamily: 'Nunito',
-                                                                              color: FlutterFlowTheme.of(context).primaryBtnText,
-                                                                              fontSize: 20,
-                                                                              fontWeight: FontWeight.bold,
-                                                                            ),
-                                                                      ),
-                                                                      Text(
-                                                                        AlgoQueryCall
-                                                                            .desc(
-                                                                          searchViewAlgoQueryResponse
-                                                                              .jsonBody,
-                                                                        ).toString().maybeHandleOverflow(
-                                                                            maxChars:
-                                                                                50),
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyText1
-                                                                            .override(
-                                                                              fontFamily: 'Nunito',
-                                                                              color: Colors.white,
-                                                                              fontSize: 10,
-                                                                              fontWeight: FontWeight.normal,
-                                                                            ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Container(
+                                                          width: 100,
+                                                          height: 100,
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                        ),
+                                                        Stack(
+                                                          children: [
+                                                            Container(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 60,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Color(
+                                                                    0x80272727),
+                                                              ),
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            5),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .end,
+                                                                  children: [
+                                                                    Text(
+                                                                      getJsonField(
+                                                                        srItem,
+                                                                        r'''$.post_title''',
+                                                                      ).toString(),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyText1
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Nunito',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryBtnText,
+                                                                            fontSize:
+                                                                                20,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                          ),
+                                                                    ),
+                                                                    Text(
+                                                                      getJsonField(
+                                                                        srItem,
+                                                                        r'''$.post_description''',
+                                                                      ).toString().maybeHandleOverflow(
+                                                                          maxChars:
+                                                                              50),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyText1
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Nunito',
+                                                                            color:
+                                                                                Colors.white,
+                                                                            fontSize:
+                                                                                10,
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
+                                                                          ),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 ),
-                                          ][index]();
-                                        },
-                                      ),
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
                                     );
                                   },
                                 ),
