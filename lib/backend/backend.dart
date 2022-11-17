@@ -13,6 +13,7 @@ import 'schema/comments_record.dart';
 import 'schema/ratings_record.dart';
 import 'schema/notifications_record.dart';
 import 'schema/utils_record.dart';
+import 'schema/reported_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -29,6 +30,7 @@ export 'schema/comments_record.dart';
 export 'schema/ratings_record.dart';
 export 'schema/notifications_record.dart';
 export 'schema/utils_record.dart';
+export 'schema/reported_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Stream<List<UsersRecord>> queryUsersRecord({
@@ -405,6 +407,48 @@ Future<FFFirestorePage<UtilsRecord>> queryUtilsRecordPage({
     queryCollectionPage(
       UtilsRecord.collection,
       UtilsRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query ReportedRecords (as a Stream and as a Future).
+Stream<List<ReportedRecord>> queryReportedRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      ReportedRecord.collection,
+      ReportedRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<ReportedRecord>> queryReportedRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      ReportedRecord.collection,
+      ReportedRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<ReportedRecord>> queryReportedRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      ReportedRecord.collection,
+      ReportedRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

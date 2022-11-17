@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../components/comment_options_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
@@ -580,11 +581,16 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    16, 16, 16, 12),
+                                                    16, 16, 40, 12),
                                             child: StreamBuilder<
                                                 List<CommentsRecord>>(
                                               stream: queryCommentsRecord(
                                                 parent: widget.postRef,
+                                                queryBuilder:
+                                                    (commentsRecord) =>
+                                                        commentsRecord.orderBy(
+                                                            'date',
+                                                            descending: true),
                                               ),
                                               builder: (context, snapshot) {
                                                 // Customize what your widget looks like when it's loading.
@@ -628,6 +634,9 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                       child: Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
@@ -684,7 +693,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                           Column(
                                                             mainAxisSize:
                                                                 MainAxisSize
-                                                                    .max,
+                                                                    .min,
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment
                                                                     .start,
@@ -699,13 +708,6 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                                             0),
                                                                 child:
                                                                     Container(
-                                                                  constraints:
-                                                                      BoxConstraints(
-                                                                    maxWidth: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.75,
-                                                                  ),
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     borderRadius:
@@ -808,6 +810,59 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                                 ],
                                                               ),
                                                             ],
+                                                          ),
+                                                          Expanded(
+                                                            child: Align(
+                                                              alignment:
+                                                                  AlignmentDirectional(
+                                                                      1, 0),
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                child: InkWell(
+                                                                  onTap:
+                                                                      () async {
+                                                                    await showModalBottomSheet(
+                                                                      isScrollControlled:
+                                                                          true,
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (context) {
+                                                                        return Padding(
+                                                                          padding:
+                                                                              MediaQuery.of(context).viewInsets,
+                                                                          child:
+                                                                              CommentOptionsWidget(
+                                                                            userRef:
+                                                                                listViewCommentsRecord.userRef,
+                                                                            postRef:
+                                                                                widget.postRef,
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    ).then((value) =>
+                                                                        setState(
+                                                                            () {}));
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .more_vert,
+                                                                    color: Colors
+                                                                        .black,
+                                                                    size: 30,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
                                                           ),
                                                         ],
                                                       ),

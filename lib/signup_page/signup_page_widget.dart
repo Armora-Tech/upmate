@@ -425,22 +425,28 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                                     fontWeight: FontWeight.bold,
                                   ),
                             )),
-                            InkWell(
-                              onTap: () async {
+                            FFButtonWidget(
+                              onPressed: () async {
                                 await launchURL(
-                                    'https://upmate.armora-tech.com/privacy-policy.html');
+                                    'https://upmate.armora-tech.com/tos');
                               },
-                              child: SelectionArea(
-                                  child: Text(
-                                'UpMate Terms and Conditions',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
+                              text: 'UpMate Terms and Conditions',
+                              options: FFButtonOptions(
+                                color: Color(0x004B39EF),
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
                                     .override(
                                       fontFamily: 'Nunito',
                                       color: Color(0xFF3838F8),
-                                      decoration: TextDecoration.underline,
+                                      fontSize: 14,
                                     ),
-                              )),
+                                elevation: 0,
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                              ),
+                              showLoadingIndicator: false,
                             ),
                           ],
                         ),

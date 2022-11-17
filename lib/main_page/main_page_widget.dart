@@ -759,37 +759,35 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Expanded(
-                                  child: Align(
-                                    alignment: AlignmentDirectional(-1, 0),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        setState(() =>
-                                            FFAppState().mainMenu = 'normal');
-                                      },
-                                      text: '',
-                                      icon: Icon(
-                                        Icons.arrow_back,
-                                        color: FlutterFlowTheme.of(context)
-                                            .black600,
-                                        size: 15,
-                                      ),
-                                      options: FFButtonOptions(
-                                        height: 40,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .subtitle2
-                                            .override(
-                                              fontFamily: 'Nunito',
-                                              color: Colors.white,
-                                            ),
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      showLoadingIndicator: false,
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      setState(() =>
+                                          FFAppState().mainMenu = 'normal');
+                                    },
+                                    text: '',
+                                    icon: Icon(
+                                      Icons.arrow_back,
+                                      color:
+                                          FlutterFlowTheme.of(context).black600,
+                                      size: 15,
                                     ),
+                                    options: FFButtonOptions(
+                                      height: 40,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'Nunito',
+                                            color: Colors.white,
+                                          ),
+                                      elevation: 0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    showLoadingIndicator: false,
                                   ),
                                 ),
                                 Text(
@@ -816,8 +814,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                       ),
                       InkWell(
                         onTap: () async {
-                          await launchURL(
-                              'https://upmate.armora-tech.com/privacy-policy.html');
+                          await launchURL('https://upmate.armora-tech.com/tos');
                         },
                         child: Container(
                           width: double.infinity,

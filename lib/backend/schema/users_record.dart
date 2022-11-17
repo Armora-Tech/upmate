@@ -30,6 +30,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   @BuiltValueField(wireName: 'post_tmp_img')
   String? get postTmpImg;
 
+  BuiltList<DocumentReference>? get blocked;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -41,7 +43,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..uid = ''
     ..phoneNumber = ''
     ..interests = ListBuilder()
-    ..postTmpImg = '';
+    ..postTmpImg = ''
+    ..blocked = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -84,7 +87,8 @@ Map<String, dynamic> createUsersRecordData({
         ..createdTime = createdTime
         ..phoneNumber = phoneNumber
         ..interests = null
-        ..postTmpImg = postTmpImg,
+        ..postTmpImg = postTmpImg
+        ..blocked = null,
     ),
   );
 
