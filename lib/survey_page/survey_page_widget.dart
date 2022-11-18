@@ -133,7 +133,7 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
                       child: Form(
                         key: formKey,
                         autovalidateMode: AutovalidateMode.disabled,
-                        child: FlutterFlowDropDown(
+                        child: FlutterFlowDropDown<String>(
                           options: formUtilsRecord!.joblist!.toList().toList(),
                           onChanged: (val) =>
                               setState(() => jobDropDownValue = val),

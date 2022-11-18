@@ -60,6 +60,14 @@ class _$ReportedRecordSerializer
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
+    value = object.commentRef;
+    if (value != null) {
+      result
+        ..add('commentRef')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -111,6 +119,12 @@ class _$ReportedRecordSerializer
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
+        case 'commentRef':
+          result.commentRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -136,6 +150,8 @@ class _$ReportedRecord extends ReportedRecord {
   @override
   final DocumentReference<Object?>? postRef;
   @override
+  final DocumentReference<Object?>? commentRef;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$ReportedRecord([void Function(ReportedRecordBuilder)? updates]) =>
@@ -147,6 +163,7 @@ class _$ReportedRecord extends ReportedRecord {
       this.what,
       this.userRef,
       this.postRef,
+      this.commentRef,
       this.ffRef})
       : super._();
 
@@ -167,6 +184,7 @@ class _$ReportedRecord extends ReportedRecord {
         what == other.what &&
         userRef == other.userRef &&
         postRef == other.postRef &&
+        commentRef == other.commentRef &&
         ffRef == other.ffRef;
   }
 
@@ -175,10 +193,12 @@ class _$ReportedRecord extends ReportedRecord {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, reporter.hashCode), reported.hashCode),
-                    what.hashCode),
-                userRef.hashCode),
-            postRef.hashCode),
+                $jc(
+                    $jc($jc($jc(0, reporter.hashCode), reported.hashCode),
+                        what.hashCode),
+                    userRef.hashCode),
+                postRef.hashCode),
+            commentRef.hashCode),
         ffRef.hashCode));
   }
 
@@ -190,6 +210,7 @@ class _$ReportedRecord extends ReportedRecord {
           ..add('what', what)
           ..add('userRef', userRef)
           ..add('postRef', postRef)
+          ..add('commentRef', commentRef)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -221,6 +242,11 @@ class ReportedRecordBuilder
   DocumentReference<Object?>? get postRef => _$this._postRef;
   set postRef(DocumentReference<Object?>? postRef) => _$this._postRef = postRef;
 
+  DocumentReference<Object?>? _commentRef;
+  DocumentReference<Object?>? get commentRef => _$this._commentRef;
+  set commentRef(DocumentReference<Object?>? commentRef) =>
+      _$this._commentRef = commentRef;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -237,6 +263,7 @@ class ReportedRecordBuilder
       _what = $v.what;
       _userRef = $v.userRef;
       _postRef = $v.postRef;
+      _commentRef = $v.commentRef;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -265,6 +292,7 @@ class ReportedRecordBuilder
             what: what,
             userRef: userRef,
             postRef: postRef,
+            commentRef: commentRef,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

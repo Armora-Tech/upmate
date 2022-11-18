@@ -25,6 +25,7 @@ class InterestPageWidget extends StatefulWidget {
 
 class _InterestPageWidgetState extends State<InterestPageWidget> {
   List<String>? choiceChipsValues;
+  List<String>? otherChoiceValues;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -116,65 +117,126 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                                     ),
                           ),
                         ),
-                        StreamBuilder<List<InterestsRecord>>(
-                          stream: queryInterestsRecord(
-                            queryBuilder: (interestsRecord) =>
-                                interestsRecord.where('jobs',
-                                    arrayContains: functions.getIndex(
-                                        interestPageUtilsRecord!.joblist!
-                                            .toList(),
-                                        widget.ijob!)),
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: CircularProgressIndicator(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                  ),
-                                ),
-                              );
-                            }
-                            List<InterestsRecord>
-                                choiceChipsInterestsRecordList = snapshot.data!;
-                            return FlutterFlowChoiceChips(
-                              options: choiceChipsInterestsRecordList
-                                  .map((e) => e.name!)
-                                  .toList()
-                                  .map((label) => ChipData(label))
-                                  .toList(),
-                              onChanged: (val) =>
-                                  setState(() => choiceChipsValues = val),
-                              selectedChipStyle: ChipStyle(
-                                backgroundColor: Colors.white,
-                                textStyle:
-                                    FlutterFlowTheme.of(context).subtitle1,
-                                iconColor: Colors.black,
-                                iconSize: 18,
-                                elevation: 4,
-                              ),
-                              unselectedChipStyle: ChipStyle(
-                                backgroundColor: Colors.white,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Nunito',
-                                      fontSize: 18,
+                        Visibility(
+                          visible: widget.ijob != 'Other',
+                          child: StreamBuilder<List<InterestsRecord>>(
+                            stream: queryInterestsRecord(
+                              queryBuilder: (interestsRecord) =>
+                                  interestsRecord.where('jobs',
+                                      arrayContains: functions.getIndex(
+                                          interestPageUtilsRecord!.joblist!
+                                              .toList(),
+                                          widget.ijob!)),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: CircularProgressIndicator(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
                                     ),
-                                iconColor: Color(0xFF323B45),
-                                iconSize: 18,
-                                elevation: 0,
-                              ),
-                              chipSpacing: 20,
-                              multiselect: true,
-                              initialized: choiceChipsValues != null,
-                              alignment: WrapAlignment.start,
-                            );
-                          },
+                                  ),
+                                );
+                              }
+                              List<InterestsRecord>
+                                  choiceChipsInterestsRecordList =
+                                  snapshot.data!;
+                              return FlutterFlowChoiceChips(
+                                options: choiceChipsInterestsRecordList
+                                    .map((e) => e.name!)
+                                    .toList()
+                                    .map((label) => ChipData(label))
+                                    .toList(),
+                                onChanged: (val) =>
+                                    setState(() => choiceChipsValues = val),
+                                selectedChipStyle: ChipStyle(
+                                  backgroundColor: Colors.white,
+                                  textStyle:
+                                      FlutterFlowTheme.of(context).subtitle1,
+                                  iconColor: Colors.black,
+                                  iconSize: 18,
+                                  elevation: 4,
+                                ),
+                                unselectedChipStyle: ChipStyle(
+                                  backgroundColor: Colors.white,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Nunito',
+                                        fontSize: 18,
+                                      ),
+                                  iconColor: Color(0xFF323B45),
+                                  iconSize: 18,
+                                  elevation: 0,
+                                ),
+                                chipSpacing: 20,
+                                multiselect: true,
+                                initialized: choiceChipsValues != null,
+                                alignment: WrapAlignment.start,
+                              );
+                            },
+                          ),
+                        ),
+                        Visibility(
+                          visible: widget.ijob == 'Other',
+                          child: StreamBuilder<List<InterestsRecord>>(
+                            stream: queryInterestsRecord(),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: CircularProgressIndicator(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                    ),
+                                  ),
+                                );
+                              }
+                              List<InterestsRecord>
+                                  otherChoiceInterestsRecordList =
+                                  snapshot.data!;
+                              return FlutterFlowChoiceChips(
+                                options: otherChoiceInterestsRecordList
+                                    .map((e) => e.name!)
+                                    .toList()
+                                    .map((label) => ChipData(label))
+                                    .toList(),
+                                onChanged: (val) =>
+                                    setState(() => otherChoiceValues = val),
+                                selectedChipStyle: ChipStyle(
+                                  backgroundColor: Colors.white,
+                                  textStyle:
+                                      FlutterFlowTheme.of(context).subtitle1,
+                                  iconColor: Colors.black,
+                                  iconSize: 18,
+                                  elevation: 4,
+                                ),
+                                unselectedChipStyle: ChipStyle(
+                                  backgroundColor: Colors.white,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Nunito',
+                                        fontSize: 18,
+                                      ),
+                                  iconColor: Color(0xFF323B45),
+                                  iconSize: 18,
+                                  elevation: 0,
+                                ),
+                                chipSpacing: 20,
+                                multiselect: true,
+                                initialized: otherChoiceValues != null,
+                                alignment: WrapAlignment.start,
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -201,9 +263,29 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                             );
                             return;
                           } else {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  content: Text(
+                                      otherChoiceValues!.length.toString()),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+
                             final usersUpdateData = {
-                              'interests': functions
-                                  .normInterests(choiceChipsValues!.toList()),
+                              'interests': widget.ijob != 'Other'
+                                  ? functions.normInterests(
+                                      choiceChipsValues!.toList())
+                                  : functions.normInterests(
+                                      otherChoiceValues!.toList()),
                             };
                             await currentUserReference!.update(usersUpdateData);
 

@@ -21,6 +21,8 @@ abstract class ReportedRecord
 
   DocumentReference? get postRef;
 
+  DocumentReference? get commentRef;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -55,6 +57,7 @@ Map<String, dynamic> createReportedRecordData({
   String? what,
   DocumentReference? userRef,
   DocumentReference? postRef,
+  DocumentReference? commentRef,
 }) {
   final firestoreData = serializers.toFirestore(
     ReportedRecord.serializer,
@@ -64,7 +67,8 @@ Map<String, dynamic> createReportedRecordData({
         ..reported = reported
         ..what = what
         ..userRef = userRef
-        ..postRef = postRef,
+        ..postRef = postRef
+        ..commentRef = commentRef,
     ),
   );
 

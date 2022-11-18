@@ -87,7 +87,34 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                   postDetailPostsRecord.postTitle!,
                   style: FlutterFlowTheme.of(context).bodyText1,
                 ),
-                actions: [],
+                actions: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                    child: InkWell(
+                      onTap: () async {
+                        await showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (context) {
+                            return Padding(
+                              padding: MediaQuery.of(context).viewInsets,
+                              child: CommentOptionsWidget(
+                                postRef: widget.postRef,
+                                userRef: postDetailPostsRecord.postUser,
+                              ),
+                            );
+                          },
+                        ).then((value) => setState(() {}));
+                      },
+                      child: Icon(
+                        Icons.more_vert,
+                        color: Colors.black,
+                        size: 24,
+                      ),
+                    ),
+                  ),
+                ],
                 centerTitle: true,
                 elevation: 1,
               )
@@ -626,245 +653,248 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                     final listViewCommentsRecord =
                                                         listViewCommentsRecordList[
                                                             listViewIndex];
-                                                    return Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0, 0, 0, 12),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          StreamBuilder<
-                                                              UsersRecord>(
-                                                            stream: UsersRecord
-                                                                .getDocument(
-                                                                    listViewCommentsRecord
-                                                                        .userRef!),
-                                                            builder: (context,
-                                                                snapshot) {
-                                                              // Customize what your widget looks like when it's loading.
-                                                              if (!snapshot
-                                                                  .hasData) {
-                                                                return Center(
-                                                                  child:
-                                                                      SizedBox(
-                                                                    width: 50,
-                                                                    height: 50,
-                                                                    child:
-                                                                        CircularProgressIndicator(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryColor,
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              }
-                                                              final imageUsersRecord =
-                                                                  snapshot
-                                                                      .data!;
-                                                              return ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            40),
-                                                                child: Image
-                                                                    .network(
-                                                                  valueOrDefault<
-                                                                      String>(
-                                                                    imageUsersRecord
-                                                                        .photoUrl,
-                                                                    'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.DVoj_J9g7E8eCEUpphqyvQHaHa%26pid%3DApi&f=1&ipt=c4e1cebc560410117940eca553bb10f9fd005b23004f7c72ace41474f8c57471&ipo=images',
-                                                                  ),
-                                                                  width: 40,
-                                                                  height: 40,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                ),
-                                                              );
-                                                            },
-                                                          ),
-                                                          Column(
+                                                    return Visibility(
+                                                      visible: (currentUserDocument
+                                                                      ?.blocked
+                                                                      ?.toList() ??
+                                                                  [])
+                                                              .contains(
+                                                                  listViewCommentsRecord
+                                                                      .userRef) ==
+                                                          false,
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(0, 0,
+                                                                    0, 12),
+                                                        child:
+                                                            AuthUserStreamWidget(
+                                                          child: Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
-                                                                    .min,
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment
                                                                     .start,
                                                             children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
+                                                              StreamBuilder<
+                                                                  UsersRecord>(
+                                                                stream: UsersRecord
+                                                                    .getDocument(
+                                                                        listViewCommentsRecord
+                                                                            .userRef!),
+                                                                builder: (context,
+                                                                    snapshot) {
+                                                                  // Customize what your widget looks like when it's loading.
+                                                                  if (!snapshot
+                                                                      .hasData) {
+                                                                    return Center(
+                                                                      child:
+                                                                          SizedBox(
+                                                                        width:
+                                                                            50,
+                                                                        height:
+                                                                            50,
+                                                                        child:
+                                                                            CircularProgressIndicator(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                  final imageUsersRecord =
+                                                                      snapshot
+                                                                          .data!;
+                                                                  return ClipRRect(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            40),
+                                                                    child: Image
+                                                                        .network(
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        imageUsersRecord
+                                                                            .photoUrl,
+                                                                        'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.DVoj_J9g7E8eCEUpphqyvQHaHa%26pid%3DApi&f=1&ipt=c4e1cebc560410117940eca553bb10f9fd005b23004f7c72ace41474f8c57471&ipo=images',
+                                                                      ),
+                                                                      width: 40,
+                                                                      height:
+                                                                          40,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                              Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             12,
                                                                             0,
                                                                             0,
                                                                             0),
-                                                                child:
-                                                                    Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12),
+                                                                    child:
+                                                                        Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(12),
+                                                                      ),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          StreamBuilder<
+                                                                              UsersRecord>(
+                                                                            stream:
+                                                                                UsersRecord.getDocument(listViewCommentsRecord.userRef!),
+                                                                            builder:
+                                                                                (context, snapshot) {
+                                                                              // Customize what your widget looks like when it's loading.
+                                                                              if (!snapshot.hasData) {
+                                                                                return Center(
+                                                                                  child: SizedBox(
+                                                                                    width: 50,
+                                                                                    height: 50,
+                                                                                    child: CircularProgressIndicator(
+                                                                                      color: FlutterFlowTheme.of(context).primaryColor,
+                                                                                    ),
+                                                                                  ),
+                                                                                );
+                                                                              }
+                                                                              final commenterNameUsersRecord = snapshot.data!;
+                                                                              return Text(
+                                                                                commenterNameUsersRecord.displayName!,
+                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                      fontFamily: 'Nunito',
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                    ),
+                                                                              );
+                                                                            },
+                                                                          ),
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                5,
+                                                                                0,
+                                                                                0,
+                                                                                0),
+                                                                            child:
+                                                                                Text(
+                                                                              listViewCommentsRecord.text!,
+                                                                              style: FlutterFlowTheme.of(context).bodyText2,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                   ),
-                                                                  child: Row(
+                                                                  Row(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
                                                                     children: [
-                                                                      StreamBuilder<
-                                                                          UsersRecord>(
-                                                                        stream:
-                                                                            UsersRecord.getDocument(listViewCommentsRecord.userRef!),
-                                                                        builder:
-                                                                            (context,
-                                                                                snapshot) {
-                                                                          // Customize what your widget looks like when it's loading.
-                                                                          if (!snapshot
-                                                                              .hasData) {
-                                                                            return Center(
-                                                                              child: SizedBox(
-                                                                                width: 50,
-                                                                                height: 50,
-                                                                                child: CircularProgressIndicator(
-                                                                                  color: FlutterFlowTheme.of(context).primaryColor,
-                                                                                ),
-                                                                              ),
-                                                                            );
-                                                                          }
-                                                                          final commenterNameUsersRecord =
-                                                                              snapshot.data!;
-                                                                          return Text(
-                                                                            commenterNameUsersRecord.displayName!,
-                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                  fontFamily: 'Nunito',
-                                                                                  fontWeight: FontWeight.bold,
-                                                                                ),
-                                                                          );
-                                                                        },
-                                                                      ),
                                                                       Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            5,
-                                                                            0,
+                                                                            12,
+                                                                            4,
                                                                             0,
                                                                             0),
                                                                         child:
                                                                             Text(
-                                                                          listViewCommentsRecord
-                                                                              .text!,
+                                                                          dateTimeFormat(
+                                                                            'relative',
+                                                                            listViewCommentsRecord.date!,
+                                                                            locale:
+                                                                                FFLocalizations.of(context).languageCode,
+                                                                          ),
+                                                                          style:
+                                                                              FlutterFlowTheme.of(context).bodyText2,
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            12,
+                                                                            4,
+                                                                            0,
+                                                                            0),
+                                                                        child:
+                                                                            Text(
+                                                                          'Balas',
                                                                           style:
                                                                               FlutterFlowTheme.of(context).bodyText2,
                                                                         ),
                                                                       ),
                                                                     ],
                                                                   ),
-                                                                ),
-                                                              ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            12,
-                                                                            4,
-                                                                            0,
-                                                                            0),
-                                                                    child: Text(
-                                                                      dateTimeFormat(
-                                                                        'relative',
-                                                                        listViewCommentsRecord
-                                                                            .date!,
-                                                                        locale:
-                                                                            FFLocalizations.of(context).languageCode,
-                                                                      ),
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyText2,
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            12,
-                                                                            4,
-                                                                            0,
-                                                                            0),
-                                                                    child: Text(
-                                                                      'Balas',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyText2,
-                                                                    ),
-                                                                  ),
                                                                 ],
                                                               ),
-                                                            ],
-                                                          ),
-                                                          Expanded(
-                                                            child: Align(
-                                                              alignment:
-                                                                  AlignmentDirectional(
-                                                                      1, 0),
-                                                              child: Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
+                                                              Expanded(
+                                                                child: Align(
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          1, 0),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             5,
                                                                             0,
                                                                             0,
                                                                             0),
-                                                                child: InkWell(
-                                                                  onTap:
-                                                                      () async {
-                                                                    await showModalBottomSheet(
-                                                                      isScrollControlled:
-                                                                          true,
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      context:
-                                                                          context,
-                                                                      builder:
-                                                                          (context) {
-                                                                        return Padding(
-                                                                          padding:
-                                                                              MediaQuery.of(context).viewInsets,
-                                                                          child:
-                                                                              CommentOptionsWidget(
-                                                                            userRef:
-                                                                                listViewCommentsRecord.userRef,
-                                                                            postRef:
-                                                                                widget.postRef,
-                                                                          ),
-                                                                        );
+                                                                    child:
+                                                                        InkWell(
+                                                                      onTap:
+                                                                          () async {
+                                                                        await showModalBottomSheet(
+                                                                          isScrollControlled:
+                                                                              true,
+                                                                          backgroundColor:
+                                                                              Colors.transparent,
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (context) {
+                                                                            return Padding(
+                                                                              padding: MediaQuery.of(context).viewInsets,
+                                                                              child: CommentOptionsWidget(
+                                                                                userRef: listViewCommentsRecord.userRef,
+                                                                                postRef: widget.postRef,
+                                                                                commentRef: listViewCommentsRecord.reference,
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                        ).then((value) =>
+                                                                            setState(() {}));
                                                                       },
-                                                                    ).then((value) =>
-                                                                        setState(
-                                                                            () {}));
-                                                                  },
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .more_vert,
-                                                                    color: Colors
-                                                                        .black,
-                                                                    size: 30,
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .more_vert,
+                                                                        color: Colors
+                                                                            .black,
+                                                                        size:
+                                                                            30,
+                                                                      ),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
+                                                            ],
                                                           ),
-                                                        ],
+                                                        ),
                                                       ),
                                                     );
                                                   },
