@@ -854,6 +854,92 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                        child: FutureBuilder<List<UsersRecord>>(
+                          future: queryUsersRecordOnce(
+                            queryBuilder: (usersRecord) => usersRecord.where(
+                                'email',
+                                isEqualTo: 'care@armora-tech.com'),
+                            singleRecord: true,
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: CircularProgressIndicator(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                  ),
+                                ),
+                              );
+                            }
+                            List<UsersRecord> csContainerUsersRecordList =
+                                snapshot.data!;
+                            final csContainerUsersRecord =
+                                csContainerUsersRecordList.isNotEmpty
+                                    ? csContainerUsersRecordList.first
+                                    : null;
+                            return InkWell(
+                              onTap: () async {
+                                context.pushNamed(
+                                  'chatPage',
+                                  queryParams: {
+                                    'chatUser': serializeParam(
+                                      csContainerUsersRecord,
+                                      ParamType.Document,
+                                    ),
+                                  }.withoutNulls,
+                                  extra: <String, dynamic>{
+                                    'chatUser': csContainerUsersRecord,
+                                  },
+                                );
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 0, 0),
+                                      child: Icon(
+                                        FFIcons
+                                            .kdlbeatsnoopcomBb958e199ce43eabfeAdobeExpress,
+                                        color: Colors.black,
+                                        size: 30,
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            5, 0, 0, 0),
+                                        child: Text(
+                                          'Armoriz Care',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Nunito',
+                                                fontSize: 20,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
               ],
@@ -1026,12 +1112,10 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                       if (!snapshot.hasData) {
                                         return Center(
                                           child: SizedBox(
-                                            width: 50,
-                                            height: 50,
+                                            width: 40,
+                                            height: 40,
                                             child: CircularProgressIndicator(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryColor,
+                                              color: Color(0x004B39EF),
                                             ),
                                           ),
                                         );

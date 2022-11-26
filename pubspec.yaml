@@ -179,6 +179,9 @@ flutter:
     - family: MessageCircle
       fonts:
         - asset: assets/fonts/message_circle.ttf
+    - family: CustomerCare
+      fonts:
+        - asset: assets/fonts/customer_care.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
