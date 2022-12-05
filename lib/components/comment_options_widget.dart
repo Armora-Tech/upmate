@@ -29,7 +29,7 @@ class _CommentOptionsWidgetState extends State<CommentOptionsWidget> {
     return Container(
       width: double.infinity,
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.2,
+        maxHeight: MediaQuery.of(context).size.height * 0.4,
       ),
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,

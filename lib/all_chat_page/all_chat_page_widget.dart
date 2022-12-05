@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../components/chats_options_widget.dart';
 import '../flutter_flow/chat/index.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -39,29 +40,33 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
       key: scaffoldKey,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          context.pushNamed(
-            'createChatPage',
-            extra: <String, dynamic>{
-              kTransitionInfoKey: TransitionInfo(
-                hasTransition: true,
-                transitionType: PageTransitionType.bottomToTop,
-              ),
+          await showModalBottomSheet(
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            context: context,
+            builder: (context) {
+              return Padding(
+                padding: MediaQuery.of(context).viewInsets,
+                child: ChatsOptionsWidget(),
+              );
             },
-          );
+          ).then((value) => setState(() {}));
         },
         backgroundColor: Color(0xFF5ABBDE),
         elevation: 8,
         child: InkWell(
           onTap: () async {
-            context.pushNamed(
-              'createChatPage',
-              extra: <String, dynamic>{
-                kTransitionInfoKey: TransitionInfo(
-                  hasTransition: true,
-                  transitionType: PageTransitionType.bottomToTop,
-                ),
+            await showModalBottomSheet(
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              context: context,
+              builder: (context) {
+                return Padding(
+                  padding: MediaQuery.of(context).viewInsets,
+                  child: ChatsOptionsWidget(),
+                );
               },
-            );
+            ).then((value) => setState(() {}));
           },
           child: Icon(
             Icons.add,

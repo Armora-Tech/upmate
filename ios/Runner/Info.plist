@@ -29,7 +29,7 @@
             <key>CFBundleURLSchemes</key>
             <array>
                 <string>com.googleusercontent.apps.159601934733-6hh55qn625tbmcj0uf6oud79ilm2vcum</string>
-                
+                <string>fb526661376052667</string>
             </array>
         </dict>
 
@@ -59,6 +59,10 @@
     <key>FlutterDeepLinkingEnabled</key>
     <true/>
 
+    <key>FacebookAppID</key>
+    <string>526661376052667</string>
+    <key>FacebookDisplayName</key>
+    <string>Armora Tech</string>
 
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
@@ -77,6 +81,25 @@
         <string>remote-notification</string>
     </array>
 
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fbapi20130214</string>
+      <string>fbapi20130410</string>
+      <string>fbapi20130702</string>
+      <string>fbapi20131010</string>
+      <string>fbapi20131219</string>
+      <string>fbapi20140410</string>
+      <string>fbapi20140116</string>
+      <string>fbapi20150313</string>
+      <string>fbapi20150629</string>
+      <string>fbapi20160328</string>
+      <string>fbauth</string>
+      <string>fb-messenger-share-api</string>
+      <string>fbauth2</string>
+      <string>fbshareextension</string>
+
+    </array>
 
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

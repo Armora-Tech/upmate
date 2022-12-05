@@ -126,20 +126,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : MainPageWidget(),
             ),
             FFRoute(
-              name: 'newPostPage',
-              path: 'newPostPage',
-              requireAuth: true,
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'newPostPage')
-                  : NewPostPageWidget(),
-            ),
-            FFRoute(
               name: 'explorePage',
               path: 'explorePage',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'explorePage')
                   : ExplorePageWidget(),
+            ),
+            FFRoute(
+              name: 'newPostPage',
+              path: 'newPostPage',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'newPostPage')
+                  : NewPostPageWidget(),
             ),
             FFRoute(
               name: 'postDetail',
@@ -208,6 +208,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'appInfo',
               requireAuth: true,
               builder: (context, params) => AppInfoWidget(),
+            ),
+            FFRoute(
+              name: 'createGroupChat',
+              path: 'createGroupChat',
+              requireAuth: true,
+              builder: (context, params) => CreateGroupChatWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

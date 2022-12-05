@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "159601934733-t79h80b8qc8gih3b0raqdr0gj34lh4e0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.armoratech.upmate",
+            "certificate_hash": "77d643c48eb2c5a5fec24ad451c63c9b49f55584"
+          }
+        },
+        {
           "client_id": "159601934733-rdcro81bo8bv5f68vuje7q77m0bcl6c6.apps.googleusercontent.com",
           "client_type": 3
         }

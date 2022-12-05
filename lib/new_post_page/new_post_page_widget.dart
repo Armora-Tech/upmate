@@ -223,16 +223,14 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                           .bodyText2,
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                          color: Color(0xFFFBEFEF),
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                          color: Color(0xFFFBEFEF),
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
@@ -300,16 +298,14 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                           .bodyText2,
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                          color: Color(0xFFFBEFEF),
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                          color: Color(0xFFFBEFEF),
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),

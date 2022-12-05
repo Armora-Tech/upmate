@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../auth/firebase_user_provider.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_timer.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -90,7 +91,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                     ),
                   Form(
                     key: formKey,
-                    autovalidateMode: AutovalidateMode.always,
+                    autovalidateMode: AutovalidateMode.disabled,
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -112,14 +113,14 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     FlutterFlowTheme.of(context).bodyText2,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xB3FBEFEF),
+                                    color: Color(0xFFFBEFEF),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xB3FBEFEF),
+                                    color: Color(0xFFFBEFEF),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
@@ -182,14 +183,14 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     FlutterFlowTheme.of(context).bodyText2,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xB3FBEFEF),
+                                    color: Color(0xFFFBEFEF),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xB3FBEFEF),
+                                    color: Color(0xFFFBEFEF),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
@@ -246,6 +247,11 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        if (formKey.currentState == null ||
+                            !formKey.currentState!.validate()) {
+                          return;
+                        }
+
                         GoRouter.of(context).prepareAuthEvent();
 
                         final user = await signInWithEmail(
@@ -429,7 +435,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           if (user == null) {
                             return;
                           }
-                          if (currentUserEmailVerified) {
+                          if (loggedIn) {
                             context.goNamedAuth('mainPage', mounted);
 
                             return;
@@ -459,11 +465,22 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      Image.asset(
-                        'assets/images/fb_icon-removebg-preview.png',
-                        width: 48,
-                        height: 48,
-                        fit: BoxFit.cover,
+                      InkWell(
+                        onTap: () async {
+                          GoRouter.of(context).prepareAuthEvent();
+                          final user = await signInWithFacebook(context);
+                          if (user == null) {
+                            return;
+                          }
+
+                          context.goNamedAuth('mainPage', mounted);
+                        },
+                        child: Image.asset(
+                          'assets/images/fb_icon-removebg-preview.png',
+                          width: 48,
+                          height: 48,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ],
                   ),

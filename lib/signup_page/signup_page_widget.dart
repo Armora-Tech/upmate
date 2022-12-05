@@ -99,7 +99,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                   ),
                   Form(
                     key: formKey,
-                    autovalidateMode: AutovalidateMode.always,
+                    autovalidateMode: AutovalidateMode.disabled,
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -121,14 +121,14 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                                     FlutterFlowTheme.of(context).bodyText2,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xB3FBEFEF),
+                                    color: Color(0xFFFBEFEF),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xB3FBEFEF),
+                                    color: Color(0xFFFBEFEF),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
@@ -195,14 +195,14 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                                     FlutterFlowTheme.of(context).bodyText2,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xB3FBEFEF),
+                                    color: Color(0xFFFBEFEF),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xB3FBEFEF),
+                                    color: Color(0xFFFBEFEF),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
@@ -265,14 +265,14 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                                     FlutterFlowTheme.of(context).bodyText2,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xB3FBEFEF),
+                                    color: Color(0xFFFBEFEF),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xB3FBEFEF),
+                                    color: Color(0xFFFBEFEF),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
@@ -336,14 +336,14 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                                     FlutterFlowTheme.of(context).bodyText2,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xB3FBEFEF),
+                                    color: Color(0xFFFBEFEF),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xB3FBEFEF),
+                                    color: Color(0xFFFBEFEF),
                                     width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
@@ -478,6 +478,11 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                           if (_shouldSetState) setState(() {});
                           return;
                         }
+                        if (formKey.currentState == null ||
+                            !formKey.currentState!.validate()) {
+                          return;
+                        }
+
                         if (inpPassController!.text ==
                             inpPassConfController!.text) {
                           otp = await GetOTPCall.call(
@@ -623,11 +628,22 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      Image.asset(
-                        'assets/images/fb_icon-removebg-preview.png',
-                        width: 32,
-                        height: 32,
-                        fit: BoxFit.cover,
+                      InkWell(
+                        onTap: () async {
+                          GoRouter.of(context).prepareAuthEvent();
+                          final user = await signInWithFacebook(context);
+                          if (user == null) {
+                            return;
+                          }
+
+                          context.goNamedAuth('mainPage', mounted);
+                        },
+                        child: Image.asset(
+                          'assets/images/fb_icon-removebg-preview.png',
+                          width: 32,
+                          height: 32,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ],
                   ),

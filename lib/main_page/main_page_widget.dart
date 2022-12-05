@@ -8,7 +8,9 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
 import 'dart:ui';
+import '../custom_code/widgets/index.dart' as custom_widgets;
 import '../flutter_flow/custom_functions.dart' as functions;
+import '../flutter_flow/random_data_util.dart' as random_data;
 import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -1660,7 +1662,10 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                           children: [
                                                             Text(
                                                               personalizedColumnPostsRecord
-                                                                  .postTitle!,
+                                                                  .postTitle!
+                                                                  .maybeHandleOverflow(
+                                                                      maxChars:
+                                                                          20),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1
@@ -1754,72 +1759,108 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
-                                                      Expanded(
-                                                        child: Wrap(
-                                                          spacing: 0,
-                                                          runSpacing: 0,
-                                                          alignment:
-                                                              WrapAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              WrapCrossAlignment
-                                                                  .start,
-                                                          direction:
-                                                              Axis.horizontal,
-                                                          runAlignment:
-                                                              WrapAlignment
-                                                                  .start,
-                                                          verticalDirection:
-                                                              VerticalDirection
-                                                                  .down,
-                                                          clipBehavior:
-                                                              Clip.none,
-                                                          children: [
-                                                            Visibility(
-                                                              visible: personalizedColumnPostsRecord
-                                                                          .postPhoto ==
-                                                                      null ||
-                                                                  personalizedColumnPostsRecord
-                                                                          .postPhoto ==
-                                                                      '',
-                                                              child: Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            5,
-                                                                            0,
-                                                                            5),
-                                                                child: Text(
-                                                                  personalizedColumnPostsRecord
-                                                                      .postDescription!
-                                                                      .maybeHandleOverflow(
-                                                                    maxChars:
-                                                                        100,
-                                                                    replacement:
-                                                                        '…',
+                                                      if (random_data
+                                                              .randomInteger(
+                                                                  0, 10) ==
+                                                          11)
+                                                        Expanded(
+                                                          child: Wrap(
+                                                            spacing: 0,
+                                                            runSpacing: 0,
+                                                            alignment:
+                                                                WrapAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                WrapCrossAlignment
+                                                                    .start,
+                                                            direction:
+                                                                Axis.horizontal,
+                                                            runAlignment:
+                                                                WrapAlignment
+                                                                    .start,
+                                                            verticalDirection:
+                                                                VerticalDirection
+                                                                    .down,
+                                                            clipBehavior:
+                                                                Clip.none,
+                                                            children: [
+                                                              Visibility(
+                                                                visible: personalizedColumnPostsRecord
+                                                                            .postPhoto ==
+                                                                        null ||
+                                                                    personalizedColumnPostsRecord
+                                                                            .postPhoto ==
+                                                                        '',
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          5,
+                                                                          0,
+                                                                          5),
+                                                                  child: Text(
+                                                                    personalizedColumnPostsRecord
+                                                                        .postDescription!
+                                                                        .maybeHandleOverflow(
+                                                                      maxChars:
+                                                                          100,
+                                                                      replacement:
+                                                                          '…',
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .justify,
+                                                                    maxLines: 3,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Nunito',
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.normal,
+                                                                        ),
                                                                   ),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .justify,
-                                                                  maxLines: 3,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Nunito',
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight.normal,
-                                                                      ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                              Visibility(
+                                                                visible: personalizedColumnPostsRecord
+                                                                            .postPhoto ==
+                                                                        null ||
+                                                                    personalizedColumnPostsRecord
+                                                                            .postPhoto ==
+                                                                        '',
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          5,
+                                                                          0,
+                                                                          5),
+                                                                  child: Text(
+                                                                    'selengkapnya',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Nunito',
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -1926,7 +1967,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                   currentUserReference),
                                                           onIcon: Icon(
                                                             Icons
-                                                                .bookmark_border_outlined,
+                                                                .bookmark_outlined,
                                                             color: Colors.black,
                                                             size: 25,
                                                           ),
@@ -2281,42 +2322,35 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                           clipBehavior:
                                                               Clip.none,
                                                           children: [
-                                                            Visibility(
-                                                              visible: personalizedColumnPostsRecord
-                                                                          .postPhoto !=
-                                                                      null &&
-                                                                  personalizedColumnPostsRecord
-                                                                          .postPhoto !=
-                                                                      '',
-                                                              child: Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            5,
-                                                                            0,
-                                                                            5),
-                                                                child: Text(
-                                                                  personalizedColumnPostsRecord
-                                                                      .postDescription!
-                                                                      .maybeHandleOverflow(
-                                                                          maxChars:
-                                                                              50),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .justify,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Nunito',
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight.normal,
-                                                                      ),
-                                                                ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          5,
+                                                                          0,
+                                                                          5),
+                                                              child: Text(
+                                                                personalizedColumnPostsRecord
+                                                                    .postDescription!
+                                                                    .maybeHandleOverflow(
+                                                                        maxChars:
+                                                                            50),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .justify,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Nunito',
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                    ),
                                                               ),
                                                             ),
                                                           ],
@@ -2463,66 +2497,88 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                         MainAxisAlignment
                                                                             .start,
                                                                     children: [
-                                                                      Container(
-                                                                        width:
-                                                                            15,
-                                                                        height:
-                                                                            15,
+                                                                      Wrap(
+                                                                        spacing:
+                                                                            0,
+                                                                        runSpacing:
+                                                                            0,
+                                                                        alignment:
+                                                                            WrapAlignment.start,
+                                                                        crossAxisAlignment:
+                                                                            WrapCrossAlignment.start,
+                                                                        direction:
+                                                                            Axis.horizontal,
+                                                                        runAlignment:
+                                                                            WrapAlignment.start,
+                                                                        verticalDirection:
+                                                                            VerticalDirection.down,
                                                                         clipBehavior:
-                                                                            Clip.antiAlias,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          shape:
-                                                                              BoxShape.circle,
-                                                                        ),
-                                                                        child: Image
-                                                                            .network(
-                                                                          valueOrDefault<
-                                                                              String>(
-                                                                            rowUsersRecord.photoUrl,
-                                                                            'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VORoQXOzfnrc1yOV4anzxQHaHa%26pid%3DApi%26h%3D160&f=1&ipt=6e1ae93c3fc52057f78d8a58710494b23a6881a41b9dd2185da8e430dfe53e1e&ipo=images',
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            7,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                        child:
-                                                                            Text(
-                                                                          rowUsersRecord
-                                                                              .displayName!,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Nunito',
-                                                                                fontWeight: FontWeight.bold,
+                                                                            Clip.none,
+                                                                        children: [
+                                                                          Container(
+                                                                            width:
+                                                                                15,
+                                                                            height:
+                                                                                15,
+                                                                            clipBehavior:
+                                                                                Clip.antiAlias,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              shape: BoxShape.circle,
+                                                                            ),
+                                                                            child:
+                                                                                Image.network(
+                                                                              valueOrDefault<String>(
+                                                                                rowUsersRecord.photoUrl,
+                                                                                'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VORoQXOzfnrc1yOV4anzxQHaHa%26pid%3DApi%26h%3D160&f=1&ipt=6e1ae93c3fc52057f78d8a58710494b23a6881a41b9dd2185da8e430dfe53e1e&ipo=images',
                                                                               ),
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            7,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                        child:
-                                                                            Text(
-                                                                          columnCommentsRecord
-                                                                              .text!
-                                                                              .maybeHandleOverflow(
-                                                                            maxChars:
-                                                                                100,
-                                                                            replacement:
-                                                                                '…',
+                                                                            ),
                                                                           ),
-                                                                          maxLines:
-                                                                              3,
-                                                                          style:
-                                                                              FlutterFlowTheme.of(context).bodyText1,
-                                                                        ),
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                7,
+                                                                                0,
+                                                                                0,
+                                                                                0),
+                                                                            child:
+                                                                                Text(
+                                                                              rowUsersRecord.displayName!,
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Nunito',
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                          Container(
+                                                                            width:
+                                                                                MediaQuery.of(context).size.width * 0.5,
+                                                                            height:
+                                                                                MediaQuery.of(context).size.height * 0.05,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                            ),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Container(
+                                                                                  width: MediaQuery.of(context).size.width,
+                                                                                  height: MediaQuery.of(context).size.height * 1,
+                                                                                  child: custom_widgets.TextReadm(
+                                                                                    width: MediaQuery.of(context).size.width,
+                                                                                    height: MediaQuery.of(context).size.height * 1,
+                                                                                    text: columnCommentsRecord.text!,
+                                                                                    colorb: FlutterFlowTheme.of(context).primaryText,
+                                                                                    trimline: 2,
+                                                                                    collapmsg: '...Selengkapnya',
+                                                                                    readmorecolor: FlutterFlowTheme.of(context).textColor,
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ],
                                                                       ),
                                                                     ],
                                                                   );

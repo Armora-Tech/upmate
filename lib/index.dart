@@ -5,8 +5,8 @@ export 'signup_page/signup_page_widget.dart' show SignupPageWidget;
 export 'interest_page/interest_page_widget.dart' show InterestPageWidget;
 export 'survey_page/survey_page_widget.dart' show SurveyPageWidget;
 export 'main_page/main_page_widget.dart' show MainPageWidget;
-export 'new_post_page/new_post_page_widget.dart' show NewPostPageWidget;
 export 'explore_page/explore_page_widget.dart' show ExplorePageWidget;
+export 'new_post_page/new_post_page_widget.dart' show NewPostPageWidget;
 export 'post_detail/post_detail_widget.dart' show PostDetailWidget;
 export 'notification_page/notification_page_widget.dart'
     show NotificationPageWidget;
@@ -18,3 +18,5 @@ export 'rating_page/rating_page_widget.dart' show RatingPageWidget;
 export 'account_page/account_page_widget.dart' show AccountPageWidget;
 export 'bookmark_page/bookmark_page_widget.dart' show BookmarkPageWidget;
 export 'app_info/app_info_widget.dart' show AppInfoWidget;
+export 'create_group_chat/create_group_chat_widget.dart'
+    show CreateGroupChatWidget;

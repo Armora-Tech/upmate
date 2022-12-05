@@ -86,6 +86,13 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
                   DocumentReference, const [const FullType.nullable(Object)])
             ])));
     }
+    value = object.tes;
+    if (value != null) {
+      result
+        ..add('tes')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -149,6 +156,10 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
                     DocumentReference, const [const FullType.nullable(Object)])
               ]))! as BuiltList<Object?>);
           break;
+        case 'tes':
+          result.tes = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -182,6 +193,8 @@ class _$UsersRecord extends UsersRecord {
   @override
   final BuiltList<DocumentReference<Object?>>? blocked;
   @override
+  final String? tes;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -197,6 +210,7 @@ class _$UsersRecord extends UsersRecord {
       this.interests,
       this.postTmpImg,
       this.blocked,
+      this.tes,
       this.ffRef})
       : super._();
 
@@ -220,6 +234,7 @@ class _$UsersRecord extends UsersRecord {
         interests == other.interests &&
         postTmpImg == other.postTmpImg &&
         blocked == other.blocked &&
+        tes == other.tes &&
         ffRef == other.ffRef;
   }
 
@@ -233,15 +248,17 @@ class _$UsersRecord extends UsersRecord {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, email.hashCode),
-                                        displayName.hashCode),
-                                    photoUrl.hashCode),
-                                uid.hashCode),
-                            createdTime.hashCode),
-                        phoneNumber.hashCode),
-                    interests.hashCode),
-                postTmpImg.hashCode),
-            blocked.hashCode),
+                                    $jc(
+                                        $jc($jc(0, email.hashCode),
+                                            displayName.hashCode),
+                                        photoUrl.hashCode),
+                                    uid.hashCode),
+                                createdTime.hashCode),
+                            phoneNumber.hashCode),
+                        interests.hashCode),
+                    postTmpImg.hashCode),
+                blocked.hashCode),
+            tes.hashCode),
         ffRef.hashCode));
   }
 
@@ -257,6 +274,7 @@ class _$UsersRecord extends UsersRecord {
           ..add('interests', interests)
           ..add('postTmpImg', postTmpImg)
           ..add('blocked', blocked)
+          ..add('tes', tes)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -305,6 +323,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   set blocked(ListBuilder<DocumentReference<Object?>>? blocked) =>
       _$this._blocked = blocked;
 
+  String? _tes;
+  String? get tes => _$this._tes;
+  set tes(String? tes) => _$this._tes = tes;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -325,6 +347,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _interests = $v.interests?.toBuilder();
       _postTmpImg = $v.postTmpImg;
       _blocked = $v.blocked?.toBuilder();
+      _tes = $v.tes;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -359,6 +382,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               interests: _interests?.build(),
               postTmpImg: postTmpImg,
               blocked: _blocked?.build(),
+              tes: tes,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

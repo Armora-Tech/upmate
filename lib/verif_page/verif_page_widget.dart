@@ -1,5 +1,4 @@
 import '../auth/auth_util.dart';
-import '../backend/backend.dart';
 import '../components/verfied_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -238,15 +237,6 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                             if (user == null) {
                               return;
                             }
-
-                            final usersCreateData = createUsersRecordData(
-                              email: widget.mail,
-                              displayName: widget.name,
-                              createdTime: getCurrentTimestamp,
-                            );
-                            await UsersRecord.collection
-                                .doc(user.uid)
-                                .update(usersCreateData);
 
                             setState(() => FFAppState().isverified = true);
 
