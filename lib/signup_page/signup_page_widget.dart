@@ -167,10 +167,10 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                                   return 'Field is required';
                                 }
 
-                                if (!RegExp(kTextValidatorUsernameRegex)
-                                    .hasMatch(val)) {
-                                  return 'Must start with a letter and can only contain letters, digits and - or _.';
+                                if (val.length > 50) {
+                                  return 'Maximum 50 characters allowed, currently ${val.length}.';
                                 }
+
                                 return null;
                               },
                             ),

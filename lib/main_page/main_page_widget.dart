@@ -8,7 +8,6 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
 import 'dart:ui';
-import '../custom_code/widgets/index.dart' as custom_widgets;
 import '../flutter_flow/custom_functions.dart' as functions;
 import '../flutter_flow/random_data_util.dart' as random_data;
 import 'dart:async';
@@ -2437,7 +2436,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                         snapshot.data!;
                                                     return Column(
                                                       mainAxisSize:
-                                                          MainAxisSize.max,
+                                                          MainAxisSize.min,
                                                       children: List.generate(
                                                           columnCommentsRecordList
                                                               .length,
@@ -2513,7 +2512,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                         verticalDirection:
                                                                             VerticalDirection.down,
                                                                         clipBehavior:
-                                                                            Clip.none,
+                                                                            Clip.antiAlias,
                                                                         children: [
                                                                           Container(
                                                                             width:
@@ -2549,33 +2548,21 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                                   ),
                                                                             ),
                                                                           ),
-                                                                          Container(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width * 0.5,
-                                                                            height:
-                                                                                MediaQuery.of(context).size.height * 0.05,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                            ),
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                5,
+                                                                                0,
+                                                                                0,
+                                                                                0),
                                                                             child:
-                                                                                Row(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              children: [
-                                                                                Container(
-                                                                                  width: MediaQuery.of(context).size.width,
-                                                                                  height: MediaQuery.of(context).size.height * 1,
-                                                                                  child: custom_widgets.TextReadm(
-                                                                                    width: MediaQuery.of(context).size.width,
-                                                                                    height: MediaQuery.of(context).size.height * 1,
-                                                                                    text: columnCommentsRecord.text!,
-                                                                                    colorb: FlutterFlowTheme.of(context).primaryText,
-                                                                                    trimline: 2,
-                                                                                    collapmsg: '...Selengkapnya',
-                                                                                    readmorecolor: FlutterFlowTheme.of(context).textColor,
+                                                                                Text(
+                                                                              columnCommentsRecord.text!,
+                                                                              maxLines: 1,
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Nunito',
+                                                                                    fontSize: 14,
+                                                                                    fontWeight: FontWeight.normal,
                                                                                   ),
-                                                                                ),
-                                                                              ],
                                                                             ),
                                                                           ),
                                                                         ],
