@@ -13,6 +13,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class NewPostPageWidget extends StatefulWidget {
   const NewPostPageWidget({Key? key}) : super(key: key);
@@ -49,6 +50,8 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -106,6 +109,8 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                 final selectedMedia =
                                     await selectMediaWithSourceBottomSheet(
                                   context: context,
+                                  maxWidth: 720.00,
+                                  maxHeight: 720.00,
                                   allowPhoto: true,
                                 );
                                 if (selectedMedia != null &&
@@ -275,6 +280,10 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                         return 'Field is required';
                                       }
 
+                                      if (val.length > 25) {
+                                        return 'Maximum 25 characters allowed, currently ${val.length}.';
+                                      }
+
                                       return null;
                                     },
                                   ),
@@ -335,6 +344,10 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                     validator: (val) {
                                       if (val == null || val.isEmpty) {
                                         return 'Field is required';
+                                      }
+
+                                      if (val.length > 50) {
+                                        return 'Maximum 50 characters allowed, currently ${val.length}.';
                                       }
 
                                       return null;
@@ -407,14 +420,15 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                       if (_shouldSetState) setState(() {});
                       return;
                     }
-                    setState(() =>
-                        FFAppState().tiid = 'PST-${random_data.randomString(
-                          6,
-                          6,
-                          true,
-                          true,
-                          true,
-                        )}');
+                    setState(() {
+                      FFAppState().tiid = 'PST-${random_data.randomString(
+                        6,
+                        6,
+                        true,
+                        true,
+                        true,
+                      )}';
+                    });
 
                     final postsCreateData = {
                       ...createPostsRecordData(

@@ -8,6 +8,7 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class VerifPageWidget extends StatefulWidget {
   const VerifPageWidget({
@@ -50,12 +51,15 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
   @override
   void dispose() {
     fMailController?.dispose();
+    mailVerif?.dispose();
     fPwController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -238,7 +242,9 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                               return;
                             }
 
-                            setState(() => FFAppState().isverified = true);
+                            setState(() {
+                              FFAppState().isverified = true;
+                            });
 
                             context.goNamedAuth(
                               'VerifPage',

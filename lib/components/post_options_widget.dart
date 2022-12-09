@@ -3,6 +3,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class PostOptionsWidget extends StatefulWidget {
   const PostOptionsWidget({
@@ -19,6 +20,8 @@ class PostOptionsWidget extends StatefulWidget {
 class _PostOptionsWidgetState extends State<PostOptionsWidget> {
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(

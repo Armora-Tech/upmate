@@ -7,7 +7,7 @@ final isProdPayments = false;
 
 // Test Braintree Credentials
 const kTestBraintreeTokenizationKey = 'sandbox_zj6sy78f_bxjn3kgw57m2sgn4';
-const kTestGoogleMerchantId = '';
+const kTestGoogleMerchantId = '239141871014537760';
 const kTestAppleMerchantId = '';
 
 // Production Braintree Credentials

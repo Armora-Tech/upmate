@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class CommentOptionsWidget extends StatefulWidget {
   const CommentOptionsWidget({
@@ -26,6 +27,8 @@ class CommentOptionsWidget extends StatefulWidget {
 class _CommentOptionsWidgetState extends State<CommentOptionsWidget> {
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
       constraints: BoxConstraints(

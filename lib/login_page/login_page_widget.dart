@@ -5,12 +5,14 @@ import '../flutter_flow/flutter_flow_timer.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
+import 'package:styled_divider/styled_divider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class LoginPageWidget extends StatefulWidget {
   const LoginPageWidget({Key? key}) : super(key: key);
@@ -50,6 +52,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -308,9 +312,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   email: inpEmailController!.text,
                                   context: context,
                                 );
-                                setState(() => FFAppState().sreset = true);
-                                setState(() => FFAppState().nreset =
-                                    FFAppState().nreset + 1);
+                                setState(() {
+                                  FFAppState().sreset = true;
+                                  FFAppState().nreset = FFAppState().nreset + 1;
+                                });
                                 timerController?.onExecute.add(
                                   StopWatchExecute.start,
                                 );
@@ -363,7 +368,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       fontWeight: FontWeight.w500,
                                     ),
                             onEnded: () async {
-                              setState(() => FFAppState().sreset = false);
+                              setState(() {
+                                FFAppState().sreset = false;
+                              });
                             },
                           ),
                       ],

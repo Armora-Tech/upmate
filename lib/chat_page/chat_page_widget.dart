@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ChatPageWidget extends StatefulWidget {
   const ChatPageWidget({
@@ -54,6 +55,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -70,7 +73,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
             size: 24,
           ),
           onPressed: () async {
-            context.pop();
+            context.pushNamed('allChatPage');
           },
         ),
         title: Stack(

@@ -3,6 +3,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class VerfiedWidget extends StatefulWidget {
   const VerfiedWidget({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class VerfiedWidget extends StatefulWidget {
 class _VerfiedWidgetState extends State<VerfiedWidget> {
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       decoration: BoxDecoration(),
       child: Column(
@@ -53,7 +56,9 @@ class _VerfiedWidgetState extends State<VerfiedWidget> {
               onPressed: () async {
                 context.pushNamed('surveyPage');
 
-                setState(() => FFAppState().isFirstOpen = true);
+                setState(() {
+                  FFAppState().isFirstOpen = true;
+                });
               },
               text: 'Get started!',
               options: FFButtonOptions(

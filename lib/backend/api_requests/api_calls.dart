@@ -76,3 +76,12 @@ String _serializeList(List? list) {
     return '[]';
   }
 }
+
+String _serializeJson(dynamic jsonVar) {
+  jsonVar ??= {};
+  try {
+    return json.encode(jsonVar);
+  } catch (_) {
+    return '{}';
+  }
+}

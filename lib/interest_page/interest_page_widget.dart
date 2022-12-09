@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class InterestPageWidget extends StatefulWidget {
   const InterestPageWidget({
@@ -48,6 +49,8 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return FutureBuilder<List<UtilsRecord>>(
       future: queryUtilsRecordOnce(
         singleRecord: true,

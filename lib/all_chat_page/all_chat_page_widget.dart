@@ -9,6 +9,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class AllChatPageWidget extends StatefulWidget {
   const AllChatPageWidget({Key? key}) : super(key: key);
@@ -36,6 +37,8 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       floatingActionButton: FloatingActionButton(
@@ -176,7 +179,9 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                     size: 30,
                   ),
                   onPressed: () async {
-                    setState(() => FFAppState().cs = true);
+                    setState(() {
+                      FFAppState().cs = true;
+                    });
                   },
                 ),
             ],

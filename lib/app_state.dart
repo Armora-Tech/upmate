@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:csv/csv.dart';
 import 'flutter_flow/lat_lng.dart';
 
-class FFAppState {
+class FFAppState extends ChangeNotifier {
   static final FFAppState _instance = FFAppState._internal();
 
   factory FFAppState() {
@@ -24,36 +25,78 @@ class FFAppState {
   int _nreset = 0;
   int get nreset => _nreset;
   set nreset(int _value) {
+    notifyListeners();
+
     _nreset = _value;
     secureStorage.setInt('ff_nreset', _value);
   }
 
   void deleteNreset() {
+    notifyListeners();
     secureStorage.delete(key: 'ff_nreset');
   }
 
   bool _sreset = false;
   bool get sreset => _sreset;
   set sreset(bool _value) {
+    notifyListeners();
+
     _sreset = _value;
     secureStorage.setBool('ff_sreset', _value);
   }
 
   void deleteSreset() {
+    notifyListeners();
     secureStorage.delete(key: 'ff_sreset');
   }
 
-  String tiid = '';
+  String _tiid = '';
+  String get tiid => _tiid;
+  set tiid(String _value) {
+    notifyListeners();
 
-  bool isverified = false;
+    _tiid = _value;
+  }
 
-  bool isFirstOpen = false;
+  bool _isverified = false;
+  bool get isverified => _isverified;
+  set isverified(bool _value) {
+    notifyListeners();
 
-  String mainMenu = 'normal';
+    _isverified = _value;
+  }
 
-  bool unused = false;
+  bool _isFirstOpen = false;
+  bool get isFirstOpen => _isFirstOpen;
+  set isFirstOpen(bool _value) {
+    notifyListeners();
 
-  bool cs = false;
+    _isFirstOpen = _value;
+  }
+
+  String _mainMenu = 'normal';
+  String get mainMenu => _mainMenu;
+  set mainMenu(String _value) {
+    notifyListeners();
+
+    _mainMenu = _value;
+  }
+
+  bool _unused = false;
+  bool get unused => _unused;
+  set unused(bool _value) {
+    notifyListeners();
+
+    _unused = _value;
+  }
+
+  bool _cs = false;
+  bool get cs => _cs;
+  set cs(bool _value) {
+    notifyListeners();
+
+    _cs = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

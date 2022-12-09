@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/braintree/payment_manager.dart';
 import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -11,6 +12,7 @@ import 'dart:ui';
 import '../flutter_flow/custom_functions.dart' as functions;
 import '../flutter_flow/random_data_util.dart' as random_data;
 import 'dart:async';
+import 'package:styled_divider/styled_divider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class MainPageWidget extends StatefulWidget {
   const MainPageWidget({Key? key}) : super(key: key);
@@ -30,6 +33,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
   bool isMediaUploading = false;
   String uploadedFileUrl = '';
 
+  String? transactionId;
   Completer<UsersRecord>? _documentRequestCompleter;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -50,6 +54,8 @@ class _MainPageWidgetState extends State<MainPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return FutureBuilder<UsersRecord>(
       future: (_documentRequestCompleter ??= Completer<UsersRecord>()
             ..complete(UsersRecord.getDocumentOnce(currentUserReference!)))
@@ -234,34 +240,84 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                FFButtonWidget(
-                                  onPressed: () {
-                                    print('Button pressed ...');
-                                  },
-                                  text: 'Premium',
-                                  icon: FaIcon(
-                                    FontAwesomeIcons.star,
-                                    color: Colors.black,
+                            InkWell(
+                              onTap: () async {
+                                final transacAmount = 10000.0;
+                                final transacDisplayName = 'Premium ';
+                                if (kIsWeb) {
+                                  showSnackbar(context,
+                                      'Payments not yet supported on web.');
+                                  return;
+                                }
+
+                                final dropInRequest = BraintreeDropInRequest(
+                                  cardEnabled: false,
+                                  clientToken: braintreeClientToken(),
+                                  collectDeviceData: true,
+                                  googlePaymentRequest:
+                                      BraintreeGooglePaymentRequest(
+                                    totalPrice: transacAmount.toString(),
+                                    currencyCode: 'IDR',
+                                    billingAddressRequired: false,
+                                    googleMerchantID: googleMerchantId(),
                                   ),
-                                  options: FFButtonOptions(
-                                    height: 40,
-                                    color: Color(0x00FFFFFF),
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .subtitle2
-                                        .override(
-                                          fontFamily: 'Nunito',
-                                          color: Colors.black,
-                                        ),
-                                    elevation: 0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
+                                );
+                                final dropInResult =
+                                    await BraintreeDropIn.start(dropInRequest);
+                                if (dropInResult == null) {
+                                  return;
+                                }
+                                showSnackbar(
+                                  context,
+                                  'Processing payment...',
+                                  duration: 10,
+                                  loading: true,
+                                );
+                                final paymentResponse =
+                                    await processBraintreePayment(
+                                  transacAmount,
+                                  dropInResult.paymentMethodNonce.nonce,
+                                  dropInResult.deviceData,
+                                );
+                                if (paymentResponse.errorMessage != null) {
+                                  showSnackbar(context,
+                                      'Error: ${paymentResponse.errorMessage}');
+                                  return;
+                                }
+                                showSnackbar(context, 'Success!');
+                                transactionId = paymentResponse.transactionId!;
+
+                                setState(() {});
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  FFButtonWidget(
+                                    onPressed: () {
+                                      print('Button pressed ...');
+                                    },
+                                    text: 'Premium',
+                                    icon: FaIcon(
+                                      FontAwesomeIcons.star,
+                                      color: Colors.black,
+                                    ),
+                                    options: FFButtonOptions(
+                                      height: 40,
+                                      color: Color(0x00FFFFFF),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'Nunito',
+                                            color: Colors.black,
+                                          ),
+                                      elevation: 0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                             InkWell(
                               onTap: () async {
@@ -317,16 +373,18 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                             ),
                             InkWell(
                               onTap: () async {
-                                setState(
-                                    () => FFAppState().mainMenu = 'privacy');
+                                setState(() {
+                                  FFAppState().mainMenu = 'privacy';
+                                });
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      setState(() =>
-                                          FFAppState().mainMenu = 'privacy');
+                                      setState(() {
+                                        FFAppState().mainMenu = 'privacy';
+                                      });
                                     },
                                     text: 'Privasi',
                                     icon: FaIcon(
@@ -437,16 +495,18 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                             ),
                             InkWell(
                               onTap: () async {
-                                setState(
-                                    () => FFAppState().mainMenu = 'helpMenu');
+                                setState(() {
+                                  FFAppState().mainMenu = 'helpMenu';
+                                });
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      setState(() =>
-                                          FFAppState().mainMenu = 'helpMenu');
+                                      setState(() {
+                                        FFAppState().mainMenu = 'helpMenu';
+                                      });
                                     },
                                     text: 'Pusat Bantuan',
                                     icon: FaIcon(
@@ -601,8 +661,9 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     alignment: AlignmentDirectional(-1, 0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        setState(() =>
-                                            FFAppState().mainMenu = 'normal');
+                                        setState(() {
+                                          FFAppState().mainMenu = 'normal';
+                                        });
                                       },
                                       text: '',
                                       icon: Icon(
@@ -650,7 +711,9 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                       ),
                       InkWell(
                         onTap: () async {
-                          setState(() => FFAppState().mainMenu = 'profileMenu');
+                          setState(() {
+                            FFAppState().mainMenu = 'profileMenu';
+                          });
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width,
@@ -762,8 +825,9 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                 Expanded(
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      setState(() =>
-                                          FFAppState().mainMenu = 'normal');
+                                      setState(() {
+                                        FFAppState().mainMenu = 'normal';
+                                      });
                                     },
                                     text: '',
                                     icon: Icon(
@@ -2496,77 +2560,93 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                         MainAxisAlignment
                                                                             .start,
                                                                     children: [
-                                                                      Wrap(
-                                                                        spacing:
-                                                                            0,
-                                                                        runSpacing:
-                                                                            0,
-                                                                        alignment:
-                                                                            WrapAlignment.start,
-                                                                        crossAxisAlignment:
-                                                                            WrapCrossAlignment.start,
-                                                                        direction:
-                                                                            Axis.horizontal,
-                                                                        runAlignment:
-                                                                            WrapAlignment.start,
-                                                                        verticalDirection:
-                                                                            VerticalDirection.down,
+                                                                      Container(
+                                                                        width:
+                                                                            15,
+                                                                        height:
+                                                                            15,
                                                                         clipBehavior:
                                                                             Clip.antiAlias,
-                                                                        children: [
-                                                                          Container(
-                                                                            width:
-                                                                                15,
-                                                                            height:
-                                                                                15,
-                                                                            clipBehavior:
-                                                                                Clip.antiAlias,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              shape: BoxShape.circle,
-                                                                            ),
-                                                                            child:
-                                                                                Image.network(
-                                                                              valueOrDefault<String>(
-                                                                                rowUsersRecord.photoUrl,
-                                                                                'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VORoQXOzfnrc1yOV4anzxQHaHa%26pid%3DApi%26h%3D160&f=1&ipt=6e1ae93c3fc52057f78d8a58710494b23a6881a41b9dd2185da8e430dfe53e1e&ipo=images',
-                                                                              ),
-                                                                            ),
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                        ),
+                                                                        child: Image
+                                                                            .network(
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            rowUsersRecord.photoUrl,
+                                                                            'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VORoQXOzfnrc1yOV4anzxQHaHa%26pid%3DApi%26h%3D160&f=1&ipt=6e1ae93c3fc52057f78d8a58710494b23a6881a41b9dd2185da8e430dfe53e1e&ipo=images',
                                                                           ),
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                7,
-                                                                                0,
-                                                                                0,
-                                                                                0),
-                                                                            child:
-                                                                                Text(
-                                                                              rowUsersRecord.displayName!,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: 'Nunito',
-                                                                                    fontWeight: FontWeight.bold,
-                                                                                  ),
-                                                                            ),
-                                                                          ),
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                5,
-                                                                                0,
-                                                                                0,
-                                                                                0),
-                                                                            child:
-                                                                                Text(
-                                                                              columnCommentsRecord.text!,
-                                                                              maxLines: 1,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: 'Nunito',
-                                                                                    fontSize: 14,
-                                                                                    fontWeight: FontWeight.normal,
-                                                                                  ),
-                                                                            ),
-                                                                          ),
-                                                                        ],
+                                                                        ),
                                                                       ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            7,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                        child:
+                                                                            Text(
+                                                                          rowUsersRecord
+                                                                              .displayName!,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyText1
+                                                                              .override(
+                                                                                fontFamily: 'Nunito',
+                                                                                fontWeight: FontWeight.bold,
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                        child:
+                                                                            Text(
+                                                                          columnCommentsRecord
+                                                                              .text!
+                                                                              .maybeHandleOverflow(
+                                                                            maxChars:
+                                                                                15,
+                                                                            replacement:
+                                                                                '…',
+                                                                          ),
+                                                                          maxLines:
+                                                                              1,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyText1
+                                                                              .override(
+                                                                                fontFamily: 'Nunito',
+                                                                                fontSize: 14,
+                                                                                fontWeight: FontWeight.normal,
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                      if (functions
+                                                                              .scount(columnCommentsRecord.text!) >
+                                                                          20)
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              0,
+                                                                              0),
+                                                                          child:
+                                                                              Text(
+                                                                            'Selengkapnya',
+                                                                            maxLines:
+                                                                                1,
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Nunito',
+                                                                                  fontSize: 14,
+                                                                                  fontWeight: FontWeight.normal,
+                                                                                ),
+                                                                          ),
+                                                                        ),
                                                                     ],
                                                                   );
                                                                 },

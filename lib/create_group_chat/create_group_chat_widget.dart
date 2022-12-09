@@ -9,6 +9,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class CreateGroupChatWidget extends StatefulWidget {
   const CreateGroupChatWidget({Key? key}) : super(key: key);
@@ -45,6 +46,8 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return StreamBuilder<List<UsersRecord>>(
       stream: queryUsersRecord(),
       builder: (context, snapshot) {

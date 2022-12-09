@@ -87,6 +87,7 @@ dependencies:
   page_transition: 2.0.4
   pin_code_fields: 7.4.0
   plugin_platform_interface: 2.1.2
+  provider: 6.0.4
   readmore: ^2.2.0
   rxdart: 0.27.4
   share_plus: 2.1.4
@@ -96,6 +97,7 @@ dependencies:
   sign_in_with_apple_web: 1.0.1
   sqflite: 2.2.0+2
   stop_watch_timer: 1.5.0
+  styled_divider: 1.0.4
   text_search: 0.0.2
   timeago: 3.2.2
   universal_io: 2.0.4

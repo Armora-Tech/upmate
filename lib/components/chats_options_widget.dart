@@ -2,6 +2,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ChatsOptionsWidget extends StatefulWidget {
   const ChatsOptionsWidget({Key? key}) : super(key: key);
@@ -13,6 +14,8 @@ class ChatsOptionsWidget extends StatefulWidget {
 class _ChatsOptionsWidgetState extends State<ChatsOptionsWidget> {
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.25,

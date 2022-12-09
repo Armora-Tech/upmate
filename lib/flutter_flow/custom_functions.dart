@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -79,4 +80,9 @@ bool cregex(
   // Add your function code here!
   RegExp pattern = RegExp(r'$regex');
   return pattern.hasMatch(str);
+}
+
+int scount(String str) {
+  // Add your function code here!
+  return str.length;
 }
