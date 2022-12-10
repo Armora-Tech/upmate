@@ -317,13 +317,9 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                         title:
                                                             postDetailPostsRecord
                                                                 .postTitle,
-                                                        imageUrl:
-                                                            postDetailPostsRecord
-                                                                .postPhoto,
                                                         description:
                                                             postDetailPostsRecord
                                                                 .postDescription,
-                                                        isShortLink: false,
                                                       );
 
                                                       await Share.share(

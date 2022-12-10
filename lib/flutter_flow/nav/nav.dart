@@ -118,20 +118,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => SurveyPageWidget(),
             ),
             FFRoute(
-              name: 'mainPage',
-              path: 'mainPage',
-              requireAuth: true,
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'mainPage')
-                  : MainPageWidget(),
-            ),
-            FFRoute(
               name: 'explorePage',
               path: 'explorePage',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'explorePage')
                   : ExplorePageWidget(),
+            ),
+            FFRoute(
+              name: 'mainPage',
+              path: 'mainPage',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'mainPage')
+                  : MainPageWidget(),
             ),
             FFRoute(
               name: 'newPostPage',
@@ -144,7 +144,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'postDetail',
               path: 'post/:postRef',
-              requireAuth: true,
               builder: (context, params) => PostDetailWidget(
                 postRef: params.getParam(
                     'postRef', ParamType.DocumentReference, false, 'posts'),

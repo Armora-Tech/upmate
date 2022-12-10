@@ -4,8 +4,8 @@ export 'verif_page/verif_page_widget.dart' show VerifPageWidget;
 export 'signup_page/signup_page_widget.dart' show SignupPageWidget;
 export 'interest_page/interest_page_widget.dart' show InterestPageWidget;
 export 'survey_page/survey_page_widget.dart' show SurveyPageWidget;
-export 'main_page/main_page_widget.dart' show MainPageWidget;
 export 'explore_page/explore_page_widget.dart' show ExplorePageWidget;
+export 'main_page/main_page_widget.dart' show MainPageWidget;
 export 'new_post_page/new_post_page_widget.dart' show NewPostPageWidget;
 export 'post_detail/post_detail_widget.dart' show PostDetailWidget;
 export 'notification_page/notification_page_widget.dart'
