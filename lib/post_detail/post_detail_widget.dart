@@ -14,6 +14,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class PostDetailWidget extends StatefulWidget {
   const PostDetailWidget({
@@ -371,27 +372,8 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                                 .postDescription,
                                                       );
 
-                                                      await showDialog(
-                                                        context: context,
-                                                        builder:
-                                                            (alertDialogContext) {
-                                                          return AlertDialog(
-                                                            title: Text(
-                                                                'link generated'),
-                                                            content: Text(
-                                                                _currentPageLink),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      );
+                                                      await Share.share(
+                                                          _currentPageLink);
                                                     },
                                                     child: Column(
                                                       mainAxisSize:
