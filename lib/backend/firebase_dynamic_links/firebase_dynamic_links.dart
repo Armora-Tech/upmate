@@ -4,7 +4,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
-const _kDynamicLinksUrl = 'https://upmate.page.link';
+const _kDynamicLinksUrl = 'https://upmateapps.page.link';
 const _kAppId = 'com.armoratech.upmate';
 
 Future<String> generateCurrentPageLink(
