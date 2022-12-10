@@ -2026,9 +2026,8 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                             'postRef':
                                                                 serializeParam(
                                                               personalizedColumnPostsRecord
-                                                                  .reference,
-                                                              ParamType
-                                                                  .DocumentReference,
+                                                                  .iid,
+                                                              ParamType.String,
                                                             ),
                                                           }.withoutNulls,
                                                           extra: <String,
@@ -2055,9 +2054,9 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                 'postRef':
                                                                     serializeParam(
                                                                   personalizedColumnPostsRecord
-                                                                      .reference,
+                                                                      .iid,
                                                                   ParamType
-                                                                      .DocumentReference,
+                                                                      .String,
                                                                 ),
                                                               }.withoutNulls,
                                                               extra: <String,
@@ -2096,9 +2095,9 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                         'postRef':
                                                                             serializeParam(
                                                                           personalizedColumnPostsRecord
-                                                                              .reference,
+                                                                              .iid,
                                                                           ParamType
-                                                                              .DocumentReference,
+                                                                              .String,
                                                                         ),
                                                                       }.withoutNulls,
                                                                       extra: <
@@ -2165,8 +2164,8 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                             {
                                                                           'postRef':
                                                                               serializeParam(
-                                                                            personalizedColumnPostsRecord.reference,
-                                                                            ParamType.DocumentReference,
+                                                                            personalizedColumnPostsRecord.iid,
+                                                                            ParamType.String,
                                                                           ),
                                                                         }.withoutNulls,
                                                                         extra: <

@@ -152,9 +152,8 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                               'postDetail',
                                               params: {
                                                 'postRef': serializeParam(
-                                                  normalViewPostsRecord
-                                                      .reference,
-                                                  ParamType.DocumentReference,
+                                                  normalViewPostsRecord.iid,
+                                                  ParamType.String,
                                                 ),
                                               }.withoutNulls,
                                               extra: <String, dynamic>{
@@ -376,9 +375,8 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                           'postRef':
                                                               serializeParam(
                                                             cardPostsRecord!
-                                                                .reference,
-                                                            ParamType
-                                                                .DocumentReference,
+                                                                .iid,
+                                                            ParamType.String,
                                                           ),
                                                         }.withoutNulls,
                                                         extra: <String,
