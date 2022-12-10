@@ -2022,7 +2022,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                       onTap: () async {
                                                         context.pushNamed(
                                                           'postDetail',
-                                                          params: {
+                                                          queryParams: {
                                                             'postRef':
                                                                 serializeParam(
                                                               personalizedColumnPostsRecord
@@ -2050,7 +2050,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                           onTap: () async {
                                                             context.pushNamed(
                                                               'postDetail',
-                                                              params: {
+                                                              queryParams: {
                                                                 'postRef':
                                                                     serializeParam(
                                                                   personalizedColumnPostsRecord
@@ -2091,7 +2091,8 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                     context
                                                                         .pushNamed(
                                                                       'postDetail',
-                                                                      params: {
+                                                                      queryParams:
+                                                                          {
                                                                         'postRef':
                                                                             serializeParam(
                                                                           personalizedColumnPostsRecord
@@ -2160,7 +2161,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                       context
                                                                           .pushNamed(
                                                                         'postDetail',
-                                                                        params:
+                                                                        queryParams:
                                                                             {
                                                                           'postRef':
                                                                               serializeParam(

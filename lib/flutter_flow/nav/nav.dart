@@ -138,7 +138,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'postDetail',
-              path: 'post/:postRef',
+              path: 'post',
               requireAuth: true,
               builder: (context, params) => PostDetailWidget(
                 postRef: params.getParam('postRef', ParamType.String),

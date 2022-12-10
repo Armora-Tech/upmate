@@ -350,27 +350,6 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                 Expanded(
                                                   child: InkWell(
                                                     onTap: () async {
-                                                      await showDialog(
-                                                        context: context,
-                                                        builder:
-                                                            (alertDialogContext) {
-                                                          return AlertDialog(
-                                                            title: Text(
-                                                                'link generated'),
-                                                            content: Text(
-                                                                'tested link'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      );
                                                       _currentPageLink =
                                                           await generateCurrentPageLink(
                                                         context,
