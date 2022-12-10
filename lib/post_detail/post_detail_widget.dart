@@ -40,7 +40,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
           delay: 0.ms,
           duration: 600.ms,
           begin: 0,
-          end: 1,
+          end: 100,
         ),
       ],
     ),
@@ -351,6 +351,27 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                                 .postDescription,
                                                       );
 
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title: Text(
+                                                                'link generated'),
+                                                            content: Text(
+                                                                _currentPageLink),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
                                                       await Share.share(
                                                           _currentPageLink);
                                                     },
@@ -1050,7 +1071,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                         key: formKey,
                                                         autovalidateMode:
                                                             AutovalidateMode
-                                                                .always,
+                                                                .disabled,
                                                         child: TextFormField(
                                                           controller:
                                                               textController,
