@@ -1,6 +1,7 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/comment_options_widget.dart';
+import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
@@ -8,6 +9,8 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'package:styled_divider/styled_divider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +28,23 @@ class PostDetailWidget extends StatefulWidget {
   _PostDetailWidgetState createState() => _PostDetailWidgetState();
 }
 
-class _PostDetailWidgetState extends State<PostDetailWidget> {
+class _PostDetailWidgetState extends State<PostDetailWidget>
+    with TickerProviderStateMixin {
+  final animationsMap = {
+    'columnOnActionTriggerAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        RotateEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
+    ),
+  };
   String _currentPageLink = '';
   TextEditingController? textController;
   final formKey = GlobalKey<FormState>();
@@ -34,6 +53,13 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
   @override
   void initState() {
     super.initState();
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
+
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'postDetail'});
     textController = TextEditingController();
   }
@@ -317,6 +343,9 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                         title:
                                                             postDetailPostsRecord
                                                                 .postTitle,
+                                                        imageUrl:
+                                                            postDetailPostsRecord
+                                                                .postPhoto,
                                                         description:
                                                             postDetailPostsRecord
                                                                 .postDescription,
@@ -369,6 +398,9 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                         ),
                                                       ],
                                                     ),
+                                                  ).animateOnActionTrigger(
+                                                    animationsMap[
+                                                        'columnOnActionTriggerAnimation']!,
                                                   ),
                                                 ),
                                                 Expanded(
