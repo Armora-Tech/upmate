@@ -106,7 +106,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'interestPage',
               path: 'interestPage',
-              requireAuth: true,
               builder: (context, params) => InterestPageWidget(
                 ijob: params.getParam('ijob', ParamType.String),
               ),
@@ -114,13 +113,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'surveyPage',
               path: 'surveyPage',
-              requireAuth: true,
               builder: (context, params) => SurveyPageWidget(),
             ),
             FFRoute(
               name: 'explorePage',
               path: 'explorePage',
-              requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'explorePage')
                   : ExplorePageWidget(),
@@ -128,7 +125,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'mainPage',
               path: 'mainPage',
-              requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'mainPage')
                   : MainPageWidget(),
@@ -136,7 +132,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'newPostPage',
               path: 'newPostPage',
-              requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'newPostPage')
                   : NewPostPageWidget(),
@@ -152,7 +147,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'notificationPage',
               path: 'notificationPage',
-              requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'notificationPage')
                   : NotificationPageWidget(),
@@ -160,7 +154,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'chatPage',
               path: 'chatPage',
-              requireAuth: true,
               asyncParams: {
                 'chatUser': getDoc('users', UsersRecord.serializer),
               },
@@ -173,7 +166,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'allChatPage',
               path: 'allChatPage',
-              requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'allChatPage')
                   : AllChatPageWidget(),
@@ -181,37 +173,31 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'createChatPage',
               path: 'createChatPage',
-              requireAuth: true,
               builder: (context, params) => CreateChatPageWidget(),
             ),
             FFRoute(
               name: 'ratingPage',
               path: 'ratingPage',
-              requireAuth: true,
               builder: (context, params) => RatingPageWidget(),
             ),
             FFRoute(
               name: 'accountPage',
               path: 'accountPage',
-              requireAuth: true,
               builder: (context, params) => AccountPageWidget(),
             ),
             FFRoute(
               name: 'bookmarkPage',
               path: 'bookmarkPage',
-              requireAuth: true,
               builder: (context, params) => BookmarkPageWidget(),
             ),
             FFRoute(
               name: 'appInfo',
               path: 'appInfo',
-              requireAuth: true,
               builder: (context, params) => AppInfoWidget(),
             ),
             FFRoute(
               name: 'createGroupChat',
               path: 'createGroupChat',
-              requireAuth: true,
               builder: (context, params) => CreateGroupChatWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
