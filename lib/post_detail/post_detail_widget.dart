@@ -323,6 +323,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget> {
                                                         description:
                                                             postDetailPostsRecord
                                                                 .postDescription,
+                                                        isShortLink: false,
                                                       );
 
                                                       await Share.share(

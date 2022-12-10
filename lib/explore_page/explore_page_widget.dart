@@ -150,7 +150,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                           onTap: () async {
                                             context.pushNamed(
                                               'postDetail',
-                                              queryParams: {
+                                              params: {
                                                 'postRef': serializeParam(
                                                   normalViewPostsRecord
                                                       .reference,
@@ -372,7 +372,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                     onTap: () async {
                                                       context.pushNamed(
                                                         'postDetail',
-                                                        queryParams: {
+                                                        params: {
                                                           'postRef':
                                                               serializeParam(
                                                             cardPostsRecord!

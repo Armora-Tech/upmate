@@ -1,6 +1,5 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../backend/braintree/payment_manager.dart';
 import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -33,7 +32,6 @@ class _MainPageWidgetState extends State<MainPageWidget> {
   bool isMediaUploading = false;
   String uploadedFileUrl = '';
 
-  String? transactionId;
   Completer<UsersRecord>? _documentRequestCompleter;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -242,52 +240,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                           children: [
                             InkWell(
                               onTap: () async {
-                                final transacAmount = 10000.0;
-                                final transacDisplayName = 'Premium ';
-                                if (kIsWeb) {
-                                  showSnackbar(context,
-                                      'Payments not yet supported on web.');
-                                  return;
-                                }
-
-                                final dropInRequest = BraintreeDropInRequest(
-                                  cardEnabled: false,
-                                  clientToken: braintreeClientToken(),
-                                  collectDeviceData: true,
-                                  googlePaymentRequest:
-                                      BraintreeGooglePaymentRequest(
-                                    totalPrice: transacAmount.toString(),
-                                    currencyCode: 'IDR',
-                                    billingAddressRequired: false,
-                                    googleMerchantID: googleMerchantId(),
-                                  ),
-                                );
-                                final dropInResult =
-                                    await BraintreeDropIn.start(dropInRequest);
-                                if (dropInResult == null) {
-                                  return;
-                                }
-                                showSnackbar(
-                                  context,
-                                  'Processing payment...',
-                                  duration: 10,
-                                  loading: true,
-                                );
-                                final paymentResponse =
-                                    await processBraintreePayment(
-                                  transacAmount,
-                                  dropInResult.paymentMethodNonce.nonce,
-                                  dropInResult.deviceData,
-                                );
-                                if (paymentResponse.errorMessage != null) {
-                                  showSnackbar(context,
-                                      'Error: ${paymentResponse.errorMessage}');
-                                  return;
-                                }
-                                showSnackbar(context, 'Success!');
-                                transactionId = paymentResponse.transactionId!;
-
-                                setState(() {});
+                                await launchURL('');
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -2069,7 +2022,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                       onTap: () async {
                                                         context.pushNamed(
                                                           'postDetail',
-                                                          queryParams: {
+                                                          params: {
                                                             'postRef':
                                                                 serializeParam(
                                                               personalizedColumnPostsRecord
@@ -2098,7 +2051,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                           onTap: () async {
                                                             context.pushNamed(
                                                               'postDetail',
-                                                              queryParams: {
+                                                              params: {
                                                                 'postRef':
                                                                     serializeParam(
                                                                   personalizedColumnPostsRecord
@@ -2139,8 +2092,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                     context
                                                                         .pushNamed(
                                                                       'postDetail',
-                                                                      queryParams:
-                                                                          {
+                                                                      params: {
                                                                         'postRef':
                                                                             serializeParam(
                                                                           personalizedColumnPostsRecord
@@ -2209,7 +2161,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                       context
                                                                           .pushNamed(
                                                                         'postDetail',
-                                                                        queryParams:
+                                                                        params:
                                                                             {
                                                                           'postRef':
                                                                               serializeParam(
