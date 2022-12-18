@@ -49,8 +49,8 @@ class _PremiumPageWidgetState extends State<PremiumPageWidget> {
               color: FlutterFlowTheme.of(context).primaryText,
               size: 30,
             ),
-            onPressed: () {
-              print('IconButton pressed ...');
+            onPressed: () async {
+              context.pop();
             },
           ),
         ],

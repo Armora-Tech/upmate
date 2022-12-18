@@ -1280,6 +1280,56 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                 FFButtonWidget(
                                                                   onPressed:
                                                                       () async {
+                                                                    if (valueOrDefault<
+                                                                            bool>(
+                                                                        currentUserDocument
+                                                                            ?.isPremium,
+                                                                        false)) {
+                                                                      if ((currentUserDocument?.interests?.toList() ?? [])
+                                                                              .length >=
+                                                                          8) {
+                                                                        await showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (alertDialogContext) {
+                                                                            return AlertDialog(
+                                                                              content: Text('Kmu cuma bisa punya 8 tag interest'),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                  onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                  child: Text('Ok'),
+                                                                                ),
+                                                                              ],
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                        return;
+                                                                      }
+                                                                    } else {
+                                                                      if ((currentUserDocument?.interests?.toList() ?? [])
+                                                                              .length >=
+                                                                          4) {
+                                                                        await showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (alertDialogContext) {
+                                                                            return AlertDialog(
+                                                                              content: Text('Kmu cuma bisa punya 4  tag interest'),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                  onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                  child: Text('Ok'),
+                                                                                ),
+                                                                              ],
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                        return;
+                                                                      }
+                                                                    }
+
                                                                     final usersUpdateData =
                                                                         {
                                                                       'interests':

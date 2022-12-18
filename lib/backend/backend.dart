@@ -9,7 +9,6 @@ import 'schema/chats_record.dart';
 import 'schema/chat_messages_record.dart';
 import 'schema/interests_record.dart';
 import 'schema/comments_record.dart';
-import 'schema/ratings_record.dart';
 import 'schema/notifications_record.dart';
 import 'schema/utils_record.dart';
 import 'schema/reported_record.dart';
@@ -26,7 +25,6 @@ export 'schema/chats_record.dart';
 export 'schema/chat_messages_record.dart';
 export 'schema/interests_record.dart';
 export 'schema/comments_record.dart';
-export 'schema/ratings_record.dart';
 export 'schema/notifications_record.dart';
 export 'schema/utils_record.dart';
 export 'schema/reported_record.dart';
@@ -280,48 +278,6 @@ Future<FFFirestorePage<CommentsRecord>> queryCommentsRecordPage({
     queryCollectionPage(
       CommentsRecord.collection(parent),
       CommentsRecord.serializer,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
-/// Functions to query RatingsRecords (as a Stream and as a Future).
-Stream<List<RatingsRecord>> queryRatingsRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      RatingsRecord.collection,
-      RatingsRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<RatingsRecord>> queryRatingsRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      RatingsRecord.collection,
-      RatingsRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<RatingsRecord>> queryRatingsRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      RatingsRecord.collection,
-      RatingsRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

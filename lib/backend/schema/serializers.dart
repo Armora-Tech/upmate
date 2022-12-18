@@ -7,7 +7,6 @@ import 'chats_record.dart';
 import 'chat_messages_record.dart';
 import 'interests_record.dart';
 import 'comments_record.dart';
-import 'ratings_record.dart';
 import 'notifications_record.dart';
 import 'utils_record.dart';
 import 'reported_record.dart';
@@ -28,7 +27,6 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   ChatMessagesRecord,
   InterestsRecord,
   CommentsRecord,
-  RatingsRecord,
   NotificationsRecord,
   UtilsRecord,
   ReportedRecord,
