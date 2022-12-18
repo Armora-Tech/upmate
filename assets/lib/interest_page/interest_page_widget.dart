@@ -198,14 +198,33 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                             );
                             return;
                           } else {
-                            final usersUpdateData = {
-                              'interests': functions
-                                  .normInterests(choiceChipsValues!.toList()),
-                            };
-                            await currentUserReference!.update(usersUpdateData);
+                            try {
+                              final usersUpdateData = {
+                                'interests': functions
+                                    .normInterests(choiceChipsValues!.toList()),
+                              };
+                              await currentUserReference!
+                                  .update(usersUpdateData);
 
-                            context.goNamed('mainPage');
-
+                              context.goNamed('mainPage');
+                            } catch (e) {
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    content: Text(
+                                        'Maaf, terjadi kesalahan! Silahkan coba beberapa saat lagi'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('Ok'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
                             return;
                           }
                         },
