@@ -93,6 +93,13 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.isPremium;
+    if (value != null) {
+      result
+        ..add('isPremium')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -160,6 +167,10 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.tes = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'isPremium':
+          result.isPremium = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -195,6 +206,8 @@ class _$UsersRecord extends UsersRecord {
   @override
   final String? tes;
   @override
+  final bool? isPremium;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -211,6 +224,7 @@ class _$UsersRecord extends UsersRecord {
       this.postTmpImg,
       this.blocked,
       this.tes,
+      this.isPremium,
       this.ffRef})
       : super._();
 
@@ -235,6 +249,7 @@ class _$UsersRecord extends UsersRecord {
         postTmpImg == other.postTmpImg &&
         blocked == other.blocked &&
         tes == other.tes &&
+        isPremium == other.isPremium &&
         ffRef == other.ffRef;
   }
 
@@ -249,16 +264,18 @@ class _$UsersRecord extends UsersRecord {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, email.hashCode),
-                                            displayName.hashCode),
-                                        photoUrl.hashCode),
-                                    uid.hashCode),
-                                createdTime.hashCode),
-                            phoneNumber.hashCode),
-                        interests.hashCode),
-                    postTmpImg.hashCode),
-                blocked.hashCode),
-            tes.hashCode),
+                                        $jc(
+                                            $jc($jc(0, email.hashCode),
+                                                displayName.hashCode),
+                                            photoUrl.hashCode),
+                                        uid.hashCode),
+                                    createdTime.hashCode),
+                                phoneNumber.hashCode),
+                            interests.hashCode),
+                        postTmpImg.hashCode),
+                    blocked.hashCode),
+                tes.hashCode),
+            isPremium.hashCode),
         ffRef.hashCode));
   }
 
@@ -275,6 +292,7 @@ class _$UsersRecord extends UsersRecord {
           ..add('postTmpImg', postTmpImg)
           ..add('blocked', blocked)
           ..add('tes', tes)
+          ..add('isPremium', isPremium)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -327,6 +345,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String? get tes => _$this._tes;
   set tes(String? tes) => _$this._tes = tes;
 
+  bool? _isPremium;
+  bool? get isPremium => _$this._isPremium;
+  set isPremium(bool? isPremium) => _$this._isPremium = isPremium;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -348,6 +370,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _postTmpImg = $v.postTmpImg;
       _blocked = $v.blocked?.toBuilder();
       _tes = $v.tes;
+      _isPremium = $v.isPremium;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -383,6 +406,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               postTmpImg: postTmpImg,
               blocked: _blocked?.build(),
               tes: tes,
+              isPremium: isPremium,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

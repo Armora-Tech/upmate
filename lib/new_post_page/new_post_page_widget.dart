@@ -109,8 +109,9 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                 final selectedMedia =
                                     await selectMediaWithSourceBottomSheet(
                                   context: context,
-                                  maxWidth: 720.00,
-                                  maxHeight: 720.00,
+                                  maxWidth: 480.00,
+                                  maxHeight: 480.00,
+                                  imageQuality: 50,
                                   allowPhoto: true,
                                 );
                                 if (selectedMedia != null &&

@@ -3,7 +3,6 @@ import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import 'package:styled_divider/styled_divider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -498,7 +497,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                             'VerifPage',
                             queryParams: {
                               'code': serializeParam(
-                                '${(otp?.jsonBody ?? '')}',
+                                '${(otp?.jsonBody ?? '').toString()}',
                                 ParamType.String,
                               ),
                               'mail': serializeParam(
@@ -615,30 +614,67 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      InkWell(
-                        onTap: () async {
-                          GoRouter.of(context).prepareAuthEvent();
-                          final user = await signInWithGoogle(context);
-                          if (user == null) {
-                            return;
-                          }
+                      if (isAndroid)
+                        InkWell(
+                          onTap: () async {
+                            setState(() {
+                              FFAppState().unused = true;
+                            });
+                            GoRouter.of(context).prepareAuthEvent();
+                            final user = await signInWithGoogle(context);
+                            if (user == null) {
+                              return;
+                            }
+                            setState(() {
+                              FFAppState().unused = false;
+                            });
 
-                          context.goNamedAuth('mainPage', mounted);
-                        },
-                        child: Image.asset(
-                          'assets/images/th-1920417626-removebg-preview.png',
-                          width: 32,
-                          height: 32,
-                          fit: BoxFit.cover,
+                            context.goNamedAuth('mainPage', mounted);
+                          },
+                          child: Image.asset(
+                            'assets/images/th-1920417626-removebg-preview.png',
+                            width: 32,
+                            height: 32,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
+                      if (isiOS)
+                        InkWell(
+                          onTap: () async {
+                            setState(() {
+                              FFAppState().unused = true;
+                            });
+                            GoRouter.of(context).prepareAuthEvent();
+                            final user = await signInWithApple(context);
+                            if (user == null) {
+                              return;
+                            }
+                            setState(() {
+                              FFAppState().unused = false;
+                            });
+
+                            context.goNamedAuth('mainPage', mounted);
+                          },
+                          child: Image.asset(
+                            'assets/images/Apple-Logo.webp',
+                            width: 32,
+                            height: 32,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       InkWell(
                         onTap: () async {
+                          setState(() {
+                            FFAppState().unused = true;
+                          });
                           GoRouter.of(context).prepareAuthEvent();
                           final user = await signInWithFacebook(context);
                           if (user == null) {
                             return;
                           }
+                          setState(() {
+                            FFAppState().unused = false;
+                          });
 
                           context.goNamedAuth('mainPage', mounted);
                         },

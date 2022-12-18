@@ -118,11 +118,11 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
       ),
   'allChatPage': (data) async => NavBarPage(initialPage: 'allChatPage'),
   'createChatPage': (data) async => CreateChatPageWidget(),
-  'ratingPage': (data) async => RatingPageWidget(),
+  'createGroupChat': (data) async => CreateGroupChatWidget(),
+  'premiumPage': (data) async => PremiumPageWidget(),
   'accountPage': (data) async => AccountPageWidget(),
   'bookmarkPage': (data) async => BookmarkPageWidget(),
   'appInfo': (data) async => AppInfoWidget(),
-  'createGroupChat': (data) async => CreateGroupChatWidget(),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

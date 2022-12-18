@@ -357,7 +357,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                   List<PostsRecord>
                                                       cardPostsRecordList =
                                                       snapshot.data!;
-                                                  // Return an empty Container when the document does not exist.
+                                                  // Return an empty Container when the item does not exist.
                                                   if (snapshot.data!.isEmpty) {
                                                     return Container();
                                                   }

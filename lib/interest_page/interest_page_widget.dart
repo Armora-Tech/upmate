@@ -69,7 +69,7 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
           );
         }
         List<UtilsRecord> interestPageUtilsRecordList = snapshot.data!;
-        // Return an empty Container when the document does not exist.
+        // Return an empty Container when the item does not exist.
         if (snapshot.data!.isEmpty) {
           return Container();
         }
@@ -262,6 +262,7 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                         child: FFButtonWidget(
                           onPressed: () async {
+                            var _shouldSetState = false;
                             if (choiceChipsValues!.length > 4) {
                               await showDialog(
                                 context: context,
@@ -279,6 +280,7 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                                   );
                                 },
                               );
+                              if (_shouldSetState) setState(() {});
                               return;
                             } else {
                               await showDialog(
@@ -307,11 +309,12 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                               };
                               await currentUserReference!
                                   .update(usersUpdateData);
+                              _shouldSetState = true;
 
-                              context.goNamed('mainPage');
-
-                              return;
+                              context.pushNamed('mainPage');
                             }
+
+                            if (_shouldSetState) setState(() {});
                           },
                           text: 'Next',
                           options: FFButtonOptions(

@@ -11,7 +11,6 @@ import 'dart:ui';
 import '../flutter_flow/custom_functions.dart' as functions;
 import '../flutter_flow/random_data_util.dart' as random_data;
 import 'dart:async';
-import 'package:styled_divider/styled_divider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -240,7 +239,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                           children: [
                             InkWell(
                               onTap: () async {
-                                await launchURL('');
+                                context.pushNamed('premiumPage');
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -766,8 +765,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                       Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: Color(0x00FFFFFF),
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -837,8 +835,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            color: Color(0x00FFFFFF),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -919,8 +916,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                               child: Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: Color(0x00FFFFFF),
                                 ),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,

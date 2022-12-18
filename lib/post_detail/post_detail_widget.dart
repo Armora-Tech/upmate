@@ -6,7 +6,6 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import 'package:styled_divider/styled_divider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -94,7 +93,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
           );
         }
         List<PostsRecord> postDetailPostsRecordList = snapshot.data!;
-        // Return an empty Container when the document does not exist.
+        // Return an empty Container when the item does not exist.
         if (snapshot.data!.isEmpty) {
           return Container();
         }
@@ -727,7 +726,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                                     .spaceBetween,
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment
-                                                                    .start,
+                                                                    .center,
                                                             children: [
                                                               StreamBuilder<
                                                                   UsersRecord>(

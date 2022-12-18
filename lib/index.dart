@@ -14,9 +14,9 @@ export 'chat_page/chat_page_widget.dart' show ChatPageWidget;
 export 'all_chat_page/all_chat_page_widget.dart' show AllChatPageWidget;
 export 'create_chat_page/create_chat_page_widget.dart'
     show CreateChatPageWidget;
-export 'rating_page/rating_page_widget.dart' show RatingPageWidget;
+export 'create_group_chat/create_group_chat_widget.dart'
+    show CreateGroupChatWidget;
+export 'premium_page/premium_page_widget.dart' show PremiumPageWidget;
 export 'account_page/account_page_widget.dart' show AccountPageWidget;
 export 'bookmark_page/bookmark_page_widget.dart' show BookmarkPageWidget;
 export 'app_info/app_info_widget.dart' show AppInfoWidget;
-export 'create_group_chat/create_group_chat_widget.dart'
-    show CreateGroupChatWidget;
