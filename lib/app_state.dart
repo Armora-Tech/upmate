@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:csv/csv.dart';
-import 'flutter_flow/lat_lng.dart';
 
 class FFAppState extends ChangeNotifier {
   static final FFAppState _instance = FFAppState._internal();
@@ -97,16 +96,6 @@ class FFAppState extends ChangeNotifier {
 
     _cs = _value;
   }
-}
-
-LatLng? _latLngFromString(String? val) {
-  if (val == null) {
-    return null;
-  }
-  final split = val.split(',');
-  final lat = double.parse(split.first);
-  final lng = double.parse(split.last);
-  return LatLng(lat, lng);
 }
 
 extension FlutterSecureStorageExtensions on FlutterSecureStorage {

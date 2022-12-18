@@ -6,12 +6,9 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -141,8 +138,8 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                             return Padding(
                               padding: MediaQuery.of(context).viewInsets,
                               child: CommentOptionsWidget(
-                                postRef: postDetailPostsRecord!.reference,
-                                userRef: postDetailPostsRecord!.postUser,
+                                postRef: postDetailPostsRecord.reference,
+                                userRef: postDetailPostsRecord.postUser,
                               ),
                             );
                           },
@@ -189,10 +186,10 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                             onTap: () async {
                               _currentPageLink = await generateCurrentPageLink(
                                 context,
-                                title: postDetailPostsRecord!.postTitle,
-                                imageUrl: postDetailPostsRecord!.postPhoto,
+                                title: postDetailPostsRecord.postTitle,
+                                imageUrl: postDetailPostsRecord.postPhoto,
                                 description:
-                                    postDetailPostsRecord!.postDescription,
+                                    postDetailPostsRecord.postDescription,
                                 isShortLink: false,
                               );
                             },
@@ -256,7 +253,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                         Text(
                                                           dateTimeFormat(
                                                             'relative',
-                                                            postDetailPostsRecord!
+                                                            postDetailPostsRecord
                                                                 .timePosted!,
                                                             locale: FFLocalizations
                                                                     .of(context)
@@ -292,17 +289,15 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                               ],
                                             ),
                                           ),
-                                          if (postDetailPostsRecord!
-                                                      .postPhoto !=
+                                          if (postDetailPostsRecord.postPhoto !=
                                                   null &&
-                                              postDetailPostsRecord!
-                                                      .postPhoto !=
+                                              postDetailPostsRecord.postPhoto !=
                                                   '')
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(16, 5, 16, 5),
                                               child: Image.network(
-                                                postDetailPostsRecord!
+                                                postDetailPostsRecord
                                                     .postPhoto!,
                                                 fit: BoxFit.cover,
                                               ),
@@ -312,7 +307,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     16, 12, 16, 0),
                                             child: Text(
-                                              postDetailPostsRecord!
+                                              postDetailPostsRecord
                                                   .postDescription!,
                                               style:
                                                   FlutterFlowTheme.of(context)
@@ -353,13 +348,13 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                           await generateCurrentPageLink(
                                                         context,
                                                         title:
-                                                            postDetailPostsRecord!
+                                                            postDetailPostsRecord
                                                                 .postTitle,
                                                         imageUrl:
-                                                            postDetailPostsRecord!
+                                                            postDetailPostsRecord
                                                                 .postPhoto,
                                                         description:
-                                                            postDetailPostsRecord!
+                                                            postDetailPostsRecord
                                                                 .postDescription,
                                                       );
 
@@ -427,7 +422,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                           final bookmarksElement =
                                                               currentUserReference;
                                                           final bookmarksUpdate =
-                                                              postDetailPostsRecord!
+                                                              postDetailPostsRecord
                                                                       .bookmarks!
                                                                       .toList()
                                                                       .contains(
@@ -445,12 +440,12 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                             'bookmarks':
                                                                 bookmarksUpdate,
                                                           };
-                                                          await postDetailPostsRecord!
+                                                          await postDetailPostsRecord
                                                               .reference
                                                               .update(
                                                                   postsUpdateData);
                                                         },
-                                                        value: postDetailPostsRecord!
+                                                        value: postDetailPostsRecord
                                                             .bookmarks!
                                                             .toList()
                                                             .contains(
@@ -477,7 +472,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                       ),
                                                       Text(
                                                         formatNumber(
-                                                          postDetailPostsRecord!
+                                                          postDetailPostsRecord
                                                               .bookmarks!
                                                               .toList()
                                                               .length,
@@ -530,7 +525,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                         stream:
                                                             queryCommentsRecord(
                                                           parent:
-                                                              postDetailPostsRecord!
+                                                              postDetailPostsRecord
                                                                   .reference,
                                                         ),
                                                         builder: (context,
@@ -551,12 +546,9 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                               ),
                                                             );
                                                           }
-                                                          List<CommentsRecord>
-                                                              textCommentsRecordList =
-                                                              snapshot.data!;
                                                           return Text(
                                                             formatNumber(
-                                                              postDetailPostsRecord!
+                                                              postDetailPostsRecord
                                                                   .numComments!,
                                                               formatType:
                                                                   FormatType
@@ -581,7 +573,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                           final likesElement =
                                                               currentUserReference;
                                                           final likesUpdate =
-                                                              postDetailPostsRecord!
+                                                              postDetailPostsRecord
                                                                       .likes!
                                                                       .toList()
                                                                       .contains(
@@ -599,12 +591,12 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                             'likes':
                                                                 likesUpdate,
                                                           };
-                                                          await postDetailPostsRecord!
+                                                          await postDetailPostsRecord
                                                               .reference
                                                               .update(
                                                                   postsUpdateData);
                                                         },
-                                                        value: postDetailPostsRecord!
+                                                        value: postDetailPostsRecord
                                                             .likes!
                                                             .toList()
                                                             .contains(
@@ -630,7 +622,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                       ),
                                                       Text(
                                                         formatNumber(
-                                                          postDetailPostsRecord!
+                                                          postDetailPostsRecord
                                                               .likes!
                                                               .toList()
                                                               .length,
@@ -659,7 +651,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                             child: StreamBuilder<
                                                 List<CommentsRecord>>(
                                               stream: queryCommentsRecord(
-                                                parent: postDetailPostsRecord!
+                                                parent: postDetailPostsRecord
                                                     .reference,
                                                 queryBuilder:
                                                     (commentsRecord) =>
@@ -919,7 +911,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                                               padding: MediaQuery.of(context).viewInsets,
                                                                               child: CommentOptionsWidget(
                                                                                 userRef: listViewCommentsRecord.userRef,
-                                                                                postRef: postDetailPostsRecord!.reference,
+                                                                                postRef: postDetailPostsRecord.reference,
                                                                                 commentRef: listViewCommentsRecord.reference,
                                                                               ),
                                                                             );
@@ -1196,13 +1188,13 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                           date:
                                                               getCurrentTimestamp,
                                                           postRef:
-                                                              postDetailPostsRecord!
+                                                              postDetailPostsRecord
                                                                   .reference,
                                                           userRef:
                                                               currentUserReference,
                                                         );
                                                         await CommentsRecord.createDoc(
-                                                                postDetailPostsRecord!
+                                                                postDetailPostsRecord
                                                                     .reference)
                                                             .set(
                                                                 commentsCreateData);

@@ -1,5 +1,4 @@
 import 'package:provider/provider.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,8 +9,6 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 
 void main() async {
@@ -163,7 +160,7 @@ class _NavBarPageState extends State<NavBarPage> {
               size: 24,
             ),
             activeIcon: FaIcon(
-              FontAwesomeIcons.search,
+              FontAwesomeIcons.magnifyingGlass,
               size: 24,
             ),
             label: 'Search',
@@ -171,7 +168,7 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: FaIcon(
-              FontAwesomeIcons.plusSquare,
+              FontAwesomeIcons.squarePlus,
               size: 30,
             ),
             activeIcon: Icon(

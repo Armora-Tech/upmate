@@ -13,11 +13,9 @@ import '../flutter_flow/random_data_util.dart' as random_data;
 import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class MainPageWidget extends StatefulWidget {
@@ -72,7 +70,6 @@ class _MainPageWidgetState extends State<MainPageWidget> {
             ),
           );
         }
-        final mainPageUsersRecord = snapshot.data!;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -304,7 +301,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     },
                                     text: 'Akun',
                                     icon: FaIcon(
-                                      FontAwesomeIcons.userCircle,
+                                      FontAwesomeIcons.circleUser,
                                       color: Colors.black,
                                     ),
                                     options: FFButtonOptions(
@@ -426,7 +423,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                   },
                                   text: 'Pengaturan',
                                   icon: FaIcon(
-                                    FontAwesomeIcons.cog,
+                                    FontAwesomeIcons.gear,
                                     color: Colors.black,
                                   ),
                                   options: FFButtonOptions(
@@ -464,7 +461,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     },
                                     text: 'Pusat Bantuan',
                                     icon: FaIcon(
-                                      FontAwesomeIcons.questionCircle,
+                                      FontAwesomeIcons.circleQuestion,
                                       color: Colors.black,
                                     ),
                                     options: FFButtonOptions(
@@ -518,7 +515,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     },
                                     text: 'Info Aplikasi',
                                     icon: FaIcon(
-                                      FontAwesomeIcons.infoCircle,
+                                      FontAwesomeIcons.circleInfo,
                                       color: Colors.black,
                                     ),
                                     options: FFButtonOptions(
@@ -564,7 +561,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     },
                                     text: 'Keluar',
                                     icon: FaIcon(
-                                      FontAwesomeIcons.signOutAlt,
+                                      FontAwesomeIcons.rightFromBracket,
                                       color: Colors.black,
                                     ),
                                     options: FFButtonOptions(
@@ -2149,10 +2146,6 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                       ),
                                                                     );
                                                                   }
-                                                                  List<CommentsRecord>
-                                                                      textCommentsRecordList =
-                                                                      snapshot
-                                                                          .data!;
                                                                   return InkWell(
                                                                     onTap:
                                                                         () async {

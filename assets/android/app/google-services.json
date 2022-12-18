@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "159601934733",
+    "project_id": "upmate-armora",
+    "storage_bucket": "upmate-armora.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:159601934733:android:980399b87cb83321853dc4",
+        "android_client_info": {
+          "package_name": "com.armoratech.upmate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "159601934733-rdcro81bo8bv5f68vuje7q77m0bcl6c6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQVSeLnLEx0BW-04TJe7DZ_E_ju1kH35o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "159601934733-rdcro81bo8bv5f68vuje7q77m0bcl6c6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "159601934733-6hh55qn625tbmcj0uf6oud79ilm2vcum.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.armoratech.upmate"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

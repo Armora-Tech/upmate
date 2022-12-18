@@ -7,7 +7,6 @@ import 'dart:ui';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class VerifPageWidget extends StatefulWidget {

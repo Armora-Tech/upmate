@@ -7,8 +7,6 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ExplorePageWidget extends StatefulWidget {
@@ -114,8 +112,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                           height: MediaQuery.of(context).size.height * 0.7,
                           child: Stack(
                             children: [
-                              if (textController!.text == null ||
-                                  textController!.text == '')
+                              if (textController!.text == '')
                                 StreamBuilder<List<PostsRecord>>(
                                   stream: queryPostsRecord(),
                                   builder: (context, snapshot) {
@@ -282,8 +279,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                     );
                                   },
                                 ),
-                              if (textController!.text != null &&
-                                  textController!.text != '')
+                              if (textController!.text != '')
                                 FutureBuilder<ApiCallResponse>(
                                   future: (_apiRequestCompleter ??=
                                           Completer<ApiCallResponse>()

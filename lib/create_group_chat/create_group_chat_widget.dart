@@ -1,14 +1,9 @@
-import '../auth/auth_util.dart';
-import '../backend/backend.dart';
-import '../chat_page/chat_page_widget.dart';
 import '../flutter_flow/chat/index.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class CreateGroupChatWidget extends StatefulWidget {
@@ -331,6 +326,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                     onPressed: () async {
                       groupChat = await FFChatManager.instance.createChat(
                         checkboxListTileCheckedItems
+                            // ignore: unnecessary_null_comparison
                             .where((e) => e != null)
                             .toList()
                             .map((e) => e.reference)

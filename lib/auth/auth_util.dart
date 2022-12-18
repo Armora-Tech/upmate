@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 
 import '../backend/backend.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:stream_transform/stream_transform.dart';
 export 'facebook_auth.dart';
 import 'firebase_user_provider.dart';

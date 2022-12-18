@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:algolia/algolia.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 import '../backend.dart';
 
@@ -54,6 +52,7 @@ class FFAlgoliaManager {
       loc = await location;
       // Either the user denied permissions, we could not access
       // their location, or null location specified.
+      // ignore: unnecessary_null_comparison
       if (loc == null) {
         return [];
       }
