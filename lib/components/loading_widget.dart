@@ -17,8 +17,12 @@ class _LoadingWidgetState extends State<LoadingWidget> {
     context.watch<FFAppState>();
 
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 1,
+      width: double.infinity,
+      height: double.infinity,
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width,
+        maxHeight: MediaQuery.of(context).size.height * 1,
+      ),
       decoration: BoxDecoration(
         color: Color(0x81FFFFFF),
       ),
@@ -31,8 +35,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
           ),
           child: Lottie.asset(
             'assets/lottie_animations/98288-loading.json',
-            width: 150,
-            height: 130,
+            height: MediaQuery.of(context).size.height * 1,
             fit: BoxFit.fill,
             animate: true,
           ),
