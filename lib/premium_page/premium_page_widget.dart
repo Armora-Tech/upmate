@@ -32,6 +32,13 @@ class _PremiumPageWidgetState extends State<PremiumPageWidget> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
+        title: Text(
+          'Upgrade Premium',
+          style: FlutterFlowTheme.of(context).bodyText1.override(
+                fontFamily: 'Nunito',
+                fontSize: 20,
+              ),
+        ),
         actions: [
           FlutterFlowIconButton(
             borderColor: Colors.transparent,
@@ -133,8 +140,23 @@ class _PremiumPageWidgetState extends State<PremiumPageWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                         child: FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
+                          onPressed: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  content:
+                                      Text('Fitur ini masih dalam perbaikan.'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           },
                           text: 'Beli Rp 15,000 / Bulan',
                           options: FFButtonOptions(

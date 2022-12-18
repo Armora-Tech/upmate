@@ -311,7 +311,7 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                                   .update(usersUpdateData);
                               _shouldSetState = true;
 
-                              context.pushNamed('mainPage');
+                              context.goNamed('mainPage');
                             }
 
                             if (_shouldSetState) setState(() {});

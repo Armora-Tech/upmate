@@ -100,10 +100,10 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         isVerified: getParameter(data, 'isVerified'),
       ),
   'SignupPage': (data) async => SignupPageWidget(),
+  'surveyPage': (data) async => SurveyPageWidget(),
   'interestPage': (data) async => InterestPageWidget(
         ijob: getParameter(data, 'ijob'),
       ),
-  'surveyPage': (data) async => SurveyPageWidget(),
   'explorePage': (data) async => NavBarPage(initialPage: 'explorePage'),
   'newPostPage': (data) async => NavBarPage(initialPage: 'newPostPage'),
   'postDetail': (data) async => PostDetailWidget(

@@ -44,6 +44,8 @@ class _MainPageWidgetState extends State<MainPageWidget> {
       }
 
       context.goNamed('surveyPage');
+
+      return;
     });
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'mainPage'});

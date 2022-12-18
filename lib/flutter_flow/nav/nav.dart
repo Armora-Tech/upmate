@@ -105,18 +105,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => SignupPageWidget(),
             ),
             FFRoute(
+              name: 'surveyPage',
+              path: 'surveyPage',
+              requireAuth: true,
+              builder: (context, params) => SurveyPageWidget(),
+            ),
+            FFRoute(
               name: 'interestPage',
               path: 'interestPage',
               requireAuth: true,
               builder: (context, params) => InterestPageWidget(
                 ijob: params.getParam('ijob', ParamType.String),
               ),
-            ),
-            FFRoute(
-              name: 'surveyPage',
-              path: 'surveyPage',
-              requireAuth: true,
-              builder: (context, params) => SurveyPageWidget(),
             ),
             FFRoute(
               name: 'explorePage',
@@ -127,20 +127,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : ExplorePageWidget(),
             ),
             FFRoute(
-              name: 'mainPage',
-              path: 'mainPage',
-              requireAuth: true,
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'mainPage')
-                  : MainPageWidget(),
-            ),
-            FFRoute(
               name: 'newPostPage',
               path: 'newPostPage',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'newPostPage')
                   : NewPostPageWidget(),
+            ),
+            FFRoute(
+              name: 'mainPage',
+              path: 'mainPage',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'mainPage')
+                  : MainPageWidget(),
             ),
             FFRoute(
               name: 'postDetail',
