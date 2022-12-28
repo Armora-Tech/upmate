@@ -435,7 +435,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          if (isAndroid)
+                          if (isAndroid && !FFAppState().unused)
                             InkWell(
                               onTap: () async {
                                 FFAppState().update(() {
