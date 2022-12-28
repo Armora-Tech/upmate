@@ -271,21 +271,20 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
                               GoRouter.of(context).prepareAuthEvent();
 
-                              final user = await signInWithEmail(
-                                context,
-                                inpEmailController!.text,
-                                inpPassController!.text,
-                              );
-                              if (user == null) {
-                                return;
-                              }
-
-                              FFAppState().unused = false;
-
-                              context.goNamedAuth('mainPage', mounted);
-                            } catch (e) {
-                              FFAppState().unused = false;
+                            final user = await signInWithEmail(
+                              context,
+                              inpEmailController!.text,
+                              inpPassController!.text,
+                            );
+                            if (user == null) {
+                              return;
                             }
+
+                            setState(() {
+                              FFAppState().unused = false;
+                            });
+
+                            context.goNamedAuth('mainPage', mounted);
                           },
                           text: 'Sign In',
                           options: FFButtonOptions(
