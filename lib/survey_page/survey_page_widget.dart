@@ -18,8 +18,9 @@ class SurveyPageWidget extends StatefulWidget {
 
 class _SurveyPageWidgetState extends State<SurveyPageWidget> {
   String? jobDropDownValue;
-  final formKey = GlobalKey<FormState>();
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -39,6 +40,12 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
   }
 
   @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
@@ -47,7 +54,7 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
             child: Column(

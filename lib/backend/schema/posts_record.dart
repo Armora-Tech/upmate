@@ -63,40 +63,6 @@ abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
       .get()
       .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
-  static PostsRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) => PostsRecord(
-        (c) => c
-          ..postPhoto = snapshot.data['post_photo']
-          ..postTitle = snapshot.data['post_title']
-          ..postDescription = snapshot.data['post_description']
-          ..postUser = safeGet(() => toRef(snapshot.data['post_user']))
-          ..timePosted = safeGet(() =>
-              DateTime.fromMillisecondsSinceEpoch(snapshot.data['time_posted']))
-          ..likes = safeGet(
-              () => ListBuilder(snapshot.data['likes'].map((s) => toRef(s))))
-          ..numComments = snapshot.data['num_comments']?.round()
-          ..numVotes = snapshot.data['num_votes']?.round()
-          ..interests = safeGet(() => ListBuilder(snapshot.data['interests']))
-          ..iid = snapshot.data['iid']
-          ..bookmarks = safeGet(() =>
-              ListBuilder(snapshot.data['bookmarks'].map((s) => toRef(s))))
-          ..ffRef = PostsRecord.collection.doc(snapshot.objectID),
-      );
-
-  static Future<List<PostsRecord>> search(
-          {String? term,
-          FutureOr<LatLng>? location,
-          int? maxResults,
-          double? searchRadiusMeters}) =>
-      FFAlgoliaManager.instance
-          .algoliaQuery(
-            index: 'posts',
-            term: term,
-            maxResults: maxResults,
-            location: location,
-            searchRadiusMeters: searchRadiusMeters,
-          )
-          .then((r) => r.map(fromAlgolia).toList());
-
   PostsRecord._();
   factory PostsRecord([void Function(PostsRecordBuilder) updates]) =
       _$PostsRecord;

@@ -31,9 +31,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   BuiltList<DocumentReference>? get blocked;
 
-  String? get tes;
-
   bool? get isPremium;
+
+  String? get username;
 
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
@@ -48,8 +48,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..interests = ListBuilder()
     ..postTmpImg = ''
     ..blocked = ListBuilder()
-    ..tes = ''
-    ..isPremium = false;
+    ..isPremium = false
+    ..username = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -80,8 +80,8 @@ Map<String, dynamic> createUsersRecordData({
   DateTime? createdTime,
   String? phoneNumber,
   String? postTmpImg,
-  String? tes,
   bool? isPremium,
+  String? username,
 }) {
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
@@ -96,8 +96,8 @@ Map<String, dynamic> createUsersRecordData({
         ..interests = null
         ..postTmpImg = postTmpImg
         ..blocked = null
-        ..tes = tes
-        ..isPremium = isPremium,
+        ..isPremium = isPremium
+        ..username = username,
     ),
   );
 

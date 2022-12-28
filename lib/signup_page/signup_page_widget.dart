@@ -19,21 +19,22 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
   ApiCallResponse? otp;
   TextEditingController? inpEmailController;
   TextEditingController? inpNameController;
+  TextEditingController? inpUserNameController;
   TextEditingController? inpPassController;
-
   late bool inpPassVisibility;
   TextEditingController? inpPassConfController;
-
   late bool inpPassConfVisibility;
   bool? tosCheckboxValue;
-  final formKey = GlobalKey<FormState>();
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
     inpEmailController = TextEditingController();
     inpNameController = TextEditingController();
+    inpUserNameController = TextEditingController();
     inpPassController = TextEditingController();
     inpPassVisibility = false;
     inpPassConfController = TextEditingController();
@@ -43,8 +44,10 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     inpEmailController?.dispose();
     inpNameController?.dispose();
+    inpUserNameController?.dispose();
     inpPassController?.dispose();
     inpPassConfController?.dispose();
     super.dispose();
@@ -59,7 +62,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,
@@ -178,6 +181,69 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                           ),
                         ),
                         Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                          child: Container(
+                            width: 300,
+                            child: TextFormField(
+                              controller: inpUserNameController,
+                              onChanged: (_) => EasyDebounce.debounce(
+                                'inpUserNameController',
+                                Duration(milliseconds: 2000),
+                                () => setState(() {}),
+                              ),
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                hintText: 'Username',
+                                hintStyle:
+                                    FlutterFlowTheme.of(context).bodyText2,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xFFFBEFEF),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xFFFBEFEF),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                suffixIcon:
+                                    inpUserNameController!.text.isNotEmpty
+                                        ? InkWell(
+                                            onTap: () async {
+                                              inpUserNameController?.clear();
+                                              setState(() {});
+                                            },
+                                            child: Icon(
+                                              Icons.clear,
+                                              color: Color(0xFF757575),
+                                              size: 22,
+                                            ),
+                                          )
+                                        : null,
+                              ),
+                              style: FlutterFlowTheme.of(context).bodyText1,
+                            ),
+                          ),
+                        ),
+                        Padding(
                           padding:
                               EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                           child: Container(
@@ -243,9 +309,12 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                                   return 'Field is required';
                                 }
 
-                                if (!RegExp(kTextValidatorEmailRegex)
+                                if (val.length > 30) {
+                                  return 'Maximum 30 characters allowed, currently ${val.length}.';
+                                }
+                                if (!RegExp(kTextValidatorUsernameRegex)
                                     .hasMatch(val)) {
-                                  return 'Has to be a valid email address.';
+                                  return 'Must start with a letter and can only contain letters, digits and - or _.';
                                 }
                                 return null;
                               },
@@ -514,6 +583,10 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                                 false,
                                 ParamType.bool,
                               ),
+                              'username': serializeParam(
+                                inpUserNameController!.text,
+                                ParamType.String,
+                              ),
                             }.withoutNulls,
                           );
 
@@ -615,7 +688,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                       if (isAndroid)
                         InkWell(
                           onTap: () async {
-                            setState(() {
+                            FFAppState().update(() {
                               FFAppState().unused = true;
                             });
                             GoRouter.of(context).prepareAuthEvent();
@@ -623,7 +696,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                             if (user == null) {
                               return;
                             }
-                            setState(() {
+                            FFAppState().update(() {
                               FFAppState().unused = false;
                             });
 
@@ -639,7 +712,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                       if (isiOS)
                         InkWell(
                           onTap: () async {
-                            setState(() {
+                            FFAppState().update(() {
                               FFAppState().unused = true;
                             });
                             GoRouter.of(context).prepareAuthEvent();
@@ -647,7 +720,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                             if (user == null) {
                               return;
                             }
-                            setState(() {
+                            FFAppState().update(() {
                               FFAppState().unused = false;
                             });
 
@@ -662,7 +735,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                         ),
                       InkWell(
                         onTap: () async {
-                          setState(() {
+                          FFAppState().update(() {
                             FFAppState().unused = true;
                           });
                           GoRouter.of(context).prepareAuthEvent();
@@ -670,7 +743,7 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                           if (user == null) {
                             return;
                           }
-                          setState(() {
+                          FFAppState().update(() {
                             FFAppState().unused = false;
                           });
 

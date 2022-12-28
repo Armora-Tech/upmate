@@ -19,86 +19,75 @@ class FFAppState extends ChangeNotifier {
     _sreset = await secureStorage.getBool('ff_sreset') ?? _sreset;
   }
 
+  void update(VoidCallback callback) {
+    callback();
+    notifyListeners();
+  }
+
   late FlutterSecureStorage secureStorage;
 
   int _nreset = 0;
   int get nreset => _nreset;
   set nreset(int _value) {
-    notifyListeners();
-
     _nreset = _value;
     secureStorage.setInt('ff_nreset', _value);
   }
 
   void deleteNreset() {
-    notifyListeners();
     secureStorage.delete(key: 'ff_nreset');
   }
 
   bool _sreset = false;
   bool get sreset => _sreset;
   set sreset(bool _value) {
-    notifyListeners();
-
     _sreset = _value;
     secureStorage.setBool('ff_sreset', _value);
   }
 
   void deleteSreset() {
-    notifyListeners();
     secureStorage.delete(key: 'ff_sreset');
   }
 
   String _tiid = '';
   String get tiid => _tiid;
   set tiid(String _value) {
-    notifyListeners();
-
     _tiid = _value;
   }
 
   bool _isverified = false;
   bool get isverified => _isverified;
   set isverified(bool _value) {
-    notifyListeners();
-
     _isverified = _value;
   }
 
   bool _isFirstOpen = false;
   bool get isFirstOpen => _isFirstOpen;
   set isFirstOpen(bool _value) {
-    notifyListeners();
-
     _isFirstOpen = _value;
   }
 
   String _mainMenu = 'normal';
   String get mainMenu => _mainMenu;
   set mainMenu(String _value) {
-    notifyListeners();
-
     _mainMenu = _value;
   }
 
   bool _unused = false;
   bool get unused => _unused;
   set unused(bool _value) {
-    notifyListeners();
-
     _unused = _value;
   }
 
   bool _cs = false;
   bool get cs => _cs;
   set cs(bool _value) {
-    notifyListeners();
-
     _cs = _value;
   }
 }
 
 extension FlutterSecureStorageExtensions on FlutterSecureStorage {
+  void remove(String key) => delete(key: key);
+
   Future<String?> getString(String key) async => await read(key: key);
   Future<void> setString(String key, String value) async =>
       await write(key: key, value: value);

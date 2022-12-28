@@ -30,6 +30,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
   String uploadedFileUrl = '';
 
   Completer<UsersRecord>? _documentRequestCompleter;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -47,6 +48,12 @@ class _MainPageWidgetState extends State<MainPageWidget> {
     });
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'mainPage'});
+  }
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -185,7 +192,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                             currentUserPhoto,
                                             'https://imgs.search.brave.com/8AotVXoc6x4ddoAEx14QkNkHX1ctJ-6AdqBVxI83jy8/rs:fit:415:225:1/g:ce/aHR0cHM6Ly90c2U0/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5u/dm1TaXN5V0FmTWxT/Ung4Z19MM3pBQUFB/QSZwaWQ9QXBp',
                                           ),
-                                          fit: BoxFit.fill,
+                                          fit: BoxFit.contain,
                                         ),
                                       ),
                                     ),
@@ -324,7 +331,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                             ),
                             InkWell(
                               onTap: () async {
-                                setState(() {
+                                FFAppState().update(() {
                                   FFAppState().mainMenu = 'privacy';
                                 });
                               },
@@ -333,7 +340,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      setState(() {
+                                      FFAppState().update(() {
                                         FFAppState().mainMenu = 'privacy';
                                       });
                                     },
@@ -446,7 +453,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                             ),
                             InkWell(
                               onTap: () async {
-                                setState(() {
+                                FFAppState().update(() {
                                   FFAppState().mainMenu = 'helpMenu';
                                 });
                               },
@@ -455,7 +462,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      setState(() {
+                                      FFAppState().update(() {
                                         FFAppState().mainMenu = 'helpMenu';
                                       });
                                     },
@@ -612,7 +619,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     alignment: AlignmentDirectional(-1, 0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        setState(() {
+                                        FFAppState().update(() {
                                           FFAppState().mainMenu = 'normal';
                                         });
                                       },
@@ -662,7 +669,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                       ),
                       InkWell(
                         onTap: () async {
-                          setState(() {
+                          FFAppState().update(() {
                             FFAppState().mainMenu = 'profileMenu';
                           });
                         },
@@ -775,7 +782,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                 Expanded(
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      setState(() {
+                                      FFAppState().update(() {
                                         FFAppState().mainMenu = 'normal';
                                       });
                                     },
@@ -960,7 +967,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
           ),
           body: SafeArea(
             child: GestureDetector(
-              onTap: () => FocusScope.of(context).unfocus(),
+              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
               child: Align(
                 alignment: AlignmentDirectional(0, 0),
                 child: Column(
@@ -1021,8 +1028,18 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                       child: AuthUserStreamWidget(
                                         child: InkWell(
                                           onTap: () async {
-                                            scaffoldKey.currentState!
-                                                .openDrawer();
+                                            context.pushNamed(
+                                              'accountPage',
+                                              extra: <String, dynamic>{
+                                                kTransitionInfoKey:
+                                                    TransitionInfo(
+                                                  hasTransition: true,
+                                                  transitionType:
+                                                      PageTransitionType
+                                                          .leftToRight,
+                                                ),
+                                              },
+                                            );
                                           },
                                           child: Container(
                                             width: 40,

@@ -15,13 +15,15 @@ class GetOTPCall {
 {"email":"$mail"}''';
     return ApiManager.instance.makeApiCall(
       callName: 'getOTP',
-      apiUrl: 'https://eowols238v8t5yi.m.pipedream.net',
+      apiUrl: 'https://apis.upmate.armora-tech.com/otp/',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
       cache: false,
     );
   }

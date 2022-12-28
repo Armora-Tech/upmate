@@ -19,6 +19,7 @@ class ExplorePageWidget extends StatefulWidget {
 class _ExplorePageWidgetState extends State<ExplorePageWidget> {
   Completer<ApiCallResponse>? _apiRequestCompleter;
   TextEditingController? textController;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -30,6 +31,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     textController?.dispose();
     super.dispose();
   }
@@ -43,7 +45,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,

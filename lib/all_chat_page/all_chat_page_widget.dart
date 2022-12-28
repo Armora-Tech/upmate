@@ -17,6 +17,7 @@ class AllChatPageWidget extends StatefulWidget {
 
 class _AllChatPageWidgetState extends State<AllChatPageWidget> {
   TextEditingController? textController;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -28,6 +29,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     textController?.dispose();
     super.dispose();
   }
@@ -176,7 +178,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                     size: 30,
                   ),
                   onPressed: () async {
-                    setState(() {
+                    FFAppState().update(() {
                       FFAppState().cs = true;
                     });
                   },
@@ -191,7 +193,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Stack(
             children: [
               Padding(

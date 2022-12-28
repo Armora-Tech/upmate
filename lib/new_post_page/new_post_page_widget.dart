@@ -418,7 +418,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                       if (_shouldSetState) setState(() {});
                       return;
                     }
-                    setState(() {
+                    FFAppState().update(() {
                       FFAppState().tiid = 'PST-${random_data.randomString(
                         6,
                         6,

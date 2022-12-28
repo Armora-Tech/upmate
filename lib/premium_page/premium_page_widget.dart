@@ -13,12 +13,19 @@ class PremiumPageWidget extends StatefulWidget {
 }
 
 class _PremiumPageWidgetState extends State<PremiumPageWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'premiumPage'});
+  }
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -59,7 +66,7 @@ class _PremiumPageWidgetState extends State<PremiumPageWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,7 +164,7 @@ class _PremiumPageWidgetState extends State<PremiumPageWidget> {
                               },
                             );
                           },
-                          text: 'Beli Rp 15,000 / Bulan',
+                          text: 'Beli Rp 20,000 / Bulan',
                           options: FFButtonOptions(
                             width: 240,
                             height: 60,
