@@ -1,5 +1,4 @@
 import '../auth/auth_util.dart';
-import '../components/loading_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_timer.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -260,16 +259,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            FFAppState().update(() {
-                              FFAppState().unused = true;
-                            });
-                            try {
-                              if (formKey.currentState == null ||
-                                  !formKey.currentState!.validate()) {
-                                return;
-                              }
+                            if (formKey.currentState == null ||
+                                !formKey.currentState!.validate()) {
+                              return;
+                            }
 
-                              GoRouter.of(context).prepareAuthEvent();
+                            GoRouter.of(context).prepareAuthEvent();
 
                             final user = await signInWithEmail(
                               context,
@@ -279,10 +274,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             if (user == null) {
                               return;
                             }
-
-                            setState(() {
-                              FFAppState().unused = false;
-                            });
 
                             context.goNamedAuth('mainPage', mounted);
                           },
@@ -468,6 +459,30 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 fit: BoxFit.cover,
                               ),
                             ),
+                          if (FFAppState().unused)
+                            InkWell(
+                              onTap: () async {
+                                FFAppState().update(() {
+                                  FFAppState().unused = true;
+                                });
+                                GoRouter.of(context).prepareAuthEvent();
+                                final user = await signInWithGoogle(context);
+                                if (user == null) {
+                                  return;
+                                }
+                                FFAppState().update(() {
+                                  FFAppState().unused = false;
+                                });
+
+                                context.goNamedAuth('mainPage', mounted);
+                              },
+                              child: Image.asset(
+                                'assets/images/98288-loading.gif',
+                                width: 48,
+                                height: 48,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           if (isiOS)
                             InkWell(
                               onTap: () async {
@@ -557,7 +572,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                   ),
                 ),
               ),
-              if (FFAppState().unused) LoadingWidget(),
             ],
           ),
         ),
