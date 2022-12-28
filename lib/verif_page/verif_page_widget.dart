@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../components/verfied_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -18,6 +19,7 @@ class VerifPageWidget extends StatefulWidget {
     this.name,
     this.pw,
     this.isVerified,
+    this.username,
   }) : super(key: key);
 
   final String? code;
@@ -25,6 +27,7 @@ class VerifPageWidget extends StatefulWidget {
   final String? name;
   final String? pw;
   final bool? isVerified;
+  final String? username;
 
   @override
   _VerifPageWidgetState createState() => _VerifPageWidgetState();
@@ -34,8 +37,8 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
   TextEditingController? fMailController;
   TextEditingController? mailVerif;
   TextEditingController? fPwController;
-
   late bool fPwVisibility;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -50,6 +53,7 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     fMailController?.dispose();
     mailVerif?.dispose();
     fPwController?.dispose();
@@ -65,7 +69,7 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,
@@ -242,7 +246,17 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                               return;
                             }
 
-                            setState(() {
+                            final usersCreateData = createUsersRecordData(
+                              email: widget.mail,
+                              displayName: widget.name,
+                              createdTime: getCurrentTimestamp,
+                              username: widget.username,
+                            );
+                            await UsersRecord.collection
+                                .doc(user.uid)
+                                .update(usersCreateData);
+
+                            FFAppState().update(() {
                               FFAppState().isverified = true;
                             });
 

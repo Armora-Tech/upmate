@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import '../../flutter_flow/flutter_flow_util.dart';
 import '../cloud_functions/cloud_functions.dart';
@@ -17,13 +18,15 @@ class GetOTPCall {
 {"email":"${mail}"}''';
     return ApiManager.instance.makeApiCall(
       callName: 'getOTP',
-      apiUrl: 'https://eowols238v8t5yi.m.pipedream.net',
+      apiUrl: 'https://apis.upmate.armora-tech.com/otp/',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
       cache: false,
     );
   }

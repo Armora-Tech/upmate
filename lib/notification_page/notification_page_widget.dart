@@ -14,6 +14,7 @@ class NotificationPageWidget extends StatefulWidget {
 }
 
 class _NotificationPageWidgetState extends State<NotificationPageWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -21,6 +22,12 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
     super.initState();
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'notificationPage'});
+  }
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -42,7 +49,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
         elevation: 0,
       ),
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
         child: StreamBuilder<List<NotificationsRecord>>(
           stream: queryNotificationsRecord(
             queryBuilder: (notificationsRecord) => notificationsRecord

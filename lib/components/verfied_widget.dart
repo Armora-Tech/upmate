@@ -56,7 +56,7 @@ class _VerfiedWidgetState extends State<VerfiedWidget> {
               onPressed: () async {
                 context.pushNamed('surveyPage');
 
-                setState(() {
+                FFAppState().update(() {
                   FFAppState().isFirstOpen = true;
                 });
               },

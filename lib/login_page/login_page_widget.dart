@@ -21,15 +21,21 @@ class LoginPageWidget extends StatefulWidget {
 }
 
 class _LoginPageWidgetState extends State<LoginPageWidget> {
-  StopWatchTimer? timerController;
-  String? timerValue;
-  int? timerMilliseconds;
+  int timerMilliseconds = 60000;
+  String timerValue = StopWatchTimer.getDisplayTime(
+    60000,
+    hours: false,
+    milliSecond: false,
+  );
+  StopWatchTimer timerController =
+      StopWatchTimer(mode: StopWatchMode.countDown);
+
   TextEditingController? inpEmailController;
   TextEditingController? inpPassController;
-
   late bool inpPassVisibility;
-  final formKey = GlobalKey<FormState>();
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -43,9 +49,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     inpEmailController?.dispose();
     inpPassController?.dispose();
-    timerController?.dispose();
+    timerController.dispose();
     super.dispose();
   }
 
@@ -58,7 +65,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Stack(
             children: [
               Container(
@@ -255,7 +262,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            setState(() {
+                            FFAppState().update(() {
                               FFAppState().unused = true;
                             });
                             if (formKey.currentState == null ||
@@ -273,6 +280,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             if (user == null) {
                               return;
                             }
+
+                            FFAppState().unused = false;
 
                             context.goNamedAuth('mainPage', mounted);
                           },
@@ -321,14 +330,13 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       email: inpEmailController!.text,
                                       context: context,
                                     );
-                                    setState(() {
+                                    FFAppState().update(() {
                                       FFAppState().sreset = true;
                                       FFAppState().nreset =
                                           FFAppState().nreset + 1;
                                     });
-                                    timerController?.onExecute.add(
-                                      StopWatchExecute.start,
-                                    );
+                                    timerController.onExecute
+                                        .add(StopWatchExecute.start);
                                   },
                                   child: Text(
                                     'Forgot Password?',
@@ -345,32 +353,24 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               ),
                             if (FFAppState().sreset == true)
                               FlutterFlowTimer(
-                                timerValue: timerValue ??=
+                                initialTime: timerMilliseconds,
+                                getDisplayTime: (value) =>
                                     StopWatchTimer.getDisplayTime(
-                                  timerMilliseconds ??= 60000,
+                                  value,
                                   hours: false,
-                                  minute: true,
-                                  second: true,
                                   milliSecond: false,
                                 ),
-                                timer: timerController ??= StopWatchTimer(
-                                  mode: StopWatchMode.countDown,
-                                  presetMillisecond: timerMilliseconds ??=
-                                      60000,
-                                  onChange: (value) {
-                                    setState(() {
-                                      timerMilliseconds = value;
-                                      timerValue =
-                                          StopWatchTimer.getDisplayTime(
-                                        value,
-                                        hours: false,
-                                        minute: true,
-                                        second: true,
-                                        milliSecond: false,
-                                      );
-                                    });
-                                  },
-                                ),
+                                timer: timerController,
+                                onChanged: (value, displayTime, shouldUpdate) {
+                                  timerMilliseconds = value;
+                                  timerValue = displayTime;
+                                  if (shouldUpdate) setState(() {});
+                                },
+                                onEnded: () async {
+                                  FFAppState().update(() {
+                                    FFAppState().sreset = false;
+                                  });
+                                },
                                 textAlign: TextAlign.start,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyText1
@@ -380,11 +380,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       fontSize: 15,
                                       fontWeight: FontWeight.w500,
                                     ),
-                                onEnded: () async {
-                                  setState(() {
-                                    FFAppState().sreset = false;
-                                  });
-                                },
                               ),
                           ],
                         ),
@@ -451,7 +446,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           if (isAndroid)
                             InkWell(
                               onTap: () async {
-                                setState(() {
+                                FFAppState().update(() {
                                   FFAppState().unused = true;
                                 });
                                 GoRouter.of(context).prepareAuthEvent();
@@ -459,7 +454,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 if (user == null) {
                                   return;
                                 }
-                                setState(() {
+                                FFAppState().update(() {
                                   FFAppState().unused = false;
                                 });
 
@@ -475,7 +470,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           if (isiOS)
                             InkWell(
                               onTap: () async {
-                                setState(() {
+                                FFAppState().update(() {
                                   FFAppState().unused = true;
                                 });
                                 GoRouter.of(context).prepareAuthEvent();
@@ -483,7 +478,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 if (user == null) {
                                   return;
                                 }
-                                setState(() {
+                                FFAppState().update(() {
                                   FFAppState().unused = false;
                                 });
 
@@ -498,7 +493,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             ),
                           InkWell(
                             onTap: () async {
-                              setState(() {
+                              FFAppState().update(() {
                                 FFAppState().unused = true;
                               });
                               GoRouter.of(context).prepareAuthEvent();
@@ -506,7 +501,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               if (user == null) {
                                 return;
                               }
-                              setState(() {
+                              FFAppState().update(() {
                                 FFAppState().unused = false;
                               });
 

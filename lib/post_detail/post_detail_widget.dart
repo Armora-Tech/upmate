@@ -46,8 +46,9 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
   };
   String _currentPageLink = '';
   TextEditingController? textController;
-  final formKey = GlobalKey<FormState>();
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -65,6 +66,7 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     textController?.dispose();
     super.dispose();
   }
@@ -164,7 +166,8 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
               builder: (context) {
                 return SafeArea(
                   child: GestureDetector(
-                    onTap: () => FocusScope.of(context).unfocus(),
+                    onTap: () =>
+                        FocusScope.of(context).requestFocus(_unfocusNode),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: StreamBuilder<UsersRecord>(

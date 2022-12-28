@@ -84,11 +84,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? NavBarPage() : LoginPageWidget(),
           routes: [
             FFRoute(
-              name: 'LoginPage',
-              path: 'loginPage',
-              builder: (context, params) => LoginPageWidget(),
-            ),
-            FFRoute(
               name: 'VerifPage',
               path: 'verifPage',
               builder: (context, params) => VerifPageWidget(
@@ -97,7 +92,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 name: params.getParam('name', ParamType.String),
                 pw: params.getParam('pw', ParamType.String),
                 isVerified: params.getParam('isVerified', ParamType.bool),
+                username: params.getParam('username', ParamType.String),
               ),
+            ),
+            FFRoute(
+              name: 'LoginPage',
+              path: 'loginPage',
+              builder: (context, params) => LoginPageWidget(),
             ),
             FFRoute(
               name: 'SignupPage',
@@ -127,20 +128,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : ExplorePageWidget(),
             ),
             FFRoute(
-              name: 'newPostPage',
-              path: 'newPostPage',
-              requireAuth: true,
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'newPostPage')
-                  : NewPostPageWidget(),
-            ),
-            FFRoute(
               name: 'mainPage',
               path: 'mainPage',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'mainPage')
                   : MainPageWidget(),
+            ),
+            FFRoute(
+              name: 'newPostPage',
+              path: 'newPostPage',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'newPostPage')
+                  : NewPostPageWidget(),
             ),
             FFRoute(
               name: 'postDetail',
@@ -163,12 +164,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'chatPage',
               requireAuth: true,
               asyncParams: {
-                'chatUser': getDoc('users', UsersRecord.serializer),
+                'chatUser': getDoc(['users'], UsersRecord.serializer),
               },
               builder: (context, params) => ChatPageWidget(
                 chatUser: params.getParam('chatUser', ParamType.Document),
                 chatRef: params.getParam(
-                    'chatRef', ParamType.DocumentReference, false, 'chats'),
+                    'chatRef', ParamType.DocumentReference, false, ['chats']),
               ),
             ),
             FFRoute(
@@ -198,16 +199,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => PremiumPageWidget(),
             ),
             FFRoute(
-              name: 'accountPage',
-              path: 'accountPage',
-              requireAuth: true,
-              builder: (context, params) => AccountPageWidget(),
-            ),
-            FFRoute(
               name: 'bookmarkPage',
               path: 'bookmarkPage',
               requireAuth: true,
               builder: (context, params) => BookmarkPageWidget(),
+            ),
+            FFRoute(
+              name: 'accountPage',
+              path: 'accountPage',
+              requireAuth: true,
+              builder: (context, params) => AccountPageWidget(),
             ),
             FFRoute(
               name: 'appInfo',
@@ -326,7 +327,7 @@ class FFParameters {
     String paramName,
     ParamType type, [
     bool isList = false,
-    String? collectionName,
+    List<String>? collectionNamePath,
   ]) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -340,7 +341,7 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(param, type, isList, collectionName);
+    return deserializeParam<T>(param, type, isList, collectionNamePath);
   }
 }
 

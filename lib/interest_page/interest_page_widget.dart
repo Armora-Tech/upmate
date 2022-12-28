@@ -27,6 +27,7 @@ class InterestPageWidget extends StatefulWidget {
 class _InterestPageWidgetState extends State<InterestPageWidget> {
   List<String>? choiceChipsValues;
   List<String>? otherChoiceValues;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -45,6 +46,12 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'interestPage'});
+  }
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -81,7 +88,7 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           body: SafeArea(
             child: GestureDetector(
-              onTap: () => FocusScope.of(context).unfocus(),
+              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                 child: SingleChildScrollView(

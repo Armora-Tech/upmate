@@ -91,14 +91,15 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
 }
 
 final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
-  'LoginPage': (data) async => LoginPageWidget(),
   'VerifPage': (data) async => VerifPageWidget(
         code: getParameter(data, 'code'),
         mail: getParameter(data, 'mail'),
         name: getParameter(data, 'name'),
         pw: getParameter(data, 'pw'),
         isVerified: getParameter(data, 'isVerified'),
+        username: getParameter(data, 'username'),
       ),
+  'LoginPage': (data) async => LoginPageWidget(),
   'SignupPage': (data) async => SignupPageWidget(),
   'surveyPage': (data) async => SurveyPageWidget(),
   'interestPage': (data) async => InterestPageWidget(
@@ -120,8 +121,8 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'createChatPage': (data) async => CreateChatPageWidget(),
   'createGroupChat': (data) async => CreateGroupChatWidget(),
   'premiumPage': (data) async => PremiumPageWidget(),
-  'accountPage': (data) async => AccountPageWidget(),
   'bookmarkPage': (data) async => BookmarkPageWidget(),
+  'accountPage': (data) async => AccountPageWidget(),
   'appInfo': (data) async => AppInfoWidget(),
 };
 
