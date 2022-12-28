@@ -281,7 +281,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               return;
                             }
 
-                            FFAppState().unused = false;
+                            setState(() {
+                              FFAppState().unused = false;
+                            });
 
                             context.goNamedAuth('mainPage', mounted);
                           },
