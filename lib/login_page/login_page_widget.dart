@@ -263,25 +263,29 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             FFAppState().update(() {
                               FFAppState().unused = true;
                             });
-                            if (formKey.currentState == null ||
-                                !formKey.currentState!.validate()) {
-                              return;
+                            try {
+                              if (formKey.currentState == null ||
+                                  !formKey.currentState!.validate()) {
+                                return;
+                              }
+
+                              GoRouter.of(context).prepareAuthEvent();
+
+                              final user = await signInWithEmail(
+                                context,
+                                inpEmailController!.text,
+                                inpPassController!.text,
+                              );
+                              if (user == null) {
+                                return;
+                              }
+
+                              FFAppState().unused = false;
+
+                              context.goNamedAuth('mainPage', mounted);
+                            } catch (e) {
+                              FFAppState().unused = false;
                             }
-
-                            GoRouter.of(context).prepareAuthEvent();
-
-                            final user = await signInWithEmail(
-                              context,
-                              inpEmailController!.text,
-                              inpPassController!.text,
-                            );
-                            if (user == null) {
-                              return;
-                            }
-
-                            FFAppState().unused = false;
-
-                            context.goNamedAuth('mainPage', mounted);
                           },
                           text: 'Sign In',
                           options: FFButtonOptions(
