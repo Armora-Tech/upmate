@@ -1,12 +1,12 @@
 import '../components/chats_options_widget.dart';
 import '../flutter_flow/chat/index.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:text_search/text_search.dart';
 
 class AllChatPageWidget extends StatefulWidget {
   const AllChatPageWidget({Key? key}) : super(key: key);
@@ -16,6 +16,7 @@ class AllChatPageWidget extends StatefulWidget {
 }
 
 class _AllChatPageWidgetState extends State<AllChatPageWidget> {
+  List<UsersRecord> simpleSearchResults = [];
   TextEditingController? textController;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -78,7 +79,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
         ),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFEEF0F5),
         automaticallyImplyLeading: false,
         actions: [],
         flexibleSpace: FlexibleSpaceBar(
@@ -95,199 +96,334 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                       fontWeight: FontWeight.w800,
                     ),
               ),
-              if (FFAppState().cs)
-                Expanded(
-                  child: TextFormField(
-                    controller: textController,
-                    onChanged: (_) => EasyDebounce.debounce(
-                      'textController',
-                      Duration(milliseconds: 2000),
-                      () => setState(() {}),
-                    ),
-                    autofocus: true,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(4.0),
-                          topRight: Radius.circular(4.0),
-                        ),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(4.0),
-                          topRight: Radius.circular(4.0),
-                        ),
-                      ),
-                      errorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(4.0),
-                          topRight: Radius.circular(4.0),
-                        ),
-                      ),
-                      focusedErrorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(4.0),
-                          topRight: Radius.circular(4.0),
-                        ),
-                      ),
-                      suffixIcon: textController!.text.isNotEmpty
-                          ? InkWell(
-                              onTap: () async {
-                                textController?.clear();
-                                setState(() {});
-                              },
-                              child: Icon(
-                                Icons.clear,
-                                color: FlutterFlowTheme.of(context).black600,
-                                size: 22,
-                              ),
-                            )
-                          : null,
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyText1,
-                    minLines: 1,
-                  ),
-                ),
-              if (FFAppState().cs == false)
-                FlutterFlowIconButton(
-                  borderColor: Colors.transparent,
-                  borderRadius: 30,
-                  borderWidth: 1,
-                  buttonSize: 60,
-                  icon: Icon(
-                    Icons.search,
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    size: 30,
-                  ),
-                  onPressed: () async {
-                    FFAppState().update(() {
-                      FFAppState().cs = true;
-                    });
-                  },
-                ),
             ],
           ),
           centerTitle: false,
           expandedTitleScale: 1.0,
           titlePadding: EdgeInsetsDirectional.fromSTEB(10, 0, 20, 10),
         ),
-        elevation: 4,
+        elevation: 0,
       ),
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Stack(
             children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
-                child: StreamBuilder<List<ChatsRecord>>(
-                  stream: queryChatsRecord(
-                    queryBuilder: (chatsRecord) => chatsRecord
-                        .where('users', arrayContains: currentUserReference)
-                        .orderBy('last_message_time', descending: true),
-                  ),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primaryColor,
-                          ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional(0, 0),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                      child: StreamBuilder<List<ChatsRecord>>(
+                        stream: queryChatsRecord(
+                          queryBuilder: (chatsRecord) => chatsRecord
+                              .where('users',
+                                  arrayContains: currentUserReference)
+                              .orderBy('last_message_time', descending: true),
                         ),
-                      );
-                    }
-                    List<ChatsRecord> listViewChatsRecordList = snapshot.data!;
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.vertical,
-                      itemCount: listViewChatsRecordList.length,
-                      itemBuilder: (context, listViewIndex) {
-                        final listViewChatsRecord =
-                            listViewChatsRecordList[listViewIndex];
-                        return StreamBuilder<FFChatInfo>(
-                          stream: FFChatManager.instance
-                              .getChatInfo(chatRecord: listViewChatsRecord),
-                          builder: (context, snapshot) {
-                            final chatInfo = snapshot.data ??
-                                FFChatInfo(listViewChatsRecord);
-                            return FFChatPreview(
-                              onTap: () => context.pushNamed(
-                                'chatPage',
-                                queryParams: {
-                                  'chatUser': serializeParam(
-                                    chatInfo.otherUsers.length == 1
-                                        ? chatInfo.otherUsersList.first
-                                        : null,
-                                    ParamType.Document,
-                                  ),
-                                  'chatRef': serializeParam(
-                                    chatInfo.chatRecord.reference,
-                                    ParamType.DocumentReference,
-                                  ),
-                                }.withoutNulls,
-                                extra: <String, dynamic>{
-                                  'chatUser': chatInfo.otherUsers.length == 1
-                                      ? chatInfo.otherUsersList.first
-                                      : null,
-                                },
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: CircularProgressIndicator(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                ),
                               ),
-                              lastChatText: chatInfo.chatPreviewMessage(),
-                              lastChatTime: listViewChatsRecord.lastMessageTime,
-                              seen: listViewChatsRecord.lastMessageSeenBy!
-                                  .contains(currentUserReference),
-                              title: chatInfo.chatPreviewTitle(),
-                              userProfilePic: chatInfo.chatPreviewPic(),
-                              color: Color(0xFFEEF0F5),
-                              unreadColor: Colors.blue,
-                              titleTextStyle: GoogleFonts.getFont(
-                                'DM Sans',
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                              dateTextStyle: GoogleFonts.getFont(
-                                'DM Sans',
-                                color: Color(0x73000000),
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                              ),
-                              previewTextStyle: GoogleFonts.getFont(
-                                'DM Sans',
-                                color: Color(0x73000000),
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                              ),
-                              contentPadding:
-                                  EdgeInsetsDirectional.fromSTEB(3, 3, 3, 3),
-                              borderRadius: BorderRadius.circular(0),
                             );
-                          },
-                        );
-                      },
-                    );
-                  },
-                ),
+                          }
+                          List<ChatsRecord> textFieldChatsRecordList =
+                              snapshot.data!;
+                          return TextFormField(
+                            controller: textController,
+                            onChanged: (_) => EasyDebounce.debounce(
+                              'textController',
+                              Duration(milliseconds: 2000),
+                              () async {
+                                await queryUsersRecordOnce()
+                                    .then(
+                                      (records) => simpleSearchResults =
+                                          TextSearch(
+                                        records
+                                            .map(
+                                              (record) => TextSearchItem(
+                                                  record, [
+                                                record.username!,
+                                                record.displayName!
+                                              ]),
+                                            )
+                                            .toList(),
+                                      )
+                                              .search(textController!.text)
+                                              .map((r) => r.object)
+                                              .toList(),
+                                    )
+                                    .onError(
+                                        (_, __) => simpleSearchResults = [])
+                                    .whenComplete(() => setState(() {}));
+                              },
+                            ),
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              hintText: 'Search',
+                              hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              filled: true,
+                              fillColor: Color(0xFFC4C8D2),
+                              prefixIcon: Icon(
+                                Icons.search,
+                                size: 20,
+                              ),
+                            ),
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  if (textController!.text == null ||
+                      textController!.text == '')
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
+                      child: StreamBuilder<List<ChatsRecord>>(
+                        stream: queryChatsRecord(
+                          queryBuilder: (chatsRecord) => chatsRecord
+                              .where('users',
+                                  arrayContains: currentUserReference)
+                              .orderBy('last_message_time', descending: true),
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: CircularProgressIndicator(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                ),
+                              ),
+                            );
+                          }
+                          List<ChatsRecord> listViewChatsRecordList =
+                              snapshot.data!;
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: listViewChatsRecordList.length,
+                            itemBuilder: (context, listViewIndex) {
+                              final listViewChatsRecord =
+                                  listViewChatsRecordList[listViewIndex];
+                              return StreamBuilder<FFChatInfo>(
+                                stream: FFChatManager.instance.getChatInfo(
+                                    chatRecord: listViewChatsRecord),
+                                builder: (context, snapshot) {
+                                  final chatInfo = snapshot.data ??
+                                      FFChatInfo(listViewChatsRecord);
+                                  return FFChatPreview(
+                                    onTap: () => context.pushNamed(
+                                      'chatPage',
+                                      queryParams: {
+                                        'chatUser': serializeParam(
+                                          chatInfo.otherUsers.length == 1
+                                              ? chatInfo.otherUsersList.first
+                                              : null,
+                                          ParamType.Document,
+                                        ),
+                                        'chatRef': serializeParam(
+                                          chatInfo.chatRecord.reference,
+                                          ParamType.DocumentReference,
+                                        ),
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        'chatUser':
+                                            chatInfo.otherUsers.length == 1
+                                                ? chatInfo.otherUsersList.first
+                                                : null,
+                                      },
+                                    ),
+                                    lastChatText: chatInfo.chatPreviewMessage(),
+                                    lastChatTime:
+                                        listViewChatsRecord.lastMessageTime,
+                                    seen: listViewChatsRecord.lastMessageSeenBy!
+                                        .contains(currentUserReference),
+                                    title: chatInfo.chatPreviewTitle(),
+                                    userProfilePic: chatInfo.chatPreviewPic(),
+                                    color: Color(0xFFEEF0F5),
+                                    unreadColor: Colors.blue,
+                                    titleTextStyle: GoogleFonts.getFont(
+                                      'DM Sans',
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                    dateTextStyle: GoogleFonts.getFont(
+                                      'DM Sans',
+                                      color: Color(0x73000000),
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                    ),
+                                    previewTextStyle: GoogleFonts.getFont(
+                                      'DM Sans',
+                                      color: Color(0x73000000),
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                    ),
+                                    contentPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            3, 3, 3, 3),
+                                    borderRadius: BorderRadius.circular(0),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  if (textController!.text != null &&
+                      textController!.text != '')
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
+                      child: FutureBuilder<List<ChatsRecord>>(
+                        future: queryChatsRecordOnce(
+                          queryBuilder: (chatsRecord) => chatsRecord
+                              .whereArrayContainsAny(
+                                  'users',
+                                  simpleSearchResults
+                                      .map((e) => e.reference)
+                                      .toList())
+                              .where('user_a', isEqualTo: currentUserReference)
+                              .orderBy('last_message_time', descending: true),
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: CircularProgressIndicator(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                ),
+                              ),
+                            );
+                          }
+                          List<ChatsRecord> listViewSearchChatsRecordList =
+                              snapshot.data!;
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: listViewSearchChatsRecordList.length,
+                            itemBuilder: (context, listViewSearchIndex) {
+                              final listViewSearchChatsRecord =
+                                  listViewSearchChatsRecordList[
+                                      listViewSearchIndex];
+                              return StreamBuilder<FFChatInfo>(
+                                stream: FFChatManager.instance.getChatInfo(
+                                    chatRecord: listViewSearchChatsRecord),
+                                builder: (context, snapshot) {
+                                  final chatInfo = snapshot.data ??
+                                      FFChatInfo(listViewSearchChatsRecord);
+                                  return FFChatPreview(
+                                    onTap: () => context.pushNamed(
+                                      'chatPage',
+                                      queryParams: {
+                                        'chatUser': serializeParam(
+                                          chatInfo.otherUsers.length == 1
+                                              ? chatInfo.otherUsersList.first
+                                              : null,
+                                          ParamType.Document,
+                                        ),
+                                        'chatRef': serializeParam(
+                                          chatInfo.chatRecord.reference,
+                                          ParamType.DocumentReference,
+                                        ),
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        'chatUser':
+                                            chatInfo.otherUsers.length == 1
+                                                ? chatInfo.otherUsersList.first
+                                                : null,
+                                      },
+                                    ),
+                                    lastChatText: chatInfo.chatPreviewMessage(),
+                                    lastChatTime: listViewSearchChatsRecord
+                                        .lastMessageTime,
+                                    seen: listViewSearchChatsRecord
+                                        .lastMessageSeenBy!
+                                        .contains(currentUserReference),
+                                    title: chatInfo.chatPreviewTitle(),
+                                    userProfilePic: chatInfo.chatPreviewPic(),
+                                    color: Color(0xFFEEF0F5),
+                                    unreadColor: Colors.blue,
+                                    titleTextStyle: GoogleFonts.getFont(
+                                      'DM Sans',
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                    dateTextStyle: GoogleFonts.getFont(
+                                      'DM Sans',
+                                      color: Color(0x73000000),
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                    ),
+                                    previewTextStyle: GoogleFonts.getFont(
+                                      'DM Sans',
+                                      color: Color(0x73000000),
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                    ),
+                                    contentPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            3, 3, 3, 3),
+                                    borderRadius: BorderRadius.circular(0),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                ],
               ),
             ],
           ),

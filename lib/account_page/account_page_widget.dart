@@ -130,8 +130,8 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
                 child: FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    context.pushNamed('editProfile');
                   },
                   text: 'Edit Profile',
                   options: FFButtonOptions(
