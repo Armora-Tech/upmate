@@ -449,6 +449,22 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     FFAppState().update(() {
                                       FFAppState().unused = false;
                                     });
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          content: Text(
+                                              'Login gagal, silahkan mencoba beberapa saat lagi.'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                     return;
                                   }
                                   FFAppState().update(() {
