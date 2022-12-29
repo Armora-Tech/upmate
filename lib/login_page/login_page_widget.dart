@@ -460,11 +460,11 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   GoRouter.of(context).prepareAuthEvent();
                                   final user = await signInWithGoogle(context);
                                   if (user == null) {
+                                    FFAppState().update(() {
+                                      FFAppState().unused = false;
+                                    });
                                     return;
                                   }
-                                  FFAppState().update(() {
-                                    FFAppState().unused = false;
-                                  });
 
                                   context.goNamedAuth('mainPage', mounted);
                                 },
