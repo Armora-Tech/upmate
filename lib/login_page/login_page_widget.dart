@@ -438,22 +438,29 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           if (isAndroid && !FFAppState().unused)
                             InkWell(
                               onTap: () async {
-                                FFAppState().update(() {
-                                  FFAppState().unused = true;
-                                });
-                                GoRouter.of(context).prepareAuthEvent();
-                                final user = await signInWithGoogle(context);
-                                if (user == null) {
+                                try {
+                                  FFAppState().update(() {
+                                    FFAppState().unused = true;
+                                  });
+                                  GoRouter.of(context).prepareAuthEvent();
+                                  final user = await signInWithGoogle(context);
+                                  debugPrint("USERSTATUS: " + user.toString());
+                                  if (user == null) {
+                                    FFAppState().update(() {
+                                      FFAppState().unused = false;
+                                    });
+                                    return;
+                                  }
                                   FFAppState().update(() {
                                     FFAppState().unused = false;
                                   });
-                                  return;
-                                }
-                                FFAppState().update(() {
-                                  FFAppState().unused = false;
-                                });
 
-                                context.goNamedAuth('mainPage', mounted);
+                                  context.goNamedAuth('mainPage', mounted);
+                                } catch (err) {
+                                  FFAppState().update(() {
+                                    FFAppState().unused = false;
+                                  });
+                                }
                               },
                               child: Image.asset(
                                 'assets/images/th-1920417626-removebg-preview.png',

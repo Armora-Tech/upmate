@@ -1106,6 +1106,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                         ),
                                   ),
                                 ),
+                              /* Popular tab
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     24, 20, 24, 0),
@@ -1417,6 +1418,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                   ),
                                 ),
                               ),
+                              */
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     24, 20, 24, 0),
