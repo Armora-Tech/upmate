@@ -202,6 +202,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => BookmarkPageWidget(),
             ),
             FFRoute(
+              name: 'editProfile',
+              path: 'editProfile',
+              requireAuth: true,
+              builder: (context, params) => EditProfileWidget(),
+            ),
+            FFRoute(
               name: 'accountPage',
               path: 'accountPage',
               requireAuth: true,

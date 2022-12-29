@@ -120,6 +120,7 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'createGroupChat': (data) async => CreateGroupChatWidget(),
   'premiumPage': (data) async => PremiumPageWidget(),
   'bookmarkPage': (data) async => BookmarkPageWidget(),
+  'editProfile': (data) async => EditProfileWidget(),
   'accountPage': (data) async => AccountPageWidget(),
   'appInfo': (data) async => AppInfoWidget(),
 };

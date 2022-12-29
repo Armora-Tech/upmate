@@ -100,6 +100,13 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.bio;
+    if (value != null) {
+      result
+        ..add('bio')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -171,6 +178,10 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.username = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'bio':
+          result.bio = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -208,6 +219,8 @@ class _$UsersRecord extends UsersRecord {
   @override
   final String? username;
   @override
+  final String? bio;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -225,6 +238,7 @@ class _$UsersRecord extends UsersRecord {
       this.blocked,
       this.isPremium,
       this.username,
+      this.bio,
       this.ffRef})
       : super._();
 
@@ -250,6 +264,7 @@ class _$UsersRecord extends UsersRecord {
         blocked == other.blocked &&
         isPremium == other.isPremium &&
         username == other.username &&
+        bio == other.bio &&
         ffRef == other.ffRef;
   }
 
@@ -265,17 +280,19 @@ class _$UsersRecord extends UsersRecord {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc($jc(0, email.hashCode),
-                                                displayName.hashCode),
-                                            photoUrl.hashCode),
-                                        uid.hashCode),
-                                    createdTime.hashCode),
-                                phoneNumber.hashCode),
-                            interests.hashCode),
-                        postTmpImg.hashCode),
-                    blocked.hashCode),
-                isPremium.hashCode),
-            username.hashCode),
+                                            $jc(
+                                                $jc($jc(0, email.hashCode),
+                                                    displayName.hashCode),
+                                                photoUrl.hashCode),
+                                            uid.hashCode),
+                                        createdTime.hashCode),
+                                    phoneNumber.hashCode),
+                                interests.hashCode),
+                            postTmpImg.hashCode),
+                        blocked.hashCode),
+                    isPremium.hashCode),
+                username.hashCode),
+            bio.hashCode),
         ffRef.hashCode));
   }
 
@@ -293,6 +310,7 @@ class _$UsersRecord extends UsersRecord {
           ..add('blocked', blocked)
           ..add('isPremium', isPremium)
           ..add('username', username)
+          ..add('bio', bio)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -349,6 +367,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String? get username => _$this._username;
   set username(String? username) => _$this._username = username;
 
+  String? _bio;
+  String? get bio => _$this._bio;
+  set bio(String? bio) => _$this._bio = bio;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -371,6 +393,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _blocked = $v.blocked?.toBuilder();
       _isPremium = $v.isPremium;
       _username = $v.username;
+      _bio = $v.bio;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -407,6 +430,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               blocked: _blocked?.build(),
               isPremium: isPremium,
               username: username,
+              bio: bio,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
