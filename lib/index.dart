@@ -18,6 +18,6 @@ export 'create_group_chat/create_group_chat_widget.dart'
     show CreateGroupChatWidget;
 export 'premium_page/premium_page_widget.dart' show PremiumPageWidget;
 export 'bookmark_page/bookmark_page_widget.dart' show BookmarkPageWidget;
-export 'edit_profile/edit_profile_widget.dart' show EditProfileWidget;
 export 'account_page/account_page_widget.dart' show AccountPageWidget;
+export 'edit_profile/edit_profile_widget.dart' show EditProfileWidget;
 export 'app_info/app_info_widget.dart' show AppInfoWidget;
