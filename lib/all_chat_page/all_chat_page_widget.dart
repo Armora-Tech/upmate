@@ -209,6 +209,44 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                                 Icons.search,
                                 size: 20,
                               ),
+                              suffixIcon: textController!.text.isNotEmpty
+                                  ? InkWell(
+                                      onTap: () async {
+                                        textController?.clear();
+                                        await queryUsersRecordOnce()
+                                            .then(
+                                              (records) => simpleSearchResults =
+                                                  TextSearch(
+                                                records
+                                                    .map(
+                                                      (record) =>
+                                                          TextSearchItem(
+                                                              record, [
+                                                        record.username!,
+                                                        record.displayName!
+                                                      ]),
+                                                    )
+                                                    .toList(),
+                                              )
+                                                      .search(
+                                                          textController!.text)
+                                                      .map((r) => r.object)
+                                                      .toList(),
+                                            )
+                                            .onError((_, __) =>
+                                                simpleSearchResults = [])
+                                            .whenComplete(
+                                                () => setState(() {}));
+
+                                        setState(() {});
+                                      },
+                                      child: Icon(
+                                        Icons.clear,
+                                        color: Color(0xFF757575),
+                                        size: 22,
+                                      ),
+                                    )
+                                  : null,
                             ),
                             style: FlutterFlowTheme.of(context).bodyText1,
                           );
