@@ -3,9 +3,7 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class EditProfileWidget extends StatefulWidget {
@@ -64,22 +62,19 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
         actions: [
           FFButtonWidget(
             onPressed: () async {
-              if (textController1!.text != null &&
-                  textController1!.text != '') {
+              if (textController1!.text != '') {
                 final usersUpdateData = createUsersRecordData(
                   username: textController1!.text,
                 );
                 await currentUserReference!.update(usersUpdateData);
               }
-              if (textController2!.text != null &&
-                  textController2!.text != '') {
+              if (textController2!.text != '') {
                 final usersUpdateData = createUsersRecordData(
                   displayName: currentUserDisplayName,
                 );
                 await currentUserReference!.update(usersUpdateData);
               }
-              if (textController3!.text != null &&
-                  textController3!.text != '') {
+              if (textController3!.text != '') {
                 final usersUpdateData = createUsersRecordData(
                   bio: textController3!.text,
                 );
