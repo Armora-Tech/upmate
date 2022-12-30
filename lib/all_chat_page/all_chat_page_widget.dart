@@ -371,7 +371,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                                       simpleSearchResults
                                           .map((e) => e.reference)
                                           .toList())
-                                  .whereIn('users', [
+                                  .where('users', whereIn: [
                                 currentUserReference
                               ]).orderBy('last_message_time', descending: true),
                             ),
