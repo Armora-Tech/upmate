@@ -371,10 +371,9 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                                       simpleSearchResults
                                           .map((e) => e.reference)
                                           .toList())
-                                  .where('user_a',
-                                      isEqualTo: currentUserReference)
-                                  .orderBy('last_message_time',
-                                      descending: true),
+                                  .whereIn('users', [
+                                currentUserReference
+                              ]).orderBy('last_message_time', descending: true),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
