@@ -221,7 +221,8 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 AuthUserStreamWidget(
-                                                  child: ClipRRect(
+                                                  builder: (context) =>
+                                                      ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             40),
@@ -720,7 +721,8 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                                     0, 12),
                                                         child:
                                                             AuthUserStreamWidget(
-                                                          child: Row(
+                                                          builder: (context) =>
+                                                              Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
                                                                     .max,
@@ -1030,7 +1032,8 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                         ),
                                                         child:
                                                             AuthUserStreamWidget(
-                                                          child: Container(
+                                                          builder: (context) =>
+                                                              Container(
                                                             width: MediaQuery.of(
                                                                         context)
                                                                     .size

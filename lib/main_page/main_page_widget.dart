@@ -183,7 +183,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         2, 0, 0, 0),
                                     child: AuthUserStreamWidget(
-                                      child: Container(
+                                      builder: (context) => Container(
                                         width: 50,
                                         height: 50,
                                         clipBehavior: Clip.antiAlias,
@@ -206,7 +206,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                                 child: AuthUserStreamWidget(
-                                  child: Text(
+                                  builder: (context) => Text(
                                     currentUserDisplayName,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
@@ -1012,7 +1012,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                       },
                                     ),
                                     AuthUserStreamWidget(
-                                      child: Text(
+                                      builder: (context) => Text(
                                         FFAppState().isFirstOpen
                                             ? 'Selamat Datang'
                                             : currentUserDisplayName,
@@ -1029,7 +1029,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 5, 0, 0),
                                       child: AuthUserStreamWidget(
-                                        child: InkWell(
+                                        builder: (context) => InkWell(
                                           onTap: () async {
                                             context.pushNamed(
                                               'accountPage',
@@ -1076,7 +1076,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             2, 0, 0, 0),
                                         child: AuthUserStreamWidget(
-                                          child: Text(
+                                          builder: (context) => Text(
                                             currentUserDisplayName,
                                             style: FlutterFlowTheme.of(context)
                                                 .title1
@@ -1128,7 +1128,8 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                                 child: AuthUserStreamWidget(
-                                  child: FutureBuilder<List<InterestsRecord>>(
+                                  builder: (context) =>
+                                      FutureBuilder<List<InterestsRecord>>(
                                     future: queryInterestsRecordOnce(
                                       queryBuilder: (interestsRecord) =>
                                           interestsRecord.whereNotIn(
@@ -1439,7 +1440,8 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                                 child: AuthUserStreamWidget(
-                                  child: FutureBuilder<List<UsersRecord>>(
+                                  builder: (context) =>
+                                      FutureBuilder<List<UsersRecord>>(
                                     future: queryUsersRecordOnce(
                                       queryBuilder: (usersRecord) =>
                                           usersRecord.whereArrayContainsAny(
@@ -1649,7 +1651,8 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 child: AuthUserStreamWidget(
-                                  child: StreamBuilder<List<PostsRecord>>(
+                                  builder: (context) =>
+                                      StreamBuilder<List<PostsRecord>>(
                                     stream: queryPostsRecord(
                                       queryBuilder: (postsRecord) => postsRecord
                                           .whereArrayContainsAny(

@@ -160,7 +160,8 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                                     snapshot.data!;
                                 return FlutterFlowChoiceChips(
                                   options: choiceChipsInterestsRecordList
-                                      .map((e) => e.name!)
+                                      .map((e) => e.name)
+                                      .withoutNulls
                                       .toList()
                                       .map((label) => ChipData(label))
                                       .toList(),
@@ -223,7 +224,8 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                                     snapshot.data!;
                                 return FlutterFlowChoiceChips(
                                   options: otherChoiceInterestsRecordList
-                                      .map((e) => e.name!)
+                                      .map((e) => e.name)
+                                      .withoutNulls
                                       .toList()
                                       .map((label) => ChipData(label))
                                       .toList(),
