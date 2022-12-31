@@ -81,7 +81,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                           child: AuthUserStreamWidget(
-                            child: Container(
+                            builder: (context) => Container(
                               width: MediaQuery.of(context).size.width * 0.2,
                               height: MediaQuery.of(context).size.width * 0.2,
                               clipBehavior: Clip.antiAlias,
@@ -102,7 +102,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                 child: AuthUserStreamWidget(
-                  child: SelectionArea(
+                  builder: (context) => SelectionArea(
                       child: Text(
                     currentUserDisplayName,
                     textAlign: TextAlign.start,

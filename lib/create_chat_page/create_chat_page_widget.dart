@@ -195,7 +195,7 @@ class _CreateChatPageWidgetState extends State<CreateChatPageWidget> {
           if (simpleSearchResults.length == 0)
             Expanded(
               child: AuthUserStreamWidget(
-                child: StreamBuilder<List<UsersRecord>>(
+                builder: (context) => StreamBuilder<List<UsersRecord>>(
                   stream: queryUsersRecord(
                     queryBuilder: (usersRecord) =>
                         usersRecord.whereArrayContainsAny('interests',

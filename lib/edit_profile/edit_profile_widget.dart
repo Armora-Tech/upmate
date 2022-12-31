@@ -83,16 +83,15 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
             },
             text: 'Simpan',
             options: FFButtonOptions(
-              width: 130,
               height: 40,
-              color: Color(0x004B39EF),
+              color: Colors.transparent,
               textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                     fontFamily: 'Nunito',
                     color: Color(0xFF4AA8FF),
                   ),
               borderSide: BorderSide(
                 color: Colors.transparent,
-                width: 1,
+                width: 0,
               ),
               borderRadius: BorderRadius.circular(8),
             ),
@@ -145,7 +144,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 5, 0, 0),
                                   child: AuthUserStreamWidget(
-                                    child: TextFormField(
+                                    builder: (context) => TextFormField(
                                       controller: textController1,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -214,7 +213,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   ),
                                 ),
                                 AuthUserStreamWidget(
-                                  child: TextFormField(
+                                  builder: (context) => TextFormField(
                                     controller: textController2,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -308,7 +307,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 5, 0, 0),
                                   child: AuthUserStreamWidget(
-                                    child: TextFormField(
+                                    builder: (context) => TextFormField(
                                       controller: textController3,
                                       obscureText: false,
                                       decoration: InputDecoration(

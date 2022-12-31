@@ -19,6 +19,15 @@ class FFAppState extends ChangeNotifier {
     secureStorage = FlutterSecureStorage();
     _nreset = await secureStorage.getInt('ff_nreset') ?? _nreset;
     _sreset = await secureStorage.getBool('ff_sreset') ?? _sreset;
+    _chatList = (await secureStorage.getStringList('ff_chatList'))?.map((x) {
+          try {
+            return jsonDecode(x);
+          } catch (e) {
+            print("Can't decode persisted json. Error: $e.");
+            return {};
+          }
+        }).toList() ??
+        _chatList;
   }
 
   void update(VoidCallback callback) {
@@ -84,6 +93,30 @@ class FFAppState extends ChangeNotifier {
   bool get cs => _cs;
   set cs(bool _value) {
     _cs = _value;
+  }
+
+  List<dynamic> _chatList = [];
+  List<dynamic> get chatList => _chatList;
+  set chatList(List<dynamic> _value) {
+    _chatList = _value;
+    secureStorage.setStringList(
+        'ff_chatList', _value.map((x) => jsonEncode(x)).toList());
+  }
+
+  void deleteChatList() {
+    secureStorage.delete(key: 'ff_chatList');
+  }
+
+  void addToChatList(dynamic _value) {
+    _chatList.add(_value);
+    secureStorage.setStringList(
+        'ff_chatList', _chatList.map((x) => jsonEncode(x)).toList());
+  }
+
+  void removeFromChatList(dynamic _value) {
+    _chatList.remove(_value);
+    secureStorage.setStringList(
+        'ff_chatList', _chatList.map((x) => jsonEncode(x)).toList());
   }
 }
 

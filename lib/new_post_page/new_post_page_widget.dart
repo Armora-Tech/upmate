@@ -362,7 +362,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                 ],
               ),
               AuthUserStreamWidget(
-                child: FlutterFlowChoiceChips(
+                builder: (context) => FlutterFlowChoiceChips(
                   options: (currentUserDocument?.interests?.toList() ?? [])
                       .map((label) => ChipData(label))
                       .toList(),
