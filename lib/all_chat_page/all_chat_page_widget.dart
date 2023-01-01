@@ -3,6 +3,8 @@
 import '../components/chats_options_widget.dart';
 import '../flutter_flow/chat/index.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -260,6 +262,113 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                                         lastChatTime:
                                             normalListItem.lastMessageTime,
                                         seen: normalListItem.lastMessageSeenBy!
+                                            .contains(currentUserReference),
+                                        title: chatInfo.chatPreviewTitle(),
+                                        userProfilePic:
+                                            chatInfo.chatPreviewPic(),
+                                        color: Color(0xFFEEF0F5),
+                                        unreadColor: Colors.blue,
+                                        titleTextStyle: GoogleFonts.getFont(
+                                          'DM Sans',
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                        ),
+                                        dateTextStyle: GoogleFonts.getFont(
+                                          'DM Sans',
+                                          color: Color(0x73000000),
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 14,
+                                        ),
+                                        previewTextStyle: GoogleFonts.getFont(
+                                          'DM Sans',
+                                          color: Color(0x73000000),
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 14,
+                                        ),
+                                        contentPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                3, 3, 3, 3),
+                                        borderRadius: BorderRadius.circular(0),
+                                      );
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      if (textController!.text != null &&
+                          textController!.text != '')
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
+                          child: StreamBuilder<List<ChatsRecord>>(
+                            stream: queryChatsRecord(
+                              queryBuilder: (chatsRecord) => chatsRecord.where(
+                                  'users',
+                                  arrayContains: functions.newCustomFunction(
+                                      'B9Wv8E6YXRZY2EEqUazd2fr4UuB3')),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: CircularProgressIndicator(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                    ),
+                                  ),
+                                );
+                              }
+                              List<ChatsRecord> listViewChatsRecordList =
+                                  snapshot.data!;
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: listViewChatsRecordList.length,
+                                itemBuilder: (context, listViewIndex) {
+                                  final listViewChatsRecord =
+                                      listViewChatsRecordList[listViewIndex];
+                                  return StreamBuilder<FFChatInfo>(
+                                    stream: FFChatManager.instance.getChatInfo(
+                                        chatRecord: listViewChatsRecord),
+                                    builder: (context, snapshot) {
+                                      final chatInfo = snapshot.data ??
+                                          FFChatInfo(listViewChatsRecord);
+                                      return FFChatPreview(
+                                        onTap: () => context.pushNamed(
+                                          'chatPage',
+                                          queryParams: {
+                                            'chatUser': serializeParam(
+                                              chatInfo.otherUsers.length == 1
+                                                  ? chatInfo
+                                                      .otherUsersList.first
+                                                  : null,
+                                              ParamType.Document,
+                                            ),
+                                            'chatRef': serializeParam(
+                                              chatInfo.chatRecord.reference,
+                                              ParamType.DocumentReference,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'chatUser':
+                                                chatInfo.otherUsers.length == 1
+                                                    ? chatInfo
+                                                        .otherUsersList.first
+                                                    : null,
+                                          },
+                                        ),
+                                        lastChatText:
+                                            chatInfo.chatPreviewMessage(),
+                                        lastChatTime:
+                                            listViewChatsRecord.lastMessageTime,
+                                        seen: listViewChatsRecord
+                                            .lastMessageSeenBy!
                                             .contains(currentUserReference),
                                         title: chatInfo.chatPreviewTitle(),
                                         userProfilePic:

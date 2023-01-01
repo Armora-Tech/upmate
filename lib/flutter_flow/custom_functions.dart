@@ -75,3 +75,8 @@ int scount(String str) {
   // Add your function code here!
   return str.length;
 }
+
+DocumentReference? newCustomFunction(String? pathString) {
+  String strref = pathString!.substring(pathString.lastIndexOf("/"));
+  return FirebaseFirestore.instance.collection('users').doc(strref);
+}
