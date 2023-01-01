@@ -1,4 +1,4 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 bool compare(
   String one,
@@ -76,7 +76,10 @@ int scount(String str) {
   return str.length;
 }
 
-DocumentReference? newCustomFunction(String? pathString) {
+Future<DocumentReference<Object?>?> newCustomFunction(
+    String? pathString) async {
   String strref = pathString!.substring(pathString.lastIndexOf("/"));
-  return FirebaseFirestore.instance.collection('users').doc(strref);
+  final doc =
+      await FirebaseFirestore.instance.collection('users').doc(strref).get();
+  return doc.reference;
 }

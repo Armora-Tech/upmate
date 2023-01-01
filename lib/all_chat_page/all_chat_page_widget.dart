@@ -304,10 +304,14 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
                           child: StreamBuilder<List<ChatsRecord>>(
                             stream: queryChatsRecord(
-                              queryBuilder: (chatsRecord) => chatsRecord.where(
-                                  'users',
-                                  arrayContains: functions.newCustomFunction(
-                                      'B9Wv8E6YXRZY2EEqUazd2fr4UuB3')),
+                              queryBuilder: (chatsRecord) => chatsRecord
+                                  .where('users',
+                                      arrayContains: currentUserReference)
+                                  .where('users',
+                                      arrayContains:
+                                          algoliaSearchResults![0].reference)
+                                  .orderBy('last_message_time',
+                                      descending: true),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -323,8 +327,19 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                                   ),
                                 );
                               }
+                              // queryUsersRecordOnce(
+                              //   queryBuilder: (chatsRecord) => chatsRecord
+                              //       .where('users', whereIn: [
+                              //     currentUserReference,
+                              //     algoliaSearchResults![0]
+                              //   ]),
+                              // ).then((value) =>
+                              //     print("RESULTTT: " + value.toString()));
+                              // print("RESULTTT3: " +
+                              //     algoliaSearchResults.toString());
                               List<ChatsRecord> listViewChatsRecordList =
                                   snapshot.data!;
+
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,

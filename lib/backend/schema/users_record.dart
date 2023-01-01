@@ -1,11 +1,7 @@
 import 'dart:async';
 
-<<<<<<< HEAD
-=======
 import 'package:from_css_color/from_css_color.dart';
-
 import 'index.dart';
->>>>>>> 1272dd139ed157ba5248bac597e11301fead714f
 import 'serializers.dart';
 import 'package:built_value/built_value.dart';
 
