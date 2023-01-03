@@ -83,18 +83,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
             },
             text: 'Simpan',
             options: FFButtonOptions(
-              height: 40,
-              color: Colors.transparent,
-              textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                    fontFamily: 'Nunito',
-                    color: Color(0xFF4AA8FF),
-                  ),
-              borderSide: BorderSide(
-                color: Colors.transparent,
-                width: 0,
-              ),
-              borderRadius: BorderRadius.circular(8),
-            ),
+                height: 40,
+                color: Color(0xFFD9D9D9),
+                textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                      fontFamily: 'Nunito',
+                      color: Color(0xFF4AA8FF),
+                    ),
+                borderSide: BorderSide(color: Colors.transparent),
+                elevation: 0),
           ),
         ],
         centerTitle: true,

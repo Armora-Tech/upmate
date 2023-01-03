@@ -151,7 +151,10 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                               await UsersRecord.search(
                                 term: textController!.text,
                               )
-                                  .then((r) => algoliaSearchResults = r)
+                                  .then((r) => algoliaSearchResults = r
+                                      .where(
+                                          (e) => e.ffRef != currentUserDocument)
+                                      .toList())
                                   .onError((_, __) => algoliaSearchResults = [])
                                   .whenComplete(() => setState(() {}));
                             },
@@ -302,21 +305,11 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                           textController!.text != '')
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
-                          child: StreamBuilder<List<ChatsRecord>>(
-                            stream: queryChatsRecord(
-                              queryBuilder: (chatsRecord) => chatsRecord
-                                  .where('users',
-                                      arrayContains: currentUserReference)
-                                  .where('users',
-                                      arrayContains:
-                                          algoliaSearchResults![0].reference)
-                                  .orderBy('last_message_time',
-                                      descending: true),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
+                          child: Builder(
+                            builder: (context) {
+                              var isLoading = true;
+                              if (isLoading) {
+                                Center(
                                   child: SizedBox(
                                     width: 50,
                                     height: 50,
@@ -327,96 +320,127 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                                   ),
                                 );
                               }
-                              // queryUsersRecordOnce(
-                              //   queryBuilder: (chatsRecord) => chatsRecord
-                              //       .where('users', whereIn: [
-                              //     currentUserReference,
-                              //     algoliaSearchResults![0]
-                              //   ]),
-                              // ).then((value) =>
-                              //     print("RESULTTT: " + value.toString()));
-                              // print("RESULTTT3: " +
-                              //     algoliaSearchResults.toString());
-                              List<ChatsRecord> listViewChatsRecordList =
-                                  snapshot.data!;
+                              var normalList =
+                                  allChatPageChatsRecordList.toList();
 
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listViewChatsRecordList.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewChatsRecord =
-                                      listViewChatsRecordList[listViewIndex];
-                                  return StreamBuilder<FFChatInfo>(
-                                    stream: FFChatManager.instance.getChatInfo(
-                                        chatRecord: listViewChatsRecord),
-                                    builder: (context, snapshot) {
-                                      final chatInfo = snapshot.data ??
-                                          FFChatInfo(listViewChatsRecord);
-                                      return FFChatPreview(
-                                        onTap: () => context.pushNamed(
-                                          'chatPage',
-                                          queryParams: {
-                                            'chatUser': serializeParam(
-                                              chatInfo.otherUsers.length == 1
-                                                  ? chatInfo
-                                                      .otherUsersList.first
-                                                  : null,
-                                              ParamType.Document,
-                                            ),
-                                            'chatRef': serializeParam(
-                                              chatInfo.chatRecord.reference,
-                                              ParamType.DocumentReference,
-                                            ),
-                                          }.withoutNulls,
-                                          extra: <String, dynamic>{
-                                            'chatUser':
-                                                chatInfo.otherUsers.length == 1
-                                                    ? chatInfo
-                                                        .otherUsersList.first
-                                                    : null,
+                              var searchList = <ChatsRecord>[];
+
+                              for (var i = 0;
+                                  i < algoliaSearchResults!.length;
+                                  i++) {
+                                var tp = normalList
+                                    .where((x) => x.users!.contains(
+                                        algoliaSearchResults![i].ffRef))
+                                    .toList();
+                                if (tp.length == 1) {
+                                  searchList.add(tp[0]);
+                                }
+                              }
+                              normalList = searchList.toList();
+                              isLoading = false;
+                              print("FILTERRES: " + normalList.toString());
+                              return normalList.length == 0
+                                  ? AutoSizeText(
+                                      'Chat tidak ditemukan.',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Nunito',
+                                            color: Colors.black,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                    )
+                                  : ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: normalList.length,
+                                      itemBuilder: (context, normalListIndex) {
+                                        final normalListItem =
+                                            normalList[normalListIndex];
+                                        return StreamBuilder<FFChatInfo>(
+                                          stream: FFChatManager.instance
+                                              .getChatInfo(
+                                                  chatRecord: normalListItem),
+                                          builder: (context, snapshot) {
+                                            final chatInfo = snapshot.data ??
+                                                FFChatInfo(normalListItem);
+                                            return FFChatPreview(
+                                              onTap: () => context.pushNamed(
+                                                'chatPage',
+                                                queryParams: {
+                                                  'chatUser': serializeParam(
+                                                    chatInfo.otherUsers
+                                                                .length ==
+                                                            1
+                                                        ? chatInfo
+                                                            .otherUsersList
+                                                            .first
+                                                        : null,
+                                                    ParamType.Document,
+                                                  ),
+                                                  'chatRef': serializeParam(
+                                                    chatInfo
+                                                        .chatRecord.reference,
+                                                    ParamType.DocumentReference,
+                                                  ),
+                                                }.withoutNulls,
+                                                extra: <String, dynamic>{
+                                                  'chatUser': chatInfo
+                                                              .otherUsers
+                                                              .length ==
+                                                          1
+                                                      ? chatInfo
+                                                          .otherUsersList.first
+                                                      : null,
+                                                },
+                                              ),
+                                              lastChatText:
+                                                  chatInfo.chatPreviewMessage(),
+                                              lastChatTime: normalListItem
+                                                  .lastMessageTime,
+                                              seen: normalListItem
+                                                  .lastMessageSeenBy!
+                                                  .contains(
+                                                      currentUserReference),
+                                              title:
+                                                  chatInfo.chatPreviewTitle(),
+                                              userProfilePic:
+                                                  chatInfo.chatPreviewPic(),
+                                              color: Color(0xFFEEF0F5),
+                                              unreadColor: Colors.blue,
+                                              titleTextStyle:
+                                                  GoogleFonts.getFont(
+                                                'DM Sans',
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                              ),
+                                              dateTextStyle:
+                                                  GoogleFonts.getFont(
+                                                'DM Sans',
+                                                color: Color(0x73000000),
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 14,
+                                              ),
+                                              previewTextStyle:
+                                                  GoogleFonts.getFont(
+                                                'DM Sans',
+                                                color: Color(0x73000000),
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 14,
+                                              ),
+                                              contentPadding:
+                                                  EdgeInsetsDirectional
+                                                      .fromSTEB(3, 3, 3, 3),
+                                              borderRadius:
+                                                  BorderRadius.circular(0),
+                                            );
                                           },
-                                        ),
-                                        lastChatText:
-                                            chatInfo.chatPreviewMessage(),
-                                        lastChatTime:
-                                            listViewChatsRecord.lastMessageTime,
-                                        seen: listViewChatsRecord
-                                            .lastMessageSeenBy!
-                                            .contains(currentUserReference),
-                                        title: chatInfo.chatPreviewTitle(),
-                                        userProfilePic:
-                                            chatInfo.chatPreviewPic(),
-                                        color: Color(0xFFEEF0F5),
-                                        unreadColor: Colors.blue,
-                                        titleTextStyle: GoogleFonts.getFont(
-                                          'DM Sans',
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                        dateTextStyle: GoogleFonts.getFont(
-                                          'DM Sans',
-                                          color: Color(0x73000000),
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 14,
-                                        ),
-                                        previewTextStyle: GoogleFonts.getFont(
-                                          'DM Sans',
-                                          color: Color(0x73000000),
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 14,
-                                        ),
-                                        contentPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                3, 3, 3, 3),
-                                        borderRadius: BorderRadius.circular(0),
-                                      );
-                                    },
-                                  );
-                                },
-                              );
+                                        );
+                                      },
+                                    );
                             },
                           ),
                         ),
