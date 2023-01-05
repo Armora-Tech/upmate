@@ -85,6 +85,19 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                 );
                 await currentUserReference!.update(usersUpdateData);
               }
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Update Success',
+                    style: GoogleFonts.getFont(
+                      'Nunito',
+                      color: FlutterFlowTheme.of(context).primaryText,
+                    ),
+                  ),
+                  duration: Duration(milliseconds: 4000),
+                  backgroundColor: Color(0x00000000),
+                ),
+              );
             },
             text: 'Simpan',
             options: FFButtonOptions(
@@ -94,6 +107,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     fontFamily: 'Nunito',
                     color: Color(0xFF4AA8FF),
                   ),
+              elevation: 0,
               borderSide: BorderSide(
                 color: Colors.transparent,
                 width: 0,
