@@ -1,3 +1,5 @@
+import 'package:google_fonts/google_fonts.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -80,6 +82,19 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                 );
                 await currentUserReference!.update(usersUpdateData);
               }
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Update Success',
+                    style: GoogleFonts.getFont(
+                      'Nunito',
+                      color: FlutterFlowTheme.of(context).primaryText,
+                    ),
+                  ),
+                  duration: Duration(milliseconds: 4000),
+                  backgroundColor: Color(0x00000000),
+                ),
+              );
             },
             text: 'Simpan',
             options: FFButtonOptions(

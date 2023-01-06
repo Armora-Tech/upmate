@@ -52,6 +52,29 @@ class AlgoQueryCall {
       );
 }
 
+class ImageKitUploadCall {
+  static Future<ApiCallResponse> call({
+    String? ref = '',
+    Uint8List? img,
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'imageKitUpload',
+      apiUrl: 'https://apis.upmate.armora-tech.com/imagekit/upload',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {
+        'ref': ref,
+        'img': img,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

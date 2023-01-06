@@ -1,6 +1,6 @@
 import '../auth/auth_util.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
-import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -22,11 +22,12 @@ class NewPostPageWidget extends StatefulWidget {
 
 class _NewPostPageWidgetState extends State<NewPostPageWidget> {
   bool isMediaUploading = false;
-  String uploadedFileUrl = '';
+  Uint8List uploadedFileBytes = Uint8List.fromList([]);
 
   TextEditingController? postInpController;
   TextEditingController? descInpController;
   List<String>? choiceChipsValues;
+  ApiCallResponse? uploadRes;
   PostsRecord? idpost;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -50,6 +51,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
+    Uint8List imgbytes;
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -107,8 +109,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                 final selectedMedia =
                                     await selectMediaWithSourceBottomSheet(
                                   context: context,
-                                  maxWidth: 480.00,
-                                  maxHeight: 480.00,
+                                  maxWidth: 1200.00,
                                   imageQuality: 50,
                                   allowPhoto: true,
                                 );
@@ -117,31 +118,25 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                         validateFileFormat(
                                             m.storagePath, context))) {
                                   setState(() => isMediaUploading = true);
-                                  var downloadUrls = <String>[];
+                                  var selectedMediaBytes = <Uint8List>[];
                                   try {
                                     showUploadMessage(
                                       context,
                                       'Uploading file...',
                                       showLoading: true,
                                     );
-                                    downloadUrls = (await Future.wait(
-                                      selectedMedia.map(
-                                        (m) async => await uploadData(
-                                            m.storagePath, m.bytes),
-                                      ),
-                                    ))
-                                        .where((u) => u != null)
-                                        .map((u) => u!)
+                                    selectedMediaBytes = selectedMedia
+                                        .map((m) => m.bytes)
                                         .toList();
                                   } finally {
                                     ScaffoldMessenger.of(context)
                                         .hideCurrentSnackBar();
                                     isMediaUploading = false;
                                   }
-                                  if (downloadUrls.length ==
+                                  if (selectedMediaBytes.length ==
                                       selectedMedia.length) {
-                                    setState(() =>
-                                        uploadedFileUrl = downloadUrls.first);
+                                    setState(() => uploadedFileBytes =
+                                        selectedMediaBytes.first);
                                     showUploadMessage(context, 'Success!');
                                   } else {
                                     setState(() {});
@@ -181,9 +176,9 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                   alignment: AlignmentDirectional(0, 0),
                                   child: Stack(
                                     children: [
-                                      if (uploadedFileUrl != '')
-                                        Image.network(
-                                          uploadedFileUrl,
+                                      if (uploadedFileBytes != null)
+                                        Image.memory(
+                                          uploadedFileBytes,
                                           width: 100,
                                           height: 100,
                                           fit: BoxFit.fill,
@@ -427,10 +422,18 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                         true,
                       )}';
                     });
+                    uploadRes = await ImageKitUploadCall.call(
+                      ref: currentUserUid,
+                      img: uploadedFileBytes,
+                    );
+                    _shouldSetState = true;
 
                     final postsCreateData = {
                       ...createPostsRecordData(
-                        postPhoto: uploadedFileUrl,
+                        postPhoto: getJsonField(
+                          (uploadRes?.jsonBody ?? ''),
+                          r'''$.url''',
+                        ),
                         postDescription: descInpController!.text,
                         postUser: currentUserReference,
                         timePosted: getCurrentTimestamp,

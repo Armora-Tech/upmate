@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, unused_import
 
 import '../components/chats_options_widget.dart';
 import '../flutter_flow/chat/index.dart';
@@ -214,8 +214,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                           ),
                         ),
                       ),
-                      if (textController!.text == null ||
-                          textController!.text == '')
+                      if (textController!.text == '')
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
                           child: Builder(
@@ -301,8 +300,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                             },
                           ),
                         ),
-                      if (textController!.text != null &&
-                          textController!.text != '')
+                      if (textController!.text != '')
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
                           child: Builder(

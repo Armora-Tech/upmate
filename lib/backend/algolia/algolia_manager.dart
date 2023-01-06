@@ -1,6 +1,7 @@
+// ignore_for_file: unused_import
+
 import 'dart:async';
 
-import 'package:algolia/algolia.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
