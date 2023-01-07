@@ -5,13 +5,18 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:up_mate/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Login test', (tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MyApp());
+    await Firebase.initializeApp();
+    var textFields = find.byType(TextField);
+    expect(textFields, findsNWidgets(2));
   });
 }
