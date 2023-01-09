@@ -9,14 +9,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class BookmarkPageWidget extends StatefulWidget {
-  const BookmarkPageWidget({Key? key}) : super(key: key);
+class BookmarkDetailPageWidget extends StatefulWidget {
+  const BookmarkDetailPageWidget({
+    Key? key,
+    this.whatFor,
+  }) : super(key: key);
+
+  final String? whatFor;
 
   @override
-  _BookmarkPageWidgetState createState() => _BookmarkPageWidgetState();
+  _BookmarkDetailPageWidgetState createState() =>
+      _BookmarkDetailPageWidgetState();
 }
 
-class _BookmarkPageWidgetState extends State<BookmarkPageWidget> {
+class _BookmarkDetailPageWidgetState extends State<BookmarkDetailPageWidget> {
   Completer<List<PostsRecord>>? _firestoreRequestCompleter;
   TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -25,7 +31,7 @@ class _BookmarkPageWidgetState extends State<BookmarkPageWidget> {
   void initState() {
     super.initState();
     logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'bookmarkPage'});
+        parameters: {'screen_name': 'bookmarkDetailPage'});
     textController = TextEditingController();
   }
 
@@ -191,13 +197,9 @@ class _BookmarkPageWidgetState extends State<BookmarkPageWidget> {
                   future: (_firestoreRequestCompleter ??=
                           Completer<List<PostsRecord>>()
                             ..complete(queryPostsRecordOnce(
-                              queryBuilder: (postsRecord) => postsRecord
-                                  .where('bookmarks',
-                                      arrayContains: currentUserReference)
-                                  .where('post_title',
-                                      isEqualTo: textController!.text != ''
-                                          ? textController!.text
-                                          : null),
+                              queryBuilder: (postsRecord) => postsRecord.where(
+                                  'bookmarks',
+                                  arrayContains: currentUserReference),
                             )))
                       .future,
                   builder: (context, snapshot) {
