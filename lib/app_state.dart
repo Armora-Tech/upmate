@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:csv/csv.dart';
-import 'package:up_mate/flutter_flow/flutter_flow_util.dart';
+import 'flutter_flow/lat_lng.dart';
 
 class FFAppState extends ChangeNotifier {
   static final FFAppState _instance = FFAppState._internal();
@@ -20,15 +20,6 @@ class FFAppState extends ChangeNotifier {
     secureStorage = FlutterSecureStorage();
     _nreset = await secureStorage.getInt('ff_nreset') ?? _nreset;
     _sreset = await secureStorage.getBool('ff_sreset') ?? _sreset;
-    _chatList = (await secureStorage.getStringList('ff_chatList'))?.map((x) {
-          try {
-            return jsonDecode(x);
-          } catch (e) {
-            print("Can't decode persisted json. Error: $e.");
-            return {};
-          }
-        }).toList() ??
-        _chatList;
   }
 
   void update(VoidCallback callback) {
@@ -96,29 +87,36 @@ class FFAppState extends ChangeNotifier {
     _cs = _value;
   }
 
-  List<dynamic> _chatList = [];
-  List<dynamic> get chatList => _chatList;
-  set chatList(List<dynamic> _value) {
-    _chatList = _value;
-    secureStorage.setStringList(
-        'ff_chatList', _value.map((x) => jsonEncode(x)).toList());
+  List<Color> _interestColors = [];
+  List<Color> get interestColors => _interestColors;
+  set interestColors(List<Color> _value) {
+    _interestColors = _value;
   }
 
-  void deleteChatList() {
-    secureStorage.delete(key: 'ff_chatList');
+  void addToInterestColors(Color _value) {
+    _interestColors.add(_value);
   }
 
-  void addToChatList(dynamic _value) {
-    _chatList.add(_value);
-    secureStorage.setStringList(
-        'ff_chatList', _chatList.map((x) => jsonEncode(x)).toList());
+  void removeFromInterestColors(Color _value) {
+    _interestColors.remove(_value);
   }
+}
 
-  void removeFromChatList(dynamic _value) {
-    _chatList.remove(_value);
-    secureStorage.setStringList(
-        'ff_chatList', _chatList.map((x) => jsonEncode(x)).toList());
+LatLng? _latLngFromString(String? val) {
+  if (val == null) {
+    return null;
   }
+  final split = val.split(',');
+  final lat = double.parse(split.first);
+  final lng = double.parse(split.last);
+  return LatLng(lat, lng);
+}
+
+Color? _colorFromIntValue(int? val) {
+  if (val == null) {
+    return null;
+  }
+  return Color(val);
 }
 
 extension FlutterSecureStorageExtensions on FlutterSecureStorage {

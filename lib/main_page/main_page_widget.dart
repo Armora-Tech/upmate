@@ -39,12 +39,16 @@ class _MainPageWidgetState extends State<MainPageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if ((currentUserDocument?.interests?.toList() ?? []).length > 0) {
+        FFAppState().update(() {
+          FFAppState()
+              .addToInterestColors(FlutterFlowTheme.of(context).primaryColor);
+        });
+        return;
+      } else {
+        context.goNamed('surveyPage');
+
         return;
       }
-
-      context.goNamed('surveyPage');
-
-      return;
     });
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'mainPage'});
