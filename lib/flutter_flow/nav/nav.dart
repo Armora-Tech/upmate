@@ -196,16 +196,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => PremiumPageWidget(),
             ),
             FFRoute(
-              name: 'bookmarkPage',
-              path: 'bookmarkPage',
-              requireAuth: true,
-              builder: (context, params) => BookmarkPageWidget(),
-            ),
-            FFRoute(
               name: 'accountPage',
               path: 'accountPage',
               requireAuth: true,
               builder: (context, params) => AccountPageWidget(),
+            ),
+            FFRoute(
+              name: 'bookmarkDetailPage',
+              path: 'bookmarkDetailPage',
+              requireAuth: true,
+              builder: (context, params) => BookmarkDetailPageWidget(
+                whatFor: params.getParam('whatFor', ParamType.String),
+              ),
             ),
             FFRoute(
               name: 'editProfile',
@@ -218,6 +220,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'appInfo',
               requireAuth: true,
               builder: (context, params) => AppInfoWidget(),
+            ),
+            FFRoute(
+              name: 'bookmarkListPage',
+              path: 'bookmarkListPage',
+              requireAuth: true,
+              builder: (context, params) => BookmarkListPageWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

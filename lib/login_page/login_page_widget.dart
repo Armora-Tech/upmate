@@ -19,13 +19,13 @@ class LoginPageWidget extends StatefulWidget {
 
 class _LoginPageWidgetState extends State<LoginPageWidget> {
   int timerMilliseconds = 60000;
-  String timerValue = StopWatchTimer.getDisplayTime(
-    60000,
-    hours: false,
-    milliSecond: false,
-  );
-  StopWatchTimer timerController =
-      StopWatchTimer(mode: StopWatchMode.countDown);
+  // String timerValue = StopWatchTimer.getDisplayTime(
+  //   60000,
+  //   hours: false,
+  //   milliSecond: false,
+  // );
+  // StopWatchTimer timerController =
+  //     StopWatchTimer(mode: StopWatchMode.countDown);
 
   TextEditingController? inpEmailController;
   TextEditingController? inpPassController;
@@ -49,7 +49,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     _unfocusNode.dispose();
     inpEmailController?.dispose();
     inpPassController?.dispose();
-    timerController.dispose();
+    // timerController.dispose();
     super.dispose();
   }
 
@@ -327,8 +327,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       FFAppState().nreset =
                                           FFAppState().nreset + 1;
                                     });
-                                    timerController.onExecute
-                                        .add(StopWatchExecute.start);
+                                    // timerController.onExecute
+                                    //     .add(StopWatchExecute.start);
                                   },
                                   child: Text(
                                     'Forgot Password?',
@@ -343,7 +343,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   ),
                                 ),
                               ),
-                            if (FFAppState().sreset == true)
+                            /*if (FFAppState().sreset == true)
                               FlutterFlowTimer(
                                 initialTime: timerMilliseconds,
                                 getDisplayTime: (value) =>
@@ -372,7 +372,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       fontSize: 15,
                                       fontWeight: FontWeight.w500,
                                     ),
-                              ),
+                              ),*/
                           ],
                         ),
                       ),

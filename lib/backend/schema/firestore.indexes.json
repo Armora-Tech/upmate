@@ -29,20 +29,6 @@
       ]
     },
     {
-      "collectionGroup": "posts",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "post_title",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "bookmarks",
-          "arrayConfig": "CONTAINS"
-        }
-      ]
-    },
-    {
       "collectionGroup": "chat_messages",
       "queryScope": "COLLECTION",
       "fields": [

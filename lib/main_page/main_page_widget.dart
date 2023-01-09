@@ -371,7 +371,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                             InkWell(
                               onTap: () async {
                                 context.pushNamed(
-                                  'bookmarkPage',
+                                  'bookmarkListPage',
                                   extra: <String, dynamic>{
                                     kTransitionInfoKey: TransitionInfo(
                                       hasTransition: true,
@@ -387,7 +387,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                   FFButtonWidget(
                                     onPressed: () async {
                                       context.pushNamed(
-                                        'bookmarkPage',
+                                        'bookmarkListPage',
                                         extra: <String, dynamic>{
                                           kTransitionInfoKey: TransitionInfo(
                                             hasTransition: true,

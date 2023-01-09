@@ -17,7 +17,10 @@ export 'create_chat_page/create_chat_page_widget.dart'
 export 'create_group_chat/create_group_chat_widget.dart'
     show CreateGroupChatWidget;
 export 'premium_page/premium_page_widget.dart' show PremiumPageWidget;
-export 'bookmark_page/bookmark_page_widget.dart' show BookmarkPageWidget;
 export 'account_page/account_page_widget.dart' show AccountPageWidget;
+export 'bookmark_detail_page/bookmark_detail_page_widget.dart'
+    show BookmarkDetailPageWidget;
 export 'edit_profile/edit_profile_widget.dart' show EditProfileWidget;
 export 'app_info/app_info_widget.dart' show AppInfoWidget;
+export 'bookmark_list_page/bookmark_list_page_widget.dart'
+    show BookmarkListPageWidget;
