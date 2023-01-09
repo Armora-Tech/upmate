@@ -213,7 +213,15 @@ class _BookmarkListPageWidgetState extends State<BookmarkListPageWidget> {
                                             size: 30,
                                           ),
                                           onPressed: () {
-                                            print('IconButton pressed ...');
+                                            context.pushNamed(
+                                              'bookmarkDetailPage',
+                                              queryParams: {
+                                                'whatFor': serializeParam(
+                                                  interestsItem,
+                                                  ParamType.String,
+                                                ),
+                                              }.withoutNulls,
+                                            );
                                           },
                                         ),
                                       ],

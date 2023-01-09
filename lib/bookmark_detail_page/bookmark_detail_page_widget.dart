@@ -215,6 +215,11 @@ class _BookmarkDetailPageWidgetState extends State<BookmarkDetailPageWidget> {
                       );
                     }
                     List<PostsRecord> columnPostsRecordList = snapshot.data!;
+                    if (widget.whatFor != "all") {
+                      columnPostsRecordList = columnPostsRecordList
+                          .where((el) => el.interests!.contains(widget.whatFor))
+                          .toList();
+                    }
                     return RefreshIndicator(
                       onRefresh: () async {
                         setState(() => _firestoreRequestCompleter = null);
