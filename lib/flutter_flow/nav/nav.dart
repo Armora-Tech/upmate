@@ -154,7 +154,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'newPostPage')
-                  : NewPostPageWidget(),
+                  : NewPostPageWidget(
+                      prevPage: params.getParam('prevPage', ParamType.String),
+                    ),
             ),
             FFRoute(
               name: 'chatPage',
