@@ -174,7 +174,7 @@ class _FFChatPageState extends State<FFChatPage> {
                 showLoading: true,
               );
               final downloadUrl = await uploadData(
-                  selectedMedia.storagePath, selectedMedia.bytes);
+                  selectedMedia.storagePath, selectedMedia.bytes!);
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               await sendMessage(imageUrl: downloadUrl);
             },

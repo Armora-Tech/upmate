@@ -87,7 +87,17 @@ class FFAppState extends ChangeNotifier {
     _cs = _value;
   }
 
-  List<Color> _interestColors = [];
+  List<Color> _interestColors = [
+    Color(0xffe6194B),
+    Color(0xff3cb44b),
+    Color(0xffffe119),
+    Color(0xff4363d8),
+    Color(0xfff58231),
+    Color(0xff911eb4),
+    Color(0xff42d4f4),
+    Color(0xfff032e6),
+    Color(0xffbfef45)
+  ];
   List<Color> get interestColors => _interestColors;
   set interestColors(List<Color> _value) {
     _interestColors = _value;

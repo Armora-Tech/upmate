@@ -39,6 +39,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   String? get bio;
 
+  DocumentReference? get ref;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -83,6 +85,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
           ..isPremium = snapshot.data['isPremium']
           ..username = snapshot.data['username']
           ..bio = snapshot.data['bio']
+          ..ref = safeGet(() => toRef(snapshot.data['ref']))
           ..ffRef = UsersRecord.collection.doc(snapshot.objectID),
       );
 
@@ -122,6 +125,7 @@ Map<String, dynamic> createUsersRecordData({
   bool? isPremium,
   String? username,
   String? bio,
+  DocumentReference? ref,
 }) {
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
@@ -138,7 +142,8 @@ Map<String, dynamic> createUsersRecordData({
         ..blocked = null
         ..isPremium = isPremium
         ..username = username
-        ..bio = bio,
+        ..bio = bio
+        ..ref = ref,
     ),
   );
 

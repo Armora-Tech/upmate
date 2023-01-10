@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import '../auth/auth_util.dart';
 import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
@@ -22,8 +24,7 @@ class NewPostPageWidget extends StatefulWidget {
 
 class _NewPostPageWidgetState extends State<NewPostPageWidget> {
   bool isMediaUploading = false;
-  Uint8List uploadedFileBytes = Uint8List.fromList([]);
-
+  var uploadedFileBytes = Uint8List.fromList([]);
   TextEditingController? postInpController;
   TextEditingController? descInpController;
   List<String>? choiceChipsValues;
@@ -50,8 +51,9 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
-
+    print("INITIAL VALUE: " + uploadedFileBytes.toString());
     Uint8List imgbytes;
+    bool isRemoved = false;
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -75,7 +77,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                 size: 30,
               ),
               onPressed: () async {
-                context.pop();
+                Navigator.pop(context);
               },
             ),
           ),
@@ -113,6 +115,12 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                   imageQuality: 50,
                                   allowPhoto: true,
                                 );
+                                print("MEDIA RES: " + selectedMedia.toString());
+                                if (selectedMedia == null) {
+                                  uploadedFileBytes = Uint8List.fromList([]);
+                                  setState(() {});
+                                }
+
                                 if (selectedMedia != null &&
                                     selectedMedia.every((m) =>
                                         validateFileFormat(
@@ -126,7 +134,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                       showLoading: true,
                                     );
                                     selectedMediaBytes = selectedMedia
-                                        .map((m) => m.bytes)
+                                        .map((m) => m.bytes!)
                                         .toList();
                                   } finally {
                                     ScaffoldMessenger.of(context)
@@ -139,6 +147,8 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                         selectedMediaBytes.first);
                                     showUploadMessage(context, 'Success!');
                                   } else {
+                                    print("HASILBYTE: " +
+                                        selectedMediaBytes.toString());
                                     setState(() {});
                                     showUploadMessage(
                                         context, 'Failed to upload media');
@@ -176,24 +186,25 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                   alignment: AlignmentDirectional(0, 0),
                                   child: Stack(
                                     children: [
-                                      if (uploadedFileBytes != null)
+                                      if (uploadedFileBytes.length != 0)
                                         Image.memory(
                                           uploadedFileBytes,
-                                          width: 100,
-                                          height: 100,
+                                          width: double.infinity,
+                                          height: double.infinity,
                                           fit: BoxFit.fill,
                                         ),
-                                      Text(
-                                        'Add photo +',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Nunito',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .grayIcon,
-                                            ),
-                                      ),
+                                      if (uploadedFileBytes.length == 0)
+                                        Text(
+                                          'Add photo +',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Nunito',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayIcon,
+                                              ),
+                                        ),
                                     ],
                                   ),
                                 ),

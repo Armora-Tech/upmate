@@ -71,10 +71,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                 await currentUserReference!.update(usersUpdateData);
               }
               if (textController2!.text != '') {
-                final usersUpdateData = createUsersRecordData(
-                  displayName: currentUserDisplayName,
-                );
-                await currentUserReference!.update(usersUpdateData);
+                try {
+                  final usersUpdateData = createUsersRecordData(
+                    displayName: textController2!.text,
+                  );
+                  await currentUserReference!.update(usersUpdateData);
+                } catch (e) {
+                  print("ERROR OCCURED: " + e.toString());
+                }
               }
               if (textController3!.text != '') {
                 final usersUpdateData = createUsersRecordData(

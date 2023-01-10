@@ -171,7 +171,8 @@ class _BookmarkListPageWidgetState extends State<BookmarkListPageWidget> {
                                             borderRadius: 30,
                                             borderWidth: 1,
                                             buttonSize: 60,
-                                            fillColor: Color(0xFF4AA8FF),
+                                            fillColor: FFAppState()
+                                                .interestColors[interestsIndex],
                                             icon: Icon(
                                               Icons.bookmark_sharp,
                                               color: Colors.white,

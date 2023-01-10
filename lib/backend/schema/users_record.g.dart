@@ -107,6 +107,14 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.ref;
+    if (value != null) {
+      result
+        ..add('ref')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -182,6 +190,12 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.bio = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'ref':
+          result.ref = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -221,6 +235,8 @@ class _$UsersRecord extends UsersRecord {
   @override
   final String? bio;
   @override
+  final DocumentReference<Object?>? ref;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -239,6 +255,7 @@ class _$UsersRecord extends UsersRecord {
       this.isPremium,
       this.username,
       this.bio,
+      this.ref,
       this.ffRef})
       : super._();
 
@@ -265,6 +282,7 @@ class _$UsersRecord extends UsersRecord {
         isPremium == other.isPremium &&
         username == other.username &&
         bio == other.bio &&
+        ref == other.ref &&
         ffRef == other.ffRef;
   }
 
@@ -281,18 +299,20 @@ class _$UsersRecord extends UsersRecord {
                                     $jc(
                                         $jc(
                                             $jc(
-                                                $jc($jc(0, email.hashCode),
-                                                    displayName.hashCode),
-                                                photoUrl.hashCode),
-                                            uid.hashCode),
-                                        createdTime.hashCode),
-                                    phoneNumber.hashCode),
-                                interests.hashCode),
-                            postTmpImg.hashCode),
-                        blocked.hashCode),
-                    isPremium.hashCode),
-                username.hashCode),
-            bio.hashCode),
+                                                $jc(
+                                                    $jc($jc(0, email.hashCode),
+                                                        displayName.hashCode),
+                                                    photoUrl.hashCode),
+                                                uid.hashCode),
+                                            createdTime.hashCode),
+                                        phoneNumber.hashCode),
+                                    interests.hashCode),
+                                postTmpImg.hashCode),
+                            blocked.hashCode),
+                        isPremium.hashCode),
+                    username.hashCode),
+                bio.hashCode),
+            ref.hashCode),
         ffRef.hashCode));
   }
 
@@ -311,6 +331,7 @@ class _$UsersRecord extends UsersRecord {
           ..add('isPremium', isPremium)
           ..add('username', username)
           ..add('bio', bio)
+          ..add('ref', ref)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -371,6 +392,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String? get bio => _$this._bio;
   set bio(String? bio) => _$this._bio = bio;
 
+  DocumentReference<Object?>? _ref;
+  DocumentReference<Object?>? get ref => _$this._ref;
+  set ref(DocumentReference<Object?>? ref) => _$this._ref = ref;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -394,6 +419,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _isPremium = $v.isPremium;
       _username = $v.username;
       _bio = $v.bio;
+      _ref = $v.ref;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -431,6 +457,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               isPremium: isPremium,
               username: username,
               bio: bio,
+              ref: ref,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

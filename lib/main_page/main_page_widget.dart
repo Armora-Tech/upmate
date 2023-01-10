@@ -137,7 +137,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                       downloadUrls = (await Future.wait(
                                         selectedMedia.map(
                                           (m) async => await uploadData(
-                                              m.storagePath, m.bytes),
+                                              m.storagePath, m.bytes!),
                                         ),
                                       ))
                                           .where((u) => u != null)

@@ -361,7 +361,9 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                             postDetailPostsRecord
                                                                 .postDescription,
                                                       );
-
+                                                      print(
+                                                          "PAGE SHARE LINK: " +
+                                                              _currentPageLink);
                                                       await Share.share(
                                                           _currentPageLink);
                                                     },

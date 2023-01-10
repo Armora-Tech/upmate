@@ -14,18 +14,14 @@ class SelectedMedia {
   const SelectedMedia({
     this.storagePath = '',
     this.filePath,
-    required this.bytes,
+    this.bytes,
   });
   final String storagePath;
   final String? filePath;
-  final Uint8List bytes;
+  final Uint8List? bytes;
 }
 
-enum MediaSource {
-  photoGallery,
-  videoGallery,
-  camera,
-}
+enum MediaSource { photoGallery, videoGallery, camera, removed }
 
 Future<List<SelectedMedia>?> selectMediaWithSourceBottomSheet({
   required BuildContext context,
@@ -41,23 +37,34 @@ Future<List<SelectedMedia>?> selectMediaWithSourceBottomSheet({
 }) async {
   final createUploadMediaListTile =
       (String label, MediaSource mediaSource) => ListTile(
-            title: Text(
-              label,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.getFont(
-                pickerFontFamily,
-                color: textColor,
-                fontWeight: FontWeight.w600,
-                fontSize: 20,
-              ),
+          title: Text(
+            label,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.getFont(
+              pickerFontFamily,
+              color: textColor,
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
             ),
-            tileColor: backgroundColor,
-            dense: false,
-            onTap: () => Navigator.pop(
-              context,
-              mediaSource,
-            ),
-          );
+          ),
+          tileColor: backgroundColor,
+          dense: false,
+          onTap: () => {
+                if (label != 'Remove')
+                  {
+                    Navigator.pop(
+                      context,
+                      mediaSource,
+                    )
+                  }
+                else
+                  {
+                    Navigator.pop(
+                      context,
+                      mediaSource,
+                    )
+                  }
+              });
   final mediaSource = await showModalBottomSheet<MediaSource>(
       context: context,
       backgroundColor: backgroundColor,
@@ -110,6 +117,10 @@ Future<List<SelectedMedia>?> selectMediaWithSourceBottomSheet({
               createUploadMediaListTile('Camera', MediaSource.camera),
               const Divider(),
             ],
+            createUploadMediaListTile(
+              'Remove',
+              MediaSource.removed,
+            ),
             const SizedBox(height: 10),
           ],
         );
@@ -134,9 +145,15 @@ Future<List<SelectedMedia>?> selectMedia({
   double? maxHeight,
   int? imageQuality,
   bool isVideo = false,
-  MediaSource mediaSource = MediaSource.camera,
+  MediaSource mediaSource = MediaSource.removed,
   bool multiImage = false,
 }) async {
+  if (mediaSource == MediaSource.removed) {
+    print("ITS HERE");
+
+    return null;
+  }
+
   final picker = ImagePicker();
 
   if (multiImage) {
@@ -176,6 +193,7 @@ Future<List<SelectedMedia>?> selectMedia({
   final pickedMedia = await pickedMediaFuture;
   final mediaBytes = await pickedMedia?.readAsBytes();
   if (mediaBytes == null) {
+    print("The bytes here");
     return null;
   }
   final path = _getStoragePath(storageFolderPath, pickedMedia!.name, isVideo);
