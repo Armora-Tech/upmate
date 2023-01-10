@@ -111,7 +111,11 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
       ),
   'notificationPage': (data) async =>
       NavBarPage(initialPage: 'notificationPage'),
-  'newPostPage': (data) async => NavBarPage(initialPage: 'newPostPage'),
+  'newPostPage': (data) async => hasMatchingParameters(data, {'prevPage'})
+      ? NewPostPageWidget(
+          prevPage: getParameter(data, 'prevPage'),
+        )
+      : NavBarPage(initialPage: 'newPostPage'),
   'chatPage': (data) async => ChatPageWidget(
         chatUser: await getDocumentParameter(
             data, 'chatUser', UsersRecord.serializer),

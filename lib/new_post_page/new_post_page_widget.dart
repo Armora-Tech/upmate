@@ -16,7 +16,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class NewPostPageWidget extends StatefulWidget {
-  const NewPostPageWidget({Key? key}) : super(key: key);
+  const NewPostPageWidget({
+    Key? key,
+    this.prevPage,
+  }) : super(key: key);
+
+  final String? prevPage;
 
   @override
   _NewPostPageWidgetState createState() => _NewPostPageWidgetState();
