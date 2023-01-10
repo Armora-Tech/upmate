@@ -183,7 +183,8 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                           child: Container(
                             width: 300,
                             child: TextFormField(

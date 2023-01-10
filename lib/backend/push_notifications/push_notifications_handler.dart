@@ -106,12 +106,12 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         ijob: getParameter(data, 'ijob'),
       ),
   'explorePage': (data) async => NavBarPage(initialPage: 'explorePage'),
-  'newPostPage': (data) async => NavBarPage(initialPage: 'newPostPage'),
   'postDetail': (data) async => PostDetailWidget(
         postRef: getParameter(data, 'postRef'),
       ),
   'notificationPage': (data) async =>
       NavBarPage(initialPage: 'notificationPage'),
+  'newPostPage': (data) async => NavBarPage(initialPage: 'newPostPage'),
   'chatPage': (data) async => ChatPageWidget(
         chatUser: await getDocumentParameter(
             data, 'chatUser', UsersRecord.serializer),

@@ -183,21 +183,22 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                             (uploadRes?.jsonBody ?? ''),
                                             r'''$.url''',
                                           ),
-                                          width: 100,
-                                          height: 100,
-                                          fit: BoxFit.fill,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          fit: BoxFit.contain,
                                         ),
-                                      Text(
-                                        'Add photo +',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Nunito',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .grayIcon,
-                                            ),
-                                      ),
+                                      if (isMediaUploading)
+                                        Text(
+                                          'Add photo +',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Nunito',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayIcon,
+                                              ),
+                                        ),
                                     ],
                                   ),
                                 ),
