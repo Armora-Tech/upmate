@@ -240,7 +240,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'bookmarkListPage',
               requireAuth: true,
               builder: (context, params) => BookmarkListPageWidget(),
-            )
+            ),
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
       ],

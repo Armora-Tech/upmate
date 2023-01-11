@@ -131,7 +131,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                         validateFileFormat(
                                             m.storagePath, context))) {
                                   setState(() => isMediaUploading = true);
-                                  var selectedLocalFiles = <FFLocalFile>[];
+                                  var selectedMediaBytes = <Uint8List>[];
                                   try {
                                     showUploadMessage(
                                       context,
@@ -146,10 +146,10 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                         .hideCurrentSnackBar();
                                     isMediaUploading = false;
                                   }
-                                  if (selectedLocalFiles.length ==
+                                  if (selectedMediaBytes.length ==
                                       selectedMedia.length) {
-                                    setState(() => uploadedLocalFile =
-                                        selectedLocalFiles.first);
+                                    setState(() => uploadedFileBytes =
+                                        selectedMediaBytes.first);
                                     showUploadMessage(context, 'Success!');
                                   } else {
                                     print("HASILBYTE: " +
@@ -440,7 +440,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                     });
                     uploadRes = await ImageKitUploadCall.call(
                       ref: currentUserUid,
-                      img: uploadedLocalFile,
+                      img: uploadedFileBytes,
                     );
                     _shouldSetState = true;
 
