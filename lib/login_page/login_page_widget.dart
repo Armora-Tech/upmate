@@ -309,28 +309,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                                 child: InkWell(
                                   onTap: () async {
-                                    if (inpEmailController!.text.isEmpty) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Email required!',
-                                          ),
-                                        ),
-                                      );
-                                      return;
-                                    }
-                                    await resetPassword(
-                                      email: inpEmailController!.text,
-                                      context: context,
-                                    );
-                                    FFAppState().update(() {
-                                      FFAppState().sreset = true;
-                                      FFAppState().nreset =
-                                          FFAppState().nreset + 1;
-                                    });
-                                    timerController.onExecute
-                                        .add(StopWatchExecute.start);
+                                    context.pushNamed('resetPassword');
                                   },
                                   child: Text(
                                     'Forgot Password?',
