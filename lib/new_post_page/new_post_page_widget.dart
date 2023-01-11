@@ -29,7 +29,7 @@ class NewPostPageWidget extends StatefulWidget {
 
 class _NewPostPageWidgetState extends State<NewPostPageWidget> {
   bool isMediaUploading = false;
-  Uint8List uploadedFileBytes = Uint8List.fromList([]);
+  FFLocalFile uploadedLocalFile = FFLocalFile(bytes: Uint8List.fromList([]));
 
   TextEditingController? postInpController;
   TextEditingController? descInpController;
@@ -124,25 +124,29 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                         validateFileFormat(
                                             m.storagePath, context))) {
                                   setState(() => isMediaUploading = true);
-                                  var selectedMediaBytes = <Uint8List>[];
+                                  var selectedLocalFiles = <FFLocalFile>[];
                                   try {
                                     showUploadMessage(
                                       context,
                                       'Uploading file...',
                                       showLoading: true,
                                     );
-                                    selectedMediaBytes = selectedMedia
-                                        .map((m) => m.bytes)
+                                    selectedLocalFiles = selectedMedia
+                                        .map((m) => FFLocalFile(
+                                              name:
+                                                  m.storagePath.split('/').last,
+                                              bytes: m.bytes,
+                                            ))
                                         .toList();
                                   } finally {
                                     ScaffoldMessenger.of(context)
                                         .hideCurrentSnackBar();
                                     isMediaUploading = false;
                                   }
-                                  if (selectedMediaBytes.length ==
+                                  if (selectedLocalFiles.length ==
                                       selectedMedia.length) {
-                                    setState(() => uploadedFileBytes =
-                                        selectedMediaBytes.first);
+                                    setState(() => uploadedLocalFile =
+                                        selectedLocalFiles.first);
                                     showUploadMessage(context, 'Success!');
                                   } else {
                                     setState(() {});
@@ -182,7 +186,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                   alignment: AlignmentDirectional(0, 0),
                                   child: Stack(
                                     children: [
-                                      if (uploadedFileBytes != null)
+                                      if (uploadedLocalFile != null)
                                         Image.network(
                                           getJsonField(
                                             (uploadRes?.jsonBody ?? ''),
@@ -434,7 +438,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                     });
                     uploadRes = await ImageKitUploadCall.call(
                       ref: currentUserUid,
-                      img: uploadedFileBytes,
+                      img: uploadedLocalFile,
                     );
                     _shouldSetState = true;
 

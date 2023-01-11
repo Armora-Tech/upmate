@@ -351,72 +351,81 @@ class _PostDetailWidgetState extends State<PostDetailWidget>
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 Expanded(
-                                                  child: InkWell(
-                                                    onTap: () async {
-                                                      _currentPageLink =
-                                                          await generateCurrentPageLink(
-                                                        context,
-                                                        title:
-                                                            postDetailPostsRecord!
-                                                                .postTitle,
-                                                        imageUrl:
-                                                            postDetailPostsRecord!
-                                                                .postPhoto,
-                                                        description:
-                                                            postDetailPostsRecord!
-                                                                .postDescription,
-                                                      );
+                                                  child: Builder(
+                                                    builder: (context) =>
+                                                        InkWell(
+                                                      onTap: () async {
+                                                        _currentPageLink =
+                                                            await generateCurrentPageLink(
+                                                          context,
+                                                          title:
+                                                              postDetailPostsRecord!
+                                                                  .postTitle,
+                                                          imageUrl:
+                                                              postDetailPostsRecord!
+                                                                  .postPhoto,
+                                                          description:
+                                                              postDetailPostsRecord!
+                                                                  .postDescription,
+                                                        );
 
-                                                      await Share.share(
-                                                          _currentPageLink);
-                                                    },
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        ToggleIcon(
-                                                          onPressed: () async {
-                                                            setState(() =>
-                                                                FFAppState()
-                                                                        .unused =
-                                                                    !FFAppState()
-                                                                        .unused);
-                                                          },
-                                                          value: FFAppState()
-                                                              .unused,
-                                                          onIcon: Icon(
-                                                            Icons
-                                                                .share_outlined,
-                                                            color: Colors.black,
-                                                            size: 25,
+                                                        await Share.share(
+                                                          _currentPageLink,
+                                                          sharePositionOrigin:
+                                                              getWidgetBoundingBox(
+                                                                  context),
+                                                        );
+                                                      },
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          ToggleIcon(
+                                                            onPressed:
+                                                                () async {
+                                                              setState(() => FFAppState()
+                                                                      .unused =
+                                                                  !FFAppState()
+                                                                      .unused);
+                                                            },
+                                                            value: FFAppState()
+                                                                .unused,
+                                                            onIcon: Icon(
+                                                              Icons
+                                                                  .share_outlined,
+                                                              color:
+                                                                  Colors.black,
+                                                              size: 25,
+                                                            ),
+                                                            offIcon: Icon(
+                                                              Icons
+                                                                  .share_outlined,
+                                                              color:
+                                                                  Colors.black,
+                                                              size: 25,
+                                                            ),
                                                           ),
-                                                          offIcon: Icon(
-                                                            Icons
-                                                                .share_outlined,
-                                                            color: Colors.black,
-                                                            size: 25,
+                                                          Text(
+                                                            'Dibagikan',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1,
                                                           ),
-                                                        ),
-                                                        Text(
-                                                          'Dibagikan',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1,
-                                                        ),
-                                                        Text(
-                                                          '0',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1,
-                                                        ),
-                                                      ],
+                                                          Text(
+                                                            '0',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ).animateOnActionTrigger(
+                                                      animationsMap[
+                                                          'columnOnActionTriggerAnimation']!,
                                                     ),
-                                                  ).animateOnActionTrigger(
-                                                    animationsMap[
-                                                        'columnOnActionTriggerAnimation']!,
                                                   ),
                                                 ),
                                                 Expanded(

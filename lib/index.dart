@@ -17,6 +17,9 @@ export 'create_chat_page/create_chat_page_widget.dart'
 export 'create_group_chat/create_group_chat_widget.dart'
     show CreateGroupChatWidget;
 export 'premium_page/premium_page_widget.dart' show PremiumPageWidget;
+export 'reset_password/reset_password_widget.dart' show ResetPasswordWidget;
+export 'confirm_reset_pass/confirm_reset_pass_widget.dart'
+    show ConfirmResetPassWidget;
 export 'account_page/account_page_widget.dart' show AccountPageWidget;
 export 'bookmark_detail_page/bookmark_detail_page_widget.dart'
     show BookmarkDetailPageWidget;

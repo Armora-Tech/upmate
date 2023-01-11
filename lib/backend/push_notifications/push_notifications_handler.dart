@@ -51,12 +51,13 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
     try {
       final initialPageName = message.data['initialPageName'] as String;
       final initialParameterData = getInitialParameterData(message.data);
-      final pageBuilder = pageBuilderMap[initialPageName];
-      if (pageBuilder != null) {
-        final page = await pageBuilder(initialParameterData);
-        await Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => page),
+      final parametersBuilder = parametersBuilderMap[initialPageName];
+      if (parametersBuilder != null) {
+        final parameterData = await parametersBuilder(initialParameterData);
+        context.pushNamed(
+          initialPageName,
+          params: parameterData.params,
+          extra: parameterData.extra,
         );
       }
     } catch (e) {
@@ -90,52 +91,81 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
       : widget.child;
 }
 
-final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
-  'VerifPage': (data) async => VerifPageWidget(
-        code: getParameter(data, 'code'),
-        mail: getParameter(data, 'mail'),
-        name: getParameter(data, 'name'),
-        pw: getParameter(data, 'pw'),
-        isVerified: getParameter(data, 'isVerified'),
-        username: getParameter(data, 'username'),
-      ),
-  'LoginPage': (data) async => LoginPageWidget(),
-  'SignupPage': (data) async => SignupPageWidget(),
-  'surveyPage': (data) async => SurveyPageWidget(),
-  'interestPage': (data) async => InterestPageWidget(
-        ijob: getParameter(data, 'ijob'),
-      ),
-  'explorePage': (data) async => NavBarPage(initialPage: 'explorePage'),
-  'postDetail': (data) async => PostDetailWidget(
-        postRef: getParameter(data, 'postRef'),
-      ),
-  'notificationPage': (data) async =>
-      NavBarPage(initialPage: 'notificationPage'),
-  'newPostPage': (data) async => hasMatchingParameters(data, {'prevPage'})
-      ? NewPostPageWidget(
-          prevPage: getParameter(data, 'prevPage'),
-        )
-      : NavBarPage(initialPage: 'newPostPage'),
-  'chatPage': (data) async => ChatPageWidget(
-        chatUser: await getDocumentParameter(
-            data, 'chatUser', UsersRecord.serializer),
-        chatRef: getParameter(data, 'chatRef'),
-      ),
-  'allChatPage': (data) async => NavBarPage(initialPage: 'allChatPage'),
-  'createChatPage': (data) async => CreateChatPageWidget(),
-  'createGroupChat': (data) async => CreateGroupChatWidget(),
-  'premiumPage': (data) async => PremiumPageWidget(),
-  'accountPage': (data) async => AccountPageWidget(),
-  'bookmarkDetailPage': (data) async => BookmarkDetailPageWidget(
-        whatFor: getParameter(data, 'whatFor'),
-      ),
-  'editProfile': (data) async => EditProfileWidget(),
-  'appInfo': (data) async => AppInfoWidget(),
-  'bookmarkListPage': (data) async => BookmarkListPageWidget(),
-};
+class ParameterData {
+  const ParameterData(
+      {this.requiredParams = const {}, this.allParams = const {}});
+  final Map<String, String?> requiredParams;
+  final Map<String, dynamic> allParams;
 
-bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>
-    params.any((param) => getParameter(data, param) != null);
+  Map<String, String> get params => Map.fromEntries(
+        requiredParams.entries
+            .where((e) => e.value != null)
+            .map((e) => MapEntry(e.key, e.value!)),
+      );
+  Map<String, dynamic> get extra => Map.fromEntries(
+        allParams.entries.where((e) => e.value != null),
+      );
+
+  static Future<ParameterData> Function(Map<String, dynamic>) none() =>
+      (data) async => ParameterData();
+}
+
+final parametersBuilderMap =
+    <String, Future<ParameterData> Function(Map<String, dynamic>)>{
+  'VerifPage': (data) async => ParameterData(
+        allParams: {
+          'code': getParameter<String>(data, 'code'),
+          'mail': getParameter<String>(data, 'mail'),
+          'name': getParameter<String>(data, 'name'),
+          'pw': getParameter<String>(data, 'pw'),
+          'isVerified': getParameter<bool>(data, 'isVerified'),
+          'username': getParameter<String>(data, 'username'),
+        },
+      ),
+  'LoginPage': ParameterData.none(),
+  'SignupPage': ParameterData.none(),
+  'surveyPage': ParameterData.none(),
+  'interestPage': (data) async => ParameterData(
+        allParams: {
+          'ijob': getParameter<String>(data, 'ijob'),
+        },
+      ),
+  'explorePage': ParameterData.none(),
+  'mainPage': ParameterData.none(),
+  'postDetail': (data) async => ParameterData(
+        allParams: {
+          'postRef': getParameter<String>(data, 'postRef'),
+        },
+      ),
+  'notificationPage': ParameterData.none(),
+  'newPostPage': (data) async => ParameterData(
+        allParams: {
+          'prevPage': getParameter<String>(data, 'prevPage'),
+        },
+      ),
+  'chatPage': (data) async => ParameterData(
+        allParams: {
+          'chatUser': await getDocumentParameter<UsersRecord>(
+              data, 'chatUser', UsersRecord.serializer),
+          'chatRef': getParameter<DocumentReference>(data, 'chatRef'),
+        },
+      ),
+  'allChatPage': ParameterData.none(),
+  'createChatPage': ParameterData.none(),
+  'createGroupChat': ParameterData.none(),
+  'premiumPage': ParameterData.none(),
+  'resetPassword': ParameterData.none(),
+  'confirmResetPass': ParameterData.none(),
+  'accountPage': ParameterData.none(),
+  'bookmarkDetailPage': (data) async => ParameterData(
+        allParams: {
+          'whatFor': getParameter<String>(data, 'whatFor'),
+        },
+      ),
+  'editProfile': ParameterData.none(),
+  'appInfo': ParameterData.none(),
+  'bookmarkListPage': ParameterData.none(),
+};
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {
   try {
