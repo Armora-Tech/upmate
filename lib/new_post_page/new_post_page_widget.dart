@@ -69,24 +69,24 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
           'Create Post',
           style: FlutterFlowTheme.of(context).title2,
         ),
-        actions: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
-            child: FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 30,
-              buttonSize: 48,
-              icon: Icon(
-                Icons.close_rounded,
-                color: FlutterFlowTheme.of(context).secondaryText,
-                size: 30,
-              ),
-              onPressed: () async {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-        ],
+        // actions: [
+        //   Padding(
+        //     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
+        //     child: FlutterFlowIconButton(
+        //       borderColor: Colors.transparent,
+        //       borderRadius: 30,
+        //       buttonSize: 48,
+        //       icon: Icon(
+        //         Icons.close_rounded,
+        //         color: FlutterFlowTheme.of(context).secondaryText,
+        //         size: 30,
+        //       ),
+        //       onPressed: () async {
+        //         Navigator.pop(context);
+        //       },
+        //     ),
+        //   ),
+        // ],
         centerTitle: false,
         elevation: 0,
       ),
