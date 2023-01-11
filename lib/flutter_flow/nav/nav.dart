@@ -198,6 +198,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => PremiumPageWidget(),
             ),
             FFRoute(
+              name: 'resetPassword',
+              path: 'resetPassword',
+              requireAuth: true,
+              builder: (context, params) => ResetPasswordWidget(),
+            ),
+            FFRoute(
+              name: 'confirmResetPass',
+              path: 'confirmResetPass',
+              requireAuth: true,
+              builder: (context, params) => ConfirmResetPassWidget(),
+            ),
+            FFRoute(
               name: 'accountPage',
               path: 'accountPage',
               requireAuth: true,

@@ -55,7 +55,7 @@ class AlgoQueryCall {
 class ImageKitUploadCall {
   static Future<ApiCallResponse> call({
     String? ref = '',
-    Uint8List? img,
+    FFLocalFile? img,
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'imageKitUpload',
