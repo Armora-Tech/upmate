@@ -1,9 +1,7 @@
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_timer.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -20,15 +18,6 @@ class LoginPageWidget extends StatefulWidget {
 }
 
 class _LoginPageWidgetState extends State<LoginPageWidget> {
-  int timerMilliseconds = 60000;
-  String timerValue = StopWatchTimer.getDisplayTime(
-    60000,
-    hours: false,
-    milliSecond: false,
-  );
-  StopWatchTimer timerController =
-      StopWatchTimer(mode: StopWatchMode.countDown);
-
   TextEditingController? inpEmailController;
   TextEditingController? inpPassController;
   late bool inpPassVisibility;
@@ -43,7 +32,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     inpPassController = TextEditingController();
     inpPassVisibility = false;
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'LoginPage'});
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -51,7 +39,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     _unfocusNode.dispose();
     inpEmailController?.dispose();
     inpPassController?.dispose();
-    timerController.dispose();
     super.dispose();
   }
 
@@ -299,62 +286,37 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(150, 0, 0, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            if (FFAppState().sreset == false)
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                                child: InkWell(
-                                  onTap: () async {
-                                    context.pushNamed('resetPassword');
-                                  },
-                                  child: Text(
-                                    'Forgot Password?',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Nunito',
-                                          color: Color(0xFF505050),
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                        child: InkWell(
+                          onTap: () async {
+                            context.pushNamed('resetPassword');
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              if (FFAppState().sreset == false)
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 5, 0, 0),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      context.pushNamed('resetPassword');
+                                    },
+                                    child: Text(
+                                      'Forgot Password?',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Nunito',
+                                            color: Color(0xFF505050),
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            if (FFAppState().sreset == true)
-                              FlutterFlowTimer(
-                                initialTime: timerMilliseconds,
-                                getDisplayTime: (value) =>
-                                    StopWatchTimer.getDisplayTime(
-                                  value,
-                                  hours: false,
-                                  milliSecond: false,
-                                ),
-                                timer: timerController,
-                                onChanged: (value, displayTime, shouldUpdate) {
-                                  timerMilliseconds = value;
-                                  timerValue = displayTime;
-                                  if (shouldUpdate) setState(() {});
-                                },
-                                onEnded: () async {
-                                  FFAppState().update(() {
-                                    FFAppState().sreset = false;
-                                  });
-                                },
-                                textAlign: TextAlign.start,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Nunito',
-                                      color: Color(0xFF505050),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       Padding(

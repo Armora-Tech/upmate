@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -167,8 +168,23 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                             child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
+                              onPressed: () async {
+                                if (inpEmailController!.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Email required!',
+                                      ),
+                                    ),
+                                  );
+                                  return;
+                                }
+                                await resetPassword(
+                                  email: inpEmailController!.text,
+                                  context: context,
+                                );
+
+                                context.pushNamed('confirmResetPass');
                               },
                               text: 'Submit',
                               options: FFButtonOptions(
