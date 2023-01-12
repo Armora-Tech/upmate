@@ -200,7 +200,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'resetPassword',
               path: 'resetPassword',
-              requireAuth: true,
+              requireAuth: false,
               builder: (context, params) => ResetPasswordWidget(),
             ),
             FFRoute(

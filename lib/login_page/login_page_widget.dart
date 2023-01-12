@@ -307,16 +307,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                                 child: InkWell(
                                   onTap: () async {
-                                    context.pushNamed(
-                                      'resetPassword',
-                                      extra: <String, dynamic>{
-                                        kTransitionInfoKey: TransitionInfo(
-                                          hasTransition: true,
-                                          transitionType:
-                                              PageTransitionType.bottomToTop,
-                                        ),
-                                      },
-                                    );
+                                    context.pushNamed('resetPassword');
                                   },
                                   child: Text(
                                     'Forgot Password?',

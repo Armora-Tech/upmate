@@ -174,8 +174,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 40,
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
+                                color: Color(0xFF3B5159),
                                 textStyle: FlutterFlowTheme.of(context)
                                     .subtitle2
                                     .override(
