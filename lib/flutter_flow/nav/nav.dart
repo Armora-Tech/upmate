@@ -212,7 +212,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'accountPage',
               path: 'accountPage',
-              requireAuth: true,
+              requireAuth: false,
               builder: (context, params) => AccountPageWidget(),
             ),
             FFRoute(
