@@ -194,7 +194,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                         child: Image.network(
                                           valueOrDefault<String>(
                                             currentUserPhoto,
-                                            'https://imgs.search.brave.com/8AotVXoc6x4ddoAEx14QkNkHX1ctJ-6AdqBVxI83jy8/rs:fit:415:225:1/g:ce/aHR0cHM6Ly90c2U0/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5u/dm1TaXN5V0FmTWxT/Ung4Z19MM3pBQUFB/QSZwaWQ9QXBp',
+                                            'https://ik.imagekit.io/mofh0plv6/emptyProfile__JVYIERtk.webp?tr=w-50,h-50',
                                           ),
                                           fit: BoxFit.contain,
                                         ),
@@ -1055,7 +1055,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                             child: Image.network(
                                               valueOrDefault<String>(
                                                 currentUserPhoto,
-                                                'https://imgs.search.brave.com/8AotVXoc6x4ddoAEx14QkNkHX1ctJ-6AdqBVxI83jy8/rs:fit:415:225:1/g:ce/aHR0cHM6Ly90c2U0/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5u/dm1TaXN5V0FmTWxT/Ung4Z19MM3pBQUFB/QSZwaWQ9QXBp',
+                                                'https://ik.imagekit.io/mofh0plv6/emptyProfile__JVYIERtk.webp?tr=w-40,h-40',
                                               ),
                                             ),
                                           ),
@@ -1503,7 +1503,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                       valueOrDefault<String>(
                                                         peoplereccRowUsersRecord
                                                             .photoUrl,
-                                                        'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VORoQXOzfnrc1yOV4anzxQHaHa%26pid%3DApi%26h%3D160&f=1&ipt=6e1ae93c3fc52057f78d8a58710494b23a6881a41b9dd2185da8e430dfe53e1e&ipo=images',
+                                                        'https://ik.imagekit.io/mofh0plv6/emptyProfile__JVYIERtk.webp?tr=w-200,h-250',
                                                       ),
                                                     ),
                                                   ),
@@ -1733,7 +1733,7 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                                 String>(
                                                               personalizedColumnPostsRecord
                                                                   .postPhoto,
-                                                              'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VORoQXOzfnrc1yOV4anzxQHaHa%26pid%3DApi%26h%3D160&f=1&ipt=6e1ae93c3fc52057f78d8a58710494b23a6881a41b9dd2185da8e430dfe53e1e&ipo=images',
+                                                              'https://ik.imagekit.io/mofh0plv6/emptyProfile__JVYIERtk.webp?tr=w-34,h-34',
                                                             ),
                                                           ),
                                                         ),

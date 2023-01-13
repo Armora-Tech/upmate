@@ -1,3 +1,5 @@
+import 'package:open_mail_app/open_mail_app.dart';
+
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -5,7 +7,6 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmResetPassWidget extends StatefulWidget {
@@ -94,8 +95,28 @@ class _ConfirmResetPassWidgetState extends State<ConfirmResetPassWidget> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                     child: FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
+                      onPressed: () async {
+                        // Android: Will open mail app or show native picker.
+                        // iOS: Will open mail app if single mail app found.
+                        var result = await OpenMailApp.openMailApp();
+
+                        // If no mail apps found, show error
+                        if (!result.didOpen && !result.canOpen) {
+                          showNoMailAppsDialog(context);
+
+                          // iOS: if multiple mail apps found, show dialog to select.
+                          // There is no native intent/default app system in iOS so
+                          // you have to do it yourself.
+                        } else if (!result.didOpen && result.canOpen) {
+                          showDialog(
+                            context: context,
+                            builder: (_) {
+                              return MailAppPickerDialog(
+                                mailApps: result.options,
+                              );
+                            },
+                          );
+                        }
                       },
                       text: 'Buka email',
                       options: FFButtonOptions(
@@ -117,10 +138,14 @@ class _ConfirmResetPassWidgetState extends State<ConfirmResetPassWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                    child: Text(
-                      'Lewati, saya akan konfirmasi nanti',
-                      style: FlutterFlowTheme.of(context).bodyText1,
-                    ),
+                    child: InkWell(
+                        onTap: () async {
+                          context.pushNamed('LoginPage');
+                        },
+                        child: Text(
+                          'Lewati, saya akan konfirmasi nanti',
+                          style: FlutterFlowTheme.of(context).bodyText1,
+                        )),
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -129,12 +154,18 @@ class _ConfirmResetPassWidgetState extends State<ConfirmResetPassWidget> {
                         'Tidak menerima email? \nCek folder spam anda atau',
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
-                      Text(
-                        '\n coba alamat email lain.',
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Nunito',
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                            ),
+                      InkWell(
+                        onTap: () async {
+                          context.pushNamed('resetPassword');
+                        },
+                        child: Text('\n coba alamat email lain.',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Nunito',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                )),
                       ),
                     ],
                   ),
@@ -146,4 +177,34 @@ class _ConfirmResetPassWidgetState extends State<ConfirmResetPassWidget> {
       ),
     );
   }
+}
+
+void showNoMailAppsDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text("Open Mail App"),
+        content: Text("No mail apps installed"),
+        actions: <Widget>[
+          FFButtonWidget(
+            text: "OK",
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            options: FFButtonOptions(
+                color: FlutterFlowTheme.of(context).primaryColor,
+                textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                      fontFamily: 'Nunito',
+                      color: Colors.white,
+                    ),
+                borderSide: BorderSide(
+                  color: Colors.transparent,
+                  width: 1,
+                )),
+          )
+        ],
+      );
+    },
+  );
 }

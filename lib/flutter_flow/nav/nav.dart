@@ -206,7 +206,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'confirmResetPass',
               path: 'confirmResetPass',
-              requireAuth: true,
+              requireAuth: false,
               builder: (context, params) => ConfirmResetPassWidget(),
             ),
             FFRoute(

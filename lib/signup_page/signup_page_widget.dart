@@ -313,10 +313,6 @@ class _SignupPageWidgetState extends State<SignupPageWidget> {
                                 if (val.length > 30) {
                                   return 'Maximum 30 characters allowed, currently ${val.length}.';
                                 }
-                                if (!RegExp(kTextValidatorUsernameRegex)
-                                    .hasMatch(val)) {
-                                  return 'Must start with a letter and can only contain letters, digits and - or _.';
-                                }
                                 return null;
                               },
                             ),

@@ -1,3 +1,5 @@
+import 'package:marquee_widget/marquee_widget.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -63,7 +65,7 @@ class _CreateChatPageWidgetState extends State<CreateChatPageWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Start chat with a friend',
+              'Mulai obrolan pribadi',
               style: FlutterFlowTheme.of(context).subtitle1.override(
                     fontFamily: 'Lexend Deca',
                     color: Color(0xFF95A1AC),
@@ -72,7 +74,7 @@ class _CreateChatPageWidgetState extends State<CreateChatPageWidget> {
                   ),
             ),
             Text(
-              'Select the friends to add to chat.',
+              'Pilih satu orang untuk memulai.',
               style: FlutterFlowTheme.of(context).bodyText2.override(
                     fontFamily: 'Lexend Deca',
                     color: Color(0xFF1A1F24),
@@ -192,34 +194,38 @@ class _CreateChatPageWidgetState extends State<CreateChatPageWidget> {
                   ),
             ),
           ),
-          if (simpleSearchResults.length == 0)
-            Expanded(
-              child: AuthUserStreamWidget(
-                builder: (context) => StreamBuilder<List<UsersRecord>>(
-                  stream: queryUsersRecord(
-                    queryBuilder: (usersRecord) =>
-                        usersRecord.whereArrayContainsAny('interests',
-                            (currentUserDocument?.interests?.toList() ?? [])),
-                    limit: 50,
-                  ),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primaryColor,
-                          ),
+          Expanded(
+            child: AuthUserStreamWidget(
+              builder: (context) => StreamBuilder<List<UsersRecord>>(
+                stream: queryUsersRecord(
+                  queryBuilder: (usersRecord) =>
+                      usersRecord.whereArrayContainsAny('interests',
+                          (currentUserDocument?.interests?.toList() ?? [])),
+                  limit: 50,
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: CircularProgressIndicator(
+                          color: FlutterFlowTheme.of(context).primaryColor,
                         ),
-                      );
-                    }
-                    List<UsersRecord> listViewNormalUsersRecordList = snapshot
-                        .data!
-                        .where((u) => u.uid != currentUserUid)
-                        .toList();
-                    return ListView.builder(
+                      ),
+                    );
+                  }
+                  List<UsersRecord> listViewNormalUsersRecordList = snapshot
+                      .data!
+                      .where((u) => u.uid != currentUserUid)
+                      .toList();
+                  if (simpleSearchResults.length > 0) {
+                    listViewNormalUsersRecordList = simpleSearchResults;
+                  }
+                  return Column(children: <Widget>[
+                    Expanded(
+                        child: ListView.builder(
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
@@ -227,259 +233,121 @@ class _CreateChatPageWidgetState extends State<CreateChatPageWidget> {
                       itemBuilder: (context, listViewNormalIndex) {
                         final listViewNormalUsersRecord =
                             listViewNormalUsersRecordList[listViewNormalIndex];
+
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 2),
                           child: InkWell(
-                            onTap: () async {
-                              if (Navigator.of(context).canPop()) {
-                                context.pop();
-                              }
-                              context.pushNamed(
-                                'chatPage',
-                                queryParams: {
-                                  'chatUser': serializeParam(
-                                    listViewNormalUsersRecord,
-                                    ParamType.Document,
-                                  ),
-                                }.withoutNulls,
-                                extra: <String, dynamic>{
-                                  'chatUser': listViewNormalUsersRecord,
-                                },
-                              );
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 0,
-                                    color: Color(0xFFDBE2E7),
-                                    offset: Offset(0, 2),
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(0),
-                              ),
-                              child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0xFF4E39F9),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            2, 2, 2, 2),
-                                        child: Container(
-                                          width: 50,
-                                          height: 50,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Image.network(
-                                            listViewNormalUsersRecord.photoUrl!,
-                                          ),
-                                        ),
-                                      ),
+                              onTap: () async {
+                                if (Navigator.of(context).canPop()) {
+                                  context.pop();
+                                }
+                                context.pushNamed(
+                                  'chatPage',
+                                  queryParams: {
+                                    'chatUser': serializeParam(
+                                      listViewNormalUsersRecord,
+                                      ParamType.Document,
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            listViewNormalUsersRecord
-                                                .displayName!,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1,
-                                          ),
-                                          Text(
-                                            functions.joinLString(
-                                                listViewNormalUsersRecord
-                                                    .interests!
-                                                    .toList(),
-                                                ',')!,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Nunito',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .grayIcon,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
+                                  }.withoutNulls,
+                                  extra: <String, dynamic>{
+                                    'chatUser': listViewNormalUsersRecord,
+                                  },
+                                );
+                              },
+                              child: Container(
+                                child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8, 0, 0, 0),
+                                    child: Container(
+                                      // direction: Axis.horizontal,
+                                      // crossAxisAlignment:
+                                      //     WrapCrossAlignment.center,
+                                      // alignment: WrapAlignment.spaceBetween,
                                       child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
                                         children: [
-                                          Icon(
-                                            Icons.chevron_right_outlined,
-                                            color: Colors.black,
-                                            size: 30,
+                                          Card(
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            color: Color(0xFF4E39F9),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(40),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(2, 2, 2, 2),
+                                              child: Container(
+                                                width: 50,
+                                                height: 50,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.network(
+                                                  valueOrDefault<String>(
+                                                    listViewNormalUsersRecord
+                                                        .photoUrl!,
+                                                    'https://ik.imagekit.io/mofh0plv6/emptyProfile__JVYIERtk.webp?tr=w-50,h-50',
+                                                  ),
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                              // child:
+                                              // Center(
+                                              child: Marquee(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  listViewNormalUsersRecord
+                                                      .displayName!,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1,
+                                                ),
+                                                Text(functions.joinLString(
+                                                    listViewNormalUsersRecord
+                                                        .interests!
+                                                        .where((e) =>
+                                                            currentUserDocument!
+                                                                .interests!
+                                                                .contains(e))
+                                                        .toList(),
+                                                    ', ')!),
+                                              ],
+                                            ),
+                                          )
+                                              // )
+                                              ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Icon(
+                                                Icons.chevron_right_outlined,
+                                                color: Colors.black,
+                                                size: 30,
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                                    )),
+                              )),
                         );
                       },
-                    );
-                  },
-                ),
-              ),
-            ),
-          if (simpleSearchResults.length > 0)
-            Expanded(
-              child: Builder(
-                builder: (context) {
-                  final searchRes = simpleSearchResults.toList();
-                  return ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: searchRes.length,
-                    itemBuilder: (context, searchResIndex) {
-                      final searchResItem = searchRes[searchResIndex];
-                      return Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 2),
-                        child: InkWell(
-                          onTap: () async {
-                            if (Navigator.of(context).canPop()) {
-                              context.pop();
-                            }
-                            context.pushNamed(
-                              'chatPage',
-                              queryParams: {
-                                'chatUser': serializeParam(
-                                  searchResItem,
-                                  ParamType.Document,
-                                ),
-                              }.withoutNulls,
-                              extra: <String, dynamic>{
-                                'chatUser': searchResItem,
-                              },
-                            );
-                          },
-                          child: Container(
-                            width: double.infinity,
-                            height: 70,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 0,
-                                  color: Color(0xFFDBE2E7),
-                                  offset: Offset(0, 2),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(0),
-                            ),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Card(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: Color(0xFF4E39F9),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          2, 2, 2, 2),
-                                      child: Container(
-                                        width: 50,
-                                        height: 50,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Image.network(
-                                          searchResItem.photoUrl!,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 0, 0, 0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          searchResItem.displayName!,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                        Text(
-                                          functions
-                                              .joinLString(
-                                                  searchResItem.interests!
-                                                      .toList(),
-                                                  ',')!
-                                              .maybeHandleOverflow(
-                                                  maxChars: 20),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Nunito',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .grayIcon,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Icon(
-                                          Icons.chevron_right_outlined,
-                                          color: Colors.black,
-                                          size: 30,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  );
+                    ))
+                  ]);
                 },
               ),
             ),
+          ),
         ],
       ),
     );
