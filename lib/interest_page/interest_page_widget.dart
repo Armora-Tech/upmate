@@ -41,8 +41,7 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
       }
     });
 
-    logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'interestPage'});
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'interestPage'});
   }
 
   @override
@@ -77,9 +76,7 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
         if (snapshot.data!.isEmpty) {
           return Container();
         }
-        final interestPageUtilsRecord = interestPageUtilsRecordList.isNotEmpty
-            ? interestPageUtilsRecordList.first
-            : null;
+        final interestPageUtilsRecord = interestPageUtilsRecordList.isNotEmpty ? interestPageUtilsRecordList.first : null;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -114,13 +111,10 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                         clipBehavior: Clip.none,
                         children: [
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                             child: Text(
                               'Dapatkan rekomendasi konten hasil personalisasi Anda. Anda dapat memilih hingga 4 opsi',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
+                              style: FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Nunito',
                                     fontSize: 12,
                                     fontWeight: FontWeight.normal,
@@ -132,11 +126,7 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                             child: StreamBuilder<List<InterestsRecord>>(
                               stream: queryInterestsRecord(
                                 queryBuilder: (interestsRecord) =>
-                                    interestsRecord.where('jobs',
-                                        arrayContains: functions.getIndex(
-                                            interestPageUtilsRecord!.joblist!
-                                                .toList(),
-                                            widget.ijob!)),
+                                    interestsRecord.where('jobs', arrayContains: functions.getIndex(interestPageUtilsRecord!.joblist!.toList(), widget.ijob!)),
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
@@ -146,33 +136,20 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                                       width: 50,
                                       height: 50,
                                       child: CircularProgressIndicator(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
+                                        color: FlutterFlowTheme.of(context).primaryColor,
                                       ),
                                     ),
                                   );
                                 }
-                                List<InterestsRecord>
-                                    choiceChipsInterestsRecordList =
-                                    snapshot.data!;
+                                List<InterestsRecord> choiceChipsInterestsRecordList = snapshot.data!;
                                 return FlutterFlowChoiceChips(
-                                  options: choiceChipsInterestsRecordList
-                                      .map((e) => e.name)
-                                      .withoutNulls
-                                      .toList()
-                                      .map((label) => ChipData(label))
-                                      .toList(),
-                                  onChanged: (val) =>
-                                      setState(() => choiceChipsValues = val),
+                                  options: choiceChipsInterestsRecordList.map((e) => e.name).withoutNulls.toList().map((label) => ChipData(label)).toList(),
+                                  onChanged: (val) => setState(() => choiceChipsValues = val),
                                   selectedChipStyle: ChipStyle(
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).btnColors,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .subtitle1
-                                        .override(
+                                    backgroundColor: FlutterFlowTheme.of(context).btnColors,
+                                    textStyle: FlutterFlowTheme.of(context).subtitle1.override(
                                           fontFamily: 'Nunito',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                          color: FlutterFlowTheme.of(context).primaryBackground,
                                         ),
                                     iconColor: Colors.black,
                                     iconSize: 18,
@@ -180,9 +157,7 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                                   ),
                                   unselectedChipStyle: ChipStyle(
                                     backgroundColor: Colors.white,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
+                                    textStyle: FlutterFlowTheme.of(context).bodyText1.override(
                                           fontFamily: 'Nunito',
                                           fontSize: 18,
                                         ),
@@ -210,33 +185,20 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                                       width: 50,
                                       height: 50,
                                       child: CircularProgressIndicator(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
+                                        color: FlutterFlowTheme.of(context).primaryColor,
                                       ),
                                     ),
                                   );
                                 }
-                                List<InterestsRecord>
-                                    otherChoiceInterestsRecordList =
-                                    snapshot.data!;
+                                List<InterestsRecord> otherChoiceInterestsRecordList = snapshot.data!;
                                 return FlutterFlowChoiceChips(
-                                  options: otherChoiceInterestsRecordList
-                                      .map((e) => e.name)
-                                      .withoutNulls
-                                      .toList()
-                                      .map((label) => ChipData(label))
-                                      .toList(),
-                                  onChanged: (val) =>
-                                      setState(() => otherChoiceValues = val),
+                                  options: otherChoiceInterestsRecordList.map((e) => e.name).withoutNulls.toList().map((label) => ChipData(label)).toList(),
+                                  onChanged: (val) => setState(() => otherChoiceValues = val),
                                   selectedChipStyle: ChipStyle(
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).btnColors,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .subtitle1
-                                        .override(
+                                    backgroundColor: FlutterFlowTheme.of(context).btnColors,
+                                    textStyle: FlutterFlowTheme.of(context).subtitle1.override(
                                           fontFamily: 'Nunito',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                          color: FlutterFlowTheme.of(context).primaryBackground,
                                         ),
                                     iconColor: Colors.black,
                                     iconSize: 18,
@@ -244,9 +206,7 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                                   ),
                                   unselectedChipStyle: ChipStyle(
                                     backgroundColor: Colors.white,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
+                                    textStyle: FlutterFlowTheme.of(context).bodyText1.override(
                                           fontFamily: 'Nunito',
                                           fontSize: 18,
                                         ),
@@ -269,17 +229,34 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                         child: FFButtonWidget(
                           onPressed: () async {
                             var _shouldSetState = false;
+                            if (widget.ijob == null) {
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    content: Text('Terjadi kesalahan, coba lagi dalam beberapa saat.'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(alertDialogContext),
+                                        child: Text('Ok'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+
+                              return;
+                            }
+                            print("Ijob: " + widget.ijob.toString());
                             if (choiceChipsValues!.length > 4) {
                               await showDialog(
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    content: Text(
-                                        'Kamu hanya bisa memilih 4 tag interest'),
+                                    content: Text('Kamu hanya bisa memilih 4 tag interest'),
                                     actions: [
                                       TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
+                                        onPressed: () => Navigator.pop(alertDialogContext),
                                         child: Text('Ok'),
                                       ),
                                     ],
@@ -289,32 +266,12 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                               if (_shouldSetState) setState(() {});
                               return;
                             } else {
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    content: Text(
-                                        otherChoiceValues!.length.toString()),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-
                               final usersUpdateData = {
                                 'interests': widget.ijob != 'Other'
-                                    ? functions.normInterests(
-                                        choiceChipsValues!.toList())
-                                    : functions.normInterests(
-                                        otherChoiceValues!.toList()),
+                                    ? functions.normInterests(choiceChipsValues!.toList())
+                                    : functions.normInterests(otherChoiceValues!.toList()),
                               };
-                              await currentUserReference!
-                                  .update(usersUpdateData);
+                              await currentUserReference!.update(usersUpdateData);
                               _shouldSetState = true;
 
                               context.goNamed('mainPage');
@@ -327,11 +284,10 @@ class _InterestPageWidgetState extends State<InterestPageWidget> {
                             width: double.infinity,
                             height: 40,
                             color: Color(0xFF3B5159),
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Nunito',
-                                      color: Colors.white,
-                                    ),
+                            textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                                  fontFamily: 'Nunito',
+                                  color: Colors.white,
+                                ),
                             borderSide: BorderSide(
                               color: Colors.transparent,
                               width: 1,
