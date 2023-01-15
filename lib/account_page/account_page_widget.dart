@@ -199,7 +199,6 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                     );
                                   }
                                   List<PostsRecord> gridViewPostsRecordList = snapshot.data!;
-                                  print("POST: " + gridViewPostsRecordList[0].postPhoto.toString());
                                   return GridView.builder(
                                     padding: EdgeInsets.zero,
                                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -213,7 +212,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                     itemBuilder: (context, gridViewIndex) {
                                       final gridViewPostsRecord = gridViewPostsRecordList[gridViewIndex];
                                       var rc = RandomColor.getColor(Options(luminosity: Luminosity.dark, format: Format.hex));
-                                      print("COLOR: " + toColor(rc).toString());
+
                                       return InkWell(
                                         onLongPress: () async {
                                           await showModalBottomSheet(
