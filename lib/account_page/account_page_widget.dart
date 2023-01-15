@@ -8,6 +8,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_randomcolor/flutter_randomcolor.dart';
 
 class AccountPageWidget extends StatefulWidget {
   const AccountPageWidget({Key? key}) : super(key: key);
@@ -85,12 +86,10 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                               width: MediaQuery.of(context).size.width * 0.2,
                               height: MediaQuery.of(context).size.width * 0.2,
                               clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                              ),
+                              // color: Colors.white30,
+                              decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white70),
                               child: Image.network(
-                                currentUserPhoto,
-                              ),
+                                  valueOrDefault(currentUserPhoto, "https://ik.imagekit.io/mofh0plv6/userOutlineBlack_E_9HvIlju.png?tr=w-60,h-60")),
                             ),
                           ),
                         ),
@@ -161,8 +160,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                         TabBar(
                           labelColor: FlutterFlowTheme.of(context).primaryColor,
                           labelStyle: FlutterFlowTheme.of(context).bodyText1,
-                          indicatorColor:
-                              FlutterFlowTheme.of(context).secondaryColor,
+                          indicatorColor: FlutterFlowTheme.of(context).secondaryColor,
                           tabs: [
                             Tab(
                               icon: Icon(
@@ -185,9 +183,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                             children: [
                               StreamBuilder<List<PostsRecord>>(
                                 stream: queryPostsRecord(
-                                  queryBuilder: (postsRecord) =>
-                                      postsRecord.where('post_user',
-                                          isEqualTo: currentUserReference),
+                                  queryBuilder: (postsRecord) => postsRecord.where('post_user', isEqualTo: currentUserReference),
                                 ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
@@ -197,18 +193,16 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                         width: 50,
                                         height: 50,
                                         child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                          color: FlutterFlowTheme.of(context).primaryColor,
                                         ),
                                       ),
                                     );
                                   }
-                                  List<PostsRecord> gridViewPostsRecordList =
-                                      snapshot.data!;
+                                  List<PostsRecord> gridViewPostsRecordList = snapshot.data!;
+                                  print("POST: " + gridViewPostsRecordList[0].postPhoto.toString());
                                   return GridView.builder(
                                     padding: EdgeInsets.zero,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 3,
                                       crossAxisSpacing: 10,
                                       mainAxisSpacing: 10,
@@ -217,9 +211,9 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                     scrollDirection: Axis.vertical,
                                     itemCount: gridViewPostsRecordList.length,
                                     itemBuilder: (context, gridViewIndex) {
-                                      final gridViewPostsRecord =
-                                          gridViewPostsRecordList[
-                                              gridViewIndex];
+                                      final gridViewPostsRecord = gridViewPostsRecordList[gridViewIndex];
+                                      var rc = RandomColor.getColor(Options(luminosity: Luminosity.dark, format: Format.hex));
+                                      print("COLOR: " + toColor(rc).toString());
                                       return InkWell(
                                         onLongPress: () async {
                                           await showModalBottomSheet(
@@ -228,22 +222,38 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                             context: context,
                                             builder: (context) {
                                               return Padding(
-                                                padding: MediaQuery.of(context)
-                                                    .viewInsets,
+                                                padding: MediaQuery.of(context).viewInsets,
                                                 child: PostOptionsWidget(
-                                                  posref: gridViewPostsRecord
-                                                      .reference,
+                                                  posref: gridViewPostsRecord.reference,
                                                 ),
                                               );
                                             },
                                           ).then((value) => setState(() {}));
                                         },
-                                        child: Image.network(
-                                          gridViewPostsRecord.postPhoto!,
-                                          width: 100,
-                                          height: 100,
-                                          fit: BoxFit.cover,
-                                        ),
+                                        child: gridViewPostsRecord.postPhoto != ''
+                                            ? Image.network(
+                                                gridViewPostsRecord.postPhoto!,
+                                                width: 100,
+                                                height: 100,
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Container(
+                                                width: 100,
+                                                height: 100,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  color: toColor(rc),
+                                                  border: Border.all(
+                                                    width: 2,
+                                                    color: Colors.black12,
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  gridViewPostsRecord.postTitle!,
+                                                  style: FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(fontFamily: 'Nunito', fontWeight: FontWeight.bold, color: Colors.white70, fontSize: 14),
+                                                )),
                                       );
                                     },
                                   );
@@ -251,9 +261,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                               ),
                               StreamBuilder<List<PostsRecord>>(
                                 stream: queryPostsRecord(
-                                  queryBuilder: (postsRecord) =>
-                                      postsRecord.where('bookmarks',
-                                          arrayContains: currentUserReference),
+                                  queryBuilder: (postsRecord) => postsRecord.where('bookmarks', arrayContains: currentUserReference),
                                 ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
@@ -263,32 +271,24 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                         width: 50,
                                         height: 50,
                                         child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                          color: FlutterFlowTheme.of(context).primaryColor,
                                         ),
                                       ),
                                     );
                                   }
-                                  List<PostsRecord>
-                                      bookmarkGridViewPostsRecordList =
-                                      snapshot.data!;
+                                  List<PostsRecord> bookmarkGridViewPostsRecordList = snapshot.data!;
                                   return GridView.builder(
                                     padding: EdgeInsets.zero,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 3,
                                       crossAxisSpacing: 10,
                                       mainAxisSpacing: 10,
                                       childAspectRatio: 1,
                                     ),
                                     scrollDirection: Axis.vertical,
-                                    itemCount:
-                                        bookmarkGridViewPostsRecordList.length,
-                                    itemBuilder:
-                                        (context, bookmarkGridViewIndex) {
-                                      final bookmarkGridViewPostsRecord =
-                                          bookmarkGridViewPostsRecordList[
-                                              bookmarkGridViewIndex];
+                                    itemCount: bookmarkGridViewPostsRecordList.length,
+                                    itemBuilder: (context, bookmarkGridViewIndex) {
+                                      final bookmarkGridViewPostsRecord = bookmarkGridViewPostsRecordList[bookmarkGridViewIndex];
                                       return InkWell(
                                         onLongPress: () async {
                                           await showModalBottomSheet(
@@ -297,20 +297,16 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                             context: context,
                                             builder: (context) {
                                               return Padding(
-                                                padding: MediaQuery.of(context)
-                                                    .viewInsets,
+                                                padding: MediaQuery.of(context).viewInsets,
                                                 child: PostOptionsWidget(
-                                                  posref:
-                                                      bookmarkGridViewPostsRecord
-                                                          .reference,
+                                                  posref: bookmarkGridViewPostsRecord.reference,
                                                 ),
                                               );
                                             },
                                           ).then((value) => setState(() {}));
                                         },
                                         child: Image.network(
-                                          bookmarkGridViewPostsRecord
-                                              .postPhoto!,
+                                          bookmarkGridViewPostsRecord.postPhoto!,
                                           width: 100,
                                           height: 100,
                                           fit: BoxFit.cover,

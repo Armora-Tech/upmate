@@ -11,7 +11,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
 
-
 export 'keep_alive_wrapper.dart';
 export 'lat_lng.dart';
 export 'place.dart';
@@ -21,16 +20,14 @@ export 'dart:math' show min, max;
 export 'dart:typed_data' show Uint8List;
 export 'dart:convert' show jsonEncode, jsonDecode;
 export 'package:intl/intl.dart';
-export 'package:cloud_firestore/cloud_firestore.dart'
-    show DocumentReference, FirebaseFirestore;
+export 'package:cloud_firestore/cloud_firestore.dart' show DocumentReference, FirebaseFirestore;
 export 'package:page_transition/page_transition.dart';
 export 'custom_icons.dart' show FFIcons;
 export 'internationalization.dart' show FFLocalizations;
 export '../backend/firebase_analytics/analytics.dart';
 export 'nav/nav.dart';
 
-T valueOrDefault<T>(T? value, T defaultValue) =>
-    (value is String && value.isEmpty) || value == null ? defaultValue : value;
+T valueOrDefault<T>(T? value, T defaultValue) => (value is String && value.isEmpty) || value == null ? defaultValue : value;
 
 void _setTimeagoLocales() {
   timeago.setLocaleMessages('id', timeago.IdMessages());
@@ -122,8 +119,7 @@ String formatNumber(
       break;
     case FormatType.custom:
       final hasLocale = locale != null && locale.isNotEmpty;
-      formattedValue =
-          NumberFormat(format, hasLocale ? locale : null).format(value);
+      formattedValue = NumberFormat(format, hasLocale ? locale : null).format(value);
   }
 
   if (formattedValue.isEmpty) {
@@ -131,9 +127,7 @@ String formatNumber(
   }
 
   if (currency != null) {
-    final currencySymbol = currency.isNotEmpty
-        ? currency
-        : NumberFormat.simpleCurrency().format(0.0).substring(0, 1);
+    final currencySymbol = currency.isNotEmpty ? currency : NumberFormat.simpleCurrency().format(0.0).substring(0, 1);
     formattedValue = '$currencySymbol$formattedValue';
   }
 
@@ -179,8 +173,7 @@ bool get isiOS => !kIsWeb && Platform.isIOS;
 bool get isWeb => kIsWeb;
 
 const kMobileWidthCutoff = 479.0;
-bool isMobileWidth(BuildContext context) =>
-    MediaQuery.of(context).size.width < kMobileWidthCutoff;
+bool isMobileWidth(BuildContext context) => MediaQuery.of(context).size.width < kMobileWidthCutoff;
 bool responsiveVisibility({
   required BuildContext context,
   bool phone = true,
@@ -211,18 +204,12 @@ extension StringDocRef on String {
 }
 
 extension IterableExt<T> on Iterable<T> {
-  List<S> mapIndexed<S>(S Function(int, T) func) => toList()
-      .asMap()
-      .map((index, value) => MapEntry(index, func(index, value)))
-      .values
-      .toList();
+  List<S> mapIndexed<S>(S Function(int, T) func) => toList().asMap().map((index, value) => MapEntry(index, func(index, value))).values.toList();
 }
 
-void setAppLanguage(BuildContext context, String language) =>
-    MyApp.of(context).setLocale(language);
+void setAppLanguage(BuildContext context, String language) => MyApp.of(context).setLocale(language);
 
-void setDarkModeSetting(BuildContext context, ThemeMode themeMode) =>
-    MyApp.of(context).setThemeMode(themeMode);
+void setDarkModeSetting(BuildContext context, ThemeMode themeMode) => MyApp.of(context).setThemeMode(themeMode);
 
 void showSnackbar(
   BuildContext context,
@@ -254,11 +241,17 @@ void showSnackbar(
   );
 }
 
+Color toColor(str) {
+  var hexString = str;
+  final buffer = StringBuffer();
+  if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+  buffer.write(hexString.replaceFirst('#', ''));
+  return Color(int.parse(buffer.toString(), radix: 16));
+}
+
 extension FFStringExt on String {
   String maybeHandleOverflow({int? maxChars, String replacement = ''}) =>
-      maxChars != null && length > maxChars
-          ? replaceRange(maxChars, null, replacement)
-          : this;
+      maxChars != null && length > maxChars ? replaceRange(maxChars, null, replacement) : this;
 }
 
 extension ListFilterExt<T> on Iterable<T?> {

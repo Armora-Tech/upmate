@@ -1515,22 +1515,32 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                                     child: Row(
                                                       mainAxisSize: MainAxisSize.max,
                                                       children: [
-                                                        Padding(
-                                                          padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                                                          child: Container(
-                                                            width: 34,
-                                                            height: 34,
-                                                            clipBehavior: Clip.antiAlias,
-                                                            decoration: BoxDecoration(
-                                                              shape: BoxShape.circle,
-                                                            ),
-                                                            child: Image.network(
-                                                              valueOrDefault<String>(
-                                                                personalizedColumnPostsRecord.postPhoto,
-                                                                'https://ik.imagekit.io/mofh0plv6/emptyProfile__JVYIERtk.webp?tr=w-34,h-34',
+                                                        FutureBuilder<UsersRecord>(
+                                                          future: UsersRecord.getDocumentOnce(personalizedColumnPostsRecord.postUser!),
+                                                          builder: (context, snapshot) {
+                                                            // Customize what your widget looks like when it's loading.
+                                                            if (!snapshot.hasData) {
+                                                              return Image.network('https://ik.imagekit.io/mofh0plv6/emptyProfile__JVYIERtk.webp?tr=w-34,h-34');
+                                                            }
+                                                            final textUsersRecord = snapshot.data!;
+                                                            return Padding(
+                                                              padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                                                              child: Container(
+                                                                width: 34,
+                                                                height: 34,
+                                                                clipBehavior: Clip.antiAlias,
+                                                                decoration: BoxDecoration(
+                                                                  shape: BoxShape.circle,
+                                                                ),
+                                                                child: Image.network(
+                                                                  valueOrDefault<String>(
+                                                                    textUsersRecord.photoUrl,
+                                                                    'https://ik.imagekit.io/mofh0plv6/emptyProfile__JVYIERtk.webp?tr=w-34,h-34',
+                                                                  ),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ),
+                                                            );
+                                                          },
                                                         ),
                                                         Padding(
                                                           padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),

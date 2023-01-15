@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../flutter_flow/flutter_flow_util.dart';
 import '../cloud_functions/cloud_functions.dart';
 
@@ -64,9 +66,9 @@ class ImageKitUploadCall {
       headers: {},
       params: {
         'ref': ref,
-        'img': img,
+        'img': uint8ListTob64(img!),
       },
-      bodyType: BodyType.MULTIPART,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -87,6 +89,11 @@ class ApiPagingParams {
   });
 
   @override
-  String toString() =>
-      'PagingParams(nextPageNumber: $nextPageNumber, numItems: $numItems, lastResponse: $lastResponse,)';
+  String toString() => 'PagingParams(nextPageNumber: $nextPageNumber, numItems: $numItems, lastResponse: $lastResponse,)';
+}
+
+String uint8ListTob64(Uint8List uint8list) {
+  String base64String = base64Encode(uint8list);
+  String header = "data:image/png;base64,";
+  return header + base64String;
 }
