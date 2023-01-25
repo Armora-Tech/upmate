@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:up_mate/flutter_flow/flutter_flow_util.dart';
 
 import '../flutter_flow/chat/index.dart';
@@ -66,7 +68,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
           borderRadius: 30,
           borderWidth: 1,
           buttonSize: 60,
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_rounded,
             color: Colors.black,
             size: 24,
@@ -89,7 +91,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
               ),
           ],
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 2,
       ),
@@ -103,7 +105,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
               ? FFChatPage(
                   chatInfo: snapshot.data!,
                   allowImages: true,
-                  backgroundColor: Color(0xFFF2F4F8),
+                  backgroundColor: const Color(0xFFF2F4F8),
                   timeDisplaySetting: TimeDisplaySetting.alwaysVisible,
                   currentUserBoxDecoration: BoxDecoration(
                     color: Colors.white,
@@ -113,7 +115,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   otherUsersBoxDecoration: BoxDecoration(
-                    color: Color(0xFF4B39EF),
+                    color: const Color(0xFF4B39EF),
                     border: Border.all(
                       color: Colors.transparent,
                     ),
@@ -121,7 +123,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                   ),
                   currentUserTextStyle: GoogleFonts.getFont(
                     'DM Sans',
-                    color: Color(0xFF1E2429),
+                    color: const Color(0xFF1E2429),
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
                     fontStyle: FontStyle.normal,
@@ -134,7 +136,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                   ),
                   inputHintTextStyle: GoogleFonts.getFont(
                     'DM Sans',
-                    color: Color(0xFF95A1AC),
+                    color: const Color(0xFF95A1AC),
                     fontWeight: FontWeight.normal,
                     fontSize: 14,
                   ),

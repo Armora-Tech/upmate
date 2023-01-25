@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/post_options_widget.dart';
@@ -19,7 +21,8 @@ class AccountPageWidget extends StatefulWidget {
 
 class _AccountPageWidgetState extends State<AccountPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  bool isLoading = false;
+  String selected = '';
   @override
   void initState() {
     super.initState();
@@ -35,7 +38,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -57,18 +60,19 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: FlutterFlowIconButton(
                             borderRadius: 30,
                             borderWidth: 0,
                             buttonSize: 30,
-                            fillColor: Color(0x9AFFFFFF),
+                            fillColor: const Color(0x9AFFFFFF),
                             icon: FaIcon(
                               FontAwesomeIcons.arrowLeft,
                               color: FlutterFlowTheme.of(context).primaryText,
@@ -80,16 +84,20 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              10, 10, 0, 0),
                           child: AuthUserStreamWidget(
                             builder: (context) => Container(
                               width: MediaQuery.of(context).size.width * 0.2,
                               height: MediaQuery.of(context).size.width * 0.2,
                               clipBehavior: Clip.antiAlias,
                               // color: Colors.white30,
-                              decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white70),
-                              child: Image.network(
-                                  valueOrDefault(currentUserPhoto, "https://ik.imagekit.io/mofh0plv6/userOutlineBlack_E_9HvIlju.png?tr=w-60,h-60")),
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white70),
+                              child: Image.network(valueOrDefault(
+                                  currentUserPhoto,
+                                  "https://ik.imagekit.io/mofh0plv6/userOutlineBlack_E_9HvIlju.png?tr=w-60,h-60")),
                             ),
                           ),
                         ),
@@ -99,7 +107,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                 ],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                 child: AuthUserStreamWidget(
                   builder: (context) => SelectionArea(
                       child: Text(
@@ -114,7 +122,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                 child: SelectionArea(
                     child: Text(
                   currentUserEmail,
@@ -127,7 +135,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                 )),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     context.pushNamed('editProfile');
@@ -136,12 +144,12 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 26,
-                    color: Color(0xFFD9D9D9),
+                    color: const Color(0xFFD9D9D9),
                     textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                           fontFamily: 'Nunito',
                           color: Colors.black,
                         ),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.transparent,
                       width: 1,
                     ),
@@ -151,7 +159,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                   child: DefaultTabController(
                     length: 2,
                     initialIndex: 0,
@@ -160,7 +168,8 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                         TabBar(
                           labelColor: FlutterFlowTheme.of(context).primaryColor,
                           labelStyle: FlutterFlowTheme.of(context).bodyText1,
-                          indicatorColor: FlutterFlowTheme.of(context).secondaryColor,
+                          indicatorColor:
+                              FlutterFlowTheme.of(context).secondaryColor,
                           tabs: [
                             Tab(
                               icon: Icon(
@@ -183,7 +192,9 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                             children: [
                               StreamBuilder<List<PostsRecord>>(
                                 stream: queryPostsRecord(
-                                  queryBuilder: (postsRecord) => postsRecord.where('post_user', isEqualTo: currentUserReference),
+                                  queryBuilder: (postsRecord) =>
+                                      postsRecord.where('post_user',
+                                          isEqualTo: currentUserReference),
                                 ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
@@ -193,15 +204,18 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                         width: 50,
                                         height: 50,
                                         child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.of(context).primaryColor,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                         ),
                                       ),
                                     );
                                   }
-                                  List<PostsRecord> gridViewPostsRecordList = snapshot.data!;
+                                  List<PostsRecord> gridViewPostsRecordList =
+                                      snapshot.data!;
                                   return GridView.builder(
                                     padding: EdgeInsets.zero,
-                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 3,
                                       crossAxisSpacing: 10,
                                       mainAxisSpacing: 10,
@@ -210,8 +224,12 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                     scrollDirection: Axis.vertical,
                                     itemCount: gridViewPostsRecordList.length,
                                     itemBuilder: (context, gridViewIndex) {
-                                      final gridViewPostsRecord = gridViewPostsRecordList[gridViewIndex];
-                                      var rc = RandomColor.getColor(Options(luminosity: Luminosity.dark, format: Format.hex));
+                                      final gridViewPostsRecord =
+                                          gridViewPostsRecordList[
+                                              gridViewIndex];
+                                      var rc = RandomColor.getColor(Options(
+                                          luminosity: Luminosity.dark,
+                                          format: Format.hex));
 
                                       return InkWell(
                                         onLongPress: () async {
@@ -221,15 +239,18 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                             context: context,
                                             builder: (context) {
                                               return Padding(
-                                                padding: MediaQuery.of(context).viewInsets,
+                                                padding: MediaQuery.of(context)
+                                                    .viewInsets,
                                                 child: PostOptionsWidget(
-                                                  posref: gridViewPostsRecord.reference,
+                                                  posref: gridViewPostsRecord
+                                                      .reference,
                                                 ),
                                               );
                                             },
                                           ).then((value) => setState(() {}));
                                         },
-                                        child: gridViewPostsRecord.postPhoto != ''
+                                        child: gridViewPostsRecord.postPhoto !=
+                                                ''
                                             ? Image.network(
                                                 gridViewPostsRecord.postPhoto!,
                                                 width: 100,
@@ -248,10 +269,17 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                                   ),
                                                 ),
                                                 child: Text(
-                                                  gridViewPostsRecord.postTitle!,
-                                                  style: FlutterFlowTheme.of(context)
+                                                  gridViewPostsRecord
+                                                      .postTitle!,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyText1
-                                                      .override(fontFamily: 'Nunito', fontWeight: FontWeight.bold, color: Colors.white70, fontSize: 14),
+                                                      .override(
+                                                          fontFamily: 'Nunito',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white70,
+                                                          fontSize: 14),
                                                 )),
                                       );
                                     },
@@ -260,7 +288,9 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                               ),
                               StreamBuilder<List<PostsRecord>>(
                                 stream: queryPostsRecord(
-                                  queryBuilder: (postsRecord) => postsRecord.where('bookmarks', arrayContains: currentUserReference),
+                                  queryBuilder: (postsRecord) =>
+                                      postsRecord.where('bookmarks',
+                                          arrayContains: currentUserReference),
                                 ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
@@ -270,46 +300,96 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                                         width: 50,
                                         height: 50,
                                         child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.of(context).primaryColor,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                         ),
                                       ),
                                     );
                                   }
-                                  List<PostsRecord> bookmarkGridViewPostsRecordList = snapshot.data!;
+                                  List<PostsRecord>
+                                      bookmarkGridViewPostsRecordList =
+                                      snapshot.data!;
                                   return GridView.builder(
                                     padding: EdgeInsets.zero,
-                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 3,
                                       crossAxisSpacing: 10,
                                       mainAxisSpacing: 10,
                                       childAspectRatio: 1,
                                     ),
                                     scrollDirection: Axis.vertical,
-                                    itemCount: bookmarkGridViewPostsRecordList.length,
-                                    itemBuilder: (context, bookmarkGridViewIndex) {
-                                      final bookmarkGridViewPostsRecord = bookmarkGridViewPostsRecordList[bookmarkGridViewIndex];
+                                    itemCount:
+                                        bookmarkGridViewPostsRecordList.length,
+                                    itemBuilder:
+                                        (context, bookmarkGridViewIndex) {
+                                      final bookmarkGridViewPostsRecord =
+                                          bookmarkGridViewPostsRecordList[
+                                              bookmarkGridViewIndex];
                                       return InkWell(
+                                        onTap: () async {
+                                          isLoading = true;
+                                          selected =
+                                              bookmarkGridViewPostsRecord.iid!;
+                                          setState(() {});
+
+                                          context.pushNamed(
+                                            'postDetail',
+                                            queryParams: {
+                                              'postRef': serializeParam(
+                                                bookmarkGridViewPostsRecord.iid,
+                                                ParamType.String,
+                                              ),
+                                            }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              kTransitionInfoKey:
+                                                  const TransitionInfo(
+                                                hasTransition: true,
+                                                transitionType:
+                                                    PageTransitionType
+                                                        .rightToLeft,
+                                              ),
+                                            },
+                                          );
+
+                                          isLoading = false;
+                                        },
                                         onLongPress: () async {
+                                          isLoading = false;
                                           await showModalBottomSheet(
                                             isScrollControlled: true,
                                             backgroundColor: Colors.transparent,
                                             context: context,
                                             builder: (context) {
                                               return Padding(
-                                                padding: MediaQuery.of(context).viewInsets,
+                                                padding: MediaQuery.of(context)
+                                                    .viewInsets,
                                                 child: PostOptionsWidget(
-                                                  posref: bookmarkGridViewPostsRecord.reference,
+                                                  posref:
+                                                      bookmarkGridViewPostsRecord
+                                                          .reference,
                                                 ),
                                               );
                                             },
                                           ).then((value) => setState(() {}));
                                         },
-                                        child: Image.network(
-                                          bookmarkGridViewPostsRecord.postPhoto!,
-                                          width: 100,
-                                          height: 100,
-                                          fit: BoxFit.cover,
-                                        ),
+                                        child: (isLoading &&
+                                                (bookmarkGridViewPostsRecord
+                                                        .iid ==
+                                                    selected))
+                                            ? Image.asset(
+                                                'assets/images/98288-loading.gif',
+                                                width: 48,
+                                                height: 48,
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Image.network(
+                                                bookmarkGridViewPostsRecord
+                                                    .postPhoto!,
+                                                width: 100,
+                                                height: 100,
+                                                fit: BoxFit.cover,
+                                              ),
                                       );
                                     },
                                   );

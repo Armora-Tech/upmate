@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -17,7 +19,7 @@ class _VerfiedWidgetState extends State<VerfiedWidget> {
     context.watch<FFAppState>();
 
     return Container(
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -26,7 +28,7 @@ class _VerfiedWidgetState extends State<VerfiedWidget> {
             width: 150,
             height: 150,
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
             ),
             child: Image.asset(
@@ -50,7 +52,7 @@ class _VerfiedWidgetState extends State<VerfiedWidget> {
                 ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
             child: FFButtonWidget(
               onPressed: () async {
                 context.pushNamed('surveyPage');
@@ -63,13 +65,13 @@ class _VerfiedWidgetState extends State<VerfiedWidget> {
               options: FFButtonOptions(
                 width: 170,
                 height: 40,
-                color: Color(0xFF3B5159),
+                color: const Color(0xFF3B5159),
                 textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                       fontFamily: 'Nunito',
                       color: Colors.white,
                       lineHeight: 1,
                     ),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.transparent,
                   width: 1,
                 ),

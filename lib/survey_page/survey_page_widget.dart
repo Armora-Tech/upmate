@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
@@ -27,7 +29,7 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
     super.initState();
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if ((currentUserDocument?.interests?.toList() ?? []).length > 0) {
+      if ((currentUserDocument?.interests?.toList() ?? []).isNotEmpty) {
         context.goNamed('mainPage');
 
         return;
@@ -56,7 +58,7 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -81,7 +83,7 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
                   clipBehavior: Clip.none,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: Text(
                         'Dapatkan rekomendasi konten hasil personalisasi Anda.  ',
                         style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -104,7 +106,7 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
                   clipBehavior: Clip.none,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: Text(
                         'Apa pekerjaan utama kamu?',
                         style: GoogleFonts.getFont(
@@ -138,7 +140,7 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
                     final formUtilsRecord = formUtilsRecordList.isNotEmpty
                         ? formUtilsRecordList.first
                         : null;
-                    return Container(
+                    return SizedBox(
                       width: double.infinity,
                       child: Form(
                         key: formKey,
@@ -160,7 +162,7 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
                           borderColor: Colors.transparent,
                           borderWidth: 0,
                           borderRadius: 0,
-                          margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                          margin: const EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
                           hidesUnderline: true,
                         ),
                       ),
@@ -168,7 +170,7 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
                   },
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       context.pushNamed(
@@ -185,13 +187,13 @@ class _SurveyPageWidgetState extends State<SurveyPageWidget> {
                     options: FFButtonOptions(
                       width: double.infinity,
                       height: 40,
-                      color: Color(0xFF3B5159),
+                      color: const Color(0xFF3B5159),
                       textStyle:
                           FlutterFlowTheme.of(context).subtitle2.override(
                                 fontFamily: 'Nunito',
                                 color: Colors.white,
                               ),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Colors.transparent,
                         width: 1,
                       ),

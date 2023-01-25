@@ -70,15 +70,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, _) =>
-          appStateNotifier.loggedIn ? NavBarPage() : LoginPageWidget(),
+      errorBuilder: (context, _) => appStateNotifier.loggedIn
+          ? const NavBarPage()
+          : const LoginPageWidget(),
       navigatorBuilder: (_, __, child) => DynamicLinksHandler(child: child),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : LoginPageWidget(),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? const NavBarPage()
+              : const LoginPageWidget(),
           routes: [
             FFRoute(
               name: 'VerifPage',
@@ -95,18 +97,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'LoginPage',
               path: 'loginPage',
-              builder: (context, params) => LoginPageWidget(),
+              builder: (context, params) => const LoginPageWidget(),
             ),
             FFRoute(
               name: 'SignupPage',
               path: 'signupPage',
-              builder: (context, params) => SignupPageWidget(),
+              builder: (context, params) => const SignupPageWidget(),
             ),
             FFRoute(
               name: 'surveyPage',
               path: 'surveyPage',
               requireAuth: true,
-              builder: (context, params) => SurveyPageWidget(),
+              builder: (context, params) => const SurveyPageWidget(),
             ),
             FFRoute(
               name: 'interestPage',
@@ -121,16 +123,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'explorePage',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'explorePage')
-                  : ExplorePageWidget(),
+                  ? const NavBarPage(initialPage: 'explorePage')
+                  : const ExplorePageWidget(),
             ),
             FFRoute(
               name: 'mainPage',
               path: 'mainPage',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'mainPage')
-                  : MainPageWidget(),
+                  ? const NavBarPage(initialPage: 'mainPage')
+                  : const MainPageWidget(),
             ),
             FFRoute(
               name: 'postDetail',
@@ -145,15 +147,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'notificationPage',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'notificationPage')
-                  : NotificationPageWidget(),
+                  ? const NavBarPage(initialPage: 'notificationPage')
+                  : const NotificationPageWidget(),
             ),
             FFRoute(
               name: 'newPostPage',
               path: 'newPostPage',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'newPostPage')
+                  ? const NavBarPage(initialPage: 'newPostPage')
                   : NewPostPageWidget(
                       prevPage: params.getParam('prevPage', ParamType.String),
                     ),
@@ -176,44 +178,44 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'allChatPage',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'allChatPage')
-                  : AllChatPageWidget(),
+                  ? const NavBarPage(initialPage: 'allChatPage')
+                  : const AllChatPageWidget(),
             ),
             FFRoute(
               name: 'createChatPage',
               path: 'createChatPage',
               requireAuth: true,
-              builder: (context, params) => CreateChatPageWidget(),
+              builder: (context, params) => const CreateChatPageWidget(),
             ),
             FFRoute(
               name: 'createGroupChat',
               path: 'createGroupChat',
               requireAuth: true,
-              builder: (context, params) => CreateGroupChatWidget(),
+              builder: (context, params) => const CreateGroupChatWidget(),
             ),
             FFRoute(
               name: 'premiumPage',
               path: 'premiumPage',
               requireAuth: true,
-              builder: (context, params) => PremiumPageWidget(),
+              builder: (context, params) => const PremiumPageWidget(),
             ),
             FFRoute(
               name: 'resetPassword',
               path: 'resetPassword',
               requireAuth: false,
-              builder: (context, params) => ResetPasswordWidget(),
+              builder: (context, params) => const ResetPasswordWidget(),
             ),
             FFRoute(
               name: 'confirmResetPass',
               path: 'confirmResetPass',
               requireAuth: false,
-              builder: (context, params) => ConfirmResetPassWidget(),
+              builder: (context, params) => const ConfirmResetPassWidget(),
             ),
             FFRoute(
               name: 'accountPage',
               path: 'accountPage',
               requireAuth: false,
-              builder: (context, params) => AccountPageWidget(),
+              builder: (context, params) => const AccountPageWidget(),
             ),
             FFRoute(
               name: 'bookmarkDetailPage',
@@ -227,19 +229,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'editProfile',
               path: 'editProfile',
               requireAuth: true,
-              builder: (context, params) => EditProfileWidget(),
+              builder: (context, params) => const EditProfileWidget(),
             ),
             FFRoute(
               name: 'appInfo',
               path: 'appInfo',
               requireAuth: true,
-              builder: (context, params) => AppInfoWidget(),
+              builder: (context, params) => const AppInfoWidget(),
             ),
             FFRoute(
               name: 'bookmarkListPage',
               path: 'bookmarkListPage',
               requireAuth: true,
-              builder: (context, params) => BookmarkListPageWidget(),
+              builder: (context, params) => const BookmarkListPageWidget(),
             ),
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
@@ -416,7 +418,7 @@ class FFRoute {
                   color: Colors.transparent,
                   child: Center(
                     child: Image.asset(
-                      'assets/images/Upmate_Splash.png',
+                      'assets/images/Upmate.png',
                       width: double.infinity,
                       height: double.infinity,
                       fit: BoxFit.fill,
@@ -458,5 +460,6 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() =>
+      const TransitionInfo(hasTransition: false);
 }

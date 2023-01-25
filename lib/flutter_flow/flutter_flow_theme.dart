@@ -55,15 +55,15 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color primaryText = const Color(0xFF101213);
   late Color secondaryText = const Color(0xFF57636C);
 
-  late Color primaryBtnText = Color(0xFFFFFFFF);
-  late Color lineColor = Color(0xFFE0E3E7);
-  late Color grayIcon = Color(0xFF95A1AC);
-  late Color gray200 = Color(0xFFDBE2E7);
-  late Color gray600 = Color(0xFF262D34);
-  late Color black600 = Color(0xFF090F13);
-  late Color tertiary400 = Color(0xFF39D2C0);
-  late Color textColor = Color(0xFF1E2429);
-  late Color btnColors = Color(0xFF3B5159);
+  late Color primaryBtnText = const Color(0xFFFFFFFF);
+  late Color lineColor = const Color(0xFFE0E3E7);
+  late Color grayIcon = const Color(0xFF95A1AC);
+  late Color gray200 = const Color(0xFFDBE2E7);
+  late Color gray600 = const Color(0xFF262D34);
+  late Color black600 = const Color(0xFF090F13);
+  late Color tertiary400 = const Color(0xFF39D2C0);
+  late Color textColor = const Color(0xFF1E2429);
+  late Color btnColors = const Color(0xFF3B5159);
 }
 
 abstract class Typography {

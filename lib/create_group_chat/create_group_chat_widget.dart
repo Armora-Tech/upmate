@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:up_mate/flutter_flow/flutter_flow_util.dart';
 
 import '../flutter_flow/chat/index.dart';
@@ -64,7 +66,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
             snapshot.data!.where((u) => u.uid != currentUserUid).toList();
         return Scaffold(
           key: scaffoldKey,
-          backgroundColor: Color(0xFFF1F4F8),
+          backgroundColor: const Color(0xFFF1F4F8),
           appBar: AppBar(
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
@@ -72,7 +74,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
               borderColor: Colors.transparent,
               borderRadius: 30,
               buttonSize: 24,
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back_rounded,
                 color: Color(0xFF95A1AC),
                 size: 24,
@@ -89,7 +91,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                   'Create Group Chat',
                   style: FlutterFlowTheme.of(context).subtitle1.override(
                         fontFamily: 'Lexend Deca',
-                        color: Color(0xFF95A1AC),
+                        color: const Color(0xFF95A1AC),
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                       ),
@@ -98,14 +100,14 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                   'Select the friends to add to chat.',
                   style: FlutterFlowTheme.of(context).bodyText2.override(
                         fontFamily: 'Lexend Deca',
-                        color: Color(0xFF1A1F24),
+                        color: const Color(0xFF1A1F24),
                         fontSize: 14,
                         fontWeight: FontWeight.normal,
                       ),
                 ),
               ],
             ),
-            actions: [],
+            actions: const [],
             centerTitle: false,
             elevation: 0,
           ),
@@ -116,8 +118,8 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                 width: double.infinity,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: Color(0xFFDBE2E7),
-                  boxShadow: [
+                  color: const Color(0xFFDBE2E7),
+                  boxShadow: const [
                     BoxShadow(
                       blurRadius: 3,
                       color: Color(0x33000000),
@@ -126,60 +128,60 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                   ],
                   borderRadius: BorderRadius.circular(0),
                 ),
-                alignment: AlignmentDirectional(0, 0),
+                alignment: const AlignmentDirectional(0, 0),
                 child: TextFormField(
                   controller: textController,
                   obscureText: false,
                   decoration: InputDecoration(
                     hintStyle: FlutterFlowTheme.of(context).bodyText1.override(
                           fontFamily: 'Lexend Deca',
-                          color: Color(0xFF95A1AC),
+                          color: const Color(0xFF95A1AC),
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
                         ),
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
                         width: 1,
                       ),
-                      borderRadius: const BorderRadius.only(
+                      borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(4.0),
                         topRight: Radius.circular(4.0),
                       ),
                     ),
-                    focusedBorder: UnderlineInputBorder(
+                    focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
                         width: 1,
                       ),
-                      borderRadius: const BorderRadius.only(
+                      borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(4.0),
                         topRight: Radius.circular(4.0),
                       ),
                     ),
-                    errorBorder: UnderlineInputBorder(
+                    errorBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
                         width: 1,
                       ),
-                      borderRadius: const BorderRadius.only(
+                      borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(4.0),
                         topRight: Radius.circular(4.0),
                       ),
                     ),
-                    focusedErrorBorder: UnderlineInputBorder(
+                    focusedErrorBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
                         width: 1,
                       ),
-                      borderRadius: const BorderRadius.only(
+                      borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(4.0),
                         topRight: Radius.circular(4.0),
                       ),
                     ),
                     contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(24, 14, 0, 0),
-                    prefixIcon: Icon(
+                        const EdgeInsetsDirectional.fromSTEB(24, 14, 0, 0),
+                    prefixIcon: const Icon(
                       Icons.search_outlined,
                       color: Color(0xFF95A1AC),
                       size: 24,
@@ -187,7 +189,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                   ),
                   style: FlutterFlowTheme.of(context).bodyText1.override(
                         fontFamily: 'Lexend Deca',
-                        color: Color(0xFF95A1AC),
+                        color: const Color(0xFF95A1AC),
                         fontSize: 14,
                         fontWeight: FontWeight.normal,
                       ),
@@ -206,13 +208,14 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                       itemBuilder: (context, usrIndex) {
                         final usrItem = usr[usrIndex];
                         return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 2),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 2),
                           child: Container(
                             width: double.infinity,
                             height: 70,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 0,
                                   color: Color(0xFFDBE2E7),
@@ -222,25 +225,26 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                               borderRadius: BorderRadius.circular(0),
                             ),
                             child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  8, 0, 0, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Card(
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: Color(0xFF4E39F9),
+                                    color: const Color(0xFF4E39F9),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(40),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          2, 2, 2, 2),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              2, 2, 2, 2),
                                       child: Container(
                                         width: 50,
                                         height: 50,
                                         clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           shape: BoxShape.circle,
                                         ),
                                         child: Image.network(
@@ -251,8 +255,9 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                                   ),
                                   Expanded(
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          2, 0, 0, 0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              2, 0, 0, 0),
                                       child: CheckboxListTile(
                                         value: checkboxListTileValueMap[
                                             usrItem] ??= false,
@@ -267,7 +272,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                                               .subtitle1
                                               .override(
                                                 fontFamily: 'Lexend Deca',
-                                                color: Color(0xFF95A1AC),
+                                                color: const Color(0xFF95A1AC),
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w500,
                                               ),
@@ -280,13 +285,13 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                                               .bodyText2
                                               .override(
                                                 fontFamily: 'Lexend Deca',
-                                                color: Color(0xFF1A1F24),
+                                                color: const Color(0xFF1A1F24),
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.normal,
                                               ),
                                         ),
-                                        tileColor: Color(0xFFF5F5F5),
-                                        activeColor: Color(0xFF4E39F9),
+                                        tileColor: const Color(0xFFF5F5F5),
+                                        activeColor: const Color(0xFF4E39F9),
                                         dense: false,
                                         controlAffinity:
                                             ListTileControlAffinity.trailing,
@@ -306,7 +311,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
               Container(
                 width: double.infinity,
                 height: 100,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xFF4E39F9),
                   boxShadow: [
                     BoxShadow(
@@ -323,7 +328,7 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 34),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 34),
                   child: FFButtonWidget(
                     onPressed: () async {
                       groupChat = await FFChatManager.instance.createChat(
@@ -350,14 +355,14 @@ class _CreateGroupChatWidgetState extends State<CreateGroupChatWidget> {
                     options: FFButtonOptions(
                       width: 130,
                       height: 40,
-                      color: Color(0xFF4E39F9),
+                      color: const Color(0xFF4E39F9),
                       textStyle: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'Lexend Deca',
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
                           ),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Colors.transparent,
                         width: 1,
                       ),

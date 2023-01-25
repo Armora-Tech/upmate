@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/verfied_widget.dart';
@@ -88,7 +90,8 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                       fit: BoxFit.cover,
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 80, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 0, 80, 0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -98,8 +101,8 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 5, 0, 0),
                                 child: Text(
                                   'Verify your email',
                                   textAlign: TextAlign.start,
@@ -118,8 +121,8 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 5, 0, 0),
                                 child: Text(
                                   'Please enter 4 digit code sent to',
                                   textAlign: TextAlign.start,
@@ -138,8 +141,8 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 5, 0, 0),
                                 child: Text(
                                   valueOrDefault<String>(
                                     widget.mail,
@@ -213,7 +216,8 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                                   ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                           child: Text(
                             'Kirim Ulang Email',
                             style:
@@ -227,7 +231,8 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           await Future.delayed(
@@ -276,12 +281,13 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                               context: context,
                               builder: (alertDialogContext) {
                                 return AlertDialog(
-                                  content: Text('Wrong verification code'),
+                                  content:
+                                      const Text('Wrong verification code'),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>
                                           Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
+                                      child: const Text('Ok'),
                                     ),
                                   ],
                                 );
@@ -294,13 +300,13 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                         options: FFButtonOptions(
                           width: 273,
                           height: 43,
-                          color: Color(0xFF3B5159),
+                          color: const Color(0xFF3B5159),
                           textStyle:
                               FlutterFlowTheme.of(context).subtitle2.override(
                                     fontFamily: 'Nunito',
                                     color: Colors.white,
                                   ),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.transparent,
                             width: 1,
                           ),
@@ -316,42 +322,42 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                         decoration: InputDecoration(
                           hintText: '[Some hint text...]',
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          errorBorder: UnderlineInputBorder(
+                          errorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                          focusedErrorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
@@ -367,42 +373,42 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                         decoration: InputDecoration(
                           hintText: '[Some hint text...]',
                           hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          errorBorder: UnderlineInputBorder(
+                          errorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                          focusedErrorBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
                               width: 1,
                             ),
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
@@ -416,7 +422,7 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                               fPwVisibility
                                   ? Icons.visibility_outlined
                                   : Icons.visibility_off_outlined,
-                              color: Color(0xFF757575),
+                              color: const Color(0xFF757575),
                               size: 22,
                             ),
                           ),
@@ -437,7 +443,7 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height * 1,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Color(0x00FFFFFF),
                               ),
                               child: ClipRRect(
@@ -454,7 +460,7 @@ class _VerifPageWidgetState extends State<VerifPageWidget> {
                                         mainAxisSize: MainAxisSize.min,
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
-                                        children: [
+                                        children: const [
                                           Expanded(
                                             child: Padding(
                                               padding: EdgeInsetsDirectional

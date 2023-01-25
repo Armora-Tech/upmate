@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -43,7 +45,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
           'Notifications',
           style: FlutterFlowTheme.of(context).title2,
         ),
-        actions: [],
+        actions: const [],
         centerTitle: false,
         elevation: 0,
       ),
@@ -77,7 +79,7 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                 final listViewNotificationsRecord =
                     listViewNotificationsRecordList[listViewIndex];
                 return Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -86,14 +88,14 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                         BoxShadow(
                           blurRadius: 0,
                           color: FlutterFlowTheme.of(context).lineColor,
-                          offset: Offset(0, 1),
+                          offset: const Offset(0, 1),
                         )
                       ],
                       borderRadius: BorderRadius.circular(0),
                       shape: BoxShape.rectangle,
                     ),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                      padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -109,8 +111,8 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                             ),
                           Expanded(
                             child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  12, 0, 0, 0),
                               child: Text(
                                 listViewNotificationsRecord.title!,
                                 style: FlutterFlowTheme.of(context).subtitle1,
@@ -118,8 +120,8 @@ class _NotificationPageWidgetState extends State<NotificationPageWidget> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                12, 0, 0, 0),
                             child: Text(
                               dateTimeFormat(
                                 'relative',

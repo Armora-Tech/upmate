@@ -1,4 +1,7 @@
-import '../auth/auth_util.dart';
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
+import 'package:up_mate/flutter_flow/chat/index.dart';
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -71,9 +74,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       ),
                       if ('' == '2')
                         Align(
-                          alignment: AlignmentDirectional(-0.1, 0),
+                          alignment: const AlignmentDirectional(-0.1, 0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 5, 0, 0),
                             child: AutoSizeText(
                               'Welcome back!',
                               textAlign: TextAlign.start,
@@ -93,15 +97,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
-                              child: Container(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  20, 0, 20, 0),
+                              child: SizedBox(
                                 width: 300,
                                 child: TextFormField(
                                   controller: inpEmailController,
                                   onChanged: (_) => EasyDebounce.debounce(
                                     'inpEmailController',
-                                    Duration(milliseconds: 2000),
+                                    const Duration(milliseconds: 2000),
                                     () => setState(() {}),
                                   ),
                                   obscureText: false,
@@ -110,28 +114,28 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     hintStyle:
                                         FlutterFlowTheme.of(context).bodyText2,
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0xFFFBEFEF),
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0xFFFBEFEF),
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 1,
                                       ),
@@ -144,7 +148,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                                   inpEmailController?.clear();
                                                   setState(() {});
                                                 },
-                                                child: Icon(
+                                                child: const Icon(
                                                   Icons.clear,
                                                   color: Color(0xFF757575),
                                                   size: 22,
@@ -169,9 +173,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                              child: Container(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  20, 10, 20, 0),
+                              child: SizedBox(
                                 width: 300,
                                 child: TextFormField(
                                   controller: inpPassController,
@@ -181,28 +185,28 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     hintStyle:
                                         FlutterFlowTheme.of(context).bodyText2,
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0xFFFBEFEF),
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0xFFFBEFEF),
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 1,
                                       ),
@@ -218,7 +222,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         inpPassVisibility
                                             ? Icons.visibility_outlined
                                             : Icons.visibility_off_outlined,
-                                        color: Color(0xFF757575),
+                                        color: const Color(0xFF757575),
                                         size: 22,
                                       ),
                                     ),
@@ -243,7 +247,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: FFButtonWidget(
                           onPressed: () async {
                             if (formKey.currentState == null ||
@@ -261,20 +266,28 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             if (user == null) {
                               return;
                             }
-
-                            context.goNamedAuth('mainPage', mounted);
+                            final userRec = await queryUsersRecordOnce(
+                              queryBuilder: (usersRecord) =>
+                                  usersRecord.where('uid', isEqualTo: user.uid),
+                              singleRecord: true,
+                            );
+                            if (userRec.first.interests!.isNotEmpty) {
+                              context.goNamedAuth('mainPage', mounted);
+                            } else {
+                              context.goNamedAuth('interestPage', mounted);
+                            }
                           },
                           text: 'Sign In',
                           options: FFButtonOptions(
                             width: 273,
                             height: 43,
-                            color: Color(0xFF3B5159),
+                            color: const Color(0xFF3B5159),
                             textStyle:
                                 FlutterFlowTheme.of(context).subtitle2.override(
                                       fontFamily: 'Nunito',
                                       color: Colors.white,
                                     ),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.transparent,
                               width: 1,
                             ),
@@ -283,7 +296,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(150, 0, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(150, 0, 0, 0),
                         child: InkWell(
                           onTap: () async {
                             context.pushNamed('resetPassword');
@@ -294,7 +308,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             children: [
                               if (FFAppState().sreset == false)
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 5, 0, 0),
                                   child: InkWell(
                                     onTap: () async {
@@ -306,7 +320,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                           .bodyText1
                                           .override(
                                             fontFamily: 'Nunito',
-                                            color: Color(0xFF505050),
+                                            color: const Color(0xFF505050),
                                             fontSize: 15,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -318,14 +332,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                        child: Container(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                        child: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: Stack(
-                            alignment: AlignmentDirectional(0, -0.7),
+                            alignment: const AlignmentDirectional(0, -0.7),
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     50, 0, 50, 0),
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
@@ -335,7 +350,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
-                                    children: [
+                                    children: const [
                                       Divider(
                                         height: 3,
                                         thickness: 1,
@@ -346,19 +361,20 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: AlignmentDirectional(0, -0.9),
+                                alignment: const AlignmentDirectional(0, -0.9),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 50),
                                   child: Container(
-                                    constraints: BoxConstraints(
+                                    constraints: const BoxConstraints(
                                       maxWidth: 100,
                                     ),
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: Colors.white,
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0, 0),
+                                      alignment:
+                                          const AlignmentDirectional(0, 0),
                                       child: Text(
                                         'Sign In with',
                                         style: FlutterFlowTheme.of(context)
@@ -385,7 +401,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   });
                                   GoRouter.of(context).prepareAuthEvent();
                                   final user = await signInWithGoogle(context);
-                                  debugPrint("USERSTATUS: " + user.toString());
                                   if (user == null) {
                                     FFAppState().update(() {
                                       FFAppState().unused = false;
@@ -394,13 +409,13 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       context: context,
                                       builder: (alertDialogContext) {
                                         return AlertDialog(
-                                          content: Text(
+                                          content: const Text(
                                               'Login gagal, silahkan mencoba beberapa saat lagi.'),
                                           actions: [
                                             TextButton(
                                               onPressed: () => Navigator.pop(
                                                   alertDialogContext),
-                                              child: Text('Ok'),
+                                              child: const Text('Ok'),
                                             ),
                                           ],
                                         );
@@ -421,13 +436,13 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     context: context,
                                     builder: (alertDialogContext) {
                                       return AlertDialog(
-                                        content: Text(
+                                        content: const Text(
                                             'Login gagal, silahkan mencoba beberapa saat lagi.'),
                                         actions: [
                                           TextButton(
                                             onPressed: () => Navigator.pop(
                                                 alertDialogContext),
-                                            child: Text('Ok'),
+                                            child: const Text('Ok'),
                                           ),
                                         ],
                                       );
@@ -501,7 +516,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 10),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 10),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -520,7 +536,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 context.pushNamed(
                                   'SignupPage',
                                   extra: <String, dynamic>{
-                                    kTransitionInfoKey: TransitionInfo(
+                                    kTransitionInfoKey: const TransitionInfo(
                                       hasTransition: true,
                                       transitionType:
                                           PageTransitionType.bottomToTop,

@@ -55,13 +55,13 @@ class DocumentReferenceSerializer
 
   @override
   Object serialize(Serializers serializers, DocumentReference reference,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     return reference;
   }
 
   @override
   DocumentReference deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType: FullType.unspecified}) =>
+          {FullType specifiedType = FullType.unspecified}) =>
       serialized as DocumentReference;
 }
 
@@ -73,13 +73,13 @@ class DateTimeSerializer implements PrimitiveSerializer<DateTime> {
 
   @override
   Object serialize(Serializers serializers, DateTime dateTime,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     return dateTime;
   }
 
   @override
   DateTime deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType: FullType.unspecified}) =>
+          {FullType specifiedType = FullType.unspecified}) =>
       serialized as DateTime;
 }
 
@@ -92,13 +92,13 @@ class LatLngSerializer implements PrimitiveSerializer<LatLng> {
 
   @override
   Object serialize(Serializers serializers, LatLng location,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     return location;
   }
 
   @override
   LatLng deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType: FullType.unspecified}) =>
+          {FullType specifiedType = FullType.unspecified}) =>
       serialized as LatLng;
 }
 
@@ -126,13 +126,13 @@ class FirestoreUtilDataSerializer
 
   @override
   Object serialize(Serializers serializers, FirestoreUtilData firestoreUtilData,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     return firestoreUtilData;
   }
 
   @override
   FirestoreUtilData deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType: FullType.unspecified}) =>
+          {FullType specifiedType = FullType.unspecified}) =>
       serialized as FirestoreUtilData;
 }
 
@@ -144,13 +144,13 @@ class ColorSerializer implements PrimitiveSerializer<Color> {
 
   @override
   Object serialize(Serializers serializers, Color color,
-      {FullType specifiedType: FullType.unspecified}) {
+      {FullType specifiedType = FullType.unspecified}) {
     return color.toCssString();
   }
 
   @override
   Color deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType: FullType.unspecified}) =>
+          {FullType specifiedType = FullType.unspecified}) =>
       fromCssColor(serialized as String);
 }
 

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, unnecessary_import
+
 import 'dart:async';
 
 import 'package:from_css_color/from_css_color.dart';

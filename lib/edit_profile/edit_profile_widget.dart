@@ -1,3 +1,6 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
+import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../auth/auth_util.dart';
@@ -50,7 +53,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: Color(0xFFD9D9D9),
+        backgroundColor: const Color(0xFFD9D9D9),
         iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).black600),
         automaticallyImplyLeading: true,
         title: Text(
@@ -77,7 +80,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                   );
                   await currentUserReference!.update(usersUpdateData);
                 } catch (e) {
-                  print("ERROR OCCURED: " + e.toString());
+                  if (kDebugMode) {
+                    print("ERROR OCCURED: $e");
+                  }
                 }
               }
               if (textController3!.text != '') {
@@ -95,20 +100,20 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       color: FlutterFlowTheme.of(context).primaryText,
                     ),
                   ),
-                  duration: Duration(milliseconds: 4000),
-                  backgroundColor: Color(0x00000000),
+                  duration: const Duration(milliseconds: 4000),
+                  backgroundColor: const Color(0x00000000),
                 ),
               );
             },
             text: 'Simpan',
             options: FFButtonOptions(
                 height: 40,
-                color: Color(0xFFD9D9D9),
+                color: const Color(0xFFD9D9D9),
                 textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                       fontFamily: 'Nunito',
-                      color: Color(0xFF4AA8FF),
+                      color: const Color(0xFF4AA8FF),
                     ),
-                borderSide: BorderSide(color: Colors.transparent),
+                borderSide: const BorderSide(color: Colors.transparent),
                 elevation: 0),
           ),
         ],
@@ -121,7 +126,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0xFFD9D9D9),
             ),
             child: Column(
@@ -132,16 +137,17 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            10, 10, 10, 10),
                         child: Card(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
-                          color: Color(0xFFF5F5F5),
+                          color: const Color(0xFFF5F5F5),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                10, 10, 10, 10),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,7 +162,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                       ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 5, 0, 0),
                                   child: AuthUserStreamWidget(
                                     builder: (context) => TextFormField(
@@ -188,22 +194,23 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                             topRight: Radius.circular(4.0),
                                           ),
                                         ),
-                                        errorBorder: OutlineInputBorder(
+                                        errorBorder: const OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
                                             width: 1,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(4.0),
                                             topRight: Radius.circular(4.0),
                                           ),
                                         ),
-                                        focusedErrorBorder: OutlineInputBorder(
+                                        focusedErrorBorder:
+                                            const OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
                                             width: 1,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(4.0),
                                             topRight: Radius.circular(4.0),
                                           ),
@@ -215,7 +222,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 10, 0, 0),
                                   child: Text(
                                     'Nama lengkap',
@@ -257,22 +264,23 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                           topRight: Radius.circular(4.0),
                                         ),
                                       ),
-                                      errorBorder: OutlineInputBorder(
+                                      errorBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
                                           width: 1,
                                         ),
-                                        borderRadius: const BorderRadius.only(
+                                        borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(4.0),
                                           topRight: Radius.circular(4.0),
                                         ),
                                       ),
-                                      focusedErrorBorder: OutlineInputBorder(
+                                      focusedErrorBorder:
+                                          const OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
                                           width: 1,
                                         ),
-                                        borderRadius: const BorderRadius.only(
+                                        borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(4.0),
                                           topRight: Radius.circular(4.0),
                                         ),
@@ -295,16 +303,17 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            10, 10, 10, 10),
                         child: Card(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
-                          color: Color(0xFFF5F5F5),
+                          color: const Color(0xFFF5F5F5),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                10, 10, 10, 10),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -319,7 +328,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                       ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 5, 0, 0),
                                   child: AuthUserStreamWidget(
                                     builder: (context) => TextFormField(
@@ -351,22 +360,23 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                             topRight: Radius.circular(4.0),
                                           ),
                                         ),
-                                        errorBorder: OutlineInputBorder(
+                                        errorBorder: const OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
                                             width: 1,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(4.0),
                                             topRight: Radius.circular(4.0),
                                           ),
                                         ),
-                                        focusedErrorBorder: OutlineInputBorder(
+                                        focusedErrorBorder:
+                                            const OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00000000),
                                             width: 1,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(4.0),
                                             topRight: Radius.circular(4.0),
                                           ),

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/reason_report_widget.dart';
@@ -37,7 +39,7 @@ class _CommentOptionsWidgetState extends State<CommentOptionsWidget> {
         color: FlutterFlowTheme.of(context).secondaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 24),
+        padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 24),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +60,7 @@ class _CommentOptionsWidgetState extends State<CommentOptionsWidget> {
                           color: FlutterFlowTheme.of(context).primaryText,
                         ),
                       ),
-                      duration: Duration(milliseconds: 4000),
+                      duration: const Duration(milliseconds: 4000),
                       backgroundColor:
                           FlutterFlowTheme.of(context).primaryBtnText,
                     ),
@@ -68,9 +70,9 @@ class _CommentOptionsWidgetState extends State<CommentOptionsWidget> {
                 child: Container(
                   width: double.infinity,
                   height: 60,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                    padding: const EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -82,7 +84,7 @@ class _CommentOptionsWidgetState extends State<CommentOptionsWidget> {
                             borderRadius: BorderRadius.circular(40),
                           ),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                            padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                             child: Icon(
                               Icons.block_rounded,
                               color: FlutterFlowTheme.of(context).secondaryText,
@@ -93,7 +95,7 @@ class _CommentOptionsWidgetState extends State<CommentOptionsWidget> {
                         Expanded(
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                                const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,9 +151,9 @@ class _CommentOptionsWidgetState extends State<CommentOptionsWidget> {
               child: Container(
                 width: double.infinity,
                 height: 60,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                  padding: const EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -163,7 +165,7 @@ class _CommentOptionsWidgetState extends State<CommentOptionsWidget> {
                           borderRadius: BorderRadius.circular(40),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                          padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                           child: Icon(
                             Icons.report_problem_rounded,
                             color: FlutterFlowTheme.of(context).secondaryText,
@@ -173,7 +175,7 @@ class _CommentOptionsWidgetState extends State<CommentOptionsWidget> {
                       ),
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

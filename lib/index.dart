@@ -27,4 +27,3 @@ export 'edit_profile/edit_profile_widget.dart' show EditProfileWidget;
 export 'app_info/app_info_widget.dart' show AppInfoWidget;
 export 'bookmark_list_page/bookmark_list_page_widget.dart'
     show BookmarkListPageWidget;
-export 'reset_password/reset_password_widget.dart' show ResetPasswordWidget;

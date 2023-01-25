@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class FlutterFlowDropDown<T> extends StatefulWidget {
   const FlutterFlowDropDown({
+    Key? key,
     this.initialOption,
     this.hintText,
     required this.options,
@@ -19,7 +20,7 @@ class FlutterFlowDropDown<T> extends StatefulWidget {
     required this.margin,
     this.hidesUnderline = false,
     this.disabled = false,
-  });
+  }) : super(key: key);
 
   final T? initialOption;
   final String? hintText;
@@ -104,7 +105,7 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
       ),
     );
     if (widget.height != null || widget.width != null) {
-      return Container(
+      return SizedBox(
         width: widget.width,
         height: widget.height,
         child: childWidget,

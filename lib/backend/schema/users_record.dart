@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:from_css_color/from_css_color.dart';
-import 'index.dart';
 import 'serializers.dart';
 import 'package:built_value/built_value.dart';
 
@@ -35,6 +33,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   bool? get isPremium;
 
+  bool? get isPartner;
+
   String? get username;
 
   String? get bio;
@@ -55,6 +55,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..postTmpImg = ''
     ..blocked = ListBuilder()
     ..isPremium = false
+    ..isPartner = false
     ..username = ''
     ..bio = '';
 
@@ -123,6 +124,7 @@ Map<String, dynamic> createUsersRecordData({
   String? phoneNumber,
   String? postTmpImg,
   bool? isPremium,
+  bool? isPartner,
   String? username,
   String? bio,
   DocumentReference? ref,
@@ -141,6 +143,7 @@ Map<String, dynamic> createUsersRecordData({
         ..postTmpImg = postTmpImg
         ..blocked = null
         ..isPremium = isPremium
+        ..isPartner = isPartner
         ..username = username
         ..bio = bio
         ..ref = ref,

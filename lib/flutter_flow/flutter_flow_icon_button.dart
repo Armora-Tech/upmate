@@ -74,7 +74,7 @@ class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
         ),
         child: (widget.showLoadingIndicator && loading)
             ? Center(
-                child: Container(
+                child: SizedBox(
                   width: iconSize,
                   height: iconSize,
                   child: CircularProgressIndicator(

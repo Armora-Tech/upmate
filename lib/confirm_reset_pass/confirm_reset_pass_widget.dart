@@ -1,3 +1,6 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
+import 'package:flutter/foundation.dart';
 import 'package:open_mail_app/open_mail_app.dart';
 
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -61,7 +64,9 @@ class _ConfirmResetPassWidgetState extends State<ConfirmResetPassWidget> {
                       size: 80,
                     ),
                     onPressed: () {
-                      print('IconButton pressed ...');
+                      if (kDebugMode) {
+                        print('IconButton pressed ...');
+                      }
                     },
                   ),
                   Text(
@@ -73,7 +78,8 @@ class _ConfirmResetPassWidgetState extends State<ConfirmResetPassWidget> {
                         ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                     child: Wrap(
                       spacing: 0,
                       runSpacing: 0,
@@ -93,7 +99,8 @@ class _ConfirmResetPassWidgetState extends State<ConfirmResetPassWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                     child: FFButtonWidget(
                       onPressed: () async {
                         // Android: Will open mail app or show native picker.
@@ -128,7 +135,7 @@ class _ConfirmResetPassWidgetState extends State<ConfirmResetPassWidget> {
                                   fontFamily: 'Nunito',
                                   color: Colors.white,
                                 ),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1,
                         ),
@@ -137,7 +144,8 @@ class _ConfirmResetPassWidgetState extends State<ConfirmResetPassWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                     child: InkWell(
                         onTap: () async {
                           context.pushNamed('LoginPage');
@@ -184,8 +192,8 @@ void showNoMailAppsDialog(BuildContext context) {
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text("Open Mail App"),
-        content: Text("No mail apps installed"),
+        title: const Text("Open Mail App"),
+        content: const Text("No mail apps installed"),
         actions: <Widget>[
           FFButtonWidget(
             text: "OK",
@@ -198,7 +206,7 @@ void showNoMailAppsDialog(BuildContext context) {
                       fontFamily: 'Nunito',
                       color: Colors.white,
                     ),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.transparent,
                   width: 1,
                 )),

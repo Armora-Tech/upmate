@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class _ChatsOptionsWidgetState extends State<ChatsOptionsWidget> {
         color: FlutterFlowTheme.of(context).secondaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,9 +36,9 @@ class _ChatsOptionsWidgetState extends State<ChatsOptionsWidget> {
               child: Container(
                 width: double.infinity,
                 height: 60,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                  padding: const EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -48,7 +50,8 @@ class _ChatsOptionsWidgetState extends State<ChatsOptionsWidget> {
                           borderRadius: BorderRadius.circular(40),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                           child: Icon(
                             Icons.person,
                             color: FlutterFlowTheme.of(context).secondaryText,
@@ -58,7 +61,8 @@ class _ChatsOptionsWidgetState extends State<ChatsOptionsWidget> {
                       ),
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,9 +87,9 @@ class _ChatsOptionsWidgetState extends State<ChatsOptionsWidget> {
               child: Container(
                 width: double.infinity,
                 height: 60,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                  padding: const EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -97,7 +101,8 @@ class _ChatsOptionsWidgetState extends State<ChatsOptionsWidget> {
                           borderRadius: BorderRadius.circular(40),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                           child: Icon(
                             Icons.people,
                             color: FlutterFlowTheme.of(context).secondaryText,
@@ -107,7 +112,8 @@ class _ChatsOptionsWidgetState extends State<ChatsOptionsWidget> {
                       ),
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

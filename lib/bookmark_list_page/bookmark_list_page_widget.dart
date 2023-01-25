@@ -1,9 +1,12 @@
+// ignore_for_file: library_private_types_in_public_api
+
+import 'package:flutter/foundation.dart';
+
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class BookmarkListPageWidget extends StatefulWidget {
@@ -42,7 +45,7 @@ class _BookmarkListPageWidgetState extends State<BookmarkListPageWidget> {
                 fontWeight: FontWeight.bold,
               ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: true,
         elevation: 4,
       ),
@@ -57,7 +60,8 @@ class _BookmarkListPageWidgetState extends State<BookmarkListPageWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
                         child: InkWell(
                           onTap: () async {
                             context.pushNamed(
@@ -82,28 +86,31 @@ class _BookmarkListPageWidgetState extends State<BookmarkListPageWidget> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       10, 0, 0, 0),
                                   child: FlutterFlowIconButton(
                                     borderColor: Colors.transparent,
                                     borderRadius: 30,
                                     borderWidth: 1,
                                     buttonSize: 60,
-                                    fillColor: Color(0xFF4AA8FF),
-                                    icon: Icon(
+                                    fillColor: const Color(0xFF4AA8FF),
+                                    icon: const Icon(
                                       Icons.bookmarks,
                                       color: Colors.white,
                                       size: 30,
                                     ),
                                     onPressed: () {
-                                      print('IconButton pressed ...');
+                                      if (kDebugMode) {
+                                        print('IconButton pressed ...');
+                                      }
                                     },
                                   ),
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            5, 0, 0, 0),
                                     child: Text(
                                       'Semua Bookmark',
                                       style: FlutterFlowTheme.of(context)
@@ -127,9 +134,7 @@ class _BookmarkListPageWidgetState extends State<BookmarkListPageWidget> {
                                         FlutterFlowTheme.of(context).grayIcon,
                                     size: 30,
                                   ),
-                                  onPressed: () {
-                                    print('IconButton pressed ...');
-                                  },
+                                  onPressed: () {},
                                 ),
                               ],
                             ),
@@ -148,7 +153,7 @@ class _BookmarkListPageWidgetState extends State<BookmarkListPageWidget> {
                                   (interestsIndex) {
                                 final interestsItem = interests[interestsIndex];
                                 return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 1),
                                   child: Container(
                                     width: double.infinity,
@@ -163,9 +168,8 @@ class _BookmarkListPageWidgetState extends State<BookmarkListPageWidget> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(10, 0, 0, 0),
                                           child: FlutterFlowIconButton(
                                             borderColor: Colors.transparent,
                                             borderRadius: 30,
@@ -173,21 +177,18 @@ class _BookmarkListPageWidgetState extends State<BookmarkListPageWidget> {
                                             buttonSize: 60,
                                             fillColor: FFAppState()
                                                 .interestColors[interestsIndex],
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.bookmark_sharp,
                                               color: Colors.white,
                                               size: 30,
                                             ),
-                                            onPressed: () {
-                                              print('IconButton pressed ...');
-                                            },
+                                            onPressed: () {},
                                           ),
                                         ),
                                         Expanded(
                                           child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    5, 0, 0, 0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(5, 0, 0, 0),
                                             child: Text(
                                               interestsItem,
                                               style:

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:built_value/built_value.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 
@@ -147,7 +148,9 @@ T? getParameter<T>(Map<String, dynamic> data, String paramName) {
     }
     return param;
   } catch (e) {
-    print('Error parsing parameter "$paramName": $e');
+    if (kDebugMode) {
+      print('Error parsing parameter "$paramName": $e');
+    }
     return null;
   }
 }

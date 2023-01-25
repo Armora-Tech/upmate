@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, unnecessary_null_comparison
 
 import 'dart:async';
 
@@ -26,7 +26,7 @@ class AlgoliaQueryParams extends Equatable {
 
 class FFAlgoliaManager {
   FFAlgoliaManager._()
-      : algolia = Algolia.init(
+      : algolia = const Algolia.init(
           applicationId: kAlgoliaApplicationId,
           apiKey: kAlgoliaApiKey,
         );
@@ -36,8 +36,8 @@ class FFAlgoliaManager {
   static FFAlgoliaManager get instance => _instance ??= FFAlgoliaManager._();
 
   // Cache that will ensure identical queries are not repeatedly made.
-  static Map<AlgoliaQueryParams, List<AlgoliaObjectSnapshot>> _algoliaCache =
-      {};
+  static final Map<AlgoliaQueryParams, List<AlgoliaObjectSnapshot>>
+      _algoliaCache = {};
 
   Future<List<AlgoliaObjectSnapshot>> algoliaQuery({
     required String index,
@@ -81,8 +81,11 @@ class FFAlgoliaManager {
     snapshot = await query
         .getObjects()
         .then((value) => snapshot = value)
+        // ignore: body_might_complete_normally_catch_error
         .catchError((error, stackTrace) {
-      print('Algolia error: $error\nStack trace: $stackTrace');
+      if (kDebugMode) {
+        print('Algolia error: $error\nStack trace: $stackTrace');
+      }
     });
     return _algoliaCache[params] = snapshot?.hits ?? [];
   }

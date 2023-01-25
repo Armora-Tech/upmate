@@ -93,6 +93,13 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.isPartner;
+    if (value != null) {
+      result
+        ..add('isPartner')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.username;
     if (value != null) {
       result
@@ -182,6 +189,10 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.isPremium = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'isPartner':
+          result.isPartner = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'username':
           result.username = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -231,6 +242,8 @@ class _$UsersRecord extends UsersRecord {
   @override
   final bool? isPremium;
   @override
+  final bool? isPartner;
+  @override
   final String? username;
   @override
   final String? bio;
@@ -253,6 +266,7 @@ class _$UsersRecord extends UsersRecord {
       this.postTmpImg,
       this.blocked,
       this.isPremium,
+      this.isPartner,
       this.username,
       this.bio,
       this.ref,
@@ -280,6 +294,7 @@ class _$UsersRecord extends UsersRecord {
         postTmpImg == other.postTmpImg &&
         blocked == other.blocked &&
         isPremium == other.isPremium &&
+        isPartner == other.isPartner &&
         username == other.username &&
         bio == other.bio &&
         ref == other.ref &&
@@ -300,16 +315,21 @@ class _$UsersRecord extends UsersRecord {
                                         $jc(
                                             $jc(
                                                 $jc(
-                                                    $jc($jc(0, email.hashCode),
-                                                        displayName.hashCode),
-                                                    photoUrl.hashCode),
-                                                uid.hashCode),
-                                            createdTime.hashCode),
-                                        phoneNumber.hashCode),
-                                    interests.hashCode),
-                                postTmpImg.hashCode),
-                            blocked.hashCode),
-                        isPremium.hashCode),
+                                                    $jc(
+                                                        $jc(
+                                                            $jc(0,
+                                                                email.hashCode),
+                                                            displayName
+                                                                .hashCode),
+                                                        photoUrl.hashCode),
+                                                    uid.hashCode),
+                                                createdTime.hashCode),
+                                            phoneNumber.hashCode),
+                                        interests.hashCode),
+                                    postTmpImg.hashCode),
+                                blocked.hashCode),
+                            isPremium.hashCode),
+                        isPartner.hashCode),
                     username.hashCode),
                 bio.hashCode),
             ref.hashCode),
@@ -329,6 +349,7 @@ class _$UsersRecord extends UsersRecord {
           ..add('postTmpImg', postTmpImg)
           ..add('blocked', blocked)
           ..add('isPremium', isPremium)
+          ..add('isPartner', isPartner)
           ..add('username', username)
           ..add('bio', bio)
           ..add('ref', ref)
@@ -384,6 +405,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   bool? get isPremium => _$this._isPremium;
   set isPremium(bool? isPremium) => _$this._isPremium = isPremium;
 
+  bool? _isPartner;
+  bool? get isPartner => _$this._isPartner;
+  set isPartner(bool? isPartner) => _$this._isPartner = isPartner;
+
   String? _username;
   String? get username => _$this._username;
   set username(String? username) => _$this._username = username;
@@ -417,6 +442,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _postTmpImg = $v.postTmpImg;
       _blocked = $v.blocked?.toBuilder();
       _isPremium = $v.isPremium;
+      _isPartner = $v.isPartner;
       _username = $v.username;
       _bio = $v.bio;
       _ref = $v.ref;
@@ -455,6 +481,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               postTmpImg: postTmpImg,
               blocked: _blocked?.build(),
               isPremium: isPremium,
+              isPartner: isPartner,
               username: username,
               bio: bio,
               ref: ref,

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
         color: FlutterFlowTheme.of(context).secondaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 24),
+        padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 24),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,9 +36,9 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
             Container(
               width: double.infinity,
               height: 60,
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -48,7 +50,8 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
                         borderRadius: BorderRadius.circular(40),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                         child: Icon(
                           Icons.share_rounded,
                           color: FlutterFlowTheme.of(context).secondaryText,
@@ -58,7 +61,8 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,9 +82,9 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
             Container(
               width: double.infinity,
               height: 60,
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -92,7 +96,8 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
                         borderRadius: BorderRadius.circular(40),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                         child: Icon(
                           Icons.insert_link,
                           color: FlutterFlowTheme.of(context).secondaryText,
@@ -102,7 +107,8 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,9 +128,9 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
             Container(
               width: double.infinity,
               height: 60,
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                padding: const EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -136,7 +142,8 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
                         borderRadius: BorderRadius.circular(40),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                         child: Icon(
                           Icons.mode_edit,
                           color: FlutterFlowTheme.of(context).secondaryText,
@@ -146,7 +153,8 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -174,8 +182,8 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
                         color: FlutterFlowTheme.of(context).primaryText,
                       ),
                     ),
-                    duration: Duration(milliseconds: 4000),
-                    backgroundColor: Color(0x00000000),
+                    duration: const Duration(milliseconds: 4000),
+                    backgroundColor: const Color(0x00000000),
                   ),
                 );
                 Navigator.pop(context);
@@ -183,9 +191,9 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
               child: Container(
                 width: double.infinity,
                 height: 60,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
+                  padding: const EdgeInsetsDirectional.fromSTEB(12, 8, 12, 8),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -197,7 +205,8 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
                           borderRadius: BorderRadius.circular(40),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                           child: Icon(
                             Icons.delete_outline,
                             color: FlutterFlowTheme.of(context).secondaryText,
@@ -207,7 +216,8 @@ class _PostOptionsWidgetState extends State<PostOptionsWidget> {
                       ),
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

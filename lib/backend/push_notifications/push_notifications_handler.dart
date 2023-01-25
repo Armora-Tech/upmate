@@ -1,13 +1,14 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 
 import 'serialization_util.dart';
 import '../backend.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-
-import '../../index.dart';
-import '../../main.dart';
 
 final _handledMessageIds = <String?>{};
 
@@ -59,7 +60,9 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
         );
       }
     } catch (e) {
-      print('Error: $e');
+      if (kDebugMode) {
+        print('Error: $e');
+      }
     } finally {
       if (mounted) {
         setState(() => _loading = false);
@@ -105,7 +108,7 @@ class ParameterData {
       );
 
   static Future<ParameterData> Function(Map<String, dynamic>) none() =>
-      (data) async => ParameterData();
+      (data) async => const ParameterData();
 }
 
 final parametersBuilderMap =
@@ -175,7 +178,9 @@ Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {
     }
     return jsonDecode(parameterDataStr) as Map<String, dynamic>;
   } catch (e) {
-    print('Error parsing parameter data: $e');
+    if (kDebugMode) {
+      print('Error parsing parameter data: $e');
+    }
     return {};
   }
 }

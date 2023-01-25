@@ -29,6 +29,7 @@ class ChipStyle {
 
 class FlutterFlowChoiceChips extends StatefulWidget {
   const FlutterFlowChoiceChips({
+    Key? key,
     this.initiallySelected,
     required this.options,
     required this.onChanged,
@@ -40,7 +41,7 @@ class FlutterFlowChoiceChips extends StatefulWidget {
     this.initialized = true,
     this.alignment = WrapAlignment.start,
     this.selectedValuesVariable,
-  });
+  }) : super(key: key);
 
   final List<String>? initiallySelected;
   final List<ChipData> options;
@@ -104,7 +105,7 @@ class _FlutterFlowChoiceChipsState extends State<FlutterFlowChoiceChips> {
               final style = selected
                   ? widget.selectedChipStyle
                   : widget.unselectedChipStyle;
-              return Container(
+              return SizedBox(
                 height: _kChoiceChipsHeight,
                 child: ChoiceChip(
                   selected: selected,

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import '../flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
         maxWidth: MediaQuery.of(context).size.width,
         maxHeight: MediaQuery.of(context).size.height * 1,
       ),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color(0x81FFFFFF),
       ),
       child: ClipRRect(

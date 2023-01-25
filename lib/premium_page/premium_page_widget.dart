@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -84,7 +86,7 @@ class _PremiumPageWidgetState extends State<PremiumPageWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                         child: Text(
                           'PREMIUM',
                           textAlign: TextAlign.start,
@@ -99,14 +101,14 @@ class _PremiumPageWidgetState extends State<PremiumPageWidget> {
                               ),
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         thickness: 4,
                         indent: 150,
                         endIndent: 150,
                         color: Color(0xB257636C),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Text(
                           'More Fun',
                           style:
@@ -117,7 +119,7 @@ class _PremiumPageWidgetState extends State<PremiumPageWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(50, 0, 50, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(50, 0, 50, 0),
                         child: Text(
                           'Dapatkan tag interest lebih banyak\nKamu bisa pilih sampai 8 tag interest',
                           textAlign: TextAlign.center,
@@ -125,7 +127,7 @@ class _PremiumPageWidgetState extends State<PremiumPageWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Text(
                           'More Connections',
                           style:
@@ -136,7 +138,7 @@ class _PremiumPageWidgetState extends State<PremiumPageWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(50, 0, 50, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(50, 0, 50, 0),
                         child: Text(
                           'Buat forum lebih banyak',
                           textAlign: TextAlign.center,
@@ -144,7 +146,7 @@ class _PremiumPageWidgetState extends State<PremiumPageWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                         child: FFButtonWidget(
                           onPressed: () async {
                             await showDialog(
@@ -152,12 +154,12 @@ class _PremiumPageWidgetState extends State<PremiumPageWidget> {
                               builder: (alertDialogContext) {
                                 return AlertDialog(
                                   content:
-                                      Text('Fitur ini masih dalam perbaikan.'),
+                                      const Text('Fitur ini masih dalam perbaikan.'),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>
                                           Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
+                                      child: const Text('Ok'),
                                     ),
                                   ],
                                 );
@@ -174,7 +176,7 @@ class _PremiumPageWidgetState extends State<PremiumPageWidget> {
                                       fontFamily: 'Nunito',
                                       color: Colors.white,
                                     ),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.transparent,
                               width: 1,
                             ),

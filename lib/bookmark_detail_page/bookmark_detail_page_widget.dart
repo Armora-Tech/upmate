@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -59,7 +61,7 @@ class _BookmarkDetailPageWidgetState extends State<BookmarkDetailPageWidget> {
                 fontWeight: FontWeight.bold,
               ),
         ),
-        actions: [],
+        actions: const [],
         centerTitle: true,
         elevation: 4,
       ),
@@ -90,13 +92,13 @@ class _BookmarkDetailPageWidgetState extends State<BookmarkDetailPageWidget> {
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(4, 0, 4, 0),
+                                  const EdgeInsetsDirectional.fromSTEB(4, 0, 4, 0),
                               child: Icon(
                                 Icons.search_rounded,
                                 color:
@@ -107,14 +109,14 @@ class _BookmarkDetailPageWidgetState extends State<BookmarkDetailPageWidget> {
                             Expanded(
                               child: Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
-                                child: Container(
+                                    const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
+                                child: SizedBox(
                                   width: double.infinity,
                                   child: TextFormField(
                                     controller: textController,
                                     onChanged: (_) => EasyDebounce.debounce(
                                       'textController',
-                                      Duration(milliseconds: 2000),
+                                      const Duration(milliseconds: 2000),
                                       () async {
                                         setState(() =>
                                             _firestoreRequestCompleter = null);
@@ -126,42 +128,42 @@ class _BookmarkDetailPageWidgetState extends State<BookmarkDetailPageWidget> {
                                       labelText: 'Search bookmark here...',
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .bodyText2,
-                                      enabledBorder: UnderlineInputBorder(
+                                      enabledBorder: const UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
                                           width: 1,
                                         ),
-                                        borderRadius: const BorderRadius.only(
+                                        borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(4.0),
                                           topRight: Radius.circular(4.0),
                                         ),
                                       ),
-                                      focusedBorder: UnderlineInputBorder(
+                                      focusedBorder: const UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
                                           width: 1,
                                         ),
-                                        borderRadius: const BorderRadius.only(
+                                        borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(4.0),
                                           topRight: Radius.circular(4.0),
                                         ),
                                       ),
-                                      errorBorder: UnderlineInputBorder(
+                                      errorBorder: const UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
                                           width: 1,
                                         ),
-                                        borderRadius: const BorderRadius.only(
+                                        borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(4.0),
                                           topRight: Radius.circular(4.0),
                                         ),
                                       ),
-                                      focusedErrorBorder: UnderlineInputBorder(
+                                      focusedErrorBorder: const UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
                                           width: 1,
                                         ),
-                                        borderRadius: const BorderRadius.only(
+                                        borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(4.0),
                                           topRight: Radius.circular(4.0),
                                         ),
@@ -175,7 +177,7 @@ class _BookmarkDetailPageWidgetState extends State<BookmarkDetailPageWidget> {
                             ),
                             Expanded(
                               child: Align(
-                                alignment: AlignmentDirectional(0.95, 0),
+                                alignment: const AlignmentDirectional(0.95, 0),
                                 child: Icon(
                                   Icons.tune_rounded,
                                   color: FlutterFlowTheme.of(context)
@@ -235,7 +237,7 @@ class _BookmarkDetailPageWidgetState extends State<BookmarkDetailPageWidget> {
                                 columnPostsRecordList[columnIndex];
                             return Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
+                                  const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
                               child: Container(
                                 width: double.infinity,
                                 height: 90,
@@ -251,7 +253,7 @@ class _BookmarkDetailPageWidgetState extends State<BookmarkDetailPageWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   8, 8, 8, 8),
                                           child: ClipRRect(
                                             borderRadius:
@@ -268,7 +270,7 @@ class _BookmarkDetailPageWidgetState extends State<BookmarkDetailPageWidget> {
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8, 1, 0, 0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -357,7 +359,7 @@ class _BookmarkDetailPageWidgetState extends State<BookmarkDetailPageWidget> {
                                     ),
                                     Column(
                                       mainAxisSize: MainAxisSize.max,
-                                      children: [
+                                      children: const [
                                         Expanded(
                                           child: Padding(
                                             padding:
@@ -396,7 +398,7 @@ class _BookmarkDetailPageWidgetState extends State<BookmarkDetailPageWidget> {
   }) async {
     final stopwatch = Stopwatch()..start();
     while (true) {
-      await Future.delayed(Duration(milliseconds: 50));
+      await Future.delayed(const Duration(milliseconds: 50));
       final timeElapsed = stopwatch.elapsedMilliseconds;
       final requestComplete = _firestoreRequestCompleter?.isCompleted ?? false;
       if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {

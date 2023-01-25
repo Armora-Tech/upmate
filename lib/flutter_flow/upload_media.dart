@@ -35,36 +35,35 @@ Future<List<SelectedMedia>?> selectMediaWithSourceBottomSheet({
   Color textColor = const Color(0xFF111417),
   Color backgroundColor = const Color(0xFFF5F5F5),
 }) async {
-  final createUploadMediaListTile =
-      (String label, MediaSource mediaSource) => ListTile(
-          title: Text(
-            label,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.getFont(
-              pickerFontFamily,
-              color: textColor,
-              fontWeight: FontWeight.w600,
-              fontSize: 20,
-            ),
-          ),
-          tileColor: backgroundColor,
-          dense: false,
-          onTap: () => {
-                if (label != 'Remove')
-                  {
-                    Navigator.pop(
-                      context,
-                      mediaSource,
-                    )
-                  }
-                else
-                  {
-                    Navigator.pop(
-                      context,
-                      mediaSource,
-                    )
-                  }
-              });
+  createUploadMediaListTile(String label, MediaSource mediaSource) => ListTile(
+      title: Text(
+        label,
+        textAlign: TextAlign.center,
+        style: GoogleFonts.getFont(
+          pickerFontFamily,
+          color: textColor,
+          fontWeight: FontWeight.w600,
+          fontSize: 20,
+        ),
+      ),
+      tileColor: backgroundColor,
+      dense: false,
+      onTap: () => {
+            if (label != 'Remove')
+              {
+                Navigator.pop(
+                  context,
+                  mediaSource,
+                )
+              }
+            else
+              {
+                Navigator.pop(
+                  context,
+                  mediaSource,
+                )
+              }
+          });
   final mediaSource = await showModalBottomSheet<MediaSource>(
       context: context,
       backgroundColor: backgroundColor,
@@ -74,7 +73,7 @@ Future<List<SelectedMedia>?> selectMediaWithSourceBottomSheet({
           children: [
             if (!kIsWeb) ...[
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                 child: ListTile(
                   title: Text(
                     'Choose Source',
@@ -149,7 +148,9 @@ Future<List<SelectedMedia>?> selectMedia({
   bool multiImage = false,
 }) async {
   if (mediaSource == MediaSource.removed) {
-    print("ITS HERE");
+    if (kDebugMode) {
+      print("ITS HERE");
+    }
 
     return null;
   }
@@ -193,7 +194,9 @@ Future<List<SelectedMedia>?> selectMedia({
   final pickedMedia = await pickedMediaFuture;
   final mediaBytes = await pickedMedia?.readAsBytes();
   if (mediaBytes == null) {
-    print("The bytes here");
+    if (kDebugMode) {
+      print("The bytes here");
+    }
     return null;
   }
   final path = _getStoragePath(storageFolderPath, pickedMedia!.name, isVideo);
@@ -275,7 +278,7 @@ void showUploadMessage(BuildContext context, String message,
         content: Row(
           children: [
             if (showLoading)
-              Padding(
+              const Padding(
                 padding: EdgeInsetsDirectional.only(end: 10.0),
                 child: CircularProgressIndicator(),
               ),

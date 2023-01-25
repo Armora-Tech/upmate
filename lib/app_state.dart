@@ -1,9 +1,8 @@
-// ignore_for_file: unnecessary_getters_setters
+// ignore_for_file: unnecessary_getters_setters, unused_element
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:csv/csv.dart';
-import 'flutter_flow/lat_lng.dart';
 
 class FFAppState extends ChangeNotifier {
   static final FFAppState _instance = FFAppState._internal();
@@ -17,7 +16,7 @@ class FFAppState extends ChangeNotifier {
   }
 
   Future initializePersistedState() async {
-    secureStorage = FlutterSecureStorage();
+    secureStorage = const FlutterSecureStorage();
     _nreset = await secureStorage.getInt('ff_nreset') ?? _nreset;
     _sreset = await secureStorage.getBool('ff_sreset') ?? _sreset;
   }
@@ -31,9 +30,9 @@ class FFAppState extends ChangeNotifier {
 
   int _nreset = 0;
   int get nreset => _nreset;
-  set nreset(int _value) {
-    _nreset = _value;
-    secureStorage.setInt('ff_nreset', _value);
+  set nreset(int value) {
+    _nreset = value;
+    secureStorage.setInt('ff_nreset', value);
   }
 
   void deleteNreset() {
@@ -42,9 +41,9 @@ class FFAppState extends ChangeNotifier {
 
   bool _sreset = false;
   bool get sreset => _sreset;
-  set sreset(bool _value) {
-    _sreset = _value;
-    secureStorage.setBool('ff_sreset', _value);
+  set sreset(bool value) {
+    _sreset = value;
+    secureStorage.setBool('ff_sreset', value);
   }
 
   void deleteSreset() {
@@ -53,73 +52,63 @@ class FFAppState extends ChangeNotifier {
 
   String _tiid = '';
   String get tiid => _tiid;
-  set tiid(String _value) {
-    _tiid = _value;
+  set tiid(String value) {
+    _tiid = value;
   }
 
   bool _isverified = false;
   bool get isverified => _isverified;
-  set isverified(bool _value) {
-    _isverified = _value;
+  set isverified(bool value) {
+    _isverified = value;
   }
 
   bool _isFirstOpen = false;
   bool get isFirstOpen => _isFirstOpen;
-  set isFirstOpen(bool _value) {
-    _isFirstOpen = _value;
+  set isFirstOpen(bool value) {
+    _isFirstOpen = value;
   }
 
   String _mainMenu = 'normal';
   String get mainMenu => _mainMenu;
-  set mainMenu(String _value) {
-    _mainMenu = _value;
+  set mainMenu(String value) {
+    _mainMenu = value;
   }
 
   bool _unused = false;
   bool get unused => _unused;
-  set unused(bool _value) {
-    _unused = _value;
+  set unused(bool value) {
+    _unused = value;
   }
 
   bool _cs = false;
   bool get cs => _cs;
-  set cs(bool _value) {
-    _cs = _value;
+  set cs(bool value) {
+    _cs = value;
   }
 
   List<Color> _interestColors = [
-    Color(0xffe6194B),
-    Color(0xff3cb44b),
-    Color(0xffffe119),
-    Color(0xff4363d8),
-    Color(0xfff58231),
-    Color(0xff911eb4),
-    Color(0xff42d4f4),
-    Color(0xfff032e6),
-    Color(0xffbfef45)
+    const Color(0xffe6194B),
+    const Color(0xff3cb44b),
+    const Color(0xffffe119),
+    const Color(0xff4363d8),
+    const Color(0xfff58231),
+    const Color(0xff911eb4),
+    const Color(0xff42d4f4),
+    const Color(0xfff032e6),
+    const Color(0xffbfef45)
   ];
   List<Color> get interestColors => _interestColors;
-  set interestColors(List<Color> _value) {
-    _interestColors = _value;
+  set interestColors(List<Color> value) {
+    _interestColors = value;
   }
 
-  void addToInterestColors(Color _value) {
-    _interestColors.add(_value);
+  void addToInterestColors(Color value) {
+    _interestColors.add(value);
   }
 
-  void removeFromInterestColors(Color _value) {
-    _interestColors.remove(_value);
+  void removeFromInterestColors(Color value) {
+    _interestColors.remove(value);
   }
-}
-
-LatLng? _latLngFromString(String? val) {
-  if (val == null) {
-    return null;
-  }
-  final split = val.split(',');
-  final lat = double.parse(split.first);
-  final lng = double.parse(split.last);
-  return LatLng(lat, lng);
 }
 
 Color? _colorFromIntValue(int? val) {
@@ -155,12 +144,12 @@ extension FlutterSecureStorageExtensions on FlutterSecureStorage {
         if (result == null || result.isEmpty) {
           return null;
         }
-        return CsvToListConverter()
+        return const CsvToListConverter()
             .convert(result)
             .first
             .map((e) => e.toString())
             .toList();
       });
   Future<void> setStringList(String key, List<String> value) async =>
-      await write(key: key, value: ListToCsvConverter().convert([value]));
+      await write(key: key, value: const ListToCsvConverter().convert([value]));
 }

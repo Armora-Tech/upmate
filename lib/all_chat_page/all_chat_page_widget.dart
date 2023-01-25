@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, unused_import
+// ignore_for_file: unused_local_variable, unused_import, library_private_types_in_public_api
 
 import '../components/chats_options_widget.dart';
 import '../flutter_flow/chat/index.dart';
@@ -73,12 +73,12 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                 builder: (context) {
                   return Padding(
                     padding: MediaQuery.of(context).viewInsets,
-                    child: ChatsOptionsWidget(),
+                    child: const ChatsOptionsWidget(),
                   );
                 },
               ).then((value) => setState(() {}));
             },
-            backgroundColor: Color(0xFF5ABBDE),
+            backgroundColor: const Color(0xFF5ABBDE),
             elevation: 8,
             child: InkWell(
               onTap: () async {
@@ -89,7 +89,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                   builder: (context) {
                     return Padding(
                       padding: MediaQuery.of(context).viewInsets,
-                      child: ChatsOptionsWidget(),
+                      child: const ChatsOptionsWidget(),
                     );
                   },
                 ).then((value) => setState(() {}));
@@ -102,9 +102,9 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
             ),
           ),
           appBar: AppBar(
-            backgroundColor: Color(0xFFEEF0F5),
+            backgroundColor: const Color(0xFFEEF0F5),
             automaticallyImplyLeading: false,
-            actions: [],
+            actions: const [],
             flexibleSpace: FlexibleSpaceBar(
               title: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -123,7 +123,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
               ),
               centerTitle: false,
               expandedTitleScale: 1.0,
-              titlePadding: EdgeInsetsDirectional.fromSTEB(10, 0, 20, 10),
+              titlePadding: const EdgeInsetsDirectional.fromSTEB(10, 0, 20, 10),
             ),
             elevation: 0,
           ),
@@ -136,14 +136,15 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(0, 0),
+                        alignment: const AlignmentDirectional(0, 0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              10, 0, 10, 0),
                           child: TextFormField(
                             controller: textController,
                             onChanged: (_) => EasyDebounce.debounce(
                               'textController',
-                              Duration(milliseconds: 2000),
+                              const Duration(milliseconds: 2000),
                               () => setState(() {}),
                             ),
                             onFieldSubmitted: (_) async {
@@ -153,6 +154,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                               )
                                   .then((r) => algoliaSearchResults = r
                                       .where(
+                                          // ignore: unrelated_type_equality_checks
                                           (e) => e.ffRef != currentUserDocument)
                                       .toList())
                                   .onError((_, __) => algoliaSearchResults = [])
@@ -163,36 +165,36 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                               hintText: 'Search',
                               hintStyle: FlutterFlowTheme.of(context).bodyText2,
                               enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0x00000000),
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0x00000000),
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               errorBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0x00000000),
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               focusedErrorBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0x00000000),
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               filled: true,
-                              fillColor: Color(0xFFC4C8D2),
-                              prefixIcon: Icon(
+                              fillColor: const Color(0xFFC4C8D2),
+                              prefixIcon: const Icon(
                                 Icons.search,
                                 size: 20,
                               ),
@@ -202,7 +204,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                                         textController?.clear();
                                         setState(() {});
                                       },
-                                      child: Icon(
+                                      child: const Icon(
                                         Icons.clear,
                                         color: Color(0xFF757575),
                                         size: 22,
@@ -216,7 +218,8 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                       ),
                       if (textController!.text == '')
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
                           child: Builder(
                             builder: (context) {
                               final normalList =
@@ -268,7 +271,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                                         title: chatInfo.chatPreviewTitle(),
                                         userProfilePic:
                                             chatInfo.chatPreviewPic(),
-                                        color: Color(0xFFEEF0F5),
+                                        color: const Color(0xFFEEF0F5),
                                         unreadColor: Colors.blue,
                                         titleTextStyle: GoogleFonts.getFont(
                                           'DM Sans',
@@ -278,19 +281,19 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                                         ),
                                         dateTextStyle: GoogleFonts.getFont(
                                           'DM Sans',
-                                          color: Color(0x73000000),
+                                          color: const Color(0x73000000),
                                           fontWeight: FontWeight.normal,
                                           fontSize: 14,
                                         ),
                                         previewTextStyle: GoogleFonts.getFont(
                                           'DM Sans',
-                                          color: Color(0x73000000),
+                                          color: const Color(0x73000000),
                                           fontWeight: FontWeight.normal,
                                           fontSize: 14,
                                         ),
                                         contentPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                3, 3, 3, 3),
+                                            const EdgeInsetsDirectional
+                                                .fromSTEB(3, 3, 3, 3),
                                         borderRadius: BorderRadius.circular(0),
                                       );
                                     },
@@ -302,7 +305,8 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                         ),
                       if (textController!.text != '')
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
+                          padding:
+                              const EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
                           child: Builder(
                             builder: (context) {
                               var isLoading = true;
@@ -336,8 +340,8 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                               }
                               normalList = searchList.toList();
                               isLoading = false;
-                              print("FILTERRES: " + normalList.toString());
-                              return normalList.length == 0
+                              
+                              return normalList.isEmpty
                                   ? AutoSizeText(
                                       'Chat tidak ditemukan.',
                                       style: FlutterFlowTheme.of(context)
@@ -406,7 +410,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                                                   chatInfo.chatPreviewTitle(),
                                               userProfilePic:
                                                   chatInfo.chatPreviewPic(),
-                                              color: Color(0xFFEEF0F5),
+                                              color: const Color(0xFFEEF0F5),
                                               unreadColor: Colors.blue,
                                               titleTextStyle:
                                                   GoogleFonts.getFont(
@@ -418,19 +422,19 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                                               dateTextStyle:
                                                   GoogleFonts.getFont(
                                                 'DM Sans',
-                                                color: Color(0x73000000),
+                                                color: const Color(0x73000000),
                                                 fontWeight: FontWeight.normal,
                                                 fontSize: 14,
                                               ),
                                               previewTextStyle:
                                                   GoogleFonts.getFont(
                                                 'DM Sans',
-                                                color: Color(0x73000000),
+                                                color: const Color(0x73000000),
                                                 fontWeight: FontWeight.normal,
                                                 fontSize: 14,
                                               ),
                                               contentPadding:
-                                                  EdgeInsetsDirectional
+                                                  const EdgeInsetsDirectional
                                                       .fromSTEB(3, 3, 3, 3),
                                               borderRadius:
                                                   BorderRadius.circular(0),

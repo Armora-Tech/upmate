@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -43,11 +45,11 @@ class _AppInfoWidgetState extends State<AppInfoWidget> {
               gradient: LinearGradient(
                 colors: [
                   FlutterFlowTheme.of(context).black600,
-                  Color(0xFF129100)
+                  const Color(0xFF129100)
                 ],
-                stops: [0, 1],
-                begin: AlignmentDirectional(0, -1),
-                end: AlignmentDirectional(0, 1),
+                stops: const [0, 1],
+                begin: const AlignmentDirectional(0, -1),
+                end: const AlignmentDirectional(0, 1),
               ),
             ),
             child: Column(

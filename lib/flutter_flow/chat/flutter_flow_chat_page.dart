@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import '../flutter_flow_util.dart';
 import 'index.dart';
 
@@ -7,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 class FFChatPage extends StatefulWidget {
-  FFChatPage({
+  const FFChatPage({
     Key? key,
     required this.chatInfo,
     this.allowImages = false,
@@ -70,7 +72,7 @@ class _FFChatPageState extends State<FFChatPage> {
       return;
     }
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      Future.delayed(Duration(milliseconds: 100))
+      Future.delayed(const Duration(milliseconds: 100))
           .then((_) => scrollController.jumpTo(0));
       updateSeenBy();
     });
@@ -78,7 +80,9 @@ class _FFChatPageState extends State<FFChatPage> {
 
   void updateMessages(List<ChatMessagesRecord> chatMessages) {
     final oldLatestTime = latestMessageTime();
-    chatMessages.forEach((m) => allMessages[m.reference.id] = m);
+    for (var m in chatMessages) {
+      allMessages[m.reference.id] = m;
+    }
     messages = allMessages.values.toList();
     messages.sort((a, b) => a.timestamp!.compareTo(b.timestamp!));
     onNewMessage(oldLatestTime, latestMessageTime());

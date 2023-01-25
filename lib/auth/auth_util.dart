@@ -1,6 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -47,7 +49,9 @@ Future signOut() {
 Future deleteUser(BuildContext context) async {
   try {
     if (currentUser?.user == null) {
-      print('Error: delete user attempted with no logged in user!');
+      if (kDebugMode) {
+        print('Error: delete user attempted with no logged in user!');
+      }
       return;
     }
     logFirebaseEvent("DELETE_USER");
@@ -56,7 +60,7 @@ Future deleteUser(BuildContext context) async {
     if (e.code == 'requires-recent-login') {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
             content: Text(
                 'Too long since most recent sign in. Sign in again before deleting your account.')),
       );
@@ -76,7 +80,7 @@ Future resetPassword(
     return null;
   }
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text('Password reset email sent')),
+    const SnackBar(content: Text('Password reset email sent')),
   );
 }
 
@@ -142,7 +146,7 @@ Future beginPhoneAuth({
   // * Finally modify verificationCompleted below as instructed.
   await FirebaseAuth.instance.verifyPhoneNumber(
     phoneNumber: phoneNumber,
-    timeout: Duration(seconds: 5),
+    timeout: const Duration(seconds: 5),
     verificationCompleted: (phoneAuthCredential) async {
       await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
       // If you've implemented auto-verification, navigate to home page or

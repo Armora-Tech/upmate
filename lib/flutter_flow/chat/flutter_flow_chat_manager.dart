@@ -47,7 +47,7 @@ class FFChatInfo {
   }
 
   String chatPreviewPic() {
-    if (groupMembers == null || otherUsersList.length == 0) {
+    if (groupMembers == null || otherUsersList.isEmpty) {
       return '';
     }
     final userSentLastMessage =
@@ -67,10 +67,10 @@ class FFChatManager {
 
   // Cache that will ensure chat queries are kept alive. By default we only keep
   // at most 5 chat streams in the cache.
-  static Map<String, Stream<List<ChatMessagesRecord>>> _chatMessages = {};
-  static Map<String, List<ChatMessagesRecord>> _chatMessagesCache = {};
+  static final Map<String, Stream<List<ChatMessagesRecord>>> _chatMessages = {};
+  static final Map<String, List<ChatMessagesRecord>> _chatMessagesCache = {};
   // Keep a map from user uid to the respective chat document reference.
-  static Map<String, DocumentReference> _userChats = {};
+  static final Map<String, DocumentReference> _userChats = {};
   static DocumentReference? _currentUser;
 
   static FFChatManager? _instance;
@@ -186,7 +186,7 @@ class FFChatManager {
     // case, it's safer to wait a second to ensure the document was created.
     chatRef = _userChats[otherUser.id];
     if (chatRef != null) {
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
       return chatRef;
     }
     // Finally, create and cache a chat between these two users.

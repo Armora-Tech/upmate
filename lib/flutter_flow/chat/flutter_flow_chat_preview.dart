@@ -67,7 +67,7 @@ class FFChatPreview extends StatelessWidget {
                   AvatarContainer(
                     user: ChatUser(avatar: userProfilePic),
                     avatarMaxSize: 30.0,
-                    constraints: BoxConstraints(
+                    constraints: const BoxConstraints(
                       maxHeight: 420.0,
                       maxWidth: 420.0,
                     ),

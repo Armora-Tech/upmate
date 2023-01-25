@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, library_private_types_in_public_api
 
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +22,13 @@ void main() async {
 
   runApp(ChangeNotifierProvider(
     create: (context) => appState,
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   State<MyApp> createState() => _MyAppState();
@@ -56,7 +58,7 @@ class _MyAppState extends State<MyApp> {
       ..listen((user) => _appStateNotifier.update(user));
     jwtTokenStream.listen((_) {});
     Future.delayed(
-      Duration(seconds: 1),
+      const Duration(seconds: 1),
       () => _appStateNotifier.stopShowingSplashImage(),
     );
   }
@@ -80,7 +82,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'UpMate',
-      localizationsDelegates: [
+      localizationsDelegates: const [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -99,7 +101,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 class NavBarPage extends StatefulWidget {
-  NavBarPage({Key? key, this.initialPage, this.page}) : super(key: key);
+  const NavBarPage({Key? key, this.initialPage, this.page}) : super(key: key);
 
   final String? initialPage;
   final Widget? page;
@@ -123,11 +125,11 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'mainPage': MainPageWidget(),
-      'explorePage': ExplorePageWidget(),
-      'newPostPage': NewPostPageWidget(),
-      'notificationPage': NotificationPageWidget(),
-      'allChatPage': AllChatPageWidget(),
+      'mainPage': const MainPageWidget(),
+      'explorePage': const ExplorePageWidget(),
+      'newPostPage': const NewPostPageWidget(),
+      'notificationPage': const NotificationPageWidget(),
+      'allChatPage': const AllChatPageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
@@ -139,12 +141,12 @@ class _NavBarPageState extends State<NavBarPage> {
           _currentPageName = tabs.keys.toList()[i];
         }),
         backgroundColor: Colors.white,
-        selectedItemColor: Color(0xFF8488FF),
+        selectedItemColor: const Color(0xFF8488FF),
         unselectedItemColor: FlutterFlowTheme.of(context).primaryText,
         showSelectedLabels: true,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home_outlined,

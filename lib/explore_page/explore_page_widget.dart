@@ -1,3 +1,7 @@
+// ignore_for_file: library_private_types_in_public_api
+
+import 'package:flutter/foundation.dart';
+
 import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -51,12 +55,12 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Align(
-                alignment: AlignmentDirectional(0, -1),
+                alignment: const AlignmentDirectional(0, -1),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: TextFormField(
                           controller: textController,
@@ -69,36 +73,36 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                             hintText: 'Search',
                             hintStyle: FlutterFlowTheme.of(context).bodyText2,
                             enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0x00000000),
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(30),
                             ),
                             focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0x00000000),
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(30),
                             ),
                             errorBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0x00000000),
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(30),
                             ),
                             focusedErrorBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0x00000000),
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(30),
                             ),
                             filled: true,
-                            fillColor: Color(0xFFD9D9D9),
-                            suffixIcon: Icon(
+                            fillColor: const Color(0xFFD9D9D9),
+                            suffixIcon: const Icon(
                               Icons.search_outlined,
                               color: Color(0xFF757575),
                               size: 22,
@@ -108,8 +112,9 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                        child: Container(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        child: SizedBox(
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height * 0.7,
                           child: Stack(
@@ -157,7 +162,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                               }.withoutNulls,
                                               extra: <String, dynamic>{
                                                 kTransitionInfoKey:
-                                                    TransitionInfo(
+                                                    const TransitionInfo(
                                                   hasTransition: true,
                                                   transitionType:
                                                       PageTransitionType.scale,
@@ -170,9 +175,9 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                           child: Card(
                                             clipBehavior:
                                                 Clip.antiAliasWithSaveLayer,
-                                            color: Color(0xFFF5F5F5),
+                                            color: const Color(0xFFF5F5F5),
                                             child: Container(
-                                              constraints: BoxConstraints(
+                                              constraints: const BoxConstraints(
                                                 maxWidth: double.infinity,
                                                 maxHeight: double.infinity,
                                               ),
@@ -195,7 +200,8 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                   Container(
                                                     width: 100,
                                                     height: 100,
-                                                    decoration: BoxDecoration(),
+                                                    decoration:
+                                                        const BoxDecoration(),
                                                   ),
                                                   Stack(
                                                     children: [
@@ -203,15 +209,15 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                         width: double.infinity,
                                                         height: 60,
                                                         decoration:
-                                                            BoxDecoration(
+                                                            const BoxDecoration(
                                                           color:
                                                               Color(0x80272727),
                                                         ),
                                                         child: Padding(
                                                           padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      0, 0, 5),
+                                                              const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                  0, 0, 0, 5),
                                                           child: Column(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -380,7 +386,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                         extra: <String,
                                                             dynamic>{
                                                           kTransitionInfoKey:
-                                                              TransitionInfo(
+                                                              const TransitionInfo(
                                                             hasTransition: true,
                                                             transitionType:
                                                                 PageTransitionType
@@ -394,10 +400,11 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                     child: Card(
                                                       clipBehavior: Clip
                                                           .antiAliasWithSaveLayer,
-                                                      color: Color(0xFFF5F5F5),
+                                                      color: const Color(
+                                                          0xFFF5F5F5),
                                                       child: Container(
                                                         constraints:
-                                                            BoxConstraints(
+                                                            const BoxConstraints(
                                                           maxWidth:
                                                               double.infinity,
                                                           maxHeight:
@@ -428,7 +435,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                               width: 100,
                                                               height: 100,
                                                               decoration:
-                                                                  BoxDecoration(),
+                                                                  const BoxDecoration(),
                                                             ),
                                                             Stack(
                                                               children: [
@@ -437,14 +444,14 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                                                                       .infinity,
                                                                   height: 60,
                                                                   decoration:
-                                                                      BoxDecoration(
+                                                                      const BoxDecoration(
                                                                     color: Color(
                                                                         0x80272727),
                                                                   ),
                                                                   child:
                                                                       Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
+                                                                    padding:
+                                                                        const EdgeInsetsDirectional.fromSTEB(
                                                                             0,
                                                                             0,
                                                                             0,
@@ -517,23 +524,26 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
                       ),
                       if ('0' == '1')
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              10, 0, 10, 0),
                           child: FFButtonWidget(
                             onPressed: () {
-                              print('Button pressed ...');
+                              if (kDebugMode) {
+                                print('Button pressed ...');
+                              }
                             },
                             text: 'Lihat Semua',
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40,
-                              color: Color(0xFF3B5159),
+                              color: const Color(0xFF3B5159),
                               textStyle: FlutterFlowTheme.of(context)
                                   .subtitle2
                                   .override(
                                     fontFamily: 'Nunito',
                                     color: Colors.white,
                                   ),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1,
                               ),
@@ -558,7 +568,7 @@ class _ExplorePageWidgetState extends State<ExplorePageWidget> {
   }) async {
     final stopwatch = Stopwatch()..start();
     while (true) {
-      await Future.delayed(Duration(milliseconds: 50));
+      await Future.delayed(const Duration(milliseconds: 50));
       final timeElapsed = stopwatch.elapsedMilliseconds;
       final requestComplete = _apiRequestCompleter?.isCompleted ?? false;
       if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {

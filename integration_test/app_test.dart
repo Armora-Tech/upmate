@@ -14,7 +14,7 @@ void main() {
 
       // Trigger a frame. Twice because have splash screen
       await tester.pumpAndSettle();
-      await tester.pumpAndSettle(new Duration(milliseconds: 5000));
+      await tester.pumpAndSettle(const Duration(milliseconds: 5000));
       await tester.pumpAndSettle();
 
       // Verify the counter starts at 0.

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -82,7 +84,7 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
           child: InkWell(
             onTap: () async {
               context.pushNamed('mainPage');
@@ -91,14 +93,14 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   Icons.home,
                   color: Colors.black,
                   size: 24,
                 ),
                 if (widget.pageName == 'home')
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                     child: Container(
                       width: 47,
                       height: 5,
@@ -106,11 +108,11 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
                         gradient: LinearGradient(
                           colors: [
                             FlutterFlowTheme.of(context).primaryColor,
-                            Color(0xFFEDA95C)
+                            const Color(0xFFEDA95C)
                           ],
-                          stops: [0, 0],
-                          begin: AlignmentDirectional(0, -1),
-                          end: AlignmentDirectional(0, 1),
+                          stops: const [0, 0],
+                          begin: const AlignmentDirectional(0, -1),
+                          end: const AlignmentDirectional(0, 1),
                         ),
                       ),
                     ).animateOnPageLoad(
@@ -125,7 +127,7 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
             context.goNamed(
               'explorePage',
               extra: <String, dynamic>{
-                kTransitionInfoKey: TransitionInfo(
+                kTransitionInfoKey: const TransitionInfo(
                   hasTransition: true,
                   transitionType: PageTransitionType.bottomToTop,
                 ),
@@ -137,7 +139,7 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
                 child: Icon(
                   Icons.search,
@@ -147,7 +149,7 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
               ),
               if (widget.pageName == 'explore')
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                   child: Container(
                     width: 47,
                     height: 5,
@@ -155,11 +157,11 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
                       gradient: LinearGradient(
                         colors: [
                           FlutterFlowTheme.of(context).primaryColor,
-                          Color(0xFFEDA95C)
+                          const Color(0xFFEDA95C)
                         ],
-                        stops: [0, 0],
-                        begin: AlignmentDirectional(0, -1),
-                        end: AlignmentDirectional(0, 1),
+                        stops: const [0, 0],
+                        begin: const AlignmentDirectional(0, -1),
+                        end: const AlignmentDirectional(0, 1),
                       ),
                     ),
                   ).animateOnPageLoad(
@@ -169,13 +171,13 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
           ),
         ),
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
           child: InkWell(
             onTap: () async {
               context.pushNamed(
                 'allChatPage',
                 extra: <String, dynamic>{
-                  kTransitionInfoKey: TransitionInfo(
+                  kTransitionInfoKey: const TransitionInfo(
                     hasTransition: true,
                     transitionType: PageTransitionType.rightToLeft,
                   ),
@@ -187,14 +189,14 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   Icons.chat_outlined,
                   color: Colors.black,
                   size: 24,
                 ),
                 if (widget.pageName == 'chats')
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                     child: Container(
                       width: 47,
                       height: 5,
@@ -202,11 +204,11 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget>
                         gradient: LinearGradient(
                           colors: [
                             FlutterFlowTheme.of(context).primaryColor,
-                            Color(0xFFEDA95C)
+                            const Color(0xFFEDA95C)
                           ],
-                          stops: [0, 0],
-                          begin: AlignmentDirectional(0, -1),
-                          end: AlignmentDirectional(0, 1),
+                          stops: const [0, 0],
+                          begin: const AlignmentDirectional(0, -1),
+                          end: const AlignmentDirectional(0, 1),
                         ),
                       ),
                     ).animateOnPageLoad(

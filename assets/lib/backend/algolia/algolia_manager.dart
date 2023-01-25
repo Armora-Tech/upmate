@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, body_might_complete_normally_catch_error
 
 import 'dart:async';
 

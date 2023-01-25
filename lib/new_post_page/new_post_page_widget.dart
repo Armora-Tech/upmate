@@ -1,10 +1,11 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, library_private_types_in_public_api, use_build_context_synchronously
+
+import 'package:flutter/foundation.dart';
 
 import '../auth/auth_util.dart';
 import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -56,9 +57,9 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
-    print("INITIAL VALUE: " + uploadedFileBytes.toString());
-    Uint8List imgbytes;
-    bool isRemoved = false;
+    if (kDebugMode) {
+      print("INITIAL VALUE: $uploadedFileBytes");
+    }
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -102,15 +103,16 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 12),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 12),
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.94,
-                      decoration: BoxDecoration(),
+                      decoration: const BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 4, 0, 0),
                             child: InkWell(
                               onTap: () async {
                                 final selectedMedia =
@@ -120,7 +122,9 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                   imageQuality: 50,
                                   allowPhoto: true,
                                 );
-                                print("MEDIA RES: " + selectedMedia.toString());
+                                if (kDebugMode) {
+                                  print("MEDIA RES: $selectedMedia");
+                                }
                                 if (selectedMedia == null) {
                                   uploadedFileBytes = Uint8List.fromList([]);
                                   setState(() {});
@@ -152,8 +156,9 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                         selectedMediaBytes.first);
                                     showUploadMessage(context, 'Success!');
                                   } else {
-                                    print("HASILBYTE: " +
-                                        selectedMediaBytes.toString());
+                                    if (kDebugMode) {
+                                      print("HASILBYTE: $selectedMediaBytes");
+                                    }
                                     setState(() {});
                                     showUploadMessage(
                                         context, 'Failed to upload media');
@@ -165,7 +170,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                 width: MediaQuery.of(context).size.width,
                                 height:
                                     MediaQuery.of(context).size.height * 0.3,
-                                constraints: BoxConstraints(
+                                constraints: const BoxConstraints(
                                   maxWidth: double.infinity,
                                   maxHeight: double.infinity,
                                 ),
@@ -178,7 +183,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                       '',
                                     ).image,
                                   ),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       blurRadius: 6,
                                       color: Color(0x3A000000),
@@ -188,17 +193,17 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Align(
-                                  alignment: AlignmentDirectional(0, 0),
+                                  alignment: const AlignmentDirectional(0, 0),
                                   child: Stack(
                                     children: [
-                                      if (uploadedFileBytes.length != 0)
+                                      if (uploadedFileBytes.isNotEmpty)
                                         Image.memory(
                                           uploadedFileBytes,
                                           width: double.infinity,
                                           height: double.infinity,
                                           fit: BoxFit.fill,
                                         ),
-                                      if (uploadedFileBytes.length == 0)
+                                      if (uploadedFileBytes.isEmpty)
                                         Text(
                                           'Add photo +',
                                           style: FlutterFlowTheme.of(context)
@@ -217,8 +222,8 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 12, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -227,7 +232,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                     controller: postInpController,
                                     onChanged: (_) => EasyDebounce.debounce(
                                       'postInpController',
-                                      Duration(milliseconds: 2000),
+                                      const Duration(milliseconds: 2000),
                                       () => setState(() {}),
                                     ),
                                     obscureText: false,
@@ -236,35 +241,35 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                       hintStyle: FlutterFlowTheme.of(context)
                                           .bodyText2,
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0xFFFBEFEF),
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0xFFFBEFEF),
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0x00000000),
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0x00000000),
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               20, 32, 20, 12),
                                       suffixIcon:
                                           postInpController!.text.isNotEmpty
@@ -273,7 +278,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                                     postInpController?.clear();
                                                     setState(() {});
                                                   },
-                                                  child: Icon(
+                                                  child: const Icon(
                                                     Icons.clear,
                                                     color: Color(0xFF757575),
                                                     size: 22,
@@ -301,8 +306,8 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 12, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -315,35 +320,35 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                                       hintStyle: FlutterFlowTheme.of(context)
                                           .bodyText2,
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0xFFFBEFEF),
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0xFFFBEFEF),
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0x00000000),
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0x00000000),
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               20, 32, 20, 12),
                                     ),
                                     style:
@@ -379,7 +384,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                       .toList(),
                   onChanged: (val) => setState(() => choiceChipsValues = val),
                   selectedChipStyle: ChipStyle(
-                    backgroundColor: Color(0xFF323B45),
+                    backgroundColor: const Color(0xFF323B45),
                     textStyle: FlutterFlowTheme.of(context).bodyText1.override(
                           fontFamily: 'Nunito',
                           color: Colors.white,
@@ -392,9 +397,9 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                     backgroundColor: Colors.white,
                     textStyle: FlutterFlowTheme.of(context).bodyText2.override(
                           fontFamily: 'Nunito',
-                          color: Color(0xFF323B45),
+                          color: const Color(0xFF323B45),
                         ),
-                    iconColor: Color(0xFF323B45),
+                    iconColor: const Color(0xFF323B45),
                     iconSize: 18,
                     elevation: 4,
                   ),
@@ -405,28 +410,28 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 20),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 20),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    var _shouldSetState = false;
-                    if (choiceChipsValues?.length == 0) {
+                    var shouldSetState = false;
+                    if (choiceChipsValues!.isEmpty) {
                       await showDialog(
                         context: context,
                         builder: (alertDialogContext) {
                           return AlertDialog(
-                            content:
-                                Text('Kamu harus memilih minimal 1 hashtag'),
+                            content: const Text(
+                                'Kamu harus memilih minimal 1 hashtag'),
                             actions: [
                               TextButton(
                                 onPressed: () =>
                                     Navigator.pop(alertDialogContext),
-                                child: Text('Ok'),
+                                child: const Text('Ok'),
                               ),
                             ],
                           );
                         },
                       );
-                      if (_shouldSetState) setState(() {});
+                      if (shouldSetState) setState(() {});
                       return;
                     }
                     FFAppState().update(() {
@@ -442,7 +447,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                       ref: currentUserUid,
                       img: uploadedFileBytes,
                     );
-                    _shouldSetState = true;
+                    shouldSetState = true;
 
                     final postsCreateData = {
                       ...createPostsRecordData(
@@ -462,7 +467,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                     await postsRecordReference.set(postsCreateData);
                     idpost = PostsRecord.getDocumentFromData(
                         postsCreateData, postsRecordReference);
-                    _shouldSetState = true;
+                    shouldSetState = true;
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
@@ -472,22 +477,22 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                             color: FlutterFlowTheme.of(context).primaryText,
                           ),
                         ),
-                        duration: Duration(milliseconds: 2000),
-                        backgroundColor: Color(0x00000000),
+                        duration: const Duration(milliseconds: 2000),
+                        backgroundColor: const Color(0x00000000),
                       ),
                     );
 
                     context.goNamed(
                       'mainPage',
                       extra: <String, dynamic>{
-                        kTransitionInfoKey: TransitionInfo(
+                        kTransitionInfoKey: const TransitionInfo(
                           hasTransition: true,
                           transitionType: PageTransitionType.fade,
                         ),
                       },
                     );
 
-                    if (_shouldSetState) setState(() {});
+                    if (shouldSetState) setState(() {});
                   },
                   text: 'Create Post',
                   options: FFButtonOptions(
@@ -501,7 +506,7 @@ class _NewPostPageWidgetState extends State<NewPostPageWidget> {
                           fontWeight: FontWeight.w500,
                         ),
                     elevation: 3,
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.transparent,
                       width: 1,
                     ),
