@@ -207,7 +207,7 @@ class RegisterScreen extends StatelessWidget {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: "By signing up, you agree to fin track ",
+                              text: "By signing up, you agree to upmate ",
                               style: GoogleFonts.inter(
                                 textStyle: const TextStyle(
                                   fontSize: 14,
