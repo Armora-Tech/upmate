@@ -1,0 +1,46 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "by_umkm",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "by_umkm (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "by_umkm (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "IPhone 15 Pro Max Simulator",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "BB3CC996-EE9A-40D6-A014-01657D841BF9",
+        },
+        {
+            "name": "Android Device",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "192.168.100.47:5555",
+        }
+    ],
+    "compounds": [
+        {
+            "name": "All Devices",
+            "configurations": [
+                "IPhone 15 Pro Max Simulator",
+                "Android Device"
+            ]
+        }
+    ]
+}
