@@ -3,4 +3,5 @@
 abstract class RouteName {
    static const loginView = "/" ;
    static const signupView = "/signup" ;
+   static const verifyView = "/verify" ;
 }
