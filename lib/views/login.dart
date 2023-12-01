@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/login_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
+import 'package:upmatev2/themes/app_color.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -86,7 +87,7 @@ class LoginView extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: Text(
                     "Forgot Password?",
-                    style: TextStyle(color: Color(0xFF505050)),
+                    style: TextStyle(color: AppColor.black),
                   ),
                 ),
                 const SizedBox(

@@ -3,6 +3,7 @@ import 'package:upmatev2/bindings/login_binding.dart';
 import 'package:upmatev2/themes/app_theme.dart';
 import 'package:upmatev2/views/login.dart';
 import 'package:get/route_manager.dart';
+import 'package:upmatev2/views/take_survey.dart';
 import 'package:upmatev2/views/verify.dart';
 
 import 'routes/routes.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       initialBinding: LoginBinding(),
       getPages: AppPage.pages,
-      home: const VerifyView(),
+      home: const TakeSurveyView(),
     );
   }
 }
