@@ -21,25 +21,22 @@ class AppPage {
         page: () => const SignupView(),
         binding: SignupBinding()),
     GetPage(
-      name: RouteName.verify,
-      page: () => const VerifyView(),
-      transition: Transition.rightToLeft
-    ),
+        name: RouteName.verify,
+        page: () => const VerifyView(),
+        transition: Transition.rightToLeft),
     GetPage(
-      name: RouteName.takeSurvey,
-      page: () => const TakeSurveyView(),
-       transition: Transition.rightToLeft
-    ),
+        name: RouteName.takeSurvey,
+        page: () => const TakeSurveyView(),
+        transition: Transition.rightToLeft),
     GetPage(
-      name: RouteName.tagInterest,
-      page: () => const TagInterestView(),
-       transition: Transition.rightToLeft
-    ),
+        name: RouteName.tagInterest,
+        page: () => const TagInterestView(),
+        transition: Transition.rightToLeft),
     GetPage(
       name: RouteName.start,
       page: () => const StartView(),
       binding: StartBinding(),
-       transition: Transition.rightToLeft,
+      transition: Transition.rightToLeft,
     ),
   ];
 }

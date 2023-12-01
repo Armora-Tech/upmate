@@ -70,17 +70,12 @@ class StartView extends StatelessWidget {
                   color: Colors.white,
                   height: 70,
                   width: Get.width,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Stack(
                     children: [
-                      Container(
-                        height: 0.5,
-                        width: Get.width,
-                        color: AppColor.lightGrey,
-                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
+                          horizontal: 5,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,9 +84,11 @@ class StartView extends StatelessWidget {
                             final item = botNavController.tabs;
                             return GestureDetector(
                               onTap: () => botNavController.selectTab(index),
-                              child: SizedBox(
-                                width: Get.width / 5 - 20,
+                              child: Container(
+                                color: Colors.white,
+                                width: Get.width / 5 - 2,
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
                                       item.values.elementAt(index)[
@@ -119,6 +116,14 @@ class StartView extends StatelessWidget {
                               ),
                             );
                           }),
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        child: Container(
+                          height: 0.5,
+                          width: Get.width,
+                          color: AppColor.lightGrey,
                         ),
                       ),
                     ],
