@@ -156,7 +156,7 @@ class LoginView extends StatelessWidget {
                       width: 2,
                     ),
                     GestureDetector(
-                        onTap: () => Get.toNamed(RouteName.signupView),
+                        onTap: () => Get.toNamed(RouteName.signup),
                         child: const Text(
                           "Sign Up",
                           style: TextStyle(fontWeight: FontWeight.bold),

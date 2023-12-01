@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_color.dart';
 
+import '../routes/route_name.dart';
+
 class TakeSurveyView extends StatelessWidget {
   const TakeSurveyView({super.key});
 
@@ -133,7 +135,7 @@ class TakeSurveyView extends StatelessWidget {
                 Padding(
                     padding: const EdgeInsets.only(bottom: 30),
                     child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => Get.toNamed(RouteName.tagInterest),
                         child: const Center(
                             child: Text(
                           "Next",

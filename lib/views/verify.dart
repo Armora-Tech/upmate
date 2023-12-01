@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../routes/route_name.dart';
+
 class VerifyView extends StatelessWidget {
   const VerifyView({super.key});
 
@@ -149,7 +151,7 @@ class VerifyView extends StatelessWidget {
                   height: 40,
                 ),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => Get.toNamed(RouteName.takeSurvey),
                     child: const Center(
                       child: Text(
                         "Verify",

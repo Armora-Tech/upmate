@@ -12,12 +12,13 @@ class AppTheme {
                     BorderRadius.circular(10.0), // Ubah sesuai keinginan Anda
               ),
               padding: const EdgeInsets.symmetric(vertical: 15),
+              foregroundColor: Colors.black45,
               elevation: 0.5,
               textStyle: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w600),
-              backgroundColor: AppColor.purpleLogo)),
+              backgroundColor: AppColor.primaryColor)),
       appBarTheme: const AppBarTheme(
           elevation: 0.0,
           backgroundColor: AppColor.primaryColor,
@@ -32,10 +33,10 @@ class AppTheme {
         bodyMedium:
             TextStyle(fontSize: 14, color: Colors.black, fontFamily: "Nunito"),
       ),
-      iconTheme: const IconThemeData(color: Colors.grey, size: 30),
+      iconTheme: const IconThemeData(color: AppColor.black, size: 30),
       shadowColor: AppColor.shadowColor,
       textSelectionTheme:
-          const TextSelectionThemeData(cursorColor: AppColor.purpleLogo),
+          const TextSelectionThemeData(cursorColor: AppColor.primaryColor),
       inputDecorationTheme: InputDecorationTheme(
           contentPadding: const EdgeInsets.all(15),
           enabledBorder: OutlineInputBorder(
@@ -44,6 +45,6 @@ class AppTheme {
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide:
-                  const BorderSide(width: 1, color: AppColor.purpleLogo)),
+                  const BorderSide(width: 1, color: AppColor.primaryColor)),
           hintStyle: const TextStyle(fontSize: 16, fontFamily: "Nunito")));
 }

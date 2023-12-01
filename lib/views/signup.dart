@@ -92,7 +92,7 @@ class SignupView extends StatelessWidget {
                       height: 20,
                     ),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => Get.toNamed(RouteName.verify),
                         child: const Center(
                           child: Text(
                             "Sign Up",
@@ -170,7 +170,7 @@ class SignupView extends StatelessWidget {
                       width: 2,
                     ),
                     GestureDetector(
-                        onTap: () => Get.toNamed(RouteName.loginView),
+                        onTap: () => Get.toNamed(RouteName.login),
                         child: const Text(
                           "Sign In",
                           style: TextStyle(fontWeight: FontWeight.bold),

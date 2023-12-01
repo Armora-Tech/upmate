@@ -6,5 +6,5 @@ class AppColor {
   static const purpleLogo = Color(0xFFBD6BC0);
   static const greenLogo = Color(0xFF42C19A);
   static const black = Color(0xFF505050);
-  static const lightGrey = const Color.fromARGB(255, 212, 212, 212);
+  static const lightGrey = Color.fromARGB(255, 212, 212, 212);
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:upmatev2/bindings/login_binding.dart';
+import 'package:upmatev2/bindings/start_binding.dart';
 import 'package:upmatev2/themes/app_theme.dart';
 import 'package:upmatev2/views/login.dart';
 import 'package:get/route_manager.dart';
+import 'package:upmatev2/views/start.dart';
 import 'package:upmatev2/views/tag_interest.dart';
 import 'package:upmatev2/views/take_survey.dart';
 import 'package:upmatev2/views/verify.dart';
@@ -27,9 +29,9 @@ class MyApp extends StatelessWidget {
         );
       },
       theme: AppTheme.lightTheme,
-      initialBinding: LoginBinding(),
+      initialBinding: StartBinding(),
       getPages: AppPage.pages,
-      home: const TagInterestView(),
+      home: const StartView(),
     );
   }
 }
