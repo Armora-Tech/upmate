@@ -31,14 +31,14 @@ class LoginView extends StatelessWidget {
                       )),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 const Text(
                   "Welcome back!",
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 Form(
                     child: Column(
@@ -49,7 +49,7 @@ class LoginView extends StatelessWidget {
                       hintText: "Email",
                     )),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Obx(() => TextField(
                         obscureText: controller.isVisible.value,
@@ -61,6 +61,7 @@ class LoginView extends StatelessWidget {
                                 controller.isVisible.value
                                     ? Icons.visibility_off_outlined
                                     : Icons.visibility_outlined,
+                                size: 22,
                                 color: const Color(0xFF828282)),
                           ),
                         ))),
@@ -68,7 +69,7 @@ class LoginView extends StatelessWidget {
                       height: 20,
                     ),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => Get.toNamed(RouteName.start),
                         child: const Center(
                           child: Text(
                             "Sign In",

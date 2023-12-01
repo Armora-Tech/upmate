@@ -31,14 +31,14 @@ class SignupView extends StatelessWidget {
                       )),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 const Text(
                   "Let's get start it!",
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 Form(
                     child: Column(
@@ -49,14 +49,14 @@ class SignupView extends StatelessWidget {
                       hintText: "Nama Lengkap",
                     )),
                     const SizedBox(
-                      height: 20,
+                      height: 15,
                     ),
                     const TextField(
                         decoration: InputDecoration(
                       hintText: "Email",
                     )),
                     const SizedBox(
-                      height: 20,
+                      height: 15,
                     ),
                     Obx(() => TextField(
                         obscureText: controller.isVisible.value,
@@ -68,11 +68,12 @@ class SignupView extends StatelessWidget {
                                 controller.isVisible.value
                                     ? Icons.visibility_off_outlined
                                     : Icons.visibility_outlined,
+                                size: 22,
                                 color: const Color(0xFF828282)),
                           ),
                         ))),
                     const SizedBox(
-                      height: 20,
+                      height: 15,
                     ),
                     Obx(() => TextField(
                         obscureText: controller.isConfirmPassVisible.value,
@@ -85,6 +86,7 @@ class SignupView extends StatelessWidget {
                                 controller.isConfirmPassVisible.value
                                     ? Icons.visibility_off_outlined
                                     : Icons.visibility_outlined,
+                                size: 22,
                                 color: const Color(0xFF828282)),
                           ),
                         ))),

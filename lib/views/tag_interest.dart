@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_color.dart';
 
+import '../routes/route_name.dart';
+
 class TagInterestView extends StatelessWidget {
   const TagInterestView({super.key});
 
@@ -93,7 +95,7 @@ class TagInterestView extends StatelessWidget {
                 Padding(
                     padding: const EdgeInsets.only(bottom: 30),
                     child: ElevatedButton(
-                        onPressed: () {},
+                     onPressed: () => Get.toNamed(RouteName.start),
                         child: const Center(
                             child: Text(
                           "Next",

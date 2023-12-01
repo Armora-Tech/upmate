@@ -11,7 +11,7 @@ class AppTheme {
                 borderRadius:
                     BorderRadius.circular(10.0), // Ubah sesuai keinginan Anda
               ),
-              padding: const EdgeInsets.symmetric(vertical: 15),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               foregroundColor: Colors.black45,
               elevation: 0.5,
               textStyle: const TextStyle(
@@ -38,7 +38,8 @@ class AppTheme {
       textSelectionTheme:
           const TextSelectionThemeData(cursorColor: AppColor.primaryColor),
       inputDecorationTheme: InputDecorationTheme(
-          contentPadding: const EdgeInsets.all(15),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(width: 0.5, color: Colors.grey)),
@@ -46,5 +47,5 @@ class AppTheme {
               borderRadius: BorderRadius.circular(10),
               borderSide:
                   const BorderSide(width: 1, color: AppColor.primaryColor)),
-          hintStyle: const TextStyle(fontSize: 16, fontFamily: "Nunito")));
+          hintStyle: const TextStyle(fontSize: 14, fontFamily: "Nunito")));
 }

@@ -5,12 +5,18 @@ import 'package:upmatev2/themes/app_color.dart';
 
 import '../../controllers/home_controller.dart';
 
-class NewPost extends StatelessWidget {
+class NewPost extends StatefulWidget {
   const NewPost({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<NewPost> createState() => _NewPostState();
+}
+
+class _NewPostState extends State<NewPost> {
     final controller = Get.find<HomeController>();
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(

@@ -51,12 +51,12 @@ class TakeSurveyView extends StatelessWidget {
                           horizontal: 10, vertical: 10),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(width: 1, color: AppColor.black)),
+                          border: Border.all(width: 1, color: Colors.grey)),
                       child: Row(
                         children: [
                           Container(
-                            height: 30,
-                            width: 30,
+                            height: 25,
+                            width: 25,
                             margin: const EdgeInsets.only(right: 10),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
@@ -67,8 +67,7 @@ class TakeSurveyView extends StatelessWidget {
                           ),
                           const Text(
                             "Ya",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
+                            style: TextStyle(fontWeight: FontWeight.w500),
                           )
                         ],
                       ),
@@ -80,12 +79,12 @@ class TakeSurveyView extends StatelessWidget {
                           horizontal: 10, vertical: 10),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(width: 1, color: AppColor.black)),
+                          border: Border.all(width: 1, color: Colors.grey)),
                       child: Row(
                         children: [
                           Container(
-                            height: 30,
-                            width: 30,
+                            height: 25,
+                            width: 25,
                             margin: const EdgeInsets.only(right: 10),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
@@ -96,8 +95,7 @@ class TakeSurveyView extends StatelessWidget {
                           ),
                           const Text(
                             "Kurang suka",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
+                            style: TextStyle(fontWeight: FontWeight.w500),
                           )
                         ],
                       ),
@@ -108,12 +106,12 @@ class TakeSurveyView extends StatelessWidget {
                           horizontal: 10, vertical: 10),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(width: 1, color: AppColor.black)),
+                          border: Border.all(width: 1, color: Colors.grey)),
                       child: Row(
                         children: [
                           Container(
-                            height: 30,
-                            width: 30,
+                            height: 25,
+                            width: 25,
                             margin: const EdgeInsets.only(right: 10),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
@@ -124,8 +122,7 @@ class TakeSurveyView extends StatelessWidget {
                           ),
                           const Text(
                             "Tidak",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
+                            style: TextStyle(fontWeight: FontWeight.w500),
                           )
                         ],
                       ),

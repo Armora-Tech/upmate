@@ -32,4 +32,5 @@ class HomeController extends GetxController {
     }
     return text;
   }
+  
 }
