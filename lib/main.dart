@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:upmatev2/bindings/login_binding.dart';
+import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_theme.dart';
 import 'package:upmatev2/views/login.dart';
 import 'package:get/route_manager.dart';
+
+import 'routes/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +26,7 @@ class MyApp extends StatelessWidget {
       },
       theme: AppTheme.lightTheme,
       initialBinding: LoginBinding(),
+      getPages: AppPage.pages,
       home: const LoginView(),
     );
   }
