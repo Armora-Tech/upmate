@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/bottom_nav_controller.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/widgets/global/profile_picture.dart';
+
+import '../widgets/home/side_bar.dart';
 
 class StartView extends StatelessWidget {
   const StartView({super.key});
@@ -10,6 +13,7 @@ class StartView extends StatelessWidget {
   Widget build(BuildContext context) {
     final botNavController = Get.find<BottomNavController>();
     return Obx(() => Scaffold(
+          drawer: const SideBar(),
           body: Stack(
             fit: StackFit.expand,
             children: [
@@ -33,22 +37,26 @@ class StartView extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const SizedBox(
-                                  width: 30, child: Icon(Icons.menu)),
+                              Builder(
+                                builder: (context) => GestureDetector(
+                                  onTap: () =>
+                                      Scaffold.of(context).openDrawer(),
+                                  child: SizedBox(
+                                      width: 28,
+                                      child: Image.asset(
+                                        "assets/images/humberger_icon.png",
+                                        fit: BoxFit.cover,
+                                      )),
+                                ),
+                              ),
                               const Text(
                                 "Flora Shafiqa",
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
-                              Container(
-                                width: 35,
-                                clipBehavior: Clip.hardEdge,
-                                decoration:
-                                    const BoxDecoration(shape: BoxShape.circle),
-                                child: Image.network(
-                                  "https://i.pinimg.com/736x/e5/93/09/e593098f04ed9c1f5fa05749ff0aff26.jpg",
-                                  fit: BoxFit.cover,
-                                ),
+                              const ProfilePicture(
+                                size: 35,
+                                tag: "app_bar",
                               )
                             ],
                           ),

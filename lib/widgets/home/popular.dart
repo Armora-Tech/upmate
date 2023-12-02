@@ -32,6 +32,8 @@ class Popular extends StatelessWidget {
         "info": "Disarankan untuk anda"
       },
     ];
+
+    const double containerWidth = 200;
     return SizedBox(
       height: 280,
       width: Get.width,
@@ -45,7 +47,7 @@ class Popular extends StatelessWidget {
         itemCount: popular.length,
         itemBuilder: (context, index) {
           return Container(
-              width: 180,
+              width: containerWidth,
               height: 250,
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
@@ -90,9 +92,9 @@ class Popular extends StatelessWidget {
                       )),
                   Positioned(
                       bottom: 0,
-                      child: Container(
+                      child: SizedBox(
                         height: 120,
-                        constraints: const BoxConstraints(maxWidth: 180),
+                        width: containerWidth,
                         child: ClipRRect(
                           child: BackdropFilter(
                             filter: ImageFilter.blur(
@@ -101,7 +103,7 @@ class Popular extends StatelessWidget {
                                     5), // Adjust sigmaX and sigmaY for blur intensity
                             child: Container(
                               height: 120,
-                              constraints: const BoxConstraints(maxWidth: 180),
+                              width: containerWidth,
                               color: Colors.grey.withOpacity(
                                   0.3), // Adjust opacity and color for the blur effect
                               padding: const EdgeInsets.all(10),
