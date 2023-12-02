@@ -17,7 +17,8 @@ class AppTheme {
               textStyle: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
-                  fontWeight: FontWeight.w600),
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "Nunito"),
               backgroundColor: AppColor.primaryColor)),
       appBarTheme: const AppBarTheme(
           elevation: 0.0,

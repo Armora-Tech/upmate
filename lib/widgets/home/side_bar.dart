@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/global/detail_profile_picture.dart';
 
+import '../global/line.dart';
+
 class SideBar extends StatelessWidget {
   const SideBar({super.key});
 
@@ -97,11 +99,7 @@ class SideBar extends StatelessWidget {
                       child: Column(
                         children: [
                           item.key.toLowerCase() == "keluar"
-                              ? Container(
-                                  width: Get.width,
-                                  height: 1,
-                                  color: AppColor.lightGrey,
-                                )
+                              ? const Line()
                               : const SizedBox.shrink(),
                           Container(
                               width: Get.size.width,

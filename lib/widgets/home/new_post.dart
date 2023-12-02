@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/widgets/global/line.dart';
 
 import '../../controllers/home_controller.dart';
 
@@ -13,7 +14,7 @@ class NewPost extends StatefulWidget {
 }
 
 class _NewPostState extends State<NewPost> {
-    final controller = Get.find<HomeController>();
+  final controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -281,11 +282,7 @@ class _NewPostState extends State<NewPost> {
         const SizedBox(
           height: 5,
         ),
-        Container(
-          height: 0.5,
-          width: Get.width,
-          color: Colors.grey,
-        )
+        const Line()
       ],
     );
   }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/bottom_nav_controller.dart';
-import 'package:upmatev2/themes/app_color.dart';
-import 'package:upmatev2/widgets/global/profile_picture.dart';
-
+import 'package:upmatev2/widgets/global/line.dart';
 import '../widgets/home/side_bar.dart';
 
 class StartView extends StatelessWidget {
@@ -23,53 +21,6 @@ class StartView extends StatelessWidget {
                 controller: botNavController.tabController,
                 children: List.generate(botNavController.pages.length,
                     (index) => botNavController.pages[index]),
-              ),
-              Positioned(
-                top: 0,
-                child: Container(
-                  color: Colors.white,
-                  width: Get.width,
-                  child: SafeArea(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Builder(
-                                builder: (context) => GestureDetector(
-                                  onTap: () =>
-                                      Scaffold.of(context).openDrawer(),
-                                  child: SizedBox(
-                                      width: 28,
-                                      child: Image.asset(
-                                        "assets/images/humberger_icon.png",
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
-                              ),
-                              const Text(
-                                "Flora Shafiqa",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              const ProfilePicture(
-                                size: 35,
-                                tag: "app_bar",
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 0.5,
-                          width: Get.width,
-                          color: Colors.grey,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
               ),
               Positioned(
                 bottom: 0,
@@ -125,14 +76,7 @@ class StartView extends StatelessWidget {
                           }),
                         ),
                       ),
-                      Positioned(
-                        top: 0,
-                        child: Container(
-                          height: 0.5,
-                          width: Get.width,
-                          color: AppColor.lightGrey,
-                        ),
-                      ),
+                      const Positioned(top: 0, child: Line())
                     ],
                   ),
                 ),

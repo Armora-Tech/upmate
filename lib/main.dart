@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
         );
       },
       theme: AppTheme.lightTheme,
-      initialBinding: StartBinding(),
+      initialBinding: LoginBinding(),
       getPages: AppPage.pages,
-      home: const StartView(),
+      home: const LoginView(),
     );
   }
 }
