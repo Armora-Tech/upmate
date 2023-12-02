@@ -26,7 +26,7 @@ class Post extends StatelessWidget {
                   child: RichText(
                     text: const TextSpan(
                         style: TextStyle(
-                            color: Color.fromRGBO(0, 0, 0, 1),
+                            color: Colors.black,
                             fontSize: 13,
                             fontFamily: "Nunito"),
                         children: [

@@ -29,8 +29,8 @@ class AppTheme {
               fontSize: 25,
               fontFamily: "Nunito")),
       textTheme: const TextTheme(
-        headlineLarge: TextStyle(color: Colors.black),
-        bodyLarge: TextStyle(color: Colors.black),
+        headlineLarge: TextStyle(color: Colors.black, fontFamily: "Nunito"),
+        bodyLarge: TextStyle(color: Colors.black, fontFamily: "Nunito"),
         bodyMedium:
             TextStyle(fontSize: 14, color: Colors.black, fontFamily: "Nunito"),
       ),

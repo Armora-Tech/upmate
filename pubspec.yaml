@@ -39,6 +39,18 @@ dependencies:
   google_fonts: ^5.1.0
   flutter_svg: ^2.0.7
   carousel_slider: ^4.2.1
+  flutter_native_splash: ^2.3.6
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+  image: assets/images/splash_screen_logo.png
+  color: "#ffffff"
+
+  android_12:
+    image: assets/images/splash_screen_logo.png
+    icon_background_color: "#ffffff"
 
 dev_dependencies:
   flutter_test:
