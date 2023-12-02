@@ -7,4 +7,5 @@ abstract class RouteName {
    static const takeSurvey = "/take-survey" ;
    static const tagInterest = "/tagInterest" ;
    static const start = "/start" ;
+   static const chatRoom = "/chat-room" ;
 }

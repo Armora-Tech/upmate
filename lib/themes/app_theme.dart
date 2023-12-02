@@ -5,6 +5,8 @@ class AppTheme {
   static ThemeData get lightTheme => ThemeData.light().copyWith(
       scaffoldBackgroundColor: Colors.white,
       primaryColor: AppColor.primaryColor,
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          shape: CircleBorder(), backgroundColor: AppColor.primaryColor),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
               splashFactory: InkRipple.splashFactory,

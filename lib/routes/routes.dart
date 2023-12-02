@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:upmatev2/bindings/login_binding.dart';
 import 'package:upmatev2/bindings/signup_binding.dart';
 import 'package:upmatev2/bindings/start_binding.dart';
+import 'package:upmatev2/views/chat_room.dart';
+import '../bindings/chat_room_binding.dart';
 import '../views/login.dart';
 import '../views/signup.dart';
 import '../views/start.dart';
@@ -36,6 +38,12 @@ class AppPage {
       name: RouteName.start,
       page: () => const StartView(),
       binding: StartBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: RouteName.chatRoom,
+      page: () => const ChatRoomView(),
+      binding: ChatRoomBinding(),
       transition: Transition.rightToLeft,
     ),
   ];

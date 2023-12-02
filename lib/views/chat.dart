@@ -19,6 +19,16 @@ class ChatView extends StatelessWidget {
         ],
       ),
       Positioned(
+          bottom: 80,
+          right: 20,
+          child: FloatingActionButton(
+            onPressed: () {},
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+          )),
+      Positioned(
         top: 0,
         child: Container(
           color: Colors.white,
@@ -38,11 +48,21 @@ class ChatView extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Icon(
-                        Icons.more_vert_rounded,
-                        size: 28,
-                        color: Colors.black,
-                      )
+                      Row(children: [
+                        Icon(
+                          Icons.search,
+                          size: 26,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Icon(
+                          Icons.more_vert_rounded,
+                          size: 28,
+                          color: Colors.black,
+                        ),
+                      ])
                     ],
                   ),
                 ),
