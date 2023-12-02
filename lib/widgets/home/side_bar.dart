@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/global/detail_profile_picture.dart';
 
@@ -10,7 +11,7 @@ class SideBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<dynamic, dynamic> drawerContentMap = {
+    Map<dynamic, dynamic> content = {
       "Akun": Icons.account_circle_outlined,
       "Pengaturan": Icons.settings_outlined,
       "Privasi": Icons.lock_outlined,
@@ -92,10 +93,14 @@ class SideBar extends StatelessWidget {
             height: 5.0,
           ),
           Column(
-              children: drawerContentMap.entries
+              children: content.entries
                   .map(
                     (item) => GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        if (item.key.toLowerCase() == "akun") {
+                          Get.toNamed(RouteName.profile);
+                        }
+                      },
                       child: Column(
                         children: [
                           item.key.toLowerCase() == "keluar"
@@ -103,6 +108,7 @@ class SideBar extends StatelessWidget {
                               : const SizedBox.shrink(),
                           Container(
                               width: Get.size.width,
+                              color: Colors.transparent,
                               margin: const EdgeInsets.only(right: 20),
                               padding: const EdgeInsets.only(left: 20),
                               height: 50,

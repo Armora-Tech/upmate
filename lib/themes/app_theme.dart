@@ -18,10 +18,12 @@ class AppTheme {
               foregroundColor: Colors.black45,
               elevation: 0.5,
               textStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: "Nunito"),
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                fontFamily: "Nunito",
+                overflow: TextOverflow.ellipsis,
+              ),
               backgroundColor: AppColor.primaryColor)),
       appBarTheme: const AppBarTheme(
           elevation: 0.0,
@@ -30,12 +32,22 @@ class AppTheme {
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 25,
-              fontFamily: "Nunito")),
+              fontFamily: "Nunito",
+              overflow: TextOverflow.ellipsis)),
       textTheme: const TextTheme(
-        headlineLarge: TextStyle(color: Colors.black, fontFamily: "Nunito"),
-        bodyLarge: TextStyle(color: Colors.black, fontFamily: "Nunito"),
-        bodyMedium:
-            TextStyle(fontSize: 14, color: Colors.black, fontFamily: "Nunito"),
+        headlineLarge: TextStyle(
+            color: Colors.black,
+            fontFamily: "Nunito",
+            overflow: TextOverflow.ellipsis),
+        bodyLarge: TextStyle(
+            color: Colors.black,
+            fontFamily: "Nunito",
+            overflow: TextOverflow.ellipsis),
+        bodyMedium: TextStyle(
+            fontSize: 14,
+            color: Colors.black,
+            fontFamily: "Nunito",
+            overflow: TextOverflow.ellipsis),
       ),
       iconTheme: const IconThemeData(color: AppColor.black, size: 30),
       shadowColor: AppColor.shadowColor,
@@ -53,5 +65,8 @@ class AppTheme {
               borderRadius: BorderRadius.circular(10),
               borderSide:
                   const BorderSide(width: 1, color: AppColor.primaryColor)),
-          hintStyle: const TextStyle(fontSize: 14, fontFamily: "Nunito")));
+          hintStyle: const TextStyle(
+              fontSize: 14,
+              fontFamily: "Nunito",
+              overflow: TextOverflow.ellipsis)));
 }
