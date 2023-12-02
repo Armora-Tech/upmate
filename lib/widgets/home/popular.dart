@@ -33,7 +33,7 @@ class Popular extends StatelessWidget {
       },
     ];
 
-    const double containerWidth = 200;
+    const double containerWidth = 180;
     return SizedBox(
       height: 280,
       width: Get.width,

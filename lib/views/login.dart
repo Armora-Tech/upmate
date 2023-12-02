@@ -44,14 +44,18 @@ class LoginView extends StatelessWidget {
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const TextField(
-                        decoration: InputDecoration(
-                      hintText: "Email",
-                    )),
+                    TextField(
+                        controller: controller.email,
+                        style: const TextStyle(fontSize: 14),
+                        decoration: const InputDecoration(
+                          hintText: "Email",
+                        )),
                     const SizedBox(
                       height: 10,
                     ),
                     Obx(() => TextField(
+                        controller: controller.pass,
+                        style: const TextStyle(fontSize: 14),
                         obscureText: controller.isVisible.value,
                         decoration: InputDecoration(
                           hintText: "Password",

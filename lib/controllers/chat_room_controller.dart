@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class ChatRoomController extends GetxController {
   late TextEditingController textEditingController;
-  RxBool isTextFieldFull = false.obs;
+  RxBool isTextFieldEmpty = true.obs;
 
   @override
   void onInit() {

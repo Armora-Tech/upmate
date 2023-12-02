@@ -129,8 +129,14 @@ class ChatRoomView extends StatelessWidget {
                       Expanded(
                         child: SingleChildScrollView(
                           child: TextField(
+                            style: const TextStyle(fontSize: 14),
                             controller: controller.textEditingController,
                             maxLines: null,
+                            onChanged: (text) {
+                              text.isNotEmpty
+                                  ? controller.isTextFieldEmpty.value = false
+                                  : controller.isTextFieldEmpty.value = true;
+                            },
                             decoration: const InputDecoration(
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none,
@@ -147,21 +153,29 @@ class ChatRoomView extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Row(
-                  children: [
-                    Icon(
-                      Icons.attach_file_outlined,
-                      color: Colors.grey,
-                      size: 28,
-                    ),
-                    SizedBox(width: 10),
-                    Icon(
-                      Icons.camera_alt_outlined,
-                      color: Colors.grey,
-                      size: 28,
-                    )
-                  ],
-                ),
+                Obx(
+                  () => controller.isTextFieldEmpty.value
+                      ? const Row(
+                          children: [
+                            Icon(
+                              Icons.attach_file_outlined,
+                              color: Colors.grey,
+                              size: 28,
+                            ),
+                            SizedBox(width: 10),
+                            Icon(
+                              Icons.camera_alt_outlined,
+                              color: Colors.grey,
+                              size: 28,
+                            )
+                          ],
+                        )
+                      : const Icon(
+                          Icons.send_rounded,
+                          color: Colors.grey,
+                          size: 28,
+                        ),
+                )
               ],
             ),
           ),

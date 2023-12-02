@@ -39,8 +39,10 @@ class AppTheme {
       ),
       iconTheme: const IconThemeData(color: AppColor.black, size: 30),
       shadowColor: AppColor.shadowColor,
-      textSelectionTheme:
-          const TextSelectionThemeData(cursorColor: AppColor.primaryColor),
+      textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: AppColor.primaryColor,
+          selectionColor: Colors.grey,
+          selectionHandleColor: AppColor.primaryColor),
       inputDecorationTheme: InputDecorationTheme(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
