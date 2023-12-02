@@ -5,6 +5,7 @@ import 'package:upmatev2/widgets/global/profile_picture.dart';
 import 'package:upmatev2/widgets/profile/main_content.dart';
 
 import '../controllers/profile_controller.dart';
+import '../widgets/global/detail_profile_picture.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -51,15 +52,24 @@ class ProfileView extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                          bottom: -73,
-                          left: 15,
+                        bottom: -73,
+                        left: 15,
+                        child: GestureDetector(
+                          onTap: () => Get.to(
+                              () => const DetailProfilePicture(),
+                              opaque: false,
+                              fullscreenDialog: true,
+                              transition: Transition.circularReveal),
                           child: Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border:
-                                    Border.all(width: 3, color: Colors.white)),
-                            child: const ProfilePicture(size: 75),
-                          ))
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      width: 3, color: Colors.white)),
+                              child: const Hero(
+                                  tag: "profile",
+                                  child: ProfilePicture(size: 75))),
+                        ),
+                      )
                     ]),
               ),
               const SizedBox(

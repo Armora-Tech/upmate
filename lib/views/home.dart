@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/widgets/global/title_section.dart';
 import 'package:upmatev2/widgets/home/new_post.dart';
 import 'package:upmatev2/widgets/home/popular.dart';
-
 import '../controllers/home_controller.dart';
-import '../widgets/global/detail_profile_picture.dart';
 import '../widgets/global/profile_picture.dart';
 
 class HomeView extends StatefulWidget {
@@ -47,7 +46,7 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(
                 height: 20,
               ),
-              TitleSection(title:  "Orang dengan ketertarikan yang sama"),
+              TitleSection(title: "Orang dengan ketertarikan yang sama"),
               SizedBox(
                 height: 20,
               ),
@@ -88,16 +87,10 @@ class _HomeViewState extends State<HomeView> {
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           GestureDetector(
-                              onTap: () => Get.to(
-                                  () => const DetailProfilePicture(),
-                                  opaque: false,
-                                  fullscreenDialog: true,
-                                  transition: Transition.circularReveal),
-                              child: const Hero(
-                                  tag: "app_bar",
-                                  child: ProfilePicture(
-                                    size: 35,
-                                  )))
+                              onTap: () => Get.toNamed(RouteName.profile),
+                              child: const ProfilePicture(
+                                size: 35,
+                              ))
                         ],
                       ),
                     ),
