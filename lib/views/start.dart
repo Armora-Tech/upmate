@@ -29,8 +29,7 @@ class StartView extends StatelessWidget {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -68,7 +67,7 @@ class StartView extends StatelessWidget {
                 bottom: 0,
                 child: Container(
                   color: Colors.white,
-                  height: 70,
+                  height: 60,
                   width: Get.width,
                   child: Stack(
                     children: [
@@ -96,7 +95,7 @@ class StartView extends StatelessWidget {
                                                   index
                                               ? 1
                                               : 0],
-                                      size: 28,
+                                      size: 25,
                                     ),
                                     const SizedBox(
                                       height: 2,
