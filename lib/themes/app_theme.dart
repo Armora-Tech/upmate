@@ -3,6 +3,7 @@ import 'package:upmatev2/themes/app_color.dart';
 
 class AppTheme {
   static ThemeData get lightTheme => ThemeData.light().copyWith(
+      scaffoldBackgroundColor: Colors.white,
       primaryColor: AppColor.primaryColor,
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

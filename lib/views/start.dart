@@ -41,7 +41,24 @@ class StartView extends StatelessWidget {
                               (index) {
                             final item = botNavController.tabs;
                             return GestureDetector(
-                              onTap: () => botNavController.selectTab(index),
+                              onTapUp: (details) {
+                                botNavController.iconSize.value =
+                                    botNavController.initialIconSize.value;
+                                botNavController.textSize.value =
+                                    botNavController.initialTextSize.value;
+                              },
+                              onTapDown: (details) {
+                                botNavController.iconSize.value = 23;
+                                botNavController.textSize.value = 8;
+
+                                botNavController.selectTab(index);
+                              },
+                              onTapCancel: () {
+                                botNavController.iconSize.value =
+                                    botNavController.initialIconSize.value;
+                                botNavController.textSize.value =
+                                    botNavController.initialTextSize.value;
+                              },
                               child: Container(
                                 color: Colors.white,
                                 width: Get.width / 5 - 2,
@@ -54,7 +71,12 @@ class StartView extends StatelessWidget {
                                                   index
                                               ? 1
                                               : 0],
-                                      size: 25,
+                                      size:
+                                          botNavController.selectedTab.value ==
+                                                  index
+                                              ? botNavController.iconSize.value
+                                              : botNavController
+                                                  .initialIconSize.value,
                                     ),
                                     const SizedBox(
                                       height: 2,
@@ -62,7 +84,12 @@ class StartView extends StatelessWidget {
                                     Text(
                                       item.keys.elementAt(index),
                                       style: TextStyle(
-                                          fontSize: 9,
+                                          fontSize: botNavController
+                                                      .selectedTab.value ==
+                                                  index
+                                              ? botNavController.textSize.value
+                                              : botNavController
+                                                  .initialTextSize.value,
                                           fontWeight: botNavController
                                                       .selectedTab.value ==
                                                   index
