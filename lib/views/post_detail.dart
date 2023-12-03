@@ -247,20 +247,17 @@ class PostDetailView extends StatelessWidget {
                             children: [
                               Icon(
                                 Icons.emoji_emotions_outlined,
-                                color: Colors.grey,
                                 size: 28,
                               ),
                               SizedBox(width: 10),
                               Icon(
                                 Icons.camera_alt_outlined,
-                                color: Colors.grey,
                                 size: 28,
                               )
                             ],
                           )
                         : const Icon(
                             Icons.send_rounded,
-                            color: Colors.grey,
                             size: 28,
                           ),
                   )

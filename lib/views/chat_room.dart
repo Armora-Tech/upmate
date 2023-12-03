@@ -13,14 +13,103 @@ class ChatRoomView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<ChatRoomController>();
     return Scaffold(
-      body: Stack(alignment: Alignment.center, fit: StackFit.expand, children: [
-        const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 80,
-            ),
-          ],
+      body: Stack(children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 90,
+              ),
+              Expanded(
+                child: ListView.separated(
+                  scrollDirection: Axis.vertical,
+                  itemCount: controller.chats.length,
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(
+                      height: 2,
+                    );
+                  },
+                  itemBuilder: (context, index) {
+                    controller.setMargin(index);
+                    return SizedBox(
+                      width: Get.width,
+                      child: Column(
+                        crossAxisAlignment: controller.isUser(index)
+                            ? CrossAxisAlignment.end
+                            : CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: controller.marginTop.value,
+                                bottom: controller.marginBottom.value),
+                            child: Container(
+                              constraints:
+                                  BoxConstraints(maxWidth: Get.width * 0.7),
+                              width: 200,
+                              margin: index == controller.chats.length - 1
+                                  ? const EdgeInsets.only(bottom: 100)
+                                  : EdgeInsets.zero,
+                              alignment: controller.isUser(index)
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 7),
+                              decoration: BoxDecoration(
+                                  color: controller.isUser(index)
+                                      ? Colors.white
+                                      : AppColor.primaryColor,
+                                  border: controller.isUser(index)
+                                      ? Border.all(
+                                          width: 1,
+                                          color: const Color.fromARGB(
+                                              255, 144, 172, 183))
+                                      : Border.all(width: 0),
+                                  borderRadius: controller
+                                      .checkPositionedUserChat(index)),
+                              child: Column(
+                                crossAxisAlignment: controller.isUser(index)
+                                    ? CrossAxisAlignment.end
+                                    : CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    controller.chats[index].values.first,
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                        color: controller.isUser(index)
+                                            ? Colors.black
+                                            : Colors.white),
+                                  ),
+                                  const Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        "09.00",
+                                        style: TextStyle(
+                                            fontSize: 10, color: Colors.grey),
+                                      ),
+                                      SizedBox(
+                                        width: 3,
+                                      ),
+                                      Icon(
+                                        Icons.check_rounded,
+                                        color: Colors.grey,
+                                        size: 16,
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
         Positioned(
           top: 0,
@@ -122,7 +211,6 @@ class ChatRoomView extends StatelessWidget {
                     children: [
                       const Icon(
                         Icons.emoji_emotions_outlined,
-                        color: Colors.grey,
                         size: 28,
                       ),
                       const SizedBox(width: 5),
@@ -155,24 +243,12 @@ class ChatRoomView extends StatelessWidget {
                 ),
                 Obx(
                   () => controller.isTextFieldEmpty.value
-                      ? const Row(
-                          children: [
-                            Icon(
-                              Icons.attach_file_outlined,
-                              color: Colors.grey,
-                              size: 28,
-                            ),
-                            SizedBox(width: 10),
-                            Icon(
-                              Icons.camera_alt_outlined,
-                              color: Colors.grey,
-                              size: 28,
-                            )
-                          ],
+                      ? const Icon(
+                          Icons.camera_alt_outlined,
+                          size: 28,
                         )
                       : const Icon(
                           Icons.send_rounded,
-                          color: Colors.grey,
                           size: 28,
                         ),
                 )
