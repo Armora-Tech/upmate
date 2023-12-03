@@ -9,4 +9,5 @@ abstract class RouteName {
    static const start = "/start" ;
    static const chatRoom = "/chat-room" ;
    static const profile = "/profile" ;
+   static const postDetail = "/post-detail" ;
 }

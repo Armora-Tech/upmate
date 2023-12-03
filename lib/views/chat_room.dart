@@ -129,7 +129,7 @@ class ChatRoomView extends StatelessWidget {
                       Expanded(
                         child: SingleChildScrollView(
                           child: TextField(
-                            style: const TextStyle(fontSize: 14),
+                            style: const TextStyle(fontSize: 16),
                             controller: controller.textEditingController,
                             maxLines: null,
                             onChanged: (text) {

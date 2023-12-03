@@ -30,7 +30,6 @@ class Follow extends StatelessWidget {
                       Text(
                         "Muhammad Rafli Silehu",
                         maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Row(
@@ -39,14 +38,12 @@ class Follow extends StatelessWidget {
                             child: Text(
                               "Telah mengikuti anda.",
                               maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(fontSize: 12),
                             ),
                           ),
                           Text(
                             "1 menit",
                             maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                           )
                         ],
