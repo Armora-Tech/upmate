@@ -11,6 +11,7 @@ class StartView extends StatelessWidget {
   Widget build(BuildContext context) {
     final botNavController = Get.find<BottomNavController>();
     return Obx(() => Scaffold(
+          resizeToAvoidBottomInset: false,
           drawer: const SideBar(),
           body: Stack(
             fit: StackFit.expand,

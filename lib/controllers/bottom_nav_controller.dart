@@ -4,7 +4,7 @@ import 'package:upmatev2/views/chat.dart';
 import 'package:upmatev2/views/home.dart';
 import 'package:upmatev2/views/notification.dart';
 import 'package:upmatev2/views/post.dart';
-import 'package:upmatev2/views/search.dart';
+import 'package:upmatev2/views/explore.dart';
 
 class BottomNavController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -25,7 +25,7 @@ class BottomNavController extends GetxController
 
   final List<Widget> pages = [
     const HomeView(),
-    const SearchView(),
+    const ExploreView(),
     const PostView(),
     const NotificationView(),
     const ChatView()
