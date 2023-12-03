@@ -202,7 +202,7 @@ class PostDetailView extends StatelessWidget {
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(15),
-                            topLeft: Radius.circular(5)),
+                            topLeft: Radius.circular(15)),
                         color: AppColor.primaryColor,
                       ),
                       child: Container(

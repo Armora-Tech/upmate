@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ChatRoomController extends GetxController {
   late TextEditingController textEditingController;
   late FocusNode focusNode;
+  ImagePicker imagePicker = ImagePicker();
+  XFile? pickedImage;
   RxBool isTextFieldEmpty = true.obs;
   RxDouble defaultRadius = 20.0.obs;
   RxDouble taperRadius = 3.0.obs;
@@ -26,20 +29,6 @@ class ChatRoomController extends GetxController {
       "other":
           "Baik kah bang asiiaapp baik kah bang asiiaapp baik kah bang asiap"
     },
-    {"user": "Baik kah bang asiiaapp"},
-    {
-      "other":
-          "Baik kah bang asiiaapp baik kah bang asiiaapp baik kah bang asiap"
-    },
-    {"user": "Baik kah bang asiiaapp"},
-    {
-      "user":
-          "Baik kah bang asiiaapp baik kah bang asiiaapp baik kah bang asiap"
-    },
-    {"other": "Baik kah bang asiiaapp"},
-    {"other": "Baik kah bang asiiaapp"},
-    {"other": "Baik kah bang asiiaapp"},
-    {"other": "Baik kah bang asiiaapp"},
   ];
 
   @override
@@ -59,6 +48,25 @@ class ChatRoomController extends GetxController {
     textEditingController.dispose();
     focusNode.dispose();
     super.onClose();
+  }
+
+  void selectImage() async {
+    try {
+      final dataImage =
+          await imagePicker.pickImage(source: ImageSource.gallery);
+      if (dataImage != null) {
+        pickedImage = dataImage;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void sendChat() {
+    chats.add({"user": textEditingController.text});
+    textEditingController.clear();
+    
+    Get.forceAppUpdate();
   }
 
 // cek apakah user yang mengirimkan chat?
