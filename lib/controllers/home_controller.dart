@@ -16,6 +16,7 @@ class HomeController extends GetxController {
   };
 
   final List<String> images = [
+    "assets/images/naruto.jpg",
     "assets/images/quran.png",
     "assets/images/gojek.png",
     "assets/images/movie-app.png",

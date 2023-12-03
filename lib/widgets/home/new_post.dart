@@ -1,9 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/global/line.dart';
-
+import 'package:upmatev2/widgets/global/post_image.dart';
 import '../../controllers/home_controller.dart';
 
 class NewPost extends StatefulWidget {
@@ -61,47 +59,7 @@ class _NewPostState extends State<NewPost> {
         const SizedBox(
           height: 10,
         ),
-        AspectRatio(
-            aspectRatio: 16.0 / 8.5,
-            child: CarouselSlider(
-              options: CarouselOptions(
-                viewportFraction: 1,
-                aspectRatio: 3 / 4,
-                enlargeCenterPage: true,
-                enableInfiniteScroll: false,
-                onPageChanged: (index, reason) {
-                  controller.selectedIndex.value = index;
-                },
-              ),
-              items: controller.images.map((image) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(image, fit: BoxFit.cover),
-                );
-              }).toList(),
-            )),
-        const SizedBox(
-          height: 15,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-              controller.images.length,
-              (index) => Obx(
-                    () => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 3),
-                      child: Container(
-                        height: 5,
-                        width: 5,
-                        decoration: BoxDecoration(
-                            color: controller.selectedIndex.value == index
-                                ? Colors.grey
-                                : AppColor.lightGrey,
-                            shape: BoxShape.circle),
-                      ),
-                    ),
-                  )),
-        ),
+        PostImage(controller: controller),
         const SizedBox(
           height: 15,
         ),
