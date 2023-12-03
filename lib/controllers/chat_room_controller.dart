@@ -3,13 +3,16 @@ import 'package:get/get.dart';
 
 class ChatRoomController extends GetxController {
   late TextEditingController textEditingController;
+  late FocusNode focusNode;
   RxBool isTextFieldEmpty = true.obs;
   RxDouble defaultRadius = 20.0.obs;
   RxDouble taperRadius = 3.0.obs;
   RxDouble marginTop = 0.0.obs;
   RxDouble marginBottom = 0.0.obs;
+  RxBool isShowEmoji = false.obs;
 
   List<Map<String, String>> chats = [
+    {"user": "P"},
     {"user": "Hallo bang"},
     {"other": "Apa kabar?"},
     {"user": "Baik kah bang asiiaapp baik kah bang"},
@@ -38,6 +41,25 @@ class ChatRoomController extends GetxController {
     {"other": "Baik kah bang asiiaapp"},
     {"other": "Baik kah bang asiiaapp"},
   ];
+
+  @override
+  void onInit() {
+    textEditingController = TextEditingController();
+    focusNode = FocusNode();
+    focusNode.addListener(() {
+      if (focusNode.hasFocus) {
+        isShowEmoji.value = false;
+      }
+    });
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    textEditingController.dispose();
+    focusNode.dispose();
+    super.onClose();
+  }
 
 // cek apakah user yang mengirimkan chat?
   bool isUser(int index) {
@@ -169,17 +191,5 @@ class ChatRoomController extends GetxController {
             topRight: Radius.circular(defaultRadius.value));
       }
     }
-  }
-
-  @override
-  void onInit() {
-    textEditingController = TextEditingController();
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    textEditingController.dispose();
-    super.onClose();
   }
 }

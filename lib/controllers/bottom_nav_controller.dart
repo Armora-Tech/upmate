@@ -31,12 +31,6 @@ class BottomNavController extends GetxController
     const ChatView()
   ];
 
-  void selectTab(int index) {
-    selectedTab.value = index;
-    tabController.animateTo(selectedTab.value,
-        duration: const Duration(milliseconds: 300), curve: Curves.ease);
-  }
-
   @override
   void onInit() {
     tabController = TabController(length: pages.length, vsync: this);
@@ -47,5 +41,11 @@ class BottomNavController extends GetxController
   void dispose() {
     tabController.dispose();
     super.dispose();
+  }
+
+  void selectTab(int index) {
+    selectedTab.value = index;
+    tabController.animateTo(selectedTab.value,
+        duration: const Duration(milliseconds: 300), curve: Curves.ease);
   }
 }

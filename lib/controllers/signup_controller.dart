@@ -9,14 +9,6 @@ class SignupController extends GetxController {
   RxBool isVisible = true.obs;
   RxBool isConfirmPassVisible = true.obs;
 
-  void changeVisibility() {
-    isVisible.value = !isVisible.value;
-  }
-
-  void changeConfirmPassVisibility() {
-    isConfirmPassVisible.value = !isConfirmPassVisible.value;
-  }
-
   @override
   void onInit() {
     username = TextEditingController();
@@ -33,5 +25,13 @@ class SignupController extends GetxController {
     pass.dispose();
     confPass.dispose();
     super.onClose();
+  }
+
+  void changeVisibility() {
+    isVisible.toggle();
+  }
+
+  void changeConfirmPassVisibility() {
+    isConfirmPassVisible.toggle();
   }
 }

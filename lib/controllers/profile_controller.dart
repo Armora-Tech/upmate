@@ -10,13 +10,6 @@ class ProfileController extends GetxController
 
   List pages = [const MyPost(), const MyBookmark()];
 
-  void selectTab(int index) {
-    selectedTab.value = index;
-    tabController.animateTo(selectedTab.value,
-        duration: const Duration(milliseconds: 300), curve: Curves.ease);
-    update();
-  }
-
   @override
   void onInit() {
     tabController = TabController(length: pages.length, vsync: this);
@@ -27,5 +20,12 @@ class ProfileController extends GetxController
   void dispose() {
     tabController.dispose();
     super.dispose();
+  }
+
+  void selectTab(int index) {
+    selectedTab.value = index;
+    tabController.animateTo(selectedTab.value,
+        duration: const Duration(milliseconds: 300), curve: Curves.ease);
+    update();
   }
 }

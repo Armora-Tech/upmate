@@ -6,10 +6,6 @@ class LoginController extends GetxController {
   late TextEditingController pass;
   RxBool isVisible = true.obs;
 
-  void changeVisibility() {
-    isVisible.value = !isVisible.value;
-  }
-
   @override
   void onInit() {
     email = TextEditingController();
@@ -22,5 +18,9 @@ class LoginController extends GetxController {
     email.dispose();
     pass.dispose();
     super.onClose();
+  }
+
+  void changeVisibility() {
+    isVisible.toggle();
   }
 }

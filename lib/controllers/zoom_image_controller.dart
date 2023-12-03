@@ -9,15 +9,6 @@ class ZoomImageController extends GetxController
   final RxDouble minScale = 1.0.obs;
   final RxDouble maxScale = 2.0.obs;
 
-  void resetZoom() {
-    animation = Matrix4Tween(
-            begin: transformationController.value, end: Matrix4.identity())
-        .animate(CurvedAnimation(
-            parent: animationController, curve: Curves.easeInToLinear));
-
-    animationController.forward(from: 0);
-  }
-
   @override
   void onInit() {
     transformationController = TransformationController();
@@ -32,5 +23,14 @@ class ZoomImageController extends GetxController
     transformationController.dispose();
     animationController.dispose();
     super.onClose();
+  }
+
+  void resetZoom() {
+    animation = Matrix4Tween(
+            begin: transformationController.value, end: Matrix4.identity())
+        .animate(CurvedAnimation(
+            parent: animationController, curve: Curves.easeInToLinear));
+
+    animationController.forward(from: 0);
   }
 }
