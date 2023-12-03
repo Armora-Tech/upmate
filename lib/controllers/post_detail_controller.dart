@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 
 class PostDetailController extends GetxController {
   late TextEditingController textEditingController;
+  late FocusNode focusNode;
   RxInt selectedIndex = 0.obs;
   RxBool isTextFieldEmpty = true.obs;
+  RxBool isShowEmoji = false.obs;
   RxString fullText =
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
           .obs;
@@ -27,12 +29,19 @@ class PostDetailController extends GetxController {
   @override
   void onInit() {
     textEditingController = TextEditingController();
+    focusNode = FocusNode();
+    focusNode.addListener(() {
+      if (focusNode.hasFocus) {
+        isShowEmoji.value = false;
+      }
+    });
     super.onInit();
   }
 
   @override
   void onClose() {
     textEditingController.dispose();
+    focusNode.dispose();
     super.onClose();
   }
 }
