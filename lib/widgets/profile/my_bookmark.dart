@@ -8,10 +8,12 @@ class MyBookmark extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 30),
-      height: 500,
       width: Get.width,
       alignment: Alignment.topCenter,
-      child: const Text("Tidak ada postingan yang disimpan", style: TextStyle(color: Colors.grey),),
+      child: const Text(
+        "Tidak ada postingan yang disimpan",
+        style: TextStyle(color: Colors.grey),
+      ),
     );
   }
 }
