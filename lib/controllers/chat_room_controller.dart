@@ -65,7 +65,8 @@ class ChatRoomController extends GetxController {
   void sendChat() {
     chats.add({"user": textEditingController.text});
     textEditingController.clear();
-    
+    isTextFieldEmpty = true.obs;
+
     Get.forceAppUpdate();
   }
 

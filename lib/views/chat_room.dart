@@ -236,11 +236,11 @@ class ChatRoomView extends StatelessWidget {
                                         controller.textEditingController,
                                     maxLines: null,
                                     onChanged: (text) {
-                                      text.isNotEmpty
+                                      text.isEmpty
                                           ? controller.isTextFieldEmpty.value =
-                                              false
+                                              true
                                           : controller.isTextFieldEmpty.value =
-                                              true;
+                                              false;
                                     },
                                     decoration: const InputDecoration(
                                       enabledBorder: InputBorder.none,
