@@ -13,6 +13,7 @@ class BottomNavController extends GetxController
   RxDouble initialTextSize = 9.0.obs;
   RxDouble iconSize = 26.0.obs;
   RxDouble textSize = 9.0.obs;
+  double widthTab = Get.width / 5;
   late final TabController tabController;
 
   final Map<String, List<dynamic>> tabs = {
@@ -47,5 +48,22 @@ class BottomNavController extends GetxController
     selectedTab.value = index;
     tabController.animateTo(selectedTab.value,
         duration: const Duration(milliseconds: 300), curve: Curves.ease);
+  }
+
+  double handleBarAnimation() {
+    switch (selectedTab.value) {
+      case 0:
+        return 0;
+      case 1:
+        return widthTab;
+      case 2:
+        return widthTab * 2;
+      case 3:
+        return widthTab * 3;
+      case 4:
+        return widthTab * 4;
+      default:
+        return 0;
+    }
   }
 }
