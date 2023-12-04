@@ -1,11 +1,14 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/zoom_image_controller.dart';
 
-class ZoomPostImage extends StatelessWidget {
-  final String image;
-  const ZoomPostImage({super.key, required this.image});
+class DetailImage extends StatelessWidget {
+  final dynamic image;
+  bool isAsset;
+  DetailImage({super.key, required this.image, this.isAsset = true});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +30,21 @@ class ZoomPostImage extends StatelessWidget {
                   minScale: controller.minScale.value,
                   maxScale: controller.maxScale.value,
                   onInteractionEnd: (details) => controller.resetZoom(),
-                  child: Image.asset(
-                    image,
-                    fit: BoxFit.contain,
-                  ),
+                  child: isAsset
+                      ? Image.asset(
+                          image,
+                          fit: BoxFit.contain,
+                        )
+                      : Container(
+                          constraints:
+                              BoxConstraints(maxHeight: Get.height * 0.7),
+                          width: Get.width,
+                          child: Image.file(
+                            image,
+                            fit: BoxFit.contain,
+                            scale: 4.5,
+                          ),
+                        ),
                 ),
               ),
             ),

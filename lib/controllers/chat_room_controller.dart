@@ -1,34 +1,38 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:upmatev2/utils/pick_image.dart';
 
 class ChatRoomController extends GetxController {
   late TextEditingController textEditingController;
   late FocusNode focusNode;
-  ImagePicker imagePicker = ImagePicker();
-  XFile? pickedImage;
+  File? image;
   RxBool isTextFieldEmpty = true.obs;
   RxDouble defaultRadius = 20.0.obs;
   RxDouble taperRadius = 3.0.obs;
   RxDouble marginTop = 0.0.obs;
   RxDouble marginBottom = 0.0.obs;
   RxBool isShowEmoji = false.obs;
+  RxBool isGallery = true.obs;
+  RxBool isImage = false.obs;
 
-  List<Map<String, String>> chats = [
+  List<Map<String, dynamic>> chats = [
     {"user": "P"},
     {"user": "Hallo bang"},
-    {"other": "Apa kabar?"},
-    {"user": "Baik kah bang asiiaapp baik kah bang"},
-    {"user": "Baik kah bang asiiaapp"},
-    {
-      "user":
-          "Baik kah bang asiiaapp baik kah bang asiiaapp baik kah bang asiap"
-    },
-    {"other": "Baik kah bang asiiaapp"},
+    {"user": "Apa kabar?"},
+    {"other": "Alhamdulillah baik bang. Ada apa bang?"},
+    {"other": "Ada apa bang?"},
+    {"user": "ga jadi"},
     {
       "other":
-          "Baik kah bang asiiaapp baik kah bang asiiaapp baik kah bang asiap"
+          "Ok bang semoga hari anda senin terus, Ok bang semoga hari anda senin terus"
     },
+    {
+      "other":
+          "Ok bang semoga hari anda senin terus, Ok bang semoga hari anda senin terus, Ok bang semoga hari anda senin terus"
+    },
+    {"other": "Ok bang semoga hari anda senin terus"},
   ];
 
   @override
@@ -50,23 +54,34 @@ class ChatRoomController extends GetxController {
     super.onClose();
   }
 
-  void selectImage() async {
+  void selectImage(bool isGallery) async {
     try {
-      final dataImage =
-          await imagePicker.pickImage(source: ImageSource.gallery);
-      if (dataImage != null) {
-        pickedImage = dataImage;
+      final imagePicker = PickImage(isGallery: isGallery);
+      final images = await imagePicker.pickMedia();
+      if (images.isNotEmpty) {
+        final croppedImage = await imagePicker.crop(
+            file: images.first, cropStyle: CropStyle.rectangle);
+        if (croppedImage != null) {
+          image = File(croppedImage.path);
+          textEditingController.text = image.toString();
+          isTextFieldEmpty.value = false;
+        }
       }
+      Get.forceAppUpdate();
+      Get.back();
     } catch (e) {
       print(e.toString());
     }
   }
 
   void sendChat() {
-    chats.add({"user": textEditingController.text});
+    if (textEditingController.text == image.toString()) {
+      chats.add({"user": image});
+    } else {
+      chats.add({"user": textEditingController.text});
+    }
     textEditingController.clear();
-    isTextFieldEmpty = true.obs;
-
+    isTextFieldEmpty.value = true;
     Get.forceAppUpdate();
   }
 

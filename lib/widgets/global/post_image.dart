@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../themes/app_color.dart';
-import 'zoom_post_image.dart';
+import 'detail_image.dart';
 
 class PostImage extends StatelessWidget {
   final dynamic controller;
@@ -27,7 +27,7 @@ class PostImage extends StatelessWidget {
             ),
             items: controller.images.map<Widget>((image) {
               return GestureDetector(
-                onTap: () => Get.to(() => ZoomPostImage(image: image),
+                onTap: () => Get.to(() => DetailImage(image: image),
                     opaque: false,
                     fullscreenDialog: true,
                     transition: Transition.noTransition),

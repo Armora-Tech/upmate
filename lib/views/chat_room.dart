@@ -1,8 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/utils/bottom_sheet.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
+import '../widgets/global/detail_image.dart';
 import '../widgets/global/emoji_section.dart';
 import '../widgets/global/line.dart';
 
@@ -75,14 +78,51 @@ class ChatRoomView extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  controller.chats[reversedIndex].values.first,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                      color: controller.isUser(reversedIndex)
-                                          ? Colors.black
-                                          : Colors.white),
-                                ),
+                                controller.chats[reversedIndex].values.first
+                                        is File
+                                    ? GestureDetector(
+                                        onTap: () => Get.to(
+                                            () => DetailImage(
+                                                image: controller
+                                                    .chats[reversedIndex]
+                                                    .values
+                                                    .first,
+                                                isAsset: false),
+                                            opaque: false,
+                                            fullscreenDialog: true,
+                                            transition:
+                                                Transition.noTransition),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(bottom: 3),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            child: Hero(
+                                              tag: controller
+                                                  .chats[reversedIndex]
+                                                  .values
+                                                  .first
+                                                  .toString(),
+                                              child: Image.file(
+                                                controller.chats[reversedIndex]
+                                                    .values.first,
+                                                scale: 6,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : Text(
+                                        controller
+                                            .chats[reversedIndex].values.first,
+                                        overflow: TextOverflow.clip,
+                                        style: TextStyle(
+                                            color:
+                                                controller.isUser(reversedIndex)
+                                                    ? Colors.black
+                                                    : Colors.white),
+                                      ),
                                 const Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -262,7 +302,8 @@ class ChatRoomView extends StatelessWidget {
                           ),
                           controller.isTextFieldEmpty.value
                               ? GestureDetector(
-                                  onTap: () => controller.selectImage(),
+                                  onTap: () => BottomSheetUtil.showBottomDialog(
+                                      controller),
                                   child: const Icon(
                                     Icons.camera_alt_outlined,
                                     size: 28,
