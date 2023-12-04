@@ -49,6 +49,7 @@ class TagInterestView extends StatelessWidget {
                       const Text(
                         "Dapatkan rekomendasi konten hasil personalisasi Anda. Anda dapat memilih hingga 4 opsi",
                         style: TextStyle(fontSize: 12, color: Colors.grey),
+                        overflow: TextOverflow.clip,
                       ),
                       const SizedBox(
                         height: 20,

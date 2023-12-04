@@ -51,6 +51,9 @@ class AppTheme {
       ),
       iconTheme: const IconThemeData(color: AppColor.black, size: 30),
       shadowColor: AppColor.shadowColor,
+      splashFactory: InkRipple.splashFactory,
+      highlightColor: const Color.fromARGB(88, 0, 0, 0),
+      splashColor: const Color.fromARGB(88, 0, 0, 0),
       textSelectionTheme: const TextSelectionThemeData(
           cursorColor: AppColor.primaryColor,
           selectionColor: Colors.grey,

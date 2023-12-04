@@ -34,6 +34,7 @@ class TakeSurveyView extends StatelessWidget {
                     ),
                     const Text(
                       "Dapatkan rekomendasi konten hasil personalisasi Anda.",
+                      overflow: TextOverflow.clip,
                       style: TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                     const SizedBox(

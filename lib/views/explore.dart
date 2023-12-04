@@ -69,7 +69,7 @@ class ExploreView extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
                   child: TextField(
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 14),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: AppColor.lightGrey,

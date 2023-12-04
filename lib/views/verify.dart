@@ -41,6 +41,7 @@ class VerifyView extends StatelessWidget {
                 ),
                 const Text(
                   "Please enter the 4 digit code sent to emaildituju@contoh.com",
+                   overflow: TextOverflow.clip,
                   style: TextStyle(
                       fontWeight: FontWeight.w500, color: Colors.grey),
                 ),
