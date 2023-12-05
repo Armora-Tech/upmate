@@ -2,20 +2,25 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:photo_manager/photo_manager.dart';
 import 'package:upmatev2/utils/pick_image.dart';
 
 class ChatRoomController extends GetxController {
   late TextEditingController textEditingController;
   late FocusNode focusNode;
   File? image;
-  RxBool isTextFieldEmpty = true.obs;
   RxDouble defaultRadius = 20.0.obs;
   RxDouble taperRadius = 3.0.obs;
   RxDouble marginTop = 0.0.obs;
   RxDouble marginBottom = 0.0.obs;
+  RxBool isTextFieldEmpty = true.obs;
   RxBool isShowEmoji = false.obs;
   RxBool isGallery = true.obs;
   RxBool isImage = false.obs;
+
+  AssetEntity? selectedEntity;
+  List<AssetEntity> assetList = [];
+  List<AssetEntity> selectedAssetList = [];
 
   List<Map<String, dynamic>> chats = [
     {"user": "P"},
@@ -44,6 +49,10 @@ class ChatRoomController extends GetxController {
         isShowEmoji.value = false;
       }
     });
+
+    PickImage().loadAssets().then((value) {
+      assetList = value;
+    });
     super.onInit();
   }
 
@@ -54,9 +63,18 @@ class ChatRoomController extends GetxController {
     super.onClose();
   }
 
+  void addImage(AssetEntity image) {
+    if (selectedAssetList.contains(image)) {
+      selectedAssetList.remove(image);
+    } else {
+      selectedAssetList.add(image);
+    }
+    update();
+  }
+
   void selectImage(bool isGallery) async {
     try {
-      final imagePicker = PickImage(isGallery: isGallery);
+      final imagePicker = PickImage();
       final images = await imagePicker.pickMedia();
       if (images.isNotEmpty) {
         final croppedImage = await imagePicker.crop(
@@ -74,12 +92,17 @@ class ChatRoomController extends GetxController {
     }
   }
 
-  void sendChat() {
-    if (textEditingController.text == image.toString()) {
-      chats.add({"user": image});
-    } else {
-      chats.add({"user": textEditingController.text});
+  void sendImageGallery() {
+    for (AssetEntity i in selectedAssetList) {
+      chats.add({"user": i});
     }
+    Get.forceAppUpdate();
+    Get.back();
+  }
+
+  void sendChat() {
+    chats.add({"user": textEditingController.text});
+
     textEditingController.clear();
     isTextFieldEmpty.value = true;
     Get.forceAppUpdate();

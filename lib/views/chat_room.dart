@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:photo_manager/photo_manager.dart';
+import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/utils/bottom_sheet.dart';
@@ -78,51 +80,75 @@ class ChatRoomView extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                controller.chats[reversedIndex].values.first
-                                        is File
-                                    ? GestureDetector(
-                                        onTap: () => Get.to(
-                                            () => DetailImage(
-                                                image: controller
-                                                    .chats[reversedIndex]
-                                                    .values
-                                                    .first,
-                                                isAsset: false),
-                                            opaque: false,
-                                            fullscreenDialog: true,
-                                            transition:
-                                                Transition.noTransition),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 3),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            child: Hero(
-                                              tag: controller
+                                if (controller.chats[reversedIndex].values.first
+                                    is File)
+                                  GestureDetector(
+                                    onTap: () => Get.to(
+                                        () => DetailImage(
+                                              image: controller
                                                   .chats[reversedIndex]
                                                   .values
-                                                  .first
-                                                  .toString(),
-                                              child: Image.file(
-                                                controller.chats[reversedIndex]
-                                                    .values.first,
-                                                scale: 6,
-                                              ),
+                                                  .first,
                                             ),
+                                        opaque: false,
+                                        fullscreenDialog: true,
+                                        transition: Transition.noTransition),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(bottom: 3),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Hero(
+                                          tag: controller
+                                              .chats[reversedIndex].values.first
+                                              .toString(),
+                                          child: Image.file(
+                                            controller.chats[reversedIndex]
+                                                .values.first,
+                                            scale: 6,
                                           ),
                                         ),
-                                      )
-                                    : Text(
-                                        controller
-                                            .chats[reversedIndex].values.first,
-                                        overflow: TextOverflow.clip,
-                                        style: TextStyle(
-                                            color:
-                                                controller.isUser(reversedIndex)
-                                                    ? Colors.black
-                                                    : Colors.white),
                                       ),
+                                    ),
+                                  )
+                                else if (controller.chats[reversedIndex].values
+                                    .first is AssetEntity)
+                                  GestureDetector(
+                                    onTap: () => Get.to(
+                                        () => DetailImage(
+                                              image: controller
+                                                  .chats[reversedIndex]
+                                                  .values
+                                                  .first,
+                                            ),
+                                        opaque: false,
+                                        fullscreenDialog: true,
+                                        transition: Transition.noTransition),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(bottom: 3),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Hero(
+                                            tag: controller.chats[reversedIndex]
+                                                .values.first
+                                                .toString(),
+                                            child: AssetEntityImage(
+                                              controller.chats[reversedIndex]
+                                                  .values.first,
+                                              fit: BoxFit.cover,
+                                            )),
+                                      ),
+                                    ),
+                                  )
+                                else
+                                  Text(
+                                    controller
+                                        .chats[reversedIndex].values.first,
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                        color: controller.isUser(reversedIndex)
+                                            ? Colors.black
+                                            : Colors.white),
+                                  ),
                                 const Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -302,8 +328,13 @@ class ChatRoomView extends StatelessWidget {
                           ),
                           controller.isTextFieldEmpty.value
                               ? GestureDetector(
-                                  onTap: () => BottomSheetUtil.showBottomDialog(
-                                      controller),
+                                  onTap: () {
+                                    if (!Get.isBottomSheetOpen!) {
+                                      controller.selectedAssetList.clear();
+                                    }
+                                    BottomSheetUtil.showBottomDialog(
+                                        controller);
+                                  },
                                   child: const Icon(
                                     Icons.camera_alt_outlined,
                                     size: 28,

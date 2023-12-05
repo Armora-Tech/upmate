@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:photo_manager/photo_manager.dart';
 import 'package:upmatev2/themes/app_color.dart';
 
 class PickImage {
-  PickImage(
-      {ImagePicker? imagePicker,
-      ImageCropper? imageCropper,
-      required this.isGallery})
+  PickImage({ImagePicker? imagePicker, ImageCropper? imageCropper})
       : _imagePicker = imagePicker ?? ImagePicker(),
         _imageCropper = imageCropper ?? ImageCropper();
+
   final ImagePicker _imagePicker;
   final ImageCropper _imageCropper;
-  bool isGallery = true;
 
   Future<List<XFile>> pickMedia(
-      {ImageSource source = ImageSource.gallery,
+      {ImageSource source = ImageSource.camera,
       int imageQuality = 100,
       bool isMultiple = true}) async {
-    source = isGallery ? ImageSource.gallery : ImageSource.camera;
+    source = source;
     if (!isMultiple) {
       return await _imagePicker.pickMultiImage(imageQuality: imageQuality);
     }
@@ -48,5 +46,34 @@ class PickImage {
         ),
       ],
     );
+  }
+
+  Future<List<AssetEntity>> loadAssets() async {
+    final permission = await PhotoManager.requestPermissionExtend();
+    List<AssetEntity> assets = [];
+
+    if (permission.isAuth) {
+      int pageCount = 100;
+      bool hasNext = true;
+      int page = 0;
+
+      while (hasNext) {
+        List<AssetEntity> assetsPaged = await PhotoManager.getAssetListPaged(
+          page: page,
+          pageCount: pageCount,
+          type: RequestType.image,
+        );
+
+        if (assetsPaged.isEmpty) {
+          hasNext = false;
+        } else {
+          assets.addAll(assetsPaged);
+          page++;
+        }
+      }
+    } else {
+      PhotoManager.openSetting();
+    }
+    return assets;
   }
 }
