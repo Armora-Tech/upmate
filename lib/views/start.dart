@@ -106,11 +106,11 @@ class StartView extends StatelessWidget {
                         left: botNavController
                             .handleBarAnimation(), // Menggunakan nilai yang dikembalikan dari controller
                         child: Container(
-                          height: 3,
+                          height: 3.5,
                           width: botNavController.widthTab,
                           decoration: BoxDecoration(
-                            color: AppColor.primaryColor,
-                            borderRadius: BorderRadius.circular(10),
+                            color: AppColor.black,
+                            borderRadius: BorderRadius.circular(20),
                           ),
                         ),
                       ),

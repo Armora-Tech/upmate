@@ -54,6 +54,7 @@ class LoginView extends StatelessWidget {
                       height: 10,
                     ),
                     Obx(() => TextField(
+                      focusNode: controller.focusNode,
                         controller: controller.pass,
                         style: const TextStyle(fontSize: 14),
                         obscureText: controller.isVisible.value,
@@ -66,7 +67,9 @@ class LoginView extends StatelessWidget {
                                     ? Icons.visibility_off_outlined
                                     : Icons.visibility_outlined,
                                 size: 22,
-                                color: const Color(0xFF828282)),
+                                color: controller.isFocused.value
+                                    ? AppColor.primaryColor
+                                    : const Color(0xFF828282)),
                           ),
                         ))),
                     const SizedBox(

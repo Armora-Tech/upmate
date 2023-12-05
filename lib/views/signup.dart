@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:upmatev2/controllers/signup_controller.dart';
 
 import '../routes/route_name.dart';
+import '../themes/app_color.dart';
 
 class SignupView extends StatelessWidget {
   const SignupView({super.key});
@@ -63,6 +64,7 @@ class SignupView extends StatelessWidget {
                       height: 15,
                     ),
                     Obx(() => TextField(
+                        focusNode: controller.focusNode,
                         controller: controller.pass,
                         style: const TextStyle(fontSize: 14),
                         obscureText: controller.isVisible.value,
@@ -75,13 +77,16 @@ class SignupView extends StatelessWidget {
                                     ? Icons.visibility_off_outlined
                                     : Icons.visibility_outlined,
                                 size: 22,
-                                color: const Color(0xFF828282)),
+                                color: controller.isFocused.value
+                                    ? AppColor.primaryColor
+                                    : const Color(0xFF828282)),
                           ),
                         ))),
                     const SizedBox(
                       height: 15,
                     ),
                     Obx(() => TextField(
+                        focusNode: controller.confirmPassfocusNode,
                         controller: controller.confPass,
                         style: const TextStyle(fontSize: 14),
                         obscureText: controller.isConfirmPassVisible.value,
@@ -95,7 +100,9 @@ class SignupView extends StatelessWidget {
                                     ? Icons.visibility_off_outlined
                                     : Icons.visibility_outlined,
                                 size: 22,
-                                color: const Color(0xFF828282)),
+                                color: controller.isConfirmPassFocused.value
+                                    ? AppColor.primaryColor
+                                    : const Color(0xFF828282)),
                           ),
                         ))),
                     const SizedBox(

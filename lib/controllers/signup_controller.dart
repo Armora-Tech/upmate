@@ -6,8 +6,12 @@ class SignupController extends GetxController {
   late TextEditingController email;
   late TextEditingController pass;
   late TextEditingController confPass;
+  late FocusNode focusNode;
+  late FocusNode confirmPassfocusNode;
   RxBool isVisible = true.obs;
   RxBool isConfirmPassVisible = true.obs;
+  RxBool isFocused = false.obs;
+  RxBool isConfirmPassFocused = false.obs;
 
   @override
   void onInit() {
@@ -15,6 +19,14 @@ class SignupController extends GetxController {
     email = TextEditingController();
     pass = TextEditingController();
     confPass = TextEditingController();
+    focusNode = FocusNode();
+    confirmPassfocusNode = FocusNode();
+    focusNode.addListener(() {
+      isFocused.value = focusNode.hasFocus;
+    });
+    confirmPassfocusNode.addListener(() {
+      isConfirmPassFocused.value = confirmPassfocusNode.hasFocus;
+    });
     super.onInit();
   }
 
@@ -24,6 +36,7 @@ class SignupController extends GetxController {
     email.dispose();
     pass.dispose();
     confPass.dispose();
+    focusNode.dispose();
     super.onClose();
   }
 
