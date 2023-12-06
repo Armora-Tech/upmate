@@ -17,6 +17,7 @@ class EmojiSection extends StatelessWidget {
       child: EmojiPicker(
         onEmojiSelected: (category, Emoji emoji) {
           controller.isTextFieldEmpty.value = false;
+          controller.update();
         },
         onBackspacePressed: () {},
         textEditingController: controller.textEditingController,

@@ -12,19 +12,12 @@ class PickImage {
   final ImagePicker _imagePicker;
   final ImageCropper _imageCropper;
 
-  Future<List<XFile>> pickMedia(
-      {ImageSource source = ImageSource.camera,
-      int imageQuality = 100,
-      bool isMultiple = true}) async {
-    source = source;
-    if (!isMultiple) {
-      return await _imagePicker.pickMultiImage(imageQuality: imageQuality);
-    }
+  Future<XFile?> pickMedia() async {
     final file = await _imagePicker.pickImage(
-        source: source, imageQuality: imageQuality);
+        source: ImageSource.camera, imageQuality: 100);
 
-    if (file != null) return [file];
-    return [];
+    if (file != null) return file;
+    return null;
   }
 
   Future<CroppedFile?> crop(

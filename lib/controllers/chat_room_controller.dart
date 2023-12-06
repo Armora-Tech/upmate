@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:upmatev2/utils/pick_image.dart';
 
@@ -15,7 +14,6 @@ class ChatRoomController extends GetxController {
   RxDouble marginBottom = 0.0.obs;
   RxBool isTextFieldEmpty = true.obs;
   RxBool isShowEmoji = false.obs;
-  RxBool isGallery = true.obs;
   RxBool isImage = false.obs;
 
   AssetEntity? selectedEntity;
@@ -41,7 +39,7 @@ class ChatRoomController extends GetxController {
   ];
 
   @override
-  void onInit() {
+  void onInit() async {
     textEditingController = TextEditingController();
     focusNode = FocusNode();
     focusNode.addListener(() {
@@ -50,10 +48,9 @@ class ChatRoomController extends GetxController {
       }
     });
 
-    PickImage().loadAssets().then((value) {
-      assetList = value;
-    });
+    assetList = await PickImage().loadAssets();
     super.onInit();
+    update();
   }
 
   @override
@@ -72,20 +69,16 @@ class ChatRoomController extends GetxController {
     update();
   }
 
-  void selectImage(bool isGallery) async {
+  void selectImage() async {
     try {
       final imagePicker = PickImage();
       final images = await imagePicker.pickMedia();
-      if (images.isNotEmpty) {
-        final croppedImage = await imagePicker.crop(
-            file: images.first, cropStyle: CropStyle.rectangle);
-        if (croppedImage != null) {
-          image = File(croppedImage.path);
-          textEditingController.text = image.toString();
-          isTextFieldEmpty.value = false;
-        }
+      if (images != null) {
+        image = File(images.path);
+        textEditingController.text = image.toString();
+        isTextFieldEmpty.value = false;
       }
-      Get.forceAppUpdate();
+      update();
       Get.back();
     } catch (e) {
       print(e.toString());
@@ -101,7 +94,11 @@ class ChatRoomController extends GetxController {
   }
 
   void sendChat() {
-    chats.add({"user": textEditingController.text});
+    if (textEditingController.text == image.toString()) {
+      chats.add({"user": image});
+    } else {
+      chats.add({"user": textEditingController.text});
+    }
 
     textEditingController.clear();
     isTextFieldEmpty.value = true;

@@ -54,7 +54,6 @@ class BottomSheetUtil {
                         ),
                         itemBuilder: (context, index) {
                           final double size = Get.width / 3;
-
                           return GestureDetector(
                             onTap: () => controller
                                 .addImage(controller.assetList[index]),
@@ -106,10 +105,7 @@ class BottomSheetUtil {
                           backgroundColor: AppColor.primaryColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30))),
-                      onPressed: () {
-                        controller.isGallery.value = false;
-                        controller.selectImage(controller.isGallery.value);
-                      },
+                      onPressed: () => controller.selectImage(),
                       child: const IntrinsicWidth(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 30),
@@ -141,10 +137,7 @@ class BottomSheetUtil {
                           backgroundColor: AppColor.primaryColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30))),
-                      onPressed: () {
-                        controller.sendImageGallery();
-
-                      },
+                      onPressed: () => controller.sendImageGallery(),
                       child: IntrinsicWidth(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
