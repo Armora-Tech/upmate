@@ -10,4 +10,5 @@ abstract class RouteName {
    static const chatRoom = "/chat-room" ;
    static const profile = "/profile" ;
    static const postDetail = "/post-detail" ;
+   static const search = "/search" ;
 }

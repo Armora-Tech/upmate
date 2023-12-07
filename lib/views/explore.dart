@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/explore/interest_box.dart';
 
@@ -66,32 +67,43 @@ class ExploreView extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
-                  child: TextField(
-                    style: const TextStyle(fontSize: 14),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColor.lightGrey,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide.none),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide.none),
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: Colors.black,
-                      ),
-                      hintText: "Search",
-                      hintStyle: const TextStyle(
-                        color: AppColor.black,
-                        fontSize: 14,
-                        fontFamily: "Nunito",
-                      ),
-                    ),
-                  ),
-                ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 13),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            backgroundColor: AppColor.bgSearch),
+                        onPressed: () => Get.toNamed(RouteName.search),
+                        child: const Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Row(
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.search,
+                                      color: Colors.black,
+                                      size: 26,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "Search",
+                                      style: TextStyle(
+                                          color: AppColor.primaryColor,
+                                          fontSize: 14),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ))),
               ],
             ),
           ),

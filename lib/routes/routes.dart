@@ -7,8 +7,10 @@ import 'package:upmatev2/views/profile.dart';
 import '../bindings/chat_room_binding.dart';
 import '../bindings/post_binding.dart';
 import '../bindings/profile_binding.dart';
+import '../bindings/search_binding.dart';
 import '../views/login.dart';
 import '../views/post_detail.dart';
+import '../views/search.dart';
 import '../views/signup.dart';
 import '../views/start.dart';
 import '../views/tag_interest.dart';
@@ -61,6 +63,12 @@ class AppPage {
       page: () => const PostDetailView(),
       binding: PostDetailBinding(),
       transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: RouteName.search,
+      page: () => const SearchView(),
+      binding: SearchBinding(),
+      transition: Transition.downToUp,
     ),
   ];
 }
