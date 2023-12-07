@@ -6,6 +6,7 @@ import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/utils/bottom_sheet.dart';
+import 'package:upmatev2/widgets/chatRoom/shimmer.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
 import '../widgets/global/detail_image.dart';
 import '../widgets/global/emoji_section.dart';
@@ -19,11 +20,8 @@ class ChatRoomView extends StatelessWidget {
     final controller = Get.find<ChatRoomController>();
     return GetBuilder<ChatRoomController>(
         builder: (_) => controller.assetList.isEmpty
-            ? Scaffold(
-                body: SizedBox(
-                    height: Get.height,
-                    width: Get.width,
-                    child: const Center(child: CircularProgressIndicator())),
+            ? const Scaffold(
+                body: ChatRoomShimmer(),
               )
             : Scaffold(
                 body: WillPopScope(
