@@ -7,10 +7,13 @@ import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/utils/auth.dart';
 
+import '../utils/cancellation.dart';
+
 class LoginView extends StatelessWidget {
   LoginView({super.key});
 
   final Auth _auth = Auth();
+  CancellationToken _cancellationToken = CancellationToken();
 
   @override
   Widget build(BuildContext context) {
@@ -157,6 +160,11 @@ class LoginView extends StatelessWidget {
                         height: 30,
                         child: IconButton(
                             onPressed: () async {
+                              if (_cancellationToken.isCancelled) return;
+                              if (kDebugMode) {
+                                print("process running....");
+                              }
+                              _cancellationToken.cancel();
                               User? user = await _auth.signInWithGoogle();
 
                               if (user != null) {
@@ -169,6 +177,7 @@ class LoginView extends StatelessWidget {
                                   print("Signin failed!");
                                 }
                               }
+                              _cancellationToken = CancellationToken();
                             },
                             icon: Image.asset(
                               "assets/images/google.png",
