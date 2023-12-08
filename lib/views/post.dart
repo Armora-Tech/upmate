@@ -83,7 +83,7 @@ class PostView extends StatelessWidget {
                                                     controller.selectedIndex;
                                                 return Positioned(
                                                     top: 10,
-                                                    left: 10,
+                                                    right: 10,
                                                     child: Container(
                                                       padding: const EdgeInsets
                                                           .symmetric(
