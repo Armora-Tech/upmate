@@ -6,9 +6,11 @@ import 'package:upmatev2/views/chat_room.dart';
 import 'package:upmatev2/views/profile.dart';
 import '../bindings/chat_room_binding.dart';
 import '../bindings/post_binding.dart';
+import '../bindings/post_detail_binding.dart';
 import '../bindings/profile_binding.dart';
 import '../bindings/search_binding.dart';
 import '../views/login.dart';
+import '../views/post.dart';
 import '../views/post_detail.dart';
 import '../views/search.dart';
 import '../views/signup.dart';
@@ -68,6 +70,12 @@ class AppPage {
       name: RouteName.search,
       page: () => const SearchView(),
       binding: SearchBinding(),
+      transition: Transition.downToUp,
+    ),
+    GetPage(
+      name: RouteName.post,
+      page: () => const PostView(),
+      binding: PostBinding(),
       transition: Transition.downToUp,
     ),
   ];

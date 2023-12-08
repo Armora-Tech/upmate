@@ -11,4 +11,5 @@ abstract class RouteName {
    static const profile = "/profile" ;
    static const postDetail = "/post-detail" ;
    static const search = "/search" ;
+   static const post = "/post" ;
 }

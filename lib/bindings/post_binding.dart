@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/post_detail_controller.dart';
+import '../controllers/post_controller.dart';
 
-class PostDetailBinding implements Bindings {
+class PostBinding implements Bindings {
   @override
   void dependencies() {
-     Get.lazyPut<PostDetailController>(() => PostDetailController());
-  }
-  
+     Get.lazyPut<PostController>(() => PostController());
+  } 
 }
