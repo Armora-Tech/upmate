@@ -13,7 +13,7 @@ class StartView extends StatelessWidget {
     final botNavController = Get.find<BottomNavController>();
     return Obx(() => Scaffold(
           resizeToAvoidBottomInset: false,
-          drawer: const SideBar(),
+          drawer: SideBar(),
           body: Stack(
             fit: StackFit.expand,
             children: [

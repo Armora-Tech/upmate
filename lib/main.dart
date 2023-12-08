@@ -1,13 +1,35 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/route_manager.dart';
 import 'package:upmatev2/bindings/login_binding.dart';
+import 'package:upmatev2/bindings/start_binding.dart';
 import 'package:upmatev2/themes/app_theme.dart';
 import 'package:upmatev2/views/login.dart';
-import 'package:get/route_manager.dart';
+import 'package:upmatev2/views/start.dart';
+
 import 'routes/routes.dart';
 
-void main() {
+late bool isLogin;
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    isLogin = user == null;
+
+    if (user == null) {
+      if (kDebugMode) {
+        print('User is currently signed out!');
+      }
+    } else {
+      if (kDebugMode) {
+        print('User is signed in!');
+      }
+    }
+  });
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
@@ -28,9 +50,9 @@ class MyApp extends StatelessWidget {
         );
       },
       theme: AppTheme.lightTheme,
-      initialBinding: LoginBinding(),
+      initialBinding: isLogin? LoginBinding() : StartBinding(),
       getPages: AppPage.pages,
-      home: const LoginView(),
+      home: isLogin? LoginView() : const StartView(),
     );
   }
 }

@@ -1,13 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/global/detail_profile_picture.dart';
 
+import '../../utils/auth.dart';
 import '../global/line.dart';
 
 class SideBar extends StatelessWidget {
-  const SideBar({super.key});
+  SideBar({super.key});
+
+  final Auth _auth = Auth();
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +100,19 @@ class SideBar extends StatelessWidget {
               children: content.entries
                   .map(
                     (item) => GestureDetector(
-                      onTap: () {
-                        if (item.key.toLowerCase() == "akun") {
+                      onTap: () async {
+                        var key = item.key.toLowerCase();
+                        if (key == "akun") {
                           Get.toNamed(RouteName.profile);
+                        } else if (key == "keluar") {
+                          try {
+                            _auth.signOut();
+                          } catch (e) {
+                            if (kDebugMode) {
+                              print('Error navigating to start page: $e');
+                              print("Sign out failed!");
+                            }
+                          }
                         }
                       },
                       child: Column(

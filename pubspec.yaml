@@ -46,6 +46,9 @@ dependencies:
   photo_manager: ^2.8.1
   photo_manager_image_provider: 2.1.0
   shimmer: ^3.0.0
+  firebase_core: ^2.24.1
+  firebase_auth: ^4.15.1
+  google_sign_in: ^6.1.6
 
 dependency_overrides: 
   photo_manager: ^3.0.0-dev.2

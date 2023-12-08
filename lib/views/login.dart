@@ -1,11 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/login_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/utils/auth.dart';
 
 class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+  LoginView({super.key});
+
+  final Auth _auth = Auth();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +59,7 @@ class LoginView extends StatelessWidget {
                       height: 10,
                     ),
                     Obx(() => TextField(
-                      focusNode: controller.focusNode,
+                        focusNode: controller.focusNode,
                         controller: controller.pass,
                         style: const TextStyle(fontSize: 14),
                         obscureText: controller.isVisible.value,
@@ -76,7 +81,22 @@ class LoginView extends StatelessWidget {
                       height: 20,
                     ),
                     ElevatedButton(
-                        onPressed: () => Get.toNamed(RouteName.start),
+                        onPressed: () async {
+                          User? user = await _auth.signInWithEmailAndPassword(
+                            controller.email.text,
+                            controller.pass.text,
+                          );
+                          if (user != null) {
+                            if (kDebugMode) {
+                              print('User signed in: ${user.uid}');
+                            }
+                              await Get.toNamed(RouteName.start);
+                          } else {
+                            if (kDebugMode) {
+                              print("Signin failed!");
+                            }
+                          }
+                        },
                         child: const Center(
                           child: Text(
                             "Sign In",
@@ -135,10 +155,25 @@ class LoginView extends StatelessWidget {
                   children: [
                     SizedBox(
                         height: 30,
-                        child: Image.asset(
-                          "assets/images/google.png",
-                          fit: BoxFit.cover,
-                        )),
+                        child: IconButton(
+                            onPressed: () async {
+                              User? user = await _auth.signInWithGoogle();
+
+                              if (user != null) {
+                                if (kDebugMode) {
+                                  print('User signed in: ${user.uid}');
+                                }
+                                  await Get.toNamed(RouteName.start);
+                              } else {
+                                if (kDebugMode) {
+                                  print("Signin failed!");
+                                }
+                              }
+                            },
+                            icon: Image.asset(
+                              "assets/images/google.png",
+                              fit: BoxFit.cover,
+                            ))),
                     const SizedBox(
                       width: 20,
                     ),

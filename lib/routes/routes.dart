@@ -22,7 +22,7 @@ class AppPage {
   static final pages = [
     GetPage(
         name: RouteName.login,
-        page: () => const LoginView(),
+        page: () => LoginView(),
         binding: LoginBinding()),
     GetPage(
         name: RouteName.signup,
@@ -42,7 +42,7 @@ class AppPage {
         transition: Transition.rightToLeft),
     GetPage(
       name: RouteName.start,
-      page: () => const StartView(),
+      page: () =>  const StartView(),
       binding: StartBinding(),
       transition: Transition.rightToLeft,
     ),
