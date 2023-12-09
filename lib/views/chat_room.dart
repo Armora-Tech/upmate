@@ -114,7 +114,7 @@ class ChatRoomView extends StatelessWidget {
                                                     bottom: 3),
                                                 child: ClipRRect(
                                                   borderRadius:
-                                                      BorderRadius.circular(8),
+                                                      BorderRadius.circular(15),
                                                   child: Hero(
                                                     tag: controller
                                                         .chats[reversedIndex]
@@ -154,7 +154,7 @@ class ChatRoomView extends StatelessWidget {
                                                     bottom: 3),
                                                 child: ClipRRect(
                                                   borderRadius:
-                                                      BorderRadius.circular(8),
+                                                      BorderRadius.circular(15),
                                                   child: Hero(
                                                       tag: controller
                                                           .chats[reversedIndex]

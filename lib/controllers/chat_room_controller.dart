@@ -3,8 +3,10 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/utils/pick_image.dart';
 import 'package:image/image.dart' as img;
+import 'package:upmatev2/views/confirm_send_image.dart';
 import '../main.dart';
 
 class ChatRoomController extends GetxController with WidgetsBindingObserver {
@@ -132,11 +134,10 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
           ..writeAsBytesSync(img.encodeJpg(flippedImage));
         image = flippedFile;
       }
-      if (image != null) {
-        textEditingController.text = image.toString();
-        isTextFieldEmpty.value = false;
-      }
-      await outOfCamera();
+      isFlashOn.value = false;
+      await cameraController.setFlashMode(FlashMode.off);
+      Get.to(() => const ConfirmSendImage(),
+          transition: Transition.rightToLeft);
       isTakingPicture.value = false;
     } catch (e) {
       debugPrint(e.toString());
@@ -195,12 +196,14 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     Get.back();
   }
 
+  void sendImageCamera() {
+    chats.add({"user": image});
+    Get.until((route) => Get.previousRoute == RouteName.chatRoom);
+    update();
+  }
+
   void sendChat() {
-    if (textEditingController.text == image.toString()) {
-      chats.add({"user": image});
-    } else {
-      chats.add({"user": textEditingController.text});
-    }
+    chats.add({"user": textEditingController.text});
 
     textEditingController.clear();
     isTextFieldEmpty.value = true;
