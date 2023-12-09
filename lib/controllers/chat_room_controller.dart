@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:upmatev2/utils/pick_image.dart';
-
+import 'package:image/image.dart' as img;
 import '../main.dart';
 
-class ChatRoomController extends GetxController {
+class ChatRoomController extends GetxController with WidgetsBindingObserver {
   late TextEditingController textEditingController;
   late FocusNode focusNode;
   late CameraController cameraController;
   late void cameraValue;
+  late FlashMode mode;
   File? image;
   RxDouble defaultRadius = 20.0.obs;
   RxDouble taperRadius = 3.0.obs;
@@ -48,6 +49,7 @@ class ChatRoomController extends GetxController {
 
   @override
   void onInit() async {
+    WidgetsBinding.instance.addObserver(this);
     textEditingController = TextEditingController();
     focusNode = FocusNode();
     focusNode.addListener(() {
@@ -55,6 +57,7 @@ class ChatRoomController extends GetxController {
         isShowEmoji.value = false;
       }
     });
+    mode = FlashMode.off;
     cameraController = CameraController(cameras[0], ResolutionPreset.max);
     cameraValue = await cameraController.initialize();
     assetList = await PickImage().loadAssets();
@@ -64,15 +67,67 @@ class ChatRoomController extends GetxController {
 
   @override
   void onClose() {
+    WidgetsBinding.instance.removeObserver(this);
     textEditingController.dispose();
     focusNode.dispose();
     cameraController.dispose();
     super.onClose();
   }
 
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.paused) {
+      try {
+        isFlashOn.value = false;
+        await cameraController.setFlashMode(FlashMode.off);
+      } catch (e) {
+        debugPrint(e.toString());
+      }
+    }
+    update();
+  }
+
+  Future<void> outOfCamera() async {
+    try {
+      isFlashOn.value = false;
+      await cameraController.setFlashMode(FlashMode.off);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    Get.back();
+    update();
+  }
+
+  Future<void> takePicture() async {
+    try {
+      await cameraController.setFlashMode(mode);
+      XFile file = await cameraController.takePicture();
+      image = File(file.path);
+      if (cameras[cameraPositioned.value].lensDirection ==
+          CameraLensDirection.front) {
+        img.Image imageFile = img.decodeImage(image!.readAsBytesSync())!;
+        img.Image flippedImage =
+            img.flip(imageFile, direction: img.FlipDirection.horizontal);
+
+        File flippedFile = File(file.path)
+          ..writeAsBytesSync(img.encodeJpg(flippedImage));
+        image = flippedFile;
+      }
+      if (image != null) {
+        textEditingController.text = image.toString();
+        isTextFieldEmpty.value = false;
+      }
+      await outOfCamera();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    update();
+  }
+
   Future<void> onSetFlashModeButtonPressed() async {
     isFlashOn.toggle();
-    FlashMode mode;
     if (isFlashOn.value) {
       mode = FlashMode.torch;
     } else {
@@ -82,7 +137,6 @@ class ChatRoomController extends GetxController {
       await cameraController.setFlashMode(mode);
     } catch (e) {
       debugPrint(e.toString());
-      rethrow;
     }
     update();
   }
