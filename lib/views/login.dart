@@ -54,7 +54,7 @@ class LoginView extends StatelessWidget {
                       height: 10,
                     ),
                     Obx(() => TextField(
-                      focusNode: controller.focusNode,
+                        focusNode: controller.focusNode,
                         controller: controller.pass,
                         style: const TextStyle(fontSize: 14),
                         obscureText: controller.isVisible.value,
@@ -76,16 +76,28 @@ class LoginView extends StatelessWidget {
                       height: 20,
                     ),
                     ElevatedButton(
-                        onPressed: () => Get.toNamed(RouteName.start),
-                        child: const Center(
-                          child: Text(
-                            "Sign In",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ))
+                        onPressed: controller.isLoading.value
+                            ? () {}
+                            : () => controller.login(),
+                        child: Center(
+                            child: Obx(
+                          () => controller.isLoading.value
+                              ? const SizedBox(
+                                  height: 23,
+                                  width: 23,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 2,
+                                  ),
+                                )
+                              : const Text(
+                                  "Sign In",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                        )))
                   ],
                 )),
                 const SizedBox(

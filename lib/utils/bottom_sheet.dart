@@ -4,6 +4,7 @@ import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/views/camera.dart';
 
 class BottomSheetUtil {
   static void showBottomDialog(ChatRoomController controller) {
@@ -105,7 +106,11 @@ class BottomSheetUtil {
                           backgroundColor: AppColor.primaryColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30))),
-                      onPressed: () => controller.selectImage(),
+                      onPressed: () {
+                        Get.back();
+                        Get.to(() => const CameraView(),
+                            transition: Transition.rightToLeft);
+                      },
                       child: const IntrinsicWidth(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 30),

@@ -1,12 +1,17 @@
 import 'dart:io';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:upmatev2/utils/pick_image.dart';
 
+import '../main.dart';
+
 class ChatRoomController extends GetxController {
   late TextEditingController textEditingController;
   late FocusNode focusNode;
+  late CameraController cameraController;
+  late void cameraValue;
   File? image;
   RxDouble defaultRadius = 20.0.obs;
   RxDouble taperRadius = 3.0.obs;
@@ -15,6 +20,9 @@ class ChatRoomController extends GetxController {
   RxBool isTextFieldEmpty = true.obs;
   RxBool isShowEmoji = false.obs;
   RxBool isImage = false.obs;
+  RxBool isFlashOn = false.obs;
+  RxBool isFrontCamera = true.obs;
+  RxInt cameraPositioned = 0.obs;
 
   AssetEntity? selectedEntity;
   List<AssetEntity> assetList = [];
@@ -47,17 +55,54 @@ class ChatRoomController extends GetxController {
         isShowEmoji.value = false;
       }
     });
-
+    cameraController = CameraController(cameras[0], ResolutionPreset.max);
+    cameraValue = await cameraController.initialize();
     assetList = await PickImage().loadAssets();
-    super.onInit();
     update();
+    super.onInit();
   }
 
   @override
   void onClose() {
     textEditingController.dispose();
     focusNode.dispose();
+    cameraController.dispose();
     super.onClose();
+  }
+
+  Future<void> onSetFlashModeButtonPressed() async {
+    isFlashOn.toggle();
+    FlashMode mode;
+    if (isFlashOn.value) {
+      mode = FlashMode.torch;
+    } else {
+      mode = FlashMode.off;
+    }
+    try {
+      await cameraController.setFlashMode(mode);
+    } catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
+    update();
+  }
+
+  Future<void> swicthCamera() async {
+    isFrontCamera.toggle();
+    if (isFrontCamera.value) {
+      cameraPositioned.value = 0;
+    } else {
+      cameraPositioned.value = 1;
+    }
+    try {
+      cameraController = CameraController(
+          cameras[cameraPositioned.value], ResolutionPreset.max);
+      cameraValue = await cameraController.initialize();
+    } catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
+    update();
   }
 
   void addImage(AssetEntity image) {
@@ -67,22 +112,6 @@ class ChatRoomController extends GetxController {
       selectedAssetList.add(image);
     }
     update();
-  }
-
-  void selectImage() async {
-    try {
-      final imagePicker = PickImage();
-      final images = await imagePicker.pickMedia();
-      if (images != null) {
-        image = File(images.path);
-        textEditingController.text = image.toString();
-        isTextFieldEmpty.value = false;
-      }
-      update();
-      Get.back();
-    } catch (e) {
-      print(e.toString());
-    }
   }
 
   void sendImageGallery() {
