@@ -23,6 +23,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   RxBool isImage = false.obs;
   RxBool isFlashOn = false.obs;
   RxBool isFrontCamera = true.obs;
+  RxBool isTakingPicture = false.obs;
   RxInt cameraPositioned = 0.obs;
 
   AssetEntity? selectedEntity;
@@ -78,10 +79,24 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     super.didChangeAppLifecycleState(state);
 
-    if (state == AppLifecycleState.paused) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive) {
       try {
         isFlashOn.value = false;
         await cameraController.setFlashMode(FlashMode.off);
+        if (cameraController.value.isInitialized) {
+          await cameraController.pausePreview();
+        }
+      } catch (e) {
+        debugPrint(e.toString());
+      }
+    } else if (state == AppLifecycleState.resumed) {
+      try {
+        if (cameraController.value.isInitialized) {
+          cameraController = CameraController(
+              cameras[cameraPositioned.value], ResolutionPreset.max);
+          cameraValue = await cameraController.initialize();
+        }
       } catch (e) {
         debugPrint(e.toString());
       }
@@ -102,6 +117,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
 
   Future<void> takePicture() async {
     try {
+      isTakingPicture.value = true;
       await cameraController.setFlashMode(mode);
       XFile file = await cameraController.takePicture();
       image = File(file.path);
@@ -120,6 +136,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
         isTextFieldEmpty.value = false;
       }
       await outOfCamera();
+      isTakingPicture.value = false;
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -143,6 +160,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
 
   Future<void> swicthCamera() async {
     isFrontCamera.toggle();
+    isFlashOn.value = false;
     if (isFrontCamera.value) {
       cameraPositioned.value = 0;
     } else {
