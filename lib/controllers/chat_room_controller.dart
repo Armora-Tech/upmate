@@ -1,16 +1,17 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/utils/pick_image.dart';
 import 'package:image/image.dart' as img;
-import 'package:upmatev2/views/confirm_send_image.dart';
 import '../main.dart';
 
 class ChatRoomController extends GetxController with WidgetsBindingObserver {
   late TextEditingController textEditingController;
+  late ScrollController scrollController;
   late FocusNode focusNode;
   late CameraController cameraController;
   late void cameraValue;
@@ -26,6 +27,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   RxBool isFlashOn = false.obs;
   RxBool isFrontCamera = true.obs;
   RxBool isTakingPicture = false.obs;
+  RxBool isBtnShown = false.obs;
   RxInt cameraPositioned = 0.obs;
 
   AssetEntity? selectedEntity;
@@ -54,11 +56,22 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   void onInit() async {
     WidgetsBinding.instance.addObserver(this);
     textEditingController = TextEditingController();
+    scrollController = ScrollController();
     focusNode = FocusNode();
     focusNode.addListener(() {
       if (focusNode.hasFocus) {
         isShowEmoji.value = false;
       }
+    });
+    scrollController.addListener(() {
+      if (scrollController.position.userScrollDirection ==
+              ScrollDirection.forward ||
+          scrollController.offset == 0) {
+        isBtnShown.value = false;
+      } else {
+        isBtnShown.value = true;
+      }
+      update();
     });
     mode = FlashMode.off;
     cameraController = CameraController(cameras[0], ResolutionPreset.max);
@@ -74,6 +87,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     textEditingController.dispose();
     focusNode.dispose();
     cameraController.dispose();
+    scrollController.dispose();
     super.onClose();
   }
 
@@ -136,8 +150,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
       }
       isFlashOn.value = false;
       await cameraController.setFlashMode(FlashMode.off);
-      Get.to(() => const ConfirmSendImage(),
-          transition: Transition.rightToLeft);
+      Get.toNamed(RouteName.confirmSendImage);
       isTakingPicture.value = false;
     } catch (e) {
       debugPrint(e.toString());
@@ -174,7 +187,6 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
       cameraValue = await cameraController.initialize();
     } catch (e) {
       debugPrint(e.toString());
-      rethrow;
     }
     update();
   }

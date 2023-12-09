@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
 
-class CameraView extends StatefulWidget {
-  const CameraView({super.key});
+class CameraChatView extends StatefulWidget {
+  const CameraChatView({super.key});
 
   @override
-  State<CameraView> createState() => _CameraViewState();
+  State<CameraChatView> createState() => _CameraChatViewState();
 }
 
-class _CameraViewState extends State<CameraView> {
+class _CameraChatViewState extends State<CameraChatView> {
   final controller = Get.find<ChatRoomController>();
 
   @override

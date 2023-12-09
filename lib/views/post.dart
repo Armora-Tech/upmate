@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/post_controller.dart';
+import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 import '../widgets/global/line.dart';
@@ -155,52 +156,40 @@ class PostView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 40, vertical: 10),
-                            child: Container(
-                              padding: const EdgeInsets.all(3),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  border: Border.all(
-                                      width: 0.5, color: AppColor.lightGrey)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 30, vertical: 10),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(30)),
-                                    child: const Icon(
-                                      Icons.photo_library_outlined,
-                                      size: 26,
+                            height: 60,
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            alignment: Alignment.center,
+                            child: IntrinsicWidth(
+                              child: ElevatedButton(
+                                onPressed: controller.assetList.isEmpty
+                                    ? () {}
+                                    : () => Get.toNamed(RouteName.cameraPost),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 30, vertical: 10),
+                                  elevation: 0,
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      side: const BorderSide(
+                                          width: 0.5,
+                                          color: AppColor.lightGrey)),
+                                ),
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.camera_alt_rounded,
+                                        size: 23, color: AppColor.black),
+                                    SizedBox(
+                                      width: 10,
                                     ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 30, vertical: 10),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(30)),
-                                    child: const Icon(
-                                      Icons.photo_camera_outlined,
-                                      size: 26,
+                                    Text(
+                                      "Ambil Gambar",
+                                      style: TextStyle(
+                                          fontSize: 16, color: AppColor.black),
                                     ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 30, vertical: 10),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(30)),
-                                    child: const Icon(
-                                      Icons.edit_outlined,
-                                      size: 26,
-                                    ),
-                                  )
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -280,22 +269,32 @@ class PostView extends StatelessWidget {
                       ),
                       AnimatedPositioned(
                           duration: const Duration(milliseconds: 300),
-                          bottom: controller.isBtnShown.value ? 20 : -35,
+                          bottom: controller.isBtnShown.value ? 15 : -50,
                           child: GestureDetector(
                             onTap: () => controller.scrollController.animateTo(
                                 0,
                                 duration: const Duration(milliseconds: 1000),
                                 curve: Curves.easeInOut),
                             child: Container(
-                              height: 35,
-                              width: 35,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white, shape: BoxShape.circle),
-                              child: const Icon(
-                                Icons.arrow_upward_rounded,
-                                size: 26,
-                                color: Colors.black,
-                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: const Row(children: [
+                                Text(
+                                  "Gulir ke atas",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Icon(
+                                  Icons.arrow_upward_rounded,
+                                  size: 20,
+                                  color: Colors.black,
+                                ),
+                              ]),
                             ),
                           ))
                     ],

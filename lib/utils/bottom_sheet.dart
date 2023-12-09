@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
+import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
-import 'package:upmatev2/views/camera.dart';
 
 class BottomSheetUtil {
   static void showBottomDialog(ChatRoomController controller) {
@@ -44,6 +44,7 @@ class BottomSheetUtil {
                     ),
                     Expanded(
                       child: GridView.builder(
+                        controller: controller.scrollController,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 5, vertical: 5),
                         itemCount: controller.assetList.length,
@@ -100,7 +101,10 @@ class BottomSheetUtil {
                 ),
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 300),
-                  bottom: controller.selectedAssetList.isEmpty ? 15 : -50,
+                  bottom: controller.selectedAssetList.isEmpty &&
+                          !controller.isBtnShown.value
+                      ? 15
+                      : -50,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppColor.primaryColor,
@@ -108,8 +112,7 @@ class BottomSheetUtil {
                               borderRadius: BorderRadius.circular(30))),
                       onPressed: () {
                         Get.back();
-                        Get.to(() => const CameraView(),
-                            transition: Transition.rightToLeft);
+                        Get.toNamed(RouteName.cameraChat);
                       },
                       child: const IntrinsicWidth(
                         child: Padding(
@@ -125,7 +128,7 @@ class BottomSheetUtil {
                                 width: 10,
                               ),
                               Text(
-                                "Ambil Foto",
+                                "Ambil Gambar",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 16),
                               ),
@@ -136,7 +139,10 @@ class BottomSheetUtil {
                 ),
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 300),
-                  bottom: controller.selectedAssetList.isEmpty ? -50 : 15,
+                  bottom: controller.selectedAssetList.isEmpty ||
+                          controller.isBtnShown.value
+                      ? -50
+                      : 15,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppColor.primaryColor,
@@ -153,7 +159,36 @@ class BottomSheetUtil {
                           ),
                         ),
                       )),
-                )
+                ),
+                AnimatedPositioned(
+                    duration: const Duration(milliseconds: 300),
+                    bottom: controller.isBtnShown.value ? 15 : -50,
+                    child: GestureDetector(
+                      onTap: () => controller.scrollController.animateTo(0,
+                          duration: const Duration(milliseconds: 1000),
+                          curve: Curves.easeInOut),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: const Row(children: [
+                          Text(
+                            "Gulir ke atas",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                            Icons.arrow_upward_rounded,
+                            size: 20,
+                            color: Colors.black,
+                          ),
+                        ]),
+                      ),
+                    ))
               ])),
         ));
   }
