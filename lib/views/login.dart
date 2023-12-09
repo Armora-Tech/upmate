@@ -93,7 +93,7 @@ class LoginView extends StatelessWidget {
                             if (kDebugMode) {
                               print('User signed in: ${user.uid}');
                             }
-                              await Get.toNamed(RouteName.start);
+                            await Get.toNamed(RouteName.start);
                           } else {
                             if (kDebugMode) {
                               print("Signin failed!");
@@ -157,13 +157,10 @@ class LoginView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                        height: 30,
+                        height: 50,
                         child: IconButton(
                             onPressed: () async {
                               if (_cancellationToken.isCancelled) return;
-                              if (kDebugMode) {
-                                print("process running....");
-                              }
                               _cancellationToken.cancel();
                               User? user = await _auth.signInWithGoogle();
 
@@ -171,7 +168,7 @@ class LoginView extends StatelessWidget {
                                 if (kDebugMode) {
                                   print('User signed in: ${user.uid}');
                                 }
-                                  await Get.toNamed(RouteName.start);
+                                await Get.toNamed(RouteName.start);
                               } else {
                                 if (kDebugMode) {
                                   print("Signin failed!");
@@ -187,11 +184,29 @@ class LoginView extends StatelessWidget {
                       width: 20,
                     ),
                     SizedBox(
-                        height: 30,
-                        child: Image.asset(
-                          "assets/images/facebook.png",
-                          fit: BoxFit.cover,
-                        ))
+                        height: 50,
+                        child: IconButton(
+                            onPressed: () async {
+                              if (_cancellationToken.isCancelled) return;
+                              _cancellationToken.cancel();
+                              User? user = await _auth.signInWithFacebook();
+
+                              if (user != null) {
+                                if (kDebugMode) {
+                                  print('User signed in: ${user.uid}');
+                                }
+                                await Get.toNamed(RouteName.start);
+                              } else {
+                                if (kDebugMode) {
+                                  print("Signin failed!");
+                                }
+                              }
+                              _cancellationToken = CancellationToken();
+                            },
+                            icon: Image.asset(
+                              "assets/images/facebook.png",
+                              fit: BoxFit.cover,
+                            )))
                   ],
                 ),
                 const SizedBox(

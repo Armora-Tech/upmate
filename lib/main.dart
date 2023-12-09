@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 import 'package:upmatev2/bindings/login_binding.dart';
 import 'package:upmatev2/bindings/start_binding.dart';
+import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_theme.dart';
 import 'package:upmatev2/views/login.dart';
 import 'package:upmatev2/views/start.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         );
       },
       theme: AppTheme.lightTheme,
+      initialRoute: isLogin? RouteName.login : RouteName.start,
       initialBinding: isLogin? LoginBinding() : StartBinding(),
       getPages: AppPage.pages,
       home: isLogin? LoginView() : const StartView(),
