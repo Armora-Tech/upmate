@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
 
-class ConfirmSendImage extends StatelessWidget {
-  const ConfirmSendImage({super.key});
+class ConfirmSendImageView extends StatelessWidget {
+  const ConfirmSendImageView({super.key});
 
   @override
   Widget build(BuildContext context) {

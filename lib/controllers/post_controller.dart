@@ -11,6 +11,8 @@ import 'package:image/image.dart' as img;
 class PostController extends GetxController with WidgetsBindingObserver {
   late final ScrollController scrollController;
   late CameraController cameraController;
+  late TextEditingController description;
+  late FocusNode focusNode;
   late void cameraValue;
   late FlashMode mode;
   File? image;
@@ -29,6 +31,9 @@ class PostController extends GetxController with WidgetsBindingObserver {
   void onInit() async {
     WidgetsBinding.instance.addObserver(this);
     scrollController = ScrollController();
+    focusNode = FocusNode();
+    description = TextEditingController();
+    focusNode.addListener(() {});
     scrollController.addListener(() {
       if (scrollController.offset > 0) {
         isBtnShown.value = true;
@@ -50,6 +55,8 @@ class PostController extends GetxController with WidgetsBindingObserver {
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     cameraController.dispose();
+    focusNode.dispose();
+    description.dispose();
     scrollController.dispose();
     super.dispose();
   }

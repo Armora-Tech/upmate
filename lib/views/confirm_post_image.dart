@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/post_controller.dart';
+import 'package:upmatev2/routes/route_name.dart';
 
-class ConfirmPostImage extends StatelessWidget {
-  const ConfirmPostImage({super.key});
+class ConfirmPostImageView extends StatelessWidget {
+  const ConfirmPostImageView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,7 @@ class ConfirmPostImage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 40),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30))),
-                      onPressed: () {},
+                      onPressed: () => Get.toNamed(RouteName.postDescription),
                       child: const Text("Next",
                           style: TextStyle(
                               color: Colors.blueAccent,

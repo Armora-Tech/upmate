@@ -16,4 +16,5 @@ abstract class RouteName {
    static const cameraChat = "/camera-chat" ;
    static const confirmSendImage = "/confirm-send-image" ;
    static const confirmPostImage = "/confirm-post-image" ;
+   static const postDescription = "/post-description" ;
 }

@@ -128,12 +128,20 @@ class PostView extends StatelessWidget {
                                                 color: Colors.black,
                                               ),
                                             ),
-                                            const Text(
-                                              "Next",
-                                              style: TextStyle(
-                                                  color: Colors.blueAccent,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600),
+                                            GestureDetector(
+                                              onTap: controller
+                                                      .assetList.isEmpty
+                                                  ? () {}
+                                                  : () => Get.toNamed(RouteName
+                                                      .postDescription),
+                                              child: const Text(
+                                                "Next",
+                                                style: TextStyle(
+                                                    color: Colors.blueAccent,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
                                             ),
                                           ],
                                         ),

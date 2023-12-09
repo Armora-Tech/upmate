@@ -4,6 +4,7 @@ import 'package:upmatev2/bindings/signup_binding.dart';
 import 'package:upmatev2/bindings/start_binding.dart';
 import 'package:upmatev2/views/chat_room.dart';
 import 'package:upmatev2/views/confirm_send_image.dart';
+import 'package:upmatev2/views/post_description.dart';
 import 'package:upmatev2/views/profile.dart';
 import '../bindings/chat_room_binding.dart';
 import '../bindings/post_binding.dart';
@@ -92,11 +93,15 @@ class AppPage {
         transition: Transition.rightToLeft),
     GetPage(
         name: RouteName.confirmSendImage,
-        page: () => const ConfirmSendImage(),
+        page: () => const ConfirmSendImageView(),
         transition: Transition.rightToLeft),
     GetPage(
         name: RouteName.confirmPostImage,
-        page: () => const ConfirmPostImage(),
+        page: () => const ConfirmPostImageView(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: RouteName.postDescription,
+        page: () => const PostDescriptionView(),
         transition: Transition.rightToLeft),
   ];
 }
