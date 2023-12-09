@@ -1,11 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import '../main.dart';
+import '../routes/route_name.dart';
 import '../utils/pick_image.dart';
 import 'package:image/image.dart' as img;
 
@@ -14,6 +13,7 @@ class PostController extends GetxController with WidgetsBindingObserver {
   late CameraController cameraController;
   late void cameraValue;
   late FlashMode mode;
+  File? image;
   AssetEntity? selectedEntity;
   List<AssetEntity> assetList = [];
   List<AssetEntity> selectedAssetList = [];
@@ -61,9 +61,7 @@ class PostController extends GetxController with WidgetsBindingObserver {
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive) {
       try {
-        cameraValue = await cameraController.initialize();
         await cameraController.setFlashMode(FlashMode.off);
-        isFlashOn.value = false;
         if (cameraController.value.isInitialized) {
           await cameraController.pausePreview();
         }
@@ -76,6 +74,7 @@ class PostController extends GetxController with WidgetsBindingObserver {
           cameraController = CameraController(
               cameras[cameraPositioned.value], ResolutionPreset.max);
           cameraValue = await cameraController.initialize();
+          isFlashOn.value = false;
         }
       } catch (e) {
         debugPrint(e.toString());
@@ -100,24 +99,20 @@ class PostController extends GetxController with WidgetsBindingObserver {
       isTakingPicture.value = true;
       await cameraController.setFlashMode(mode);
       XFile file = await cameraController.takePicture();
-      File image = File(file.path);
+      image = File(file.path);
       if (cameras[cameraPositioned.value].lensDirection ==
           CameraLensDirection.front) {
-        img.Image imageFile = img.decodeImage(image.readAsBytesSync())!;
+        img.Image imageFile = img.decodeImage(image!.readAsBytesSync())!;
         img.Image flippedImage =
             img.flip(imageFile, direction: img.FlipDirection.horizontal);
 
         File flippedFile = File(file.path)
           ..writeAsBytesSync(img.encodeJpg(flippedImage));
         image = flippedFile;
-        final asset = await PhotoManager.editor.saveImage(
-          utf8.encode(image.toString()),
-          title: file.path,
-        );
-        if (asset != null) selectedAssetList.add(asset);
       }
       isFlashOn.value = false;
       await cameraController.setFlashMode(FlashMode.off);
+      Get.toNamed(RouteName.confirmPostImage);
       isTakingPicture.value = false;
     } catch (e) {
       debugPrint(e.toString());

@@ -12,6 +12,7 @@ import '../bindings/profile_binding.dart';
 import '../bindings/search_binding.dart';
 import '../views/camera_chat.dart';
 import '../views/camera_post.dart';
+import '../views/confirm_post_image.dart';
 import '../views/login.dart';
 import '../views/post.dart';
 import '../views/post_detail.dart';
@@ -92,6 +93,10 @@ class AppPage {
     GetPage(
         name: RouteName.confirmSendImage,
         page: () => const ConfirmSendImage(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: RouteName.confirmPostImage,
+        page: () => const ConfirmPostImage(),
         transition: Transition.rightToLeft),
   ];
 }

@@ -1,14 +1,41 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/post_controller.dart';
 
-class CameraPostView extends StatelessWidget {
+class CameraPostView extends StatefulWidget {
   const CameraPostView({super.key});
 
   @override
+  State<CameraPostView> createState() => _CameraPostViewState();
+}
+
+class _CameraPostViewState extends State<CameraPostView> {
+  final controller = Get.find<PostController>();
+
+  @override
+  void initState() {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarColor: Color.fromARGB(255, 15, 22, 25),
+      ),
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.transparent,
+      ),
+    );
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final controller = Get.find<PostController>();
     return GetBuilder<PostController>(
         builder: (_) => WillPopScope(
             onWillPop: () async {

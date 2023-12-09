@@ -98,9 +98,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive) {
       try {
-        cameraValue = await cameraController.initialize();
         await cameraController.setFlashMode(FlashMode.off);
-        isFlashOn.value = false;
         if (cameraController.value.isInitialized) {
           await cameraController.pausePreview();
         }
@@ -113,6 +111,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
           cameraController = CameraController(
               cameras[cameraPositioned.value], ResolutionPreset.max);
           cameraValue = await cameraController.initialize();
+          isFlashOn.value = false;
         }
       } catch (e) {
         debugPrint(e.toString());
