@@ -82,8 +82,9 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive) {
       try {
-        isFlashOn.value = false;
+        cameraValue = await cameraController.initialize();
         await cameraController.setFlashMode(FlashMode.off);
+        isFlashOn.value = false;
         if (cameraController.value.isInitialized) {
           await cameraController.pausePreview();
         }
