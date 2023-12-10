@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:photo_manager/photo_manager.dart';
-import 'package:upmatev2/utils/pick_image.dart';
 
 class ChatRoomController extends GetxController with WidgetsBindingObserver {
   late TextEditingController textEditingController;
-  late ScrollController scrollController;
   late FocusNode focusNode;
   RxDouble defaultRadius = 20.0.obs;
   RxDouble taperRadius = 3.0.obs;
@@ -15,11 +12,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   RxBool isTextFieldEmpty = true.obs;
   RxBool isShowEmoji = false.obs;
   RxBool isImage = false.obs;
-  RxBool isBtnShown = false.obs;
-
-  AssetEntity? selectedEntity;
-  List<AssetEntity> assetList = [];
-  List<AssetEntity> selectedAssetList = [];
+  RxBool isLoading = true.obs;
 
   List<Map<String, dynamic>> chats = [
     {"user": "P"},
@@ -43,23 +36,14 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   void onInit() async {
     WidgetsBinding.instance.addObserver(this);
     textEditingController = TextEditingController();
-    scrollController = ScrollController();
     focusNode = FocusNode();
     focusNode.addListener(() {
       if (focusNode.hasFocus) {
         isShowEmoji.value = false;
       }
     });
-    scrollController.addListener(() {
-      if (scrollController.position.userScrollDirection ==
-              ScrollDirection.forward ||
-          scrollController.offset == 0) {
-        isBtnShown.value = false;
-      } else {
-        isBtnShown.value = true;
-      }
-    });
-    assetList = await PickImage().loadAssets();
+    await Future.delayed(const Duration(milliseconds: 1000));
+    isLoading.value = false;
     update();
     super.onInit();
   }
@@ -69,25 +53,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     WidgetsBinding.instance.removeObserver(this);
     textEditingController.dispose();
     focusNode.dispose();
-    scrollController.dispose();
     super.onClose();
-  }
-
-  void addImage(AssetEntity image) {
-    if (selectedAssetList.contains(image)) {
-      selectedAssetList.remove(image);
-    } else {
-      selectedAssetList.add(image);
-    }
-    update();
-  }
-
-  void sendImageGallery() {
-    for (AssetEntity i in selectedAssetList) {
-      chats.add({"user": i});
-    }
-    Get.forceAppUpdate();
-    Get.back();
   }
 
   void sendChat() {

@@ -1,15 +1,16 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../controllers/camera_controller.dart';
+import '../controllers/camera_controller.dart';
 
 class CameraView extends StatelessWidget {
-  final String routeName;
-  const CameraView({super.key, required this.routeName});
+  final String? routeName;
+  final bool isCrop;
+  const CameraView({super.key, this.routeName, this.isCrop = false});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CameraViewController());
+    final controller = Get.find<CameraViewController>();
     return GetBuilder<CameraViewController>(
         builder: (_) => WillPopScope(
             onWillPop: () async {
@@ -82,8 +83,11 @@ class CameraView extends StatelessWidget {
                                 GestureDetector(
                                   onTap: controller.isTakingPicture.value
                                       ? () {}
-                                      : () async => await controller
-                                          .takePicture(routeName),
+                                      : isCrop
+                                          ? () async => await controller
+                                              .takePictureWithCrop()
+                                          : () async => await controller
+                                              .takePicture(routeName!),
                                   child: Container(
                                     height: 60,
                                     width: 60,

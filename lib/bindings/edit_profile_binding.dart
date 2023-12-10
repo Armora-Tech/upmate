@@ -1,9 +1,14 @@
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/gallery_controller.dart';
+import '../controllers/camera_controller.dart';
 import '../controllers/edit_profile_controller.dart';
 
 class EditProfileBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<EditProfileController>(() => EditProfileController());
+    Get.lazyPut<CameraViewController>(() => CameraViewController(),
+        fenix: true);
+    Get.lazyPut<GalleryController>(() => GalleryController(), fenix: true);
   }
 }

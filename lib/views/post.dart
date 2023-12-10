@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
-import 'package:upmatev2/controllers/post_controller.dart';
+import 'package:upmatev2/controllers/gallery_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
-import 'package:upmatev2/widgets/global/camera_view.dart';
+import 'package:upmatev2/views/camera_view.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 import '../widgets/global/line.dart';
 
@@ -15,8 +15,8 @@ class PostView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<PostController>();
-    return GetBuilder<PostController>(
+    final galleryController = Get.find<GalleryController>();
+    return GetBuilder<GalleryController>(
         builder: (_) => WillPopScope(
             onWillPop: () async {
               Get.back();
@@ -25,7 +25,7 @@ class PostView extends StatelessWidget {
             child: Scaffold(
               body: SafeArea(
                 child: NestedScrollView(
-                  controller: controller.scrollController,
+                  controller: galleryController.scrollController,
                   headerSliverBuilder:
                       (BuildContext context, bool innerBoxIsScrolled) {
                     return [
@@ -43,7 +43,7 @@ class PostView extends StatelessWidget {
                                   const SizedBox(
                                     height: 51.8,
                                   ),
-                                  controller.assetList.isEmpty
+                                  galleryController.assetList.isEmpty
                                       ? ShimmerSkelton(
                                           height: Get.width,
                                           width: Get.width,
@@ -54,56 +54,75 @@ class PostView extends StatelessWidget {
                                               255, 18, 18, 18),
                                           height: Get.width,
                                           width: Get.width,
-                                          child: Stack(
-                                            children: [
-                                              CarouselSlider(
-                                                options: CarouselOptions(
-                                                  viewportFraction: 1,
-                                                  aspectRatio: 1,
-                                                  enlargeCenterPage: false,
-                                                  enableInfiniteScroll: false,
-                                                  onPageChanged:
-                                                      (index, reason) {
-                                                    controller.selectedIndex
-                                                        .value = index;
-                                                  },
-                                                ),
-                                                items: controller
-                                                    .selectedAssetList
-                                                    .map<Widget>((image) {
-                                                  return SizedBox(
-                                                    width: Get.width,
-                                                    child: AssetEntityImage(
-                                                      image,
-                                                      isOriginal: true,
-                                                      fit: BoxFit.contain,
+                                          child: galleryController
+                                                  .selectedAssetList.isEmpty
+                                              ? const Center(
+                                                  child: Text(
+                                                    "Tidak ada gambar",
+                                                    style: TextStyle(
+                                                        color:
+                                                            AppColor.lightGrey),
+                                                  ),
+                                                )
+                                              : Stack(
+                                                  children: [
+                                                    CarouselSlider(
+                                                      options: CarouselOptions(
+                                                        viewportFraction: 1,
+                                                        aspectRatio: 1,
+                                                        enlargeCenterPage:
+                                                            false,
+                                                        enableInfiniteScroll:
+                                                            false,
+                                                        onPageChanged:
+                                                            (index, reason) {
+                                                          galleryController
+                                                              .selectedIndex
+                                                              .value = index;
+                                                        },
+                                                      ),
+                                                      items: galleryController
+                                                          .selectedAssetList
+                                                          .map<Widget>((image) {
+                                                        return SizedBox(
+                                                          width: Get.width,
+                                                          child:
+                                                              AssetEntityImage(
+                                                            image,
+                                                            isOriginal: true,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        );
+                                                      }).toList(),
                                                     ),
-                                                  );
-                                                }).toList(),
-                                              ),
-                                              Obx(() {
-                                                controller.oldSelectedIndex =
-                                                    controller.selectedIndex;
-                                                return Positioned(
-                                                    top: 10,
-                                                    right: 10,
-                                                    child: Container(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 20,
-                                                          vertical: 5),
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      30)),
-                                                      child: Text(
-                                                          "${controller.selectedIndex.value + 1}/${controller.selectedAssetList.length}"),
-                                                    ));
-                                              })
-                                            ],
-                                          ),
+                                                    galleryController
+                                                            .selectedAssetList
+                                                            .isEmpty
+                                                        ? const SizedBox()
+                                                        : Obx(() {
+                                                            return Positioned(
+                                                                top: 10,
+                                                                right: 10,
+                                                                child:
+                                                                    Container(
+                                                                  padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                          20,
+                                                                      vertical:
+                                                                          5),
+                                                                  decoration: BoxDecoration(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              30)),
+                                                                  child: Text(
+                                                                      "${galleryController.selectedIndex.value + 1}/${galleryController.selectedAssetList.length}"),
+                                                                ));
+                                                          })
+                                                  ],
+                                                ),
                                         )
                                 ],
                               ),
@@ -130,15 +149,22 @@ class PostView extends StatelessWidget {
                                               ),
                                             ),
                                             GestureDetector(
-                                              onTap: controller
-                                                      .assetList.isEmpty
+                                              onTap: galleryController
+                                                          .assetList.isEmpty ||
+                                                      galleryController
+                                                          .selectedAssetList
+                                                          .isEmpty
                                                   ? () {}
                                                   : () => Get.toNamed(RouteName
                                                       .postDescription),
-                                              child: const Text(
+                                              child: Text(
                                                 "Next",
                                                 style: TextStyle(
-                                                    color: Colors.blueAccent,
+                                                    color: galleryController
+                                                            .selectedAssetList
+                                                            .isEmpty
+                                                        ? Colors.grey
+                                                        : Colors.blueAccent,
                                                     fontSize: 16,
                                                     fontWeight:
                                                         FontWeight.w600),
@@ -170,7 +196,7 @@ class PostView extends StatelessWidget {
                             alignment: Alignment.center,
                             child: IntrinsicWidth(
                               child: ElevatedButton(
-                                onPressed: controller.assetList.isEmpty
+                                onPressed: galleryController.assetList.isEmpty
                                     ? () {}
                                     : () => Get.to(() => const CameraView(
                                           routeName: RouteName.confirmPostImage,
@@ -208,9 +234,9 @@ class PostView extends StatelessWidget {
                             child: GridView.builder(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 2),
-                              itemCount: controller.assetList.isEmpty
+                              itemCount: galleryController.assetList.isEmpty
                                   ? 50
-                                  : controller.assetList.length,
+                                  : galleryController.assetList.length,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 4,
@@ -220,8 +246,8 @@ class PostView extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 final double size = Get.width / 4;
                                 return GestureDetector(
-                                  onTap: () => controller
-                                      .addImage(controller.assetList[index]),
+                                  onTap: () => galleryController.addPostImage(
+                                      galleryController.assetList[index]),
                                   child: Container(
                                     height: size,
                                     width: size,
@@ -229,24 +255,26 @@ class PostView extends StatelessWidget {
                                     child: Stack(
                                       fit: StackFit.expand,
                                       children: [
-                                        controller.assetList.isEmpty
+                                        galleryController.assetList.isEmpty
                                             ? ShimmerSkelton(
                                                 height: size,
                                                 width: size,
                                                 borderRadius: 0,
                                               )
                                             : AssetEntityImage(
-                                                controller.assetList[index],
+                                                galleryController
+                                                    .assetList[index],
                                                 isOriginal: false,
                                                 thumbnailSize:
                                                     const ThumbnailSize.square(
                                                         250),
                                                 fit: BoxFit.cover,
                                               ),
-                                        controller.assetList.isEmpty
+                                        galleryController.assetList.isEmpty
                                             ? const SizedBox()
-                                            : controller.selectedAssetList
-                                                    .contains(controller
+                                            : galleryController
+                                                    .selectedAssetList
+                                                    .contains(galleryController
                                                         .assetList[index])
                                                 ? Positioned(
                                                     top: 5,
@@ -280,12 +308,13 @@ class PostView extends StatelessWidget {
                       ),
                       AnimatedPositioned(
                           duration: const Duration(milliseconds: 300),
-                          bottom: controller.isBtnShown.value ? 15 : -50,
+                          bottom: galleryController.isBtnShown.value ? 15 : -50,
                           child: GestureDetector(
-                            onTap: () => controller.scrollController.animateTo(
-                                0,
-                                duration: const Duration(milliseconds: 1000),
-                                curve: Curves.easeInOut),
+                            onTap: () => galleryController.scrollController
+                                .animateTo(0,
+                                    duration:
+                                        const Duration(milliseconds: 1000),
+                                    curve: Curves.easeInOut),
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart' as img;
+import 'package:image_cropper/image_cropper.dart';
 import '../main.dart';
 import '../routes/route_name.dart';
+import '../utils/pick_image.dart';
 
 class CameraViewController extends GetxController with WidgetsBindingObserver {
   late CameraController cameraController;
@@ -85,6 +87,39 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
     }
 
     Get.back();
+    update();
+  }
+
+  Future<void> takePictureWithCrop() async {
+    try {
+      isTakingPicture.value = true;
+      await cameraController.setFlashMode(mode);
+      XFile file = await cameraController.takePicture();
+      image = File(file.path);
+      if (cameras[cameraPositioned.value].lensDirection ==
+          CameraLensDirection.front) {
+        img.Image imageFile = img.decodeImage(image!.readAsBytesSync())!;
+        img.Image flippedImage =
+            img.flip(imageFile, direction: img.FlipDirection.horizontal);
+
+        File flippedFile = File(file.path)
+          ..writeAsBytesSync(img.encodeJpg(flippedImage));
+        image = flippedFile;
+        if (image != null) {
+          final imagePicker = PickImage();
+          final croppedImage =
+              await imagePicker.crop(file: image!, cropStyle: CropStyle.circle);
+          if (croppedImage != null) {
+            image = File(croppedImage.path);
+          }
+        }
+      }
+      isFlashOn.value = false;
+      await cameraController.setFlashMode(FlashMode.off);
+      isTakingPicture.value = false;
+    } catch (e) {
+      debugPrint(e.toString());
+    }
     update();
   }
 

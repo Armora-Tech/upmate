@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
+import 'package:upmatev2/controllers/gallery_controller.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/chatRoom/shimmer.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
@@ -18,8 +19,9 @@ class ChatRoomView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ChatRoomController>();
+    final galleryController = Get.find<GalleryController>();
     return GetBuilder<ChatRoomController>(
-        builder: (_) => controller.assetList.isEmpty
+        builder: (_) => controller.isLoading.value
             ? const Scaffold(
                 body: ChatRoomShimmer(),
               )
@@ -377,11 +379,11 @@ class ChatRoomView extends StatelessWidget {
                                       ? GestureDetector(
                                           onTap: () {
                                             if (!Get.isBottomSheetOpen!) {
-                                              controller.selectedAssetList
+                                              galleryController.selectedAssetList
                                                   .clear();
                                             }
                                             BottomSheetUtil.showGalleryChat(
-                                                controller);
+                                                galleryController, controller);
                                           },
                                           child: const Icon(
                                             Icons.camera_alt_outlined,
