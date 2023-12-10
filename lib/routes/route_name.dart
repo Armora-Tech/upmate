@@ -17,4 +17,5 @@ abstract class RouteName {
    static const confirmSendImage = "/confirm-send-image" ;
    static const confirmPostImage = "/confirm-post-image" ;
    static const postDescription = "/post-description" ;
+   static const editProfile = "/edit-profile" ;
 }

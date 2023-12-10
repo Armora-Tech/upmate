@@ -11,8 +11,7 @@ class AppTheme {
           style: ElevatedButton.styleFrom(
               splashFactory: InkRipple.splashFactory,
               shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(10.0), // Ubah sesuai keinginan Anda
+                borderRadius: BorderRadius.circular(10.0),
               ),
               padding: const EdgeInsets.symmetric(vertical: 10),
               foregroundColor: Colors.black45,
@@ -25,15 +24,6 @@ class AppTheme {
                 overflow: TextOverflow.ellipsis,
               ),
               backgroundColor: AppColor.primaryColor)),
-      appBarTheme: const AppBarTheme(
-          elevation: 0.0,
-          backgroundColor: AppColor.primaryColor,
-          titleTextStyle: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 25,
-              fontFamily: "Nunito",
-              overflow: TextOverflow.ellipsis)),
       textTheme: const TextTheme(
         headlineLarge: TextStyle(
             color: Colors.black,

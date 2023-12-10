@@ -36,12 +36,10 @@ class PostDescriptionView extends StatelessWidget {
                                   controller.description.clear();
                                   Get.back();
                                 },
-                                child: const Text(
-                                  "Prev",
-                                  style: TextStyle(
-                                      color: Colors.blueAccent,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
+                                child: const Icon(
+                                  Icons.arrow_back,
+                                  size: 25,
+                                  color: Colors.black,
                                 ),
                               ),
                               const Text(

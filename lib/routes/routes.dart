@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:upmatev2/bindings/edit_profile_binding.dart';
 import 'package:upmatev2/bindings/login_binding.dart';
 import 'package:upmatev2/bindings/signup_binding.dart';
 import 'package:upmatev2/bindings/start_binding.dart';
@@ -14,6 +15,7 @@ import '../bindings/search_binding.dart';
 import '../views/camera_chat.dart';
 import '../views/camera_post.dart';
 import '../views/confirm_post_image.dart';
+import '../views/edit_profile.dart';
 import '../views/login.dart';
 import '../views/post.dart';
 import '../views/post_detail.dart';
@@ -102,6 +104,11 @@ class AppPage {
     GetPage(
         name: RouteName.postDescription,
         page: () => const PostDescriptionView(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: RouteName.editProfile,
+        page: () => const EditProfileView(),
+        binding: EditProfileBinding(),
         transition: Transition.rightToLeft),
   ];
 }
