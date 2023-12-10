@@ -1,22 +1,13 @@
-import 'dart:io';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/utils/pick_image.dart';
-import 'package:image/image.dart' as img;
-import '../main.dart';
 
 class ChatRoomController extends GetxController with WidgetsBindingObserver {
   late TextEditingController textEditingController;
   late ScrollController scrollController;
   late FocusNode focusNode;
-  late CameraController cameraController;
-  late void cameraValue;
-  late FlashMode mode;
-  File? image;
   RxDouble defaultRadius = 20.0.obs;
   RxDouble taperRadius = 3.0.obs;
   RxDouble marginTop = 0.0.obs;
@@ -24,11 +15,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   RxBool isTextFieldEmpty = true.obs;
   RxBool isShowEmoji = false.obs;
   RxBool isImage = false.obs;
-  RxBool isFlashOn = false.obs;
-  RxBool isFrontCamera = true.obs;
-  RxBool isTakingPicture = false.obs;
   RxBool isBtnShown = false.obs;
-  RxInt cameraPositioned = 0.obs;
 
   AssetEntity? selectedEntity;
   List<AssetEntity> assetList = [];
@@ -71,11 +58,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
       } else {
         isBtnShown.value = true;
       }
-      update();
     });
-    mode = FlashMode.off;
-    cameraController = CameraController(cameras[0], ResolutionPreset.max);
-    cameraValue = await cameraController.initialize();
     assetList = await PickImage().loadAssets();
     update();
     super.onInit();
@@ -86,108 +69,8 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     WidgetsBinding.instance.removeObserver(this);
     textEditingController.dispose();
     focusNode.dispose();
-    cameraController.dispose();
     scrollController.dispose();
     super.onClose();
-  }
-
-  @override
-  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
-    super.didChangeAppLifecycleState(state);
-
-    if (state == AppLifecycleState.paused ||
-        state == AppLifecycleState.inactive) {
-      try {
-        await cameraController.setFlashMode(FlashMode.off);
-        if (cameraController.value.isInitialized) {
-          await cameraController.pausePreview();
-        }
-      } catch (e) {
-        debugPrint(e.toString());
-      }
-    } else if (state == AppLifecycleState.resumed) {
-      try {
-        if (cameraController.value.isInitialized) {
-          cameraController = CameraController(
-              cameras[cameraPositioned.value], ResolutionPreset.max);
-          cameraValue = await cameraController.initialize();
-          isFlashOn.value = false;
-        }
-      } catch (e) {
-        debugPrint(e.toString());
-      }
-    }
-    update();
-  }
-
-  Future<void> outOfCamera() async {
-    try {
-      isFlashOn.value = false;
-      await cameraController.setFlashMode(FlashMode.off);
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-    Get.back();
-    update();
-  }
-
-  Future<void> takePicture() async {
-    try {
-      isTakingPicture.value = true;
-      await cameraController.setFlashMode(mode);
-      XFile file = await cameraController.takePicture();
-      image = File(file.path);
-      if (cameras[cameraPositioned.value].lensDirection ==
-          CameraLensDirection.front) {
-        img.Image imageFile = img.decodeImage(image!.readAsBytesSync())!;
-        img.Image flippedImage =
-            img.flip(imageFile, direction: img.FlipDirection.horizontal);
-
-        File flippedFile = File(file.path)
-          ..writeAsBytesSync(img.encodeJpg(flippedImage));
-        image = flippedFile;
-      }
-      isFlashOn.value = false;
-      await cameraController.setFlashMode(FlashMode.off);
-      Get.toNamed(RouteName.confirmSendImage);
-      isTakingPicture.value = false;
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-    update();
-  }
-
-  Future<void> onSetFlashModeButtonPressed() async {
-    isFlashOn.toggle();
-    if (isFlashOn.value) {
-      mode = FlashMode.torch;
-    } else {
-      mode = FlashMode.off;
-    }
-    try {
-      await cameraController.setFlashMode(mode);
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-    update();
-  }
-
-  Future<void> swicthCamera() async {
-    isFrontCamera.toggle();
-    isFlashOn.value = false;
-    if (isFrontCamera.value) {
-      cameraPositioned.value = 0;
-    } else {
-      cameraPositioned.value = 1;
-    }
-    try {
-      cameraController = CameraController(
-          cameras[cameraPositioned.value], ResolutionPreset.max);
-      cameraValue = await cameraController.initialize();
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-    update();
   }
 
   void addImage(AssetEntity image) {
@@ -205,12 +88,6 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     }
     Get.forceAppUpdate();
     Get.back();
-  }
-
-  void sendImageCamera() {
-    chats.add({"user": image});
-    Get.until((route) => Get.previousRoute == RouteName.chatRoom);
-    update();
   }
 
   void sendChat() {

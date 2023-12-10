@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
+import 'package:upmatev2/controllers/edit_profile_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/widgets/global/camera_view.dart';
 
 class BottomSheetUtil {
-  static void showBottomDialog(ChatRoomController controller) {
+  static void showGalleryChat(ChatRoomController controller) {
     Get.bottomSheet(
         isScrollControlled: true,
         GetBuilder<ChatRoomController>(
@@ -112,7 +114,8 @@ class BottomSheetUtil {
                               borderRadius: BorderRadius.circular(30))),
                       onPressed: () {
                         Get.back();
-                        Get.toNamed(RouteName.cameraChat);
+                        Get.to(() => const CameraView(
+                            routeName: RouteName.confirmSendImage));
                       },
                       child: const IntrinsicWidth(
                         child: Padding(
@@ -191,5 +194,50 @@ class BottomSheetUtil {
                     ))
               ])),
         ));
+  }
+
+  static void showChooseImage(EditProfileController controller) {
+    Get.bottomSheet(IntrinsicHeight(
+      child: Container(
+          width: Get.width,
+          clipBehavior: Clip.hardEdge,
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero),
+                    backgroundColor: Colors.white),
+                onPressed: () {},
+                child: const Center(
+                  child: Text(
+                    "Ambil gambar",
+                    style: TextStyle(color: Colors.blueAccent, fontSize: 16),
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero),
+                    backgroundColor: Colors.white),
+                onPressed: () {},
+                child: const Center(
+                  child: Text(
+                    "Pilih dari gallery",
+                    style: TextStyle(color: Colors.blueAccent, fontSize: 16),
+                  ),
+                ),
+              ),
+            ],
+          )),
+    ));
   }
 }

@@ -4,6 +4,6 @@ import 'package:upmatev2/controllers/bottom_nav_controller.dart';
 class StartBinding implements Bindings {
   @override
   void dependencies() {
-     Get.lazyPut<BottomNavController>(() => BottomNavController());
+    Get.lazyPut<BottomNavController>(() => BottomNavController());
   }
 }

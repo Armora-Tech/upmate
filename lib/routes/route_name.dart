@@ -12,10 +12,9 @@ abstract class RouteName {
    static const postDetail = "/post-detail" ;
    static const search = "/search" ;
    static const post = "/post" ;
-   static const cameraPost = "/camera-post" ;
-   static const cameraChat = "/camera-chat" ;
    static const confirmSendImage = "/confirm-send-image" ;
    static const confirmPostImage = "/confirm-post-image" ;
    static const postDescription = "/post-description" ;
    static const editProfile = "/edit-profile" ;
+   static const cameraView = "/camera-view" ;
 }

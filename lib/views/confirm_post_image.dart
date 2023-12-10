@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/post_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
+import '../controllers/camera_controller.dart';
 
 class ConfirmPostImageView extends StatelessWidget {
   const ConfirmPostImageView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<PostController>();
+    final controller = Get.find<CameraViewController>();
     return WillPopScope(
         onWillPop: () async {
           controller.image!.deleteSync();

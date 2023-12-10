@@ -223,7 +223,7 @@ class ChatRoomView extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 13),
+                                      horizontal: 13, vertical: 15),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -380,7 +380,7 @@ class ChatRoomView extends StatelessWidget {
                                               controller.selectedAssetList
                                                   .clear();
                                             }
-                                            BottomSheetUtil.showBottomDialog(
+                                            BottomSheetUtil.showGalleryChat(
                                                 controller);
                                           },
                                           child: const Icon(

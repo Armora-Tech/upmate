@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 class EditProfileController extends GetxController {
   late final TextEditingController textEditingController;
+  late final TextEditingController confirmPass;
 
   Map<String, dynamic> data = {
     "Nama Pengguna": "Flora Shafiqa",
@@ -17,12 +18,16 @@ class EditProfileController extends GetxController {
   @override
   void onInit() {
     textEditingController = TextEditingController();
+    confirmPass = TextEditingController();
     super.onInit();
   }
 
   @override
   void onClose() {
     textEditingController.dispose();
+    confirmPass.dispose();
     super.onClose();
   }
+
+  
 }

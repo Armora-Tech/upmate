@@ -12,8 +12,6 @@ import '../bindings/post_binding.dart';
 import '../bindings/post_detail_binding.dart';
 import '../bindings/profile_binding.dart';
 import '../bindings/search_binding.dart';
-import '../views/camera_chat.dart';
-import '../views/camera_post.dart';
 import '../views/confirm_post_image.dart';
 import '../views/edit_profile.dart';
 import '../views/login.dart';
@@ -85,14 +83,6 @@ class AppPage {
       binding: PostBinding(),
       transition: Transition.downToUp,
     ),
-    GetPage(
-        name: RouteName.cameraPost,
-        page: () => const CameraPostView(),
-        transition: Transition.rightToLeft),
-    GetPage(
-        name: RouteName.cameraChat,
-        page: () => const CameraChatView(),
-        transition: Transition.rightToLeft),
     GetPage(
         name: RouteName.confirmSendImage,
         page: () => const ConfirmSendImageView(),

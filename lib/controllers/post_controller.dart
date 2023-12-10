@@ -1,35 +1,22 @@
-import 'dart:io';
-import 'package:camera/camera.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
-import '../main.dart';
-import '../routes/route_name.dart';
-import '../utils/pick_image.dart';
-import 'package:image/image.dart' as img;
 
-class PostController extends GetxController with WidgetsBindingObserver {
+import '../utils/pick_image.dart';
+
+class PostController extends GetxController {
   late final ScrollController scrollController;
-  late CameraController cameraController;
   late TextEditingController description;
   late FocusNode focusNode;
-  late void cameraValue;
-  late FlashMode mode;
-  File? image;
   AssetEntity? selectedEntity;
   List<AssetEntity> assetList = [];
   List<AssetEntity> selectedAssetList = [];
   RxInt selectedIndex = 0.obs;
   RxInt oldSelectedIndex = 0.obs;
-  RxInt cameraPositioned = 0.obs;
   RxBool isBtnShown = false.obs;
-  RxBool isFlashOn = false.obs;
-  RxBool isFrontCamera = true.obs;
-  RxBool isTakingPicture = false.obs;
 
   @override
   void onInit() async {
-    WidgetsBinding.instance.addObserver(this);
     scrollController = ScrollController();
     focusNode = FocusNode();
     description = TextEditingController();
@@ -42,9 +29,6 @@ class PostController extends GetxController with WidgetsBindingObserver {
       }
       update();
     });
-    mode = FlashMode.off;
-    cameraController = CameraController(cameras[0], ResolutionPreset.max);
-    cameraValue = await cameraController.initialize();
     assetList = await PickImage().loadAssets();
     selectedAssetList.add(assetList[0]);
     update();
@@ -53,111 +37,10 @@ class PostController extends GetxController with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    cameraController.dispose();
     focusNode.dispose();
     description.dispose();
     scrollController.dispose();
     super.dispose();
-  }
-
-  @override
-  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
-    super.didChangeAppLifecycleState(state);
-
-    if (state == AppLifecycleState.paused ||
-        state == AppLifecycleState.inactive) {
-      try {
-        await cameraController.setFlashMode(FlashMode.off);
-        if (cameraController.value.isInitialized) {
-          await cameraController.pausePreview();
-        }
-      } catch (e) {
-        debugPrint(e.toString());
-      }
-    } else if (state == AppLifecycleState.resumed) {
-      try {
-        if (cameraController.value.isInitialized) {
-          cameraController = CameraController(
-              cameras[cameraPositioned.value], ResolutionPreset.max);
-          cameraValue = await cameraController.initialize();
-          isFlashOn.value = false;
-        }
-      } catch (e) {
-        debugPrint(e.toString());
-      }
-    }
-    update();
-  }
-
-  Future<void> outOfCamera() async {
-    try {
-      isFlashOn.value = false;
-      await cameraController.setFlashMode(FlashMode.off);
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-    Get.back();
-    update();
-  }
-
-  Future<void> takePicture() async {
-    try {
-      isTakingPicture.value = true;
-      await cameraController.setFlashMode(mode);
-      XFile file = await cameraController.takePicture();
-      image = File(file.path);
-      if (cameras[cameraPositioned.value].lensDirection ==
-          CameraLensDirection.front) {
-        img.Image imageFile = img.decodeImage(image!.readAsBytesSync())!;
-        img.Image flippedImage =
-            img.flip(imageFile, direction: img.FlipDirection.horizontal);
-
-        File flippedFile = File(file.path)
-          ..writeAsBytesSync(img.encodeJpg(flippedImage));
-        image = flippedFile;
-      }
-      isFlashOn.value = false;
-      await cameraController.setFlashMode(FlashMode.off);
-      Get.toNamed(RouteName.confirmPostImage);
-      isTakingPicture.value = false;
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-    update();
-  }
-
-  Future<void> onSetFlashModeButtonPressed() async {
-    isFlashOn.toggle();
-    if (isFlashOn.value) {
-      mode = FlashMode.torch;
-    } else {
-      mode = FlashMode.off;
-    }
-    try {
-      await cameraController.setFlashMode(mode);
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-    update();
-  }
-
-  Future<void> swicthCamera() async {
-    isFrontCamera.toggle();
-    isFlashOn.value = false;
-    if (isFrontCamera.value) {
-      cameraPositioned.value = 0;
-    } else {
-      cameraPositioned.value = 1;
-    }
-    try {
-      cameraController = CameraController(
-          cameras[cameraPositioned.value], ResolutionPreset.max);
-      cameraValue = await cameraController.initialize();
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-    update();
   }
 
   void addImage(AssetEntity image) {

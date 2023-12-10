@@ -1,42 +1,16 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/chat_room_controller.dart';
+import '../../controllers/camera_controller.dart';
 
-class CameraChatView extends StatefulWidget {
-  const CameraChatView({super.key});
-
-  @override
-  State<CameraChatView> createState() => _CameraChatViewState();
-}
-
-class _CameraChatViewState extends State<CameraChatView> {
-  final controller = Get.find<ChatRoomController>();
-
-  @override
-  void initState() {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        systemNavigationBarColor: Color.fromARGB(255, 15, 22, 25),
-      ),
-    );
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.transparent,
-      ),
-    );
-    super.dispose();
-  }
+class CameraView extends StatelessWidget {
+  final String routeName;
+  const CameraView({super.key, required this.routeName});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ChatRoomController>(
+    final controller = Get.put(CameraViewController());
+    return GetBuilder<CameraViewController>(
         builder: (_) => WillPopScope(
             onWillPop: () async {
               await controller.outOfCamera();
@@ -108,8 +82,8 @@ class _CameraChatViewState extends State<CameraChatView> {
                                 GestureDetector(
                                   onTap: controller.isTakingPicture.value
                                       ? () {}
-                                      : () async =>
-                                          await controller.takePicture(),
+                                      : () async => await controller
+                                          .takePicture(routeName),
                                   child: Container(
                                     height: 60,
                                     width: 60,
@@ -126,7 +100,8 @@ class _CameraChatViewState extends State<CameraChatView> {
                                   ),
                                 ),
                                 GestureDetector(
-                                  onTap: () async => controller.swicthCamera(),
+                                  onTap: () async =>
+                                      await controller.swicthCamera(),
                                   child: const SizedBox(
                                     height: 45,
                                     width: 45,

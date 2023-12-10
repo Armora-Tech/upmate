@@ -4,6 +4,6 @@ import 'package:upmatev2/controllers/profile_controller.dart';
 class ProfileBinding implements Bindings {
   @override
   void dependencies() {
-     Get.lazyPut<ProfileController>(() => ProfileController());
+    Get.lazyPut<ProfileController>(() => ProfileController());
   }
 }

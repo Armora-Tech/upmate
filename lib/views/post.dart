@@ -6,6 +6,7 @@ import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/post_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/widgets/global/camera_view.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 import '../widgets/global/line.dart';
 
@@ -171,7 +172,9 @@ class PostView extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: controller.assetList.isEmpty
                                     ? () {}
-                                    : () => Get.toNamed(RouteName.cameraPost),
+                                    : () => Get.to(() => const CameraView(
+                                          routeName: RouteName.confirmPostImage,
+                                        )),
                                 style: ElevatedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 30, vertical: 10),
