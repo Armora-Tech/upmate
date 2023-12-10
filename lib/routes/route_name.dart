@@ -17,4 +17,5 @@ abstract class RouteName {
    static const postDescription = "/post-description" ;
    static const editProfile = "/edit-profile" ;
    static const cameraView = "/camera-view" ;
+   static const galleryView = "/gallery-view" ;
 }

@@ -7,6 +7,7 @@ import 'package:upmatev2/controllers/gallery_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/views/camera_view.dart';
+import 'package:upmatev2/widgets/global/scroll_up.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 import '../widgets/global/line.dart';
 
@@ -17,12 +18,7 @@ class PostView extends StatelessWidget {
   Widget build(BuildContext context) {
     final galleryController = Get.find<GalleryController>();
     return GetBuilder<GalleryController>(
-        builder: (_) => WillPopScope(
-            onWillPop: () async {
-              Get.back();
-              return true;
-            },
-            child: Scaffold(
+        builder: (_) => Scaffold(
               body: SafeArea(
                 child: NestedScrollView(
                   controller: galleryController.scrollController,
@@ -245,23 +241,24 @@ class PostView extends StatelessWidget {
                               ),
                               itemBuilder: (context, index) {
                                 final double size = Get.width / 4;
-                                return GestureDetector(
-                                  onTap: () => galleryController.addPostImage(
-                                      galleryController.assetList[index]),
-                                  child: Container(
-                                    height: size,
-                                    width: size,
-                                    color: Colors.grey,
-                                    child: Stack(
-                                      fit: StackFit.expand,
-                                      children: [
-                                        galleryController.assetList.isEmpty
-                                            ? ShimmerSkelton(
-                                                height: size,
-                                                width: size,
-                                                borderRadius: 0,
-                                              )
-                                            : AssetEntityImage(
+                                return galleryController.assetList.isEmpty
+                                    ? ShimmerSkelton(
+                                        height: size,
+                                        width: size,
+                                        borderRadius: 0,
+                                      )
+                                    : GestureDetector(
+                                        onTap: () => galleryController
+                                            .addPostImage(galleryController
+                                                .assetList[index]),
+                                        child: Container(
+                                          height: size,
+                                          width: size,
+                                          color: AppColor.greyShimmer,
+                                          child: Stack(
+                                            fit: StackFit.expand,
+                                            children: [
+                                              AssetEntityImage(
                                                 galleryController
                                                     .assetList[index],
                                                 isOriginal: false,
@@ -270,77 +267,50 @@ class PostView extends StatelessWidget {
                                                         250),
                                                 fit: BoxFit.cover,
                                               ),
-                                        galleryController.assetList.isEmpty
-                                            ? const SizedBox()
-                                            : galleryController
-                                                    .selectedAssetList
-                                                    .contains(galleryController
-                                                        .assetList[index])
-                                                ? Positioned(
-                                                    top: 5,
-                                                    right: 5,
-                                                    child: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                              color:
-                                                                  Colors.white,
-                                                              shape: BoxShape
-                                                                  .circle),
-                                                      child: const Icon(
-                                                        Icons
-                                                            .check_circle_rounded,
-                                                        color:
-                                                            Colors.blueAccent,
-                                                        size: 23,
-                                                      ),
-                                                    ))
-                                                : const SizedBox()
-                                      ],
-                                    ),
-                                  ),
-                                );
+                                              galleryController
+                                                      .assetList.isEmpty
+                                                  ? const SizedBox()
+                                                  : galleryController
+                                                          .selectedAssetList
+                                                          .contains(
+                                                              galleryController
+                                                                      .assetList[
+                                                                  index])
+                                                      ? Positioned(
+                                                          top: 5,
+                                                          right: 5,
+                                                          child: Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    shape: BoxShape
+                                                                        .circle),
+                                                            child: const Icon(
+                                                              Icons
+                                                                  .check_circle_rounded,
+                                                              color: Colors
+                                                                  .blueAccent,
+                                                              size: 23,
+                                                            ),
+                                                          ))
+                                                      : const SizedBox()
+                                            ],
+                                          ),
+                                        ),
+                                      );
                               },
                             ),
                           )
                         ],
                       ),
-                      AnimatedPositioned(
-                          duration: const Duration(milliseconds: 300),
-                          bottom: galleryController.isBtnShown.value ? 15 : -50,
-                          child: GestureDetector(
-                            onTap: () => galleryController.scrollController
-                                .animateTo(0,
-                                    duration:
-                                        const Duration(milliseconds: 1000),
-                                    curve: Curves.easeInOut),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: const Row(children: [
-                                Text(
-                                  "Gulir ke atas",
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Icon(
-                                  Icons.arrow_upward_rounded,
-                                  size: 20,
-                                  color: Colors.black,
-                                ),
-                              ]),
-                            ),
-                          ))
+                      ScrollUp(controller: galleryController)
                     ],
                   ),
                 ),
               ),
-            )));
+            ));
   }
 }

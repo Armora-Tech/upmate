@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EditProfileController extends GetxController {
   late final TextEditingController textEditingController;
   late final TextEditingController confirmPass;
+  File? image;
 
   Map<String, dynamic> data = {
     "Nama Pengguna": "Flora Shafiqa",
@@ -28,6 +30,4 @@ class EditProfileController extends GetxController {
     confirmPass.dispose();
     super.onClose();
   }
-
-  
 }

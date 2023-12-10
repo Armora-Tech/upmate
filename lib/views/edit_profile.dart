@@ -19,91 +19,111 @@ class EditProfileView extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20, left: 20, top: 120),
-              child: Column(
-                children: [
-                  GestureDetector(
-                      onTap: () => Get.to(() => const DetailProfilePicture(),
-                          opaque: false,
-                          fullscreenDialog: true,
-                          transition: Transition.circularReveal),
-                      child: const Hero(
-                          tag: "pp_edit_profile",
-                          child: ProfilePicture(
-                            size: 120,
-                          ))),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  GestureDetector(
-                    onTap: () => BottomSheetUtil.showChooseImage(controller),
-                    child: const Text(
-                      "Ubah Gambar",
-                      style: TextStyle(
-                        color: Colors.blueAccent,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Column(
-                    children: List.generate(controller.data.length, (index) {
-                      final Map<String, dynamic> data = controller.data;
-                      return GestureDetector(
-                        onTap: () => Get.to(() => EditPage(index: index),
-                            transition: Transition.rightToLeft),
-                        child: Container(
-                          color: Colors.white,
-                          height: 50,
-                          width: Get.width,
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 15.0),
-                                      child: Text(
-                                        data.keys.elementAt(index),
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )),
-                                  Expanded(
-                                      child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                              data.values.elementAt(index)))),
-                                  const Padding(
-                                      padding: EdgeInsets.only(left: 15.0),
-                                      child: Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        color: Colors.black,
-                                        size: 20,
-                                      ))
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                width: Get.width,
-                                height: 0.5,
-                                color: Colors.black,
-                              )
-                            ],
+            GetBuilder<EditProfileController>(
+                builder: (_) => Padding(
+                      padding:
+                          const EdgeInsets.only(right: 20, left: 20, top: 120),
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                              onTap: () => Get.to(
+                                  () => const DetailProfilePicture(),
+                                  opaque: false,
+                                  fullscreenDialog: true,
+                                  transition: Transition.circularReveal),
+                              child: Hero(
+                                  tag: "pp_edit_profile",
+                                  child: controller.image != null
+                                      ? Container(
+                                          width: 120,
+                                          height: 120,
+                                          clipBehavior: Clip.hardEdge,
+                                          decoration: const BoxDecoration(
+                                              shape: BoxShape.circle),
+                                          child: Image.file(
+                                            controller.image!,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        )
+                                      : const ProfilePicture(
+                                          size: 120,
+                                        ))),
+                          const SizedBox(
+                            height: 15,
                           ),
-                        ),
-                      );
-                    }),
-                  )
-                ],
-              ),
-            ),
+                          GestureDetector(
+                            onTap: () =>
+                                BottomSheetUtil.showChooseImage(controller),
+                            child: const Text(
+                              "Ubah Gambar",
+                              style: TextStyle(
+                                color: Colors.blueAccent,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Column(
+                            children:
+                                List.generate(controller.data.length, (index) {
+                              final Map<String, dynamic> data = controller.data;
+                              return GestureDetector(
+                                onTap: () => Get.to(
+                                    () => EditPage(index: index),
+                                    transition: Transition.rightToLeft),
+                                child: Container(
+                                  color: Colors.white,
+                                  height: 50,
+                                  width: Get.width,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 15.0),
+                                              child: Text(
+                                                data.keys.elementAt(index),
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              )),
+                                          Expanded(
+                                              child: Align(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: Text(data.values
+                                                      .elementAt(index)))),
+                                          const Padding(
+                                              padding:
+                                                  EdgeInsets.only(left: 15.0),
+                                              child: Icon(
+                                                Icons.arrow_forward_ios_rounded,
+                                                color: Colors.black,
+                                                size: 20,
+                                              ))
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        width: Get.width,
+                                        height: 0.5,
+                                        color: Colors.black,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+                          )
+                        ],
+                      ),
+                    )),
             Positioned(
               top: 0,
               child: Container(

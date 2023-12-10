@@ -9,6 +9,8 @@ import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/views/camera_view.dart';
 import 'package:upmatev2/widgets/global/line.dart';
+import 'package:upmatev2/widgets/global/scroll_up.dart';
+import 'package:upmatev2/widgets/global/skelton.dart';
 
 class BottomSheetUtil {
   static void showGalleryChat(
@@ -65,10 +67,9 @@ class BottomSheetUtil {
                                 itemBuilder: (context, index) {
                                   final double size = Get.width / 3;
                                   return controller.assetList.isEmpty
-                                      ? Container(
+                                      ? ShimmerSkelton(
                                           height: size,
                                           width: size,
-                                          color: Colors.white,
                                         )
                                       : GestureDetector(
                                           onTap: () => controller.addImage(
@@ -76,7 +77,7 @@ class BottomSheetUtil {
                                           child: Container(
                                             height: size,
                                             width: size,
-                                            color: Colors.grey,
+                                            color: AppColor.greyShimmer,
                                             child: Stack(
                                               fit: StackFit.expand,
                                               children: [
@@ -134,8 +135,10 @@ class BottomSheetUtil {
                               borderRadius: BorderRadius.circular(30))),
                       onPressed: () {
                         Get.back();
-                        Get.to(() => const CameraView(
-                            routeName: RouteName.confirmSendImage));
+                        Get.to(
+                            () => const CameraView(
+                                routeName: RouteName.confirmSendImage),
+                            transition: Transition.rightToLeft);
                       },
                       child: const IntrinsicWidth(
                         child: Padding(
@@ -184,35 +187,9 @@ class BottomSheetUtil {
                         ),
                       )),
                 ),
-                AnimatedPositioned(
-                    duration: const Duration(milliseconds: 300),
-                    bottom: controller.isBtnShown.value ? 15 : -50,
-                    child: GestureDetector(
-                      onTap: () => controller.scrollController.animateTo(0,
-                          duration: const Duration(milliseconds: 1000),
-                          curve: Curves.easeInOut),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: const Row(children: [
-                          Text(
-                            "Gulir ke atas",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(
-                            Icons.arrow_upward_rounded,
-                            size: 20,
-                            color: Colors.black,
-                          ),
-                        ]),
-                      ),
-                    ))
+                ScrollUp(
+                  controller: controller,
+                )
               ])),
         ));
   }
@@ -249,7 +226,7 @@ class BottomSheetUtil {
               ),
               const Line(),
               GestureDetector(
-                onTap: () {},
+                onTap: () => Get.toNamed(RouteName.galleryView),
                 child: Container(
                   margin: const EdgeInsets.only(top: 5),
                   color: Colors.white,
