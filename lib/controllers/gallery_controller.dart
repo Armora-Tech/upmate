@@ -5,18 +5,17 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:upmatev2/controllers/edit_profile_controller.dart';
 
 import '../routes/route_name.dart';
 import '../utils/pick_image.dart';
 
 class GalleryController extends GetxController {
   late ScrollController scrollController;
-  late EditProfileController editProfileController;
   RxBool isBtnShown = false.obs;
   RxInt selectedIndex = 0.obs;
   RxInt oldSelectedIndex = 0.obs;
 
+  File? image;
   AssetEntity? selectedEntity;
   List<AssetEntity> assetList = [];
   List<AssetEntity> selectedAssetList = [];
@@ -24,7 +23,6 @@ class GalleryController extends GetxController {
   @override
   Future<void> onInit() async {
     scrollController = ScrollController();
-    editProfileController = Get.find<EditProfileController>();
     scrollController.addListener(() {
       if (scrollController.position.userScrollDirection ==
               ScrollDirection.forward ||
@@ -84,15 +82,13 @@ class GalleryController extends GetxController {
 
   Future<void> updatePhotoProfile() async {
     if (selectedEntity != null) {
-      editProfileController.image = await selectedEntity!.file;
+      image = await selectedEntity!.file;
       final imagePicker = PickImage();
       final croppedImage =
-          await imagePicker.crop(file: editProfileController.image!, cropStyle: CropStyle.circle);
+          await imagePicker.crop(file: image!, cropStyle: CropStyle.circle);
       if (croppedImage != null) {
-        editProfileController.image = File(croppedImage.path);
-        Get.until(
-          (route) => Get.previousRoute == RouteName.editProfile,
-        );
+        image = File(croppedImage.path);
+        Get.until((route) => Get.previousRoute == RouteName.editProfile);
       }
     }
     Get.forceAppUpdate();

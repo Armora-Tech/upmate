@@ -8,11 +8,9 @@ import 'package:image_cropper/image_cropper.dart';
 import '../main.dart';
 import '../routes/route_name.dart';
 import '../utils/pick_image.dart';
-import 'edit_profile_controller.dart';
 
 class CameraViewController extends GetxController with WidgetsBindingObserver {
   late CameraController cameraController;
-  late EditProfileController editProfileController;
   late void cameraValue;
   late FlashMode mode;
   File? image;
@@ -29,7 +27,6 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
         systemNavigationBarColor: Color.fromARGB(255, 15, 22, 25),
       ),
     );
-    editProfileController = Get.find<EditProfileController>();
     mode = FlashMode.off;
     cameraController = CameraController(cameras[0], ResolutionPreset.max);
     cameraValue = await cameraController.initialize();
@@ -98,23 +95,22 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
       isTakingPicture.value = true;
       await cameraController.setFlashMode(mode);
       XFile file = await cameraController.takePicture();
-      editProfileController.image = File(file.path);
+      image = File(file.path);
       if (cameras[cameraPositioned.value].lensDirection ==
           CameraLensDirection.front) {
-        img.Image imageFile =
-            img.decodeImage(editProfileController.image!.readAsBytesSync())!;
+        img.Image imageFile = img.decodeImage(image!.readAsBytesSync())!;
         img.Image flippedImage =
             img.flip(imageFile, direction: img.FlipDirection.horizontal);
 
         File flippedFile = File(file.path)
           ..writeAsBytesSync(img.encodeJpg(flippedImage));
-        editProfileController.image = flippedFile;
-        if (editProfileController.image != null) {
+        image = flippedFile;
+        if (image != null) {
           final imagePicker = PickImage();
-          final croppedImage = await imagePicker.crop(
-              file: editProfileController.image!, cropStyle: CropStyle.circle);
+          final croppedImage =
+              await imagePicker.crop(file: image!, cropStyle: CropStyle.circle);
           if (croppedImage != null) {
-            editProfileController.image = File(croppedImage.path);
+            image = File(croppedImage.path);
           }
         }
       }
