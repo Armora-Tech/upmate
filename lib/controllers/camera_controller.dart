@@ -105,21 +105,21 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
         File flippedFile = File(file.path)
           ..writeAsBytesSync(img.encodeJpg(flippedImage));
         image = flippedFile;
-        if (image != null) {
-          final imagePicker = PickImage();
-          final croppedImage =
-              await imagePicker.crop(file: image!, cropStyle: CropStyle.circle);
-          if (croppedImage != null) {
-            image = File(croppedImage.path);
-          }
+      }
+      if (image != null) {
+        final imagePicker = PickImage();
+        final croppedImage =
+            await imagePicker.crop(file: image!, cropStyle: CropStyle.circle);
+        if (croppedImage != null) {
+          image = File(croppedImage.path);
+          isFlashOn.value = false;
+          await cameraController.setFlashMode(FlashMode.off);
+          isTakingPicture.value = false;
+          Get.until(
+            (route) => Get.previousRoute == RouteName.editProfile,
+          );
         }
       }
-      isFlashOn.value = false;
-      await cameraController.setFlashMode(FlashMode.off);
-      isTakingPicture.value = false;
-      Get.until(
-        (route) => Get.previousRoute == RouteName.editProfile,
-      );
     } catch (e) {
       debugPrint(e.toString());
     }
