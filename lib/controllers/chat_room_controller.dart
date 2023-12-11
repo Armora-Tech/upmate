@@ -1,10 +1,18 @@
 import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:provider/provider.dart';
 import 'package:upmatev2/utils/pick_image.dart';
 
+import '../utils/auth.dart';
+
 class ChatRoomController extends GetxController {
+
   late TextEditingController textEditingController;
   late FocusNode focusNode;
   File? image;
@@ -20,6 +28,7 @@ class ChatRoomController extends GetxController {
   List<AssetEntity> assetList = [];
   List<AssetEntity> selectedAssetList = [];
 
+  late QuerySnapshot querySnapshot;
   List<Map<String, dynamic>> chats = [
     {"user": "P"},
     {"user": "Hallo bang"},

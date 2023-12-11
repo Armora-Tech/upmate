@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -18,6 +19,9 @@ late bool isLogin;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseFirestore.instance.settings = const Settings(
+    persistenceEnabled: true,
+  );
   FirebaseAuth.instance.authStateChanges().listen((User? user) {
     isLogin = user == null;
 
@@ -34,7 +38,9 @@ void main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -51,10 +57,10 @@ class MyApp extends StatelessWidget {
         );
       },
       theme: AppTheme.lightTheme,
-      initialRoute: isLogin? RouteName.login : RouteName.start,
-      initialBinding: isLogin? LoginBinding() : StartBinding(),
+      initialRoute: isLogin ? RouteName.login : RouteName.start,
+      initialBinding: isLogin ? LoginBinding() : StartBinding(),
       getPages: AppPage.pages,
-      home: isLogin? LoginView() : const StartView(),
+      home: isLogin ? LoginView() : const StartView(),
     );
   }
 }

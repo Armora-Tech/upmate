@@ -50,6 +50,9 @@ dependencies:
   firebase_auth: ^4.15.1
   google_sign_in: ^6.1.6
   flutter_facebook_auth: ^6.0.3
+  cloud_firestore: ^4.13.5
+  provider: ^6.1.1
+  fluttertoast: ^8.2.4
 
 dependency_overrides: 
   photo_manager: ^3.0.0-dev.2

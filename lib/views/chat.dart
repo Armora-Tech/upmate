@@ -23,7 +23,7 @@ class ChatView extends StatelessWidget {
                 SizedBox(
                   height: controller.isShowSearch.value ? 140 : 80,
                 ),
-                const Expanded(child: ChatList())
+                Expanded(child: ChatList())
               ],
             ),
             Positioned(

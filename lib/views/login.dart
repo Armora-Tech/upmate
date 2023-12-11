@@ -85,20 +85,11 @@ class LoginView extends StatelessWidget {
                     ),
                     ElevatedButton(
                         onPressed: () async {
-                          User? user = await _auth.signInWithEmailAndPassword(
+                          await _auth.signInWithEmailAndPassword(
                             controller.email.text,
                             controller.pass.text,
+                            context
                           );
-                          if (user != null) {
-                            if (kDebugMode) {
-                              print('User signed in: ${user.uid}');
-                            }
-                            await Get.toNamed(RouteName.start);
-                          } else {
-                            if (kDebugMode) {
-                              print("Signin failed!");
-                            }
-                          }
                         },
                         child: const Center(
                           child: Text(
@@ -162,18 +153,8 @@ class LoginView extends StatelessWidget {
                             onPressed: () async {
                               if (_cancellationToken.isCancelled) return;
                               _cancellationToken.cancel();
-                              User? user = await _auth.signInWithGoogle();
+                              await _auth.signInWithGoogle(context);
 
-                              if (user != null) {
-                                if (kDebugMode) {
-                                  print('User signed in: ${user.uid}');
-                                }
-                                await Get.toNamed(RouteName.start);
-                              } else {
-                                if (kDebugMode) {
-                                  print("Signin failed!");
-                                }
-                              }
                               _cancellationToken = CancellationToken();
                             },
                             icon: Image.asset(
@@ -189,18 +170,8 @@ class LoginView extends StatelessWidget {
                             onPressed: () async {
                               if (_cancellationToken.isCancelled) return;
                               _cancellationToken.cancel();
-                              User? user = await _auth.signInWithFacebook();
+                              await _auth.signInWithFacebook(context);
 
-                              if (user != null) {
-                                if (kDebugMode) {
-                                  print('User signed in: ${user.uid}');
-                                }
-                                await Get.toNamed(RouteName.start);
-                              } else {
-                                if (kDebugMode) {
-                                  print("Signin failed!");
-                                }
-                              }
                               _cancellationToken = CancellationToken();
                             },
                             icon: Image.asset(
