@@ -24,16 +24,6 @@ void main() async {
   );
   FirebaseAuth.instance.authStateChanges().listen((User? user) {
     isLogin = user == null;
-
-    if (user == null) {
-      if (kDebugMode) {
-        print('User is currently signed out!');
-      }
-    } else {
-      if (kDebugMode) {
-        print('User is signed in!');
-      }
-    }
   });
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
