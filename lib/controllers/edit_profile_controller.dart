@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 class EditProfileController extends GetxController {
   late final TextEditingController textEditingController;
   late final TextEditingController confirmPass;
+  RxBool isEmptyText = true.obs;
   File? image;
 
   Map<String, dynamic> data = {

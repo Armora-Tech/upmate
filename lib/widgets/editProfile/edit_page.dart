@@ -29,7 +29,12 @@ class EditPage extends StatelessWidget {
                     ? Column(
                         children: [
                           TextField(
+                            maxLines: null,
                             controller: controller.textEditingController,
+                            onChanged: (text) {
+                              controller.isEmptyText.value = text.isEmpty;
+                              controller.update();
+                            },
                             style: const TextStyle(fontSize: 14),
                             maxLength: controller.maxLength[index],
                             decoration: InputDecoration(
@@ -65,6 +70,10 @@ class EditPage extends StatelessWidget {
                         TextField(
                           obscureText: true,
                           controller: controller.textEditingController,
+                          onChanged: (text) {
+                            controller.isEmptyText.value = text.isEmpty;
+                            controller.update();
+                          },
                           style: const TextStyle(fontSize: 14),
                           maxLength: controller.maxLength[index],
                           decoration: InputDecoration(
@@ -164,17 +173,23 @@ class EditPage extends StatelessWidget {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                GestureDetector(
-                                    onTap: () {},
-                                    child: const SizedBox(
-                                      width: 50,
-                                      child: Text(
-                                        "Simpan",
-                                        style: TextStyle(
-                                          color: Colors.blueAccent,
-                                        ),
-                                      ),
-                                    )),
+                                GetBuilder<EditProfileController>(
+                                    builder: (_) => GestureDetector(
+                                        onTap: () {},
+                                        child: SizedBox(
+                                          width: 50,
+                                          child: Text(
+                                            "Simpan",
+                                            style: TextStyle(
+                                              color: controller
+                                                      .textEditingController
+                                                      .text
+                                                      .isEmpty
+                                                  ? Colors.grey
+                                                  : Colors.blueAccent,
+                                            ),
+                                          ),
+                                        ))),
                               ],
                             ),
                           ),

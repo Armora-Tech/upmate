@@ -17,10 +17,38 @@ class PostDescriptionView extends StatelessWidget {
         },
         child: Scaffold(
           body: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
+            child: Stack(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 65, bottom: 10),
+                  height: Get.height,
+                  width: Get.width,
+                  child: SingleChildScrollView(
+                    child: TextField(
+                      focusNode: controller.focusNode,
+                      style: const TextStyle(fontSize: 16),
+                      controller: controller.description,
+                      maxLength: 1000,
+                      maxLines: null,
+                      keyboardType: TextInputType.text,
+                      autofocus: true,
+                      onChanged: (text) {},
+                      decoration: const InputDecoration(
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        hintText: "Apa yang ingin anda beritahukan?",
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,
+                          fontFamily: "Nunito",
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  child: Container(
                     color: Colors.white,
                     width: Get.width,
                     child: Column(
@@ -56,35 +84,8 @@ class PostDescriptionView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: Get.height,
-                    width: Get.width,
-                    child: TextField(
-                      focusNode: controller.focusNode,
-                      style: const TextStyle(fontSize: 16),
-                      controller: controller.description,
-                      maxLength: 1000,
-                      maxLines: null,
-                      keyboardType: TextInputType.text,
-                      autofocus: true,
-                      onChanged: (text) {},
-                      decoration: const InputDecoration(
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        hintText: "Apa yang ingin anda beritahukan?",
-                        hintStyle: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                          fontFamily: "Nunito",
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ));
