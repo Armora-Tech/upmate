@@ -1,20 +1,16 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:photo_manager/photo_manager.dart';
-import 'package:upmatev2/utils/pick_image.dart';
 
 import '../utils/auth.dart';
 
-class ChatRoomController extends GetxController {
-
+class ChatRoomController extends GetxController with WidgetsBindingObserver {
   late TextEditingController textEditingController;
   late FocusNode focusNode;
-  File? image;
   RxDouble defaultRadius = 20.0.obs;
   RxDouble taperRadius = 3.0.obs;
   RxDouble marginTop = 0.0.obs;
@@ -22,10 +18,7 @@ class ChatRoomController extends GetxController {
   RxBool isTextFieldEmpty = true.obs;
   RxBool isShowEmoji = false.obs;
   RxBool isImage = false.obs;
-
-  AssetEntity? selectedEntity;
-  List<AssetEntity> assetList = [];
-  List<AssetEntity> selectedAssetList = [];
+  RxBool isLoading = true.obs;
 
   late QuerySnapshot querySnapshot;
   List<Map<String, dynamic>> chats = [
@@ -48,6 +41,7 @@ class ChatRoomController extends GetxController {
 
   @override
   void onInit() async {
+    WidgetsBinding.instance.addObserver(this);
     textEditingController = TextEditingController();
     focusNode = FocusNode();
     focusNode.addListener(() {
@@ -55,58 +49,22 @@ class ChatRoomController extends GetxController {
         isShowEmoji.value = false;
       }
     });
-
-    assetList = await PickImage().loadAssets();
-    super.onInit();
+    await Future.delayed(const Duration(milliseconds: 1000));
+    isLoading.value = false;
     update();
+    super.onInit();
   }
 
   @override
   void onClose() {
+    WidgetsBinding.instance.removeObserver(this);
     textEditingController.dispose();
     focusNode.dispose();
     super.onClose();
   }
 
-  void addImage(AssetEntity image) {
-    if (selectedAssetList.contains(image)) {
-      selectedAssetList.remove(image);
-    } else {
-      selectedAssetList.add(image);
-    }
-    update();
-  }
-
-  void selectImage() async {
-    try {
-      final imagePicker = PickImage();
-      final images = await imagePicker.pickMedia();
-      if (images != null) {
-        image = File(images.path);
-        textEditingController.text = image.toString();
-        isTextFieldEmpty.value = false;
-      }
-      update();
-      Get.back();
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  void sendImageGallery() {
-    for (AssetEntity i in selectedAssetList) {
-      chats.add({"user": i});
-    }
-    Get.forceAppUpdate();
-    Get.back();
-  }
-
   void sendChat() {
-    if (textEditingController.text == image.toString()) {
-      chats.add({"user": image});
-    } else {
-      chats.add({"user": textEditingController.text});
-    }
+    chats.add({"user": textEditingController.text});
 
     textEditingController.clear();
     isTextFieldEmpty.value = true;

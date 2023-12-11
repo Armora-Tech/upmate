@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/views/chat.dart';
 import 'package:upmatev2/views/home.dart';
 import 'package:upmatev2/views/notification.dart';
@@ -9,6 +10,7 @@ import 'package:upmatev2/views/explore.dart';
 class BottomNavController extends GetxController
     with GetSingleTickerProviderStateMixin {
   RxInt selectedTab = 0.obs;
+  RxInt oldSelectedTab = 0.obs;
   RxDouble initialIconSize = 26.0.obs;
   RxDouble initialTextSize = 9.0.obs;
   RxDouble iconSize = 26.0.obs;
@@ -45,9 +47,15 @@ class BottomNavController extends GetxController
   }
 
   void selectTab(int index) {
-    selectedTab.value = index;
-    tabController.animateTo(selectedTab.value,
-        duration: const Duration(milliseconds: 300), curve: Curves.ease);
+    oldSelectedTab.value = selectedTab.value;
+    if (index == 2) {
+      selectedTab.value = oldSelectedTab.value;
+      Get.toNamed(RouteName.post);
+    } else {
+      selectedTab.value = index;
+      tabController.animateTo(selectedTab.value,
+          duration: const Duration(milliseconds: 300), curve: Curves.ease);
+    }
   }
 
   double handleBarAnimation() {
@@ -56,14 +64,12 @@ class BottomNavController extends GetxController
         return 0;
       case 1:
         return widthTab;
-      case 2:
-        return widthTab * 2;
       case 3:
         return widthTab * 3;
       case 4:
         return widthTab * 4;
       default:
-        return 0;
+        return widthTab * oldSelectedTab.value;
     }
   }
 }

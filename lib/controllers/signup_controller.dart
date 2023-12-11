@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../routes/route_name.dart';
+
 class SignupController extends GetxController {
   late TextEditingController username;
   late TextEditingController email;
@@ -12,6 +14,7 @@ class SignupController extends GetxController {
   RxBool isConfirmPassVisible = true.obs;
   RxBool isFocused = false.obs;
   RxBool isConfirmPassFocused = false.obs;
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
@@ -38,6 +41,13 @@ class SignupController extends GetxController {
     confPass.dispose();
     focusNode.dispose();
     super.onClose();
+  }
+
+  Future<void> signup() async {
+    isLoading.value = true;
+    await Future.delayed(const Duration(milliseconds: 1000));
+    Get.toNamed(RouteName.verify);
+    isLoading.value = false;
   }
 
   void changeVisibility() {

@@ -8,4 +8,5 @@ class AppColor {
   static const black = Color(0xFF505050);
   static const lightGrey = Color.fromARGB(255, 212, 212, 212);
   static const bgSearch = Color.fromARGB(255, 232, 231, 231);
+  static final greyShimmer = Colors.grey.shade100;
 }

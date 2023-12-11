@@ -84,22 +84,34 @@ class LoginView extends StatelessWidget {
                       height: 20,
                     ),
                     ElevatedButton(
-                        onPressed: () async {
+                        onPressed: controller.isLoading.value
+                            ?  () async {
                           await _auth.signInWithEmailAndPassword(
-                            controller.email.text,
-                            controller.pass.text,
-                            context
+                              controller.email.text,
+                              controller.pass.text,
+                              context
                           );
                         },
-                        child: const Center(
-                          child: Text(
-                            "Sign In",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ))
+                            : () => controller.login(),
+                        child: Center(
+                            child: Obx(
+                          () => controller.isLoading.value
+                              ? const SizedBox(
+                                  height: 23,
+                                  width: 23,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 2,
+                                  ),
+                                )
+                              : const Text(
+                                  "Sign In",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                        )))
                   ],
                 )),
                 const SizedBox(

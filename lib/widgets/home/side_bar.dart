@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/routes/route_name.dart';
-import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/global/detail_profile_picture.dart';
 
 import '../../utils/auth.dart';
@@ -35,7 +34,7 @@ class SideBar extends StatelessWidget {
           Container(
               height: 190,
               decoration: BoxDecoration(
-                color: AppColor.primaryColor,
+                color: const Color.fromARGB(255, 24, 36, 41),
                 border:
                     Border.all(width: 0, strokeAlign: 10, color: Colors.white),
                 borderRadius: const BorderRadius.only(
@@ -104,6 +103,8 @@ class SideBar extends StatelessWidget {
                         var key = item.key.toLowerCase();
                         if (key == "akun") {
                           Get.toNamed(RouteName.profile);
+                        } else if (item.key.toLowerCase() == "pengaturan") {
+                          Get.toNamed(RouteName.editProfile);
                         } else if (key == "keluar") {
                           try {
                             _auth.signOut();

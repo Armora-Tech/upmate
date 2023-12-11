@@ -41,17 +41,20 @@ class SearchView extends StatelessWidget {
                           horizontal: 20, vertical: 10),
                       child: Column(
                         children: [
-                          const Row(
+                          Row(
                             children: [
-                              Icon(
-                                Icons.arrow_back_rounded,
-                                size: 28,
-                                color: Colors.black,
+                              GestureDetector(
+                                onTap: () => Get.back(),
+                                child: const Icon(
+                                  Icons.arrow_back_rounded,
+                                  size: 28,
+                                  color: Colors.black,
+                                ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
-                              Text(
+                              const Text(
                                 "Search",
                                 style: TextStyle(
                                   fontSize: 18,

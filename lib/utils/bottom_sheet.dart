@@ -3,13 +3,21 @@ import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
+import 'package:upmatev2/controllers/edit_profile_controller.dart';
+import 'package:upmatev2/controllers/gallery_controller.dart';
+import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/views/camera_view.dart';
+import 'package:upmatev2/widgets/global/line.dart';
+import 'package:upmatev2/widgets/global/scroll_up.dart';
+import 'package:upmatev2/widgets/global/skelton.dart';
 
 class BottomSheetUtil {
-  static void showBottomDialog(ChatRoomController controller) {
+  static void showGalleryChat(
+      GalleryController controller, ChatRoomController chatController) {
     Get.bottomSheet(
         isScrollControlled: true,
-        GetBuilder<ChatRoomController>(
+        GetBuilder<GalleryController>(
           builder: (_) => Container(
               width: Get.width,
               height: Get.height * 0.85,
@@ -41,71 +49,97 @@ class BottomSheetUtil {
                     const SizedBox(
                       height: 20,
                     ),
-                    Expanded(
-                      child: GridView.builder(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 5),
-                        itemCount: controller.assetList.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 2,
-                          mainAxisSpacing: 2,
-                        ),
-                        itemBuilder: (context, index) {
-                          final double size = Get.width / 3;
-                          return GestureDetector(
-                            onTap: () => controller
-                                .addImage(controller.assetList[index]),
-                            child: Container(
-                              height: size,
-                              width: size,
-                              color: Colors.grey,
-                              child: Stack(
-                                fit: StackFit.expand,
-                                children: [
-                                  AssetEntityImage(
-                                    controller.assetList[index],
-                                    isOriginal: false,
-                                    thumbnailSize:
-                                        const ThumbnailSize.square(250),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  controller.selectedAssetList
-                                          .contains(controller.assetList[index])
-                                      ? Positioned(
-                                          top: 5,
-                                          right: 5,
+                    GetBuilder<GalleryController>(
+                        builder: (_) => Expanded(
+                              child: GridView.builder(
+                                controller: controller.scrollController,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 5),
+                                itemCount: controller.assetList.isEmpty
+                                    ? 50
+                                    : controller.assetList.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: 2,
+                                  mainAxisSpacing: 2,
+                                ),
+                                itemBuilder: (context, index) {
+                                  final double size = Get.width / 3;
+                                  return controller.assetList.isEmpty
+                                      ? ShimmerSkelton(
+                                          height: size,
+                                          width: size,
+                                        )
+                                      : GestureDetector(
+                                          onTap: () => controller.addImage(
+                                              controller.assetList[index]),
                                           child: Container(
-                                            alignment: Alignment.center,
-                                            decoration: const BoxDecoration(
-                                                color: Colors.white,
-                                                shape: BoxShape.circle),
-                                            child: const Icon(
-                                              Icons.check_circle_rounded,
-                                              color: Colors.blueAccent,
-                                              size: 25,
+                                            height: size,
+                                            width: size,
+                                            color: AppColor.greyShimmer,
+                                            child: Stack(
+                                              fit: StackFit.expand,
+                                              children: [
+                                                AssetEntityImage(
+                                                  controller.assetList[index],
+                                                  isOriginal: false,
+                                                  thumbnailSize:
+                                                      const ThumbnailSize
+                                                          .square(250),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                controller.selectedAssetList
+                                                        .contains(controller
+                                                            .assetList[index])
+                                                    ? Positioned(
+                                                        top: 5,
+                                                        right: 5,
+                                                        child: Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  shape: BoxShape
+                                                                      .circle),
+                                                          child: const Icon(
+                                                            Icons
+                                                                .check_circle_rounded,
+                                                            color: Colors
+                                                                .blueAccent,
+                                                            size: 25,
+                                                          ),
+                                                        ))
+                                                    : const SizedBox()
+                                              ],
                                             ),
-                                          ))
-                                      : const SizedBox()
-                                ],
+                                          ),
+                                        );
+                                },
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                    )
+                            ))
                   ],
                 ),
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 300),
-                  bottom: controller.selectedAssetList.isEmpty ? 15 : -50,
+                  bottom: controller.selectedAssetList.isEmpty &&
+                          !controller.isBtnShown.value
+                      ? 15
+                      : -50,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppColor.primaryColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30))),
-                      onPressed: () => controller.selectImage(),
+                      onPressed: () {
+                        Get.back();
+                        Get.to(
+                            () => const CameraView(
+                                routeName: RouteName.confirmSendImage),
+                            transition: Transition.rightToLeft);
+                      },
                       child: const IntrinsicWidth(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 30),
@@ -120,7 +154,7 @@ class BottomSheetUtil {
                                 width: 10,
                               ),
                               Text(
-                                "Ambil Foto",
+                                "Ambil Gambar",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 16),
                               ),
@@ -131,13 +165,17 @@ class BottomSheetUtil {
                 ),
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 300),
-                  bottom: controller.selectedAssetList.isEmpty ? -50 : 15,
+                  bottom: controller.selectedAssetList.isEmpty ||
+                          controller.isBtnShown.value
+                      ? -50
+                      : 15,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppColor.primaryColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30))),
-                      onPressed: () => controller.sendImageGallery(),
+                      onPressed: () =>
+                          controller.sendImageGallery(chatController.chats),
                       child: IntrinsicWidth(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -148,8 +186,62 @@ class BottomSheetUtil {
                           ),
                         ),
                       )),
+                ),
+                ScrollUp(
+                  controller: controller,
                 )
               ])),
         ));
+  }
+
+  static void showChooseImage(EditProfileController controller) {
+    Get.bottomSheet(IntrinsicHeight(
+      child: Container(
+          width: Get.width,
+          clipBehavior: Clip.hardEdge,
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () => Get.to(() => const CameraView(
+                      isCrop: true,
+                    )),
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 5),
+                  color: Colors.white,
+                  height: 45,
+                  width: Get.width,
+                  child: const Center(
+                    child: Text(
+                      "Ambil gambar",
+                      style: TextStyle(color: Colors.blueAccent, fontSize: 16),
+                    ),
+                  ),
+                ),
+              ),
+              const Line(),
+              GestureDetector(
+                onTap: () => Get.toNamed(RouteName.galleryView),
+                child: Container(
+                  margin: const EdgeInsets.only(top: 5),
+                  color: Colors.white,
+                  height: 45,
+                  width: Get.width,
+                  child: const Center(
+                    child: Text(
+                      "Pilih dari gallery",
+                      style: TextStyle(color: Colors.blueAccent, fontSize: 16),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )),
+    ));
   }
 }

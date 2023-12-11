@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
 import 'package:upmatev2/widgets/profile/main_content.dart';
 
@@ -63,7 +64,7 @@ class ProfileView extends StatelessWidget {
                                 ),
                               ),
                               Positioned(
-                                bottom: -73,
+                                bottom: -45,
                                 left: 15,
                                 child: GestureDetector(
                                   onTap: () => Get.to(
@@ -200,7 +201,8 @@ class ProfileView extends StatelessWidget {
                               SizedBox(
                                   height: 35,
                                   child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () =>
+                                          Get.toNamed(RouteName.editProfile),
                                       style: ElevatedButton.styleFrom(
                                           padding: EdgeInsets.zero,
                                           shape: RoundedRectangleBorder(

@@ -41,11 +41,11 @@ dependencies:
   carousel_slider: ^4.2.1
   flutter_native_splash: ^2.3.6
   emoji_picker_flutter: ^1.6.3
-  image_picker: ^1.0.4
   image_cropper: ^5.0.1
   photo_manager: ^2.8.1
   photo_manager_image_provider: 2.1.0
   shimmer: ^3.0.0
+  camera: ^0.10.5+6
   firebase_core: ^2.24.1
   firebase_auth: ^4.15.1
   google_sign_in: ^6.1.6
@@ -134,9 +134,9 @@ flutter:
         - asset: assets/fonts/Nunito-MediumItalic.ttf
           weight: 500
           style: italic
-        - asset: assets/fonts/Nunito-Semibold.ttf
+        - asset: assets/fonts/Nunito-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Nunito-SemiboldItalic.ttf
+        - asset: assets/fonts/Nunito-SemiBoldItalic.ttf
           weight: 600
           style: italic
         - asset: assets/fonts/Nunito-Bold.ttf

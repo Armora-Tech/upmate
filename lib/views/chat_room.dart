@@ -4,10 +4,11 @@ import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
+import 'package:upmatev2/controllers/gallery_controller.dart';
 import 'package:upmatev2/themes/app_color.dart';
-import 'package:upmatev2/utils/bottom_sheet.dart';
 import 'package:upmatev2/widgets/chatRoom/shimmer.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
+import '../utils/bottom_sheet.dart';
 import '../widgets/global/detail_image.dart';
 import '../widgets/global/emoji_section.dart';
 import '../widgets/global/line.dart';
@@ -18,8 +19,9 @@ class ChatRoomView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ChatRoomController>();
+    final galleryController = Get.find<GalleryController>();
     return GetBuilder<ChatRoomController>(
-        builder: (_) => controller.assetList.isEmpty
+        builder: (_) => controller.isLoading.value
             ? const Scaffold(
                 body: ChatRoomShimmer(),
               )
@@ -114,7 +116,7 @@ class ChatRoomView extends StatelessWidget {
                                                     bottom: 3),
                                                 child: ClipRRect(
                                                   borderRadius:
-                                                      BorderRadius.circular(8),
+                                                      BorderRadius.circular(15),
                                                   child: Hero(
                                                     tag: controller
                                                         .chats[reversedIndex]
@@ -126,7 +128,6 @@ class ChatRoomView extends StatelessWidget {
                                                           .chats[reversedIndex]
                                                           .values
                                                           .first,
-                                                      scale: 6,
                                                       gaplessPlayback: true,
                                                     ),
                                                   ),
@@ -155,7 +156,7 @@ class ChatRoomView extends StatelessWidget {
                                                     bottom: 3),
                                                 child: ClipRRect(
                                                   borderRadius:
-                                                      BorderRadius.circular(8),
+                                                      BorderRadius.circular(15),
                                                   child: Hero(
                                                       tag: controller
                                                           .chats[reversedIndex]
@@ -224,7 +225,7 @@ class ChatRoomView extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 13),
+                                      horizontal: 13, vertical: 15),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -378,11 +379,11 @@ class ChatRoomView extends StatelessWidget {
                                       ? GestureDetector(
                                           onTap: () {
                                             if (!Get.isBottomSheetOpen!) {
-                                              controller.selectedAssetList
+                                              galleryController.selectedAssetList
                                                   .clear();
                                             }
-                                            BottomSheetUtil.showBottomDialog(
-                                                controller);
+                                            BottomSheetUtil.showGalleryChat(
+                                                galleryController, controller);
                                           },
                                           child: const Icon(
                                             Icons.camera_alt_outlined,
