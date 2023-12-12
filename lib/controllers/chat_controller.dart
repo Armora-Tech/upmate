@@ -16,7 +16,7 @@ class ChatController extends GetxController {
 
   Future<List<ChatModel>> getChats() async {
     try {
-      DocumentReference docRef = await _auth.getCurrentUserReference();
+      DocumentReference docRef = _auth.getCurrentUserReference();
       List<ChatModel> datas = [];
 
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance

@@ -33,6 +33,12 @@ class Auth {
       if (kDebugMode) {
         print('Error signing in: $e');
       }
+      Fluttertoast.showToast(
+          msg: "Login Failed!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0);
     }
   }
 
@@ -209,6 +215,10 @@ class Auth {
       }
       return null;
     }
+  }
+
+  User? getUser(){
+    return FirebaseAuth.instance.currentUser;
   }
 
   DocumentReference getCurrentUserReference()  {

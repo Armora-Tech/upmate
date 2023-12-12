@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:intl/intl.dart';
+import 'package:upmatev2/models/user_model.dart';
 
 class ChatModel {
   DocumentReference _ref;
@@ -9,7 +10,7 @@ class ChatModel {
   String _last_message;
   DateTime? _last_message_time;
   List<DocumentReference<Map<String, dynamic>>> _users_raw;
-  List<User>? _users;
+  List<UserModel>? _users;
 
   ChatModel._({
     required DocumentReference ref,
@@ -18,7 +19,7 @@ class ChatModel {
     required String lastMessage,
     required DateTime? lastMessageTime,
     required List<DocumentReference<Map<String, dynamic>>> usersRaw,
-    List<User>? users,
+    List<UserModel>? users,
   })  : _ref = ref,
         _isGroup = isGroup,
         _title = title,
@@ -28,9 +29,9 @@ class ChatModel {
         _users = users;
 
   factory ChatModel.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options,
-      ) {
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
     final data = snapshot.data();
     final List<dynamic> usersData = data?['users'] ?? [];
 
@@ -64,21 +65,22 @@ class ChatModel {
 
   Future<void> getUsersFromReferences(
       List<DocumentReference<Map<String, dynamic>>> references) async {
-    List<User> users = [];
+    List<UserModel> users = [];
 
-    for (DocumentReference<Map<String, dynamic>> reference in references) {
-      DocumentSnapshot<Map<String, dynamic>> snapshot = await reference.get();
+    for (var reference in references) {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .withConverter(
+              fromFirestore: UserModel.fromFirestore,
+              toFirestore: (UserModel user, _) => user.toFirestore())
+          .doc(reference.id)
+          .get();
 
-      if (snapshot.exists) {
-        // Convert the DocumentSnapshot to a User and add to the list
-        User user = FirebaseAuth.instance.currentUser!;
-        users.add(user);
-      }
+      users.add(snapshot.data() as UserModel);
     }
-
     _users = users;
     if (kDebugMode) {
-      print("USERS: $_users");
+      print("USERS_REFERENCES: $_users");
     }
   }
 
@@ -88,7 +90,11 @@ class ChatModel {
 
   bool get isGroup => _isGroup;
 
-  List<User>? get users => _users;
+  List<UserModel>? get users => _users;
 
   String get lastMessage => _last_message;
+
+  String? get lastMessageTime => _last_message_time == null
+      ? null
+      : DateFormat('H:mm').format(_last_message_time!);
 }

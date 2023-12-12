@@ -1,19 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/login_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
-import 'package:upmatev2/utils/auth.dart';
-
-import '../utils/cancellation.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
-
-  final Auth _auth = Auth();
-  CancellationToken _cancellationToken = CancellationToken();
 
   @override
   Widget build(BuildContext context) {
@@ -85,14 +77,9 @@ class LoginView extends StatelessWidget {
                     ),
                     ElevatedButton(
                         onPressed: controller.isLoading.value
-                            ?  () async {
-                          await _auth.signInWithEmailAndPassword(
-                              controller.email.text,
-                              controller.pass.text,
-                              context
-                          );
-                        },
-                            : () => controller.login(),
+                            ? () => {}
+                            : () =>
+                                controller.login(context, LoginProvider.email),
                         child: Center(
                             child: Obx(
                           () => controller.isLoading.value
@@ -163,11 +150,8 @@ class LoginView extends StatelessWidget {
                         height: 50,
                         child: IconButton(
                             onPressed: () async {
-                              if (_cancellationToken.isCancelled) return;
-                              _cancellationToken.cancel();
-                              await _auth.signInWithGoogle(context);
-
-                              _cancellationToken = CancellationToken();
+                              await controller.login(
+                                  context, LoginProvider.google);
                             },
                             icon: Image.asset(
                               "assets/images/google.png",
@@ -180,11 +164,8 @@ class LoginView extends StatelessWidget {
                         height: 50,
                         child: IconButton(
                             onPressed: () async {
-                              if (_cancellationToken.isCancelled) return;
-                              _cancellationToken.cancel();
-                              await _auth.signInWithFacebook(context);
-
-                              _cancellationToken = CancellationToken();
+                              await controller.login(
+                                  context, LoginProvider.facebook);
                             },
                             icon: Image.asset(
                               "assets/images/facebook.png",

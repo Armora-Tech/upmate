@@ -81,9 +81,9 @@ class _HomeViewState extends State<HomeView> {
                                   fit: BoxFit.cover,
                                 )),
                           ),
-                          const Text(
-                            "Flora Shafiqa",
-                            style: TextStyle(
+                          Text(
+                            controller.displayName??"",
+                            style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           GestureDetector(

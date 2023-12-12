@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/chat_controller.dart';
 import 'package:upmatev2/models/chat_model.dart';
+import 'package:upmatev2/models/user_model.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 
@@ -15,7 +15,7 @@ class ChatList extends StatelessWidget {
 
   final ChatController _chatController = ChatController();
   final Auth _auth = Auth();
-  late final DocumentReference user = _auth.getCurrentUserReference();
+  late final User? user = _auth.getUser();
   late List<String> title;
 
   @override
@@ -25,19 +25,19 @@ class ChatList extends StatelessWidget {
       builder: (context, snapshot) {
         List<ChatModel> datas = snapshot.data!;
         title = [];
+        print("USERNOW: $user");
         for (var e in datas) {
-          title.add(e.title.isNotEmpty
-              ? e.title
-              : e.users!.firstWhere((element) => element != user).displayName!);
-        }
-        if (kDebugMode) {
-          snapshot.data!.forEach((element) {
-            print("RES: ${element.users}");
-          });
+          try {
+            UserModel uTemp =
+                e.users!.firstWhere((element) => element.uid != user?.uid);
+            title.add(e.title.isNotEmpty ? e.title : uTemp.displayName ?? '');
+          } catch (e) {
+            print("ERRLIST: $e");
+          }
         }
         return ListView.separated(
           scrollDirection: Axis.vertical,
-          itemCount: datas.length,
+          itemCount: datas.length - 1,
           separatorBuilder: (context, index) {
             return const SizedBox(
               height: 20,
@@ -77,7 +77,7 @@ class ChatList extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    "Hallo kak perkenalkan nama saya perkenalkan lorem ipsum manual 123 tes tes 321 12345 processMotionEvent MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=785.0, y[0]=2145.0, toolType[0]=TOOL_TYPE_FINGER.",
+                                    datas[index].lastMessage,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
@@ -94,9 +94,11 @@ class ChatList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text(
-                          "3:16 pm",
-                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        Text(
+                          // "3:16 pm",
+                          datas[index].lastMessageTime ?? "",
+                          style:
+                              const TextStyle(color: Colors.grey, fontSize: 12),
                         ),
                         const SizedBox(
                           height: 3,
