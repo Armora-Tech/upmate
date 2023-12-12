@@ -70,6 +70,7 @@ class BottomSheetUtil {
                                       ? ShimmerSkelton(
                                           height: size,
                                           width: size,
+                                          borderRadius: 0,
                                         )
                                       : GestureDetector(
                                           onTap: () => controller.addImage(

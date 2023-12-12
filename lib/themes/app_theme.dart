@@ -49,6 +49,11 @@ class AppTheme {
           selectionColor: Colors.grey,
           selectionHandleColor: AppColor.primaryColor),
       inputDecorationTheme: InputDecorationTheme(
+          helperStyle: const TextStyle(
+            fontSize: 10,
+            fontFamily: "Nunito",
+            color: Colors.red,
+          ),
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           enabledBorder: OutlineInputBorder(

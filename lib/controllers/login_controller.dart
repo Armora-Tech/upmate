@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../routes/route_name.dart';
+import '../utils/input_validator.dart';
 
 class LoginController extends GetxController {
   late TextEditingController email;
   late TextEditingController pass;
   late FocusNode focusNode;
+  RxString? errorEmailMessage;
+  RxString? errorPassMessage;
   RxBool isVisible = true.obs;
   RxBool isFocused = false.obs;
   RxBool isLoading = false.obs;
@@ -18,6 +21,7 @@ class LoginController extends GetxController {
     focusNode = FocusNode();
     focusNode.addListener(() {
       isFocused.value = focusNode.hasFocus;
+      update();
     });
     super.onInit();
   }
@@ -31,13 +35,21 @@ class LoginController extends GetxController {
   }
 
   Future<void> login() async {
+    inputValidation();
     isLoading.value = true;
     await Future.delayed(const Duration(milliseconds: 1000));
-    Get.toNamed(RouteName.start);
+    if (isInputValid().value) {
+      Get.toNamed(RouteName.start);
+    }
     isLoading.value = false;
+    update();
   }
 
-  void changeVisibility() {
-    isVisible.toggle();
+  void inputValidation() {
+    errorEmailMessage = InputValidator.emailValidationMessage(email);
+    errorPassMessage = InputValidator.passValidationMessage(pass);
   }
+
+  RxBool isInputValid() =>
+      (email.text.isEmail && InputValidator.isPassValid(pass)).obs;
 }
