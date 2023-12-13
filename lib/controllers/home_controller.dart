@@ -1,8 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/models/user_model.dart';
+
+import '../models/post_model.dart';
+import '../utils/auth.dart';
 
 class HomeController extends GetxController {
+  final Auth _auth = Auth();
   RxInt selectedIndex = 0.obs;
   RxString fullText =
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
@@ -35,6 +42,30 @@ class HomeController extends GetxController {
     return text;
   }
 
+  Future<List<PostModel>> getPosts() async {
+    try {
+      UserModel? currentUser = await _auth.getUserModel();
+      List<PostModel> data = [];
+
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('posts')
+          .where('interests', arrayContainsAny: currentUser?.interests)
+          .withConverter(
+              fromFirestore: PostModel.fromFirestore,
+              toFirestore: (PostModel post, _) => post.toFirestore())
+          .get();
+
+      for(var e in querySnapshot.docs){
+        data.add(e as PostModel);
+      }
+      if (kDebugMode) {
+        print("PostModel: $data");
+      }
+      return data;
+    } catch (e) {
+      return [];
+    }
+  }
+
   String? get displayName => FirebaseAuth.instance.currentUser?.displayName;
-  
 }

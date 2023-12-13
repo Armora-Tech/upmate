@@ -3,9 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../models/user_model.dart';
 import '../routes/route_name.dart';
 
 class Auth {
@@ -22,23 +23,13 @@ class Auth {
       if (userCredential.user != null) {
         await Get.toNamed(RouteName.start);
       } else {
-        Fluttertoast.showToast(
-            msg: "Login Failed!",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            fontSize: 16.0);
+        //TODO: SHOW ERROR HERE
       }
     } catch (e) {
       if (kDebugMode) {
         print('Error signing in: $e');
       }
-      Fluttertoast.showToast(
-          msg: "Login Failed!",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          fontSize: 16.0);
+      //TODO: SHOW ERROR HERE
     }
   }
 
@@ -62,12 +53,7 @@ class Auth {
       if (userCredential.user != null) {
         await Get.toNamed(RouteName.start);
       } else {
-        Fluttertoast.showToast(
-            msg: "Login Failed!",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            fontSize: 16.0);
+        //TODO: SHOW ERROR HERE
       }
 
       return;
@@ -75,6 +61,7 @@ class Auth {
       if (kDebugMode) {
         print('Error signing in with Google: $e');
       }
+      //TODO: SHOW ERROR HERE
       return;
     }
   }
@@ -95,12 +82,7 @@ class Auth {
           if (userCredential.user != null) {
             await Get.toNamed(RouteName.start);
           } else {
-            Fluttertoast.showToast(
-                msg: "Login Failed!",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 1,
-                fontSize: 16.0);
+            //TODO: SHOW ERROR HERE
           }
           return;
 
@@ -108,15 +90,11 @@ class Auth {
           if (kDebugMode) {
             print('Facebook login cancelled by user');
           }
+          //TODO: SHOW ERROR HERE
           return;
 
         case LoginStatus.failed:
-          Fluttertoast.showToast(
-              msg: "Login Failed!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              fontSize: 16.0);
+          //TODO: SHOW ERROR HERE
           if (kDebugMode) {
             print('Error signing in with Facebook: ${result.message}');
           }
@@ -126,6 +104,7 @@ class Auth {
           return;
       }
     } catch (e) {
+      //TODO: SHOW ERROR HERE
       if (kDebugMode) {
         print('Error signing in with Facebook: $e');
       }
@@ -217,15 +196,27 @@ class Auth {
     }
   }
 
-  User? getUser(){
+  User? getUser() {
     return FirebaseAuth.instance.currentUser;
   }
 
-  DocumentReference getCurrentUserReference()  {
+  Future<UserModel?> getUserModel() async {
+    DocumentSnapshot<UserModel> querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .withConverter(
+            fromFirestore: UserModel.fromFirestore,
+            toFirestore: (UserModel userModel, _) => userModel.toFirestore())
+        .doc(getCurrentUserReference().id)
+        .get();
+    return querySnapshot.data();
+  }
+
+  DocumentReference getCurrentUserReference() {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       String userUid = user.uid;
-      DocumentReference userReference = FirebaseFirestore.instance.collection('users').doc(userUid);
+      DocumentReference userReference =
+          FirebaseFirestore.instance.collection('users').doc(userUid);
       return userReference;
     } else {
       // Handle the case where the user is not signed in

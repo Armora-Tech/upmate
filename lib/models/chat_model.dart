@@ -85,15 +85,10 @@ class ChatModel {
   }
 
   DocumentReference get ref => _ref;
-
   String get title => _title;
-
   bool get isGroup => _isGroup;
-
   List<UserModel>? get users => _users;
-
   String get lastMessage => _last_message;
-
   String? get lastMessageTime => _last_message_time == null
       ? null
       : DateFormat('H:mm').format(_last_message_time!);

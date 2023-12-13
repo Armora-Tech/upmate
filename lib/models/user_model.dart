@@ -53,7 +53,10 @@ class UserModel {
     };
   }
 
+  DocumentReference get ref => _ref;
   String get uid => _uid;
-
   String get displayName => _display_name;
+  List get interests => _interests;
+  String get email => _email;
+  String get username => _username;
 }
