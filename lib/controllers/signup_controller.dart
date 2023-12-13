@@ -66,8 +66,8 @@ class SignupController extends GetxController {
   }
 
   RxBool isInputValid() {
-    return (fullName.text.isNotEmpty &&
-            username.text.isNotEmpty &&
+    return (InputValidator.isFullNameValid(fullName) &&
+            InputValidator.isUsernameValid(username) &&
             email.text.isEmail &&
             InputValidator.isPassValid(pass) &&
             InputValidator.isPassValid(confPass) &&

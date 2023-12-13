@@ -4,6 +4,7 @@ import 'package:upmatev2/controllers/login_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/themes/app_font.dart';
+import 'package:upmatev2/utils/loading.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -93,19 +94,12 @@ class LoginView extends StatelessWidget {
                                 child: Center(
                                     child: Obx(
                                   () => controller.isLoading.value
-                                      ? const SizedBox(
-                                          height: 23,
-                                          width: 23,
-                                          child: CircularProgressIndicator(
-                                            color: Colors.white,
-                                            strokeWidth: 2,
-                                          ),
-                                        )
-                                      : const Text(
+                                      ? const LoadingUtil(
+                                          size: 23, color: Colors.white)
+                                      : Text(
                                           "Sign In",
-                                          style: TextStyle(
+                                          style: AppFont.semiLargeText.copyWith(
                                               color: Colors.white,
-                                              fontSize: 16,
                                               fontWeight: FontWeight.w500),
                                         ),
                                 )))
@@ -114,11 +108,12 @@ class LoginView extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.centerRight,
                   child: Text(
                     "Forgot Password?",
-                    style: TextStyle(color: AppColor.black),
+                    style:
+                        AppFont.semiMediumText.copyWith(color: AppColor.black),
                   ),
                 ),
                 const SizedBox(

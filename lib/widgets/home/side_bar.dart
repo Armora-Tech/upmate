@@ -122,8 +122,8 @@ class SideBar extends StatelessWidget {
                                   ),
                                   Text(
                                     item.key,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w600),
+                                    style: AppFont.semiMediumText
+                                        .copyWith(fontWeight: FontWeight.w600),
                                   )
                                 ],
                               )),

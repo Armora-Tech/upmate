@@ -34,6 +34,7 @@ class AppTheme {
           selectionColor: Colors.grey,
           selectionHandleColor: AppColor.primaryColor),
       inputDecorationTheme: InputDecorationTheme(
+          counterStyle: AppFont.smallText,
           helperStyle: AppFont.smallText.copyWith(color: Colors.red),
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -44,5 +45,6 @@ class AppTheme {
               borderRadius: BorderRadius.circular(10),
               borderSide:
                   const BorderSide(width: 1, color: AppColor.primaryColor)),
-          hintStyle: AppFont.defaultText));
+          hintStyle: AppFont.defaultText
+              .copyWith(color: const Color.fromARGB(255, 144, 143, 143))));
 }

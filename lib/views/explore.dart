@@ -80,28 +80,23 @@ class ExploreView extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(30)),
                             backgroundColor: AppColor.bgSearch),
                         onPressed: () => Get.toNamed(RouteName.search),
-                        child: const Center(
+                        child: Center(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 13.0, vertical: 3),
                             child: Row(
                               children: [
                                 Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.search,
                                       color: Colors.black,
-                                      size: 24,
+                                      size: 23,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
-                                    Text(
-                                      "Search",
-                                      style: TextStyle(
-                                        color: AppColor.primaryColor,
-                                      ),
-                                    )
+                                    Text("Search", style: AppFont.defaultText)
                                   ],
                                 )
                               ],

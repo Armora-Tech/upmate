@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_font.dart';
+import 'package:upmatev2/utils/input_validator.dart';
 import '../controllers/post_controller.dart';
 import '../widgets/global/line.dart';
 
@@ -29,7 +30,7 @@ class PostDescriptionView extends StatelessWidget {
                       focusNode: controller.focusNode,
                       style: AppFont.semiLargeText,
                       controller: controller.description,
-                      maxLength: 1000,
+                      maxLength: InputValidator.maxBioLength,
                       maxLines: null,
                       keyboardType: TextInputType.text,
                       autofocus: true,

@@ -8,11 +8,22 @@ class InputValidator {
   static const int maxUsernameLength = 30;
   static const int minFullNameLength = 3;
   static const int maxFullNameLength = 100;
+  static const int minBioLength = 0;
   static const int maxBioLength = 200;
+  static const int minDescLength = 0;
   static const int maxDescLength = 200;
 
   static RxString minMessage(String input, int length) {
     return "$input minimal $length karakter".obs;
+  }
+
+  static bool isValid(
+      TextEditingController text, int? minLength, int? maxLength) {
+    if (minLength == null || maxLength == null) {
+      return text.text.isEmail;
+    } else {
+      return text.text.length >= minLength && text.text.length <= maxLength;
+    }
   }
 
   static bool isPassValid(TextEditingController pass) {
@@ -28,6 +39,18 @@ class InputValidator {
   static bool isFullNameValid(TextEditingController fullName) {
     return fullName.text.length >= minFullNameLength &&
         fullName.text.length <= maxFullNameLength;
+  }
+
+  static RxString? validationMessage(
+      String input, TextEditingController text, int? minLength) {
+    if (!isValid(text, minLength, 0)) {
+      if (minLength == null) {
+        return "Format email tidak valid".obs;
+      }
+      return minMessage(input, minLength);
+    } else {
+      return null;
+    }
   }
 
   static RxString? passValidationMessage(TextEditingController pass) {
@@ -64,7 +87,7 @@ class InputValidator {
 
   static RxString? fullNameValidationMessage(TextEditingController fullName) {
     if (!isFullNameValid(fullName)) {
-      return minMessage("FullName", minFullNameLength);
+      return minMessage("Nama Lengkap", minFullNameLength);
     } else {
       return null;
     }
