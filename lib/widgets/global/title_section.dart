@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upmatev2/themes/app_font.dart';
 
 class TitleSection extends StatelessWidget {
   final String title;
@@ -10,7 +11,7 @@ class TitleSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Text(
         title,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        style: AppFont.largeText.copyWith(fontWeight: FontWeight.bold),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/routes/route_name.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import '../controllers/camera_controller.dart';
 
 class ConfirmPostImageView extends StatelessWidget {
@@ -66,11 +67,10 @@ class ConfirmPostImageView extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30))),
                         onPressed: () => Get.toNamed(RouteName.postDescription),
-                        child: const Text("Next",
-                            style: TextStyle(
+                        child:  Text("Next",
+                            style: AppFont.defaultText.copyWith(
                                 color: Colors.blueAccent,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14)),
+                               )),
                       ),
                     ),
                   )

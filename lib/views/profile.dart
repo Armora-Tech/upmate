@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/routes/route_name.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
 import 'package:upmatev2/widgets/profile/main_content.dart';
 
@@ -95,11 +96,11 @@ class ProfileView extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 "Flora Shafiqa",
                                 maxLines: 1,
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                style: AppFont.semiLargeText
+                                    .copyWith(fontWeight: FontWeight.bold),
                               ),
                               const Text(
                                 "@florashafiqa",
@@ -125,12 +126,9 @@ class ProfileView extends StatelessWidget {
                                               BorderRadius.circular(5)),
                                       child: Center(
                                         child: RichText(
-                                          text: const TextSpan(
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 13,
-                                                  fontFamily: "Nunito"),
-                                              children: [
+                                          text: TextSpan(
+                                              style: AppFont.defaultText,
+                                              children: const [
                                                 TextSpan(
                                                   text: "Mengikuti  ",
                                                 ),
@@ -155,12 +153,9 @@ class ProfileView extends StatelessWidget {
                                               BorderRadius.circular(5)),
                                       child: Center(
                                         child: RichText(
-                                          text: const TextSpan(
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 13,
-                                                  fontFamily: "Nunito"),
-                                              children: [
+                                          text: TextSpan(
+                                              style: AppFont.defaultText,
+                                              children: const [
                                                 TextSpan(
                                                   text: "Pengikut  ",
                                                 ),
@@ -208,13 +203,13 @@ class ProfileView extends StatelessWidget {
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(5))),
-                                      child: const Center(
+                                      child: Center(
                                         child: Text(
                                           "Edit Profil",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                              fontSize: 14),
+                                          style: AppFont.defaultText.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ))),
                             ],

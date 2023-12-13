@@ -6,6 +6,7 @@ import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/views/camera_view.dart';
 import 'package:upmatev2/widgets/global/scroll_up.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
@@ -155,15 +156,15 @@ class PostView extends StatelessWidget {
                                                       .postDescription),
                                               child: Text(
                                                 "Next",
-                                                style: TextStyle(
-                                                    color: galleryController
-                                                            .selectedAssetList
-                                                            .isEmpty
-                                                        ? Colors.grey
-                                                        : Colors.blueAccent,
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.w600),
+                                                style: AppFont.semiLargeText
+                                                    .copyWith(
+                                                        color: galleryController
+                                                                .selectedAssetList
+                                                                .isEmpty
+                                                            ? Colors.grey
+                                                            : Colors.blueAccent,
+                                                        fontWeight:
+                                                            FontWeight.w600),
                                               ),
                                             ),
                                           ],
@@ -208,18 +209,18 @@ class PostView extends StatelessWidget {
                                           width: 0.5,
                                           color: AppColor.lightGrey)),
                                 ),
-                                child: const Row(
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.camera_alt_rounded,
+                                    const Icon(Icons.camera_alt_rounded,
                                         size: 23, color: AppColor.black),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Text(
                                       "Ambil Gambar",
-                                      style: TextStyle(
-                                          fontSize: 16, color: AppColor.black),
+                                      style: AppFont.defaultText
+                                          .copyWith(color: AppColor.black),
                                     ),
                                   ],
                                 ),

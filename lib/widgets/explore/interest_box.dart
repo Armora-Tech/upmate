@@ -20,7 +20,6 @@ class InterestBox extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: InkWell(
                 onTap: () {},
-                
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
@@ -49,9 +48,7 @@ class InterestBox extends StatelessWidget {
                         "#Matematika",
                         maxLines: 3,
                         style: TextStyle(
-                            color: Colors.white,
-                            overflow: TextOverflow.ellipsis,
-                            fontWeight: FontWeight.bold),
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     )
                   ],

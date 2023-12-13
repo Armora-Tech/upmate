@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
+import 'package:upmatev2/themes/app_font.dart';
 
 class ScrollUp extends StatelessWidget {
   final GalleryController controller;
@@ -18,15 +19,15 @@ class ScrollUp extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(30)),
-            child: const Row(children: [
+            child: Row(children: [
               Text(
                 "Gulir ke atas",
-                style: TextStyle(fontSize: 16),
+                style: AppFont.semiLargeText,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
-              Icon(
+              const Icon(
                 Icons.arrow_upward_rounded,
                 size: 20,
                 color: Colors.black,

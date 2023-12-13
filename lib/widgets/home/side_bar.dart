@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/routes/route_name.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/detail_profile_picture.dart';
 import '../global/line.dart';
 
@@ -73,12 +74,10 @@ class SideBar extends StatelessWidget {
                     const SizedBox(
                       height: 15.0,
                     ),
-                    const Text(
+                    Text(
                       "Flora Shafiqa",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white),
+                      style: AppFont.semiExtraLargeText.copyWith(
+                          fontWeight: FontWeight.w600, color: Colors.white),
                     ),
                     const Text(
                       "@florashafiqa",
@@ -124,7 +123,6 @@ class SideBar extends StatelessWidget {
                                   Text(
                                     item.key,
                                     style: const TextStyle(
-                                        fontSize: 14,
                                         fontWeight: FontWeight.w600),
                                   )
                                 ],

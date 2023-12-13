@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/themes/app_font.dart';
 
 import '../routes/route_name.dart';
 
@@ -32,16 +33,17 @@ class VerifyView extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
+                Text(
                   "Verify your email",
-                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                  style: AppFont.extraLargeText
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 const Text(
                   "Please enter the 4 digit code sent to emaildituju@contoh.com",
-                   overflow: TextOverflow.clip,
+                  overflow: TextOverflow.clip,
                   style: TextStyle(
                       fontWeight: FontWeight.w500, color: Colors.grey),
                 ),
@@ -153,13 +155,11 @@ class VerifyView extends StatelessWidget {
                 ),
                 ElevatedButton(
                     onPressed: () => Get.toNamed(RouteName.takeSurvey),
-                    child: const Center(
+                    child: Center(
                       child: Text(
                         "Verify",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500),
+                        style: AppFont.semiLargeText.copyWith(
+                            color: Colors.white, fontWeight: FontWeight.w500),
                       ),
                     ))
               ],

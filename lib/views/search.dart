@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/themes/app_font.dart';
 
 import '../widgets/global/line.dart';
 
@@ -54,10 +55,9 @@ class SearchView extends StatelessWidget {
                               const SizedBox(
                                 width: 10,
                               ),
-                              const Text(
+                              Text(
                                 "Search",
-                                style: TextStyle(
-                                  fontSize: 18,
+                                style: AppFont.largeText.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -67,7 +67,7 @@ class SearchView extends StatelessWidget {
                             height: 10,
                           ),
                           TextField(
-                            style: const TextStyle(fontSize: 14),
+                            style: AppFont.defaultText,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: AppColor.bgSearch,
@@ -82,9 +82,8 @@ class SearchView extends StatelessWidget {
                                 color: Colors.black,
                               ),
                               hintText: "Search",
-                              hintStyle: const TextStyle(
+                              hintStyle: AppFont.defaultText.copyWith(
                                 color: AppColor.black,
-                                fontSize: 14,
                                 fontFamily: "Nunito",
                               ),
                             ),

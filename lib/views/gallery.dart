@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/scroll_up.dart';
 
 import '../themes/app_color.dart';
@@ -109,20 +110,20 @@ class GalleryView extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Row(
+                                  Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.arrow_back,
                                         size: 26,
                                         color: Colors.black,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 15,
                                       ),
                                       Text(
                                         "Gallery",
-                                        style: TextStyle(
-                                          fontSize: 20,
+                                        style:
+                                            AppFont.semiExtraLargeText.copyWith(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),

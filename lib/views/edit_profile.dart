@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/edit_profile_controller.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/utils/bottom_sheet.dart';
 import 'package:upmatev2/widgets/editProfile/edit_page.dart';
 import 'package:upmatev2/widgets/global/line.dart';
@@ -148,10 +149,10 @@ class EditProfileView extends StatelessWidget {
                                       size: 28,
                                     )),
                               ),
-                              const Text(
+                              Text(
                                 "Edit Profile",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                style: AppFont.semiExtraLargeText
+                                    .copyWith(fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 width: 30,

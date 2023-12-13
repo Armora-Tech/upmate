@@ -193,7 +193,6 @@ class ChatRoomShimmer extends StatelessWidget {
                               padding: EdgeInsets.only(left: 15),
                               child: Icon(
                                 Icons.more_vert_rounded,
-                                size: 28,
                                 color: Colors.white,
                               ),
                             )
@@ -234,7 +233,6 @@ class ChatRoomShimmer extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.emoji_emotions_outlined,
-                              size: 28,
                             ),
                             SizedBox(width: 17),
                             Text(
@@ -248,7 +246,6 @@ class ChatRoomShimmer extends StatelessWidget {
                       ),
                       Icon(
                         Icons.camera_alt_outlined,
-                        size: 28,
                       ),
                     ],
                   ),

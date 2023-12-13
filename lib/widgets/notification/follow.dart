@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
 
 class Follow extends StatelessWidget {
@@ -14,12 +15,12 @@ class Follow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Expanded(
+          Expanded(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                ProfilePicture(size: 40),
-                SizedBox(
+                const ProfilePicture(size: 40),
+                const SizedBox(
                   width: 5,
                 ),
                 Expanded(
@@ -27,7 +28,7 @@ class Follow extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Muhammad Rafli Silehu",
                         maxLines: 2,
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -38,13 +39,14 @@ class Follow extends StatelessWidget {
                             child: Text(
                               "Telah mengikuti anda.",
                               maxLines: 1,
-                              style: TextStyle(fontSize: 12),
+                              style: AppFont.semiMediumText,
                             ),
                           ),
                           Text(
                             "1 menit",
                             maxLines: 1,
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                            style: AppFont.semiMediumText
+                                .copyWith(color: Colors.grey),
                           )
                         ],
                       )
@@ -65,10 +67,10 @@ class Follow extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15,
                     )),
-                child: const Center(
+                child: Center(
                   child: Text(
                     "Ikuti balik",
-                    style: TextStyle(color: Colors.white, fontSize: 12),
+                    style: AppFont.semiMediumText.copyWith(color: Colors.white),
                   ),
                 )),
           )

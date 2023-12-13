@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/edit_profile_controller.dart';
+import 'package:upmatev2/themes/app_font.dart';
 
 import '../../themes/app_color.dart';
 import '../global/line.dart';
@@ -35,7 +36,7 @@ class EditPage extends StatelessWidget {
                               controller.isEmptyText.value = text.isEmpty;
                               controller.update();
                             },
-                            style: const TextStyle(fontSize: 14),
+                            style: AppFont.defaultText,
                             maxLength: controller.maxLength[index],
                             decoration: InputDecoration(
                                 labelText:
@@ -74,7 +75,7 @@ class EditPage extends StatelessWidget {
                             controller.isEmptyText.value = text.isEmpty;
                             controller.update();
                           },
-                          style: const TextStyle(fontSize: 14),
+                          style: AppFont.defaultText,
                           maxLength: controller.maxLength[index],
                           decoration: InputDecoration(
                               labelText: controller.data.keys.elementAt(index),
@@ -104,7 +105,7 @@ class EditPage extends StatelessWidget {
                         TextField(
                           obscureText: true,
                           controller: controller.confirmPass,
-                          style: const TextStyle(fontSize: 14),
+                          style: AppFont.defaultText,
                           maxLength: controller.maxLength[index],
                           decoration: InputDecoration(
                               labelText:

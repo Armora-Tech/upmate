@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/signup_controller.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import '../routes/route_name.dart';
 import '../themes/app_color.dart';
 
@@ -33,9 +34,10 @@ class SignupView extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
+                Text(
                   "Let's get start it!",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+                  style: AppFont.semiDoubleExtraLargeText
+                      .copyWith(fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
                   height: 20,
@@ -47,7 +49,7 @@ class SignupView extends StatelessWidget {
                           children: [
                             TextField(
                                 controller: controller.fullName,
-                                style: const TextStyle(fontSize: 14),
+                                style: AppFont.defaultText,
                                 decoration: InputDecoration(
                                   hintText: "Nama Lengkap",
                                   helperText:
@@ -58,7 +60,7 @@ class SignupView extends StatelessWidget {
                             ),
                             TextField(
                                 controller: controller.username,
-                                style: const TextStyle(fontSize: 14),
+                                style: AppFont.defaultText,
                                 decoration: InputDecoration(
                                   helperText:
                                       controller.errorUsernameMessage?.value,
@@ -69,7 +71,7 @@ class SignupView extends StatelessWidget {
                             ),
                             TextField(
                                 controller: controller.email,
-                                style: const TextStyle(fontSize: 14),
+                                style: AppFont.defaultText,
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
                                   helperText:
@@ -83,7 +85,7 @@ class SignupView extends StatelessWidget {
                                 focusNode: controller.focusNode,
                                 controller: controller.pass,
                                 maxLength: 32,
-                                style: const TextStyle(fontSize: 14),
+                                style: AppFont.defaultText,
                                 obscureText: controller.isVisible.value,
                                 decoration: InputDecoration(
                                   counterText: "",
@@ -112,7 +114,7 @@ class SignupView extends StatelessWidget {
                                 focusNode: controller.confirmPassfocusNode,
                                 controller: controller.confPass,
                                 maxLength: 32,
-                                style: const TextStyle(fontSize: 14),
+                                style: AppFont.defaultText,
                                 obscureText:
                                     controller.isConfirmPassVisible.value,
                                 decoration: InputDecoration(
@@ -153,11 +155,10 @@ class SignupView extends StatelessWidget {
                                             strokeWidth: 2,
                                           ),
                                         )
-                                      : const Text(
+                                      : Text(
                                           "Sign Up",
-                                          style: TextStyle(
+                                          style: AppFont.semiLargeText.copyWith(
                                               color: Colors.white,
-                                              fontSize: 16,
                                               fontWeight: FontWeight.w500),
                                         )),
                                 ))
@@ -175,13 +176,12 @@ class SignupView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5),
                           color: const Color.fromARGB(255, 193, 193, 193)),
                     )),
-                    const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: Text(
                           "Sign Up With",
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Color.fromARGB(255, 130, 130, 130)),
+                          style: AppFont.semiMediumText.copyWith(
+                              color: const Color.fromARGB(255, 130, 130, 130)),
                         )),
                     Expanded(
                         child: Container(

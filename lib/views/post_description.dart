@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import '../controllers/post_controller.dart';
 import '../widgets/global/line.dart';
 
@@ -26,21 +27,19 @@ class PostDescriptionView extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: TextField(
                       focusNode: controller.focusNode,
-                      style: const TextStyle(fontSize: 16),
+                      style: AppFont.semiLargeText,
                       controller: controller.description,
                       maxLength: 1000,
                       maxLines: null,
                       keyboardType: TextInputType.text,
                       autofocus: true,
                       onChanged: (text) {},
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         hintText: "Apa yang ingin anda beritahukan?",
-                        hintStyle: TextStyle(
+                        hintStyle: AppFont.defaultText.copyWith(
                           color: Colors.grey,
-                          fontSize: 14,
-                          fontFamily: "Nunito",
                         ),
                       ),
                     ),
@@ -70,11 +69,10 @@ class PostDescriptionView extends StatelessWidget {
                                   color: Colors.black,
                                 ),
                               ),
-                              const Text(
+                              Text(
                                 "Post",
-                                style: TextStyle(
+                                style: AppFont.semiLargeText.copyWith(
                                     color: Colors.blueAccent,
-                                    fontSize: 16,
                                     fontWeight: FontWeight.w600),
                               ),
                             ],

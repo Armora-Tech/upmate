@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upmatev2/themes/app_font.dart';
 
 class Comment extends StatelessWidget {
   const Comment({super.key});
@@ -24,47 +25,46 @@ class Comment extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 RichText(
-                  text: const TextSpan(
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 13,
-                          fontFamily: "Nunito"),
-                      children: [
-                        TextSpan(
-                          text: "Flora Shafiqa ",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        TextSpan(
-                          text: "Keren banget kak (emot api)",
-                        ),
-                      ]),
+                  text: TextSpan(style: AppFont.defaultText, children: const [
+                    TextSpan(
+                      text: "Flora Shafiqa ",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(
+                      text: "Keren banget kak (emot api)",
+                    ),
+                  ]),
                 ),
-                const Row(
+                Row(
                   children: [
                     Text(
                       "2 jam",
-                      style: TextStyle(color: Colors.grey, fontSize: 11),
+                      style:
+                          AppFont.semiMediumText.copyWith(color: Colors.grey),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
                       "2 suka",
-                      style: TextStyle(color: Colors.grey, fontSize: 11),
+                      style:
+                          AppFont.semiMediumText.copyWith(color: Colors.grey),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
                       "Balas",
-                      style: TextStyle(color: Colors.grey, fontSize: 11),
+                      style:
+                          AppFont.semiMediumText.copyWith(color: Colors.grey),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
                       "Kirim",
-                      style: TextStyle(color: Colors.grey, fontSize: 11),
+                      style:
+                          AppFont.semiMediumText.copyWith(color: Colors.grey),
                     ),
                   ],
                 )

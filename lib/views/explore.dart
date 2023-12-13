@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/explore/interest_box.dart';
 
 class ExploreView extends StatelessWidget {
@@ -20,19 +21,21 @@ class ExploreView extends StatelessWidget {
               const SizedBox(
                 height: 100,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 child: Text(
                   "Tag interest mu",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: AppFont.semiLargeText
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
               const InterestBox(),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 child: Text(
                   "Tag interest lainnya",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: AppFont.semiLargeText
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
               Column(
@@ -96,8 +99,8 @@ class ExploreView extends StatelessWidget {
                                     Text(
                                       "Search",
                                       style: TextStyle(
-                                          color: AppColor.primaryColor,
-                                          fontSize: 14),
+                                        color: AppColor.primaryColor,
+                                      ),
                                     )
                                   ],
                                 )

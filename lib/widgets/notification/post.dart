@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
 
 class Post extends StatelessWidget {
@@ -24,23 +25,23 @@ class Post extends StatelessWidget {
                 ),
                 Expanded(
                   child: RichText(
-                    text: const TextSpan(
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 13,
-                            fontFamily: "Nunito"),
-                        children: [
-                          TextSpan(
-                            text: "Muhammad Rafli Silehu",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text: " menyukai postingan Anda.",
-                          ),
-                          TextSpan(
-                              text: "3 jam ",
-                              style: TextStyle(color: Colors.grey)),
-                        ]),
+                    text: TextSpan(style: AppFont.defaultText, children: [
+                      const TextSpan(
+                        text: "Muhammad Rafli Silehu",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(
+                          text: " menyukai postingan Anda.",
+                          style: AppFont.semiMediumText),
+                      const WidgetSpan(
+                          child: SizedBox(
+                        width: 5,
+                      )),
+                      TextSpan(
+                          text: "3 jam ",
+                          style: AppFont.semiMediumText
+                              .copyWith(color: Colors.grey)),
+                    ]),
                   ),
                 )
               ],

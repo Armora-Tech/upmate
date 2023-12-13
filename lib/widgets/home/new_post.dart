@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/routes/route_name.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/post_image.dart';
 import '../../controllers/home_controller.dart';
@@ -84,9 +85,7 @@ class NewPost extends StatelessWidget {
                             ),
                             Text(
                               item.keys.elementAt(index),
-                              style: const TextStyle(
-                                fontSize: 9,
-                              ),
+                              style: AppFont.smallText,
                             )
                           ],
                         ),
@@ -98,37 +97,34 @@ class NewPost extends StatelessWidget {
                   height: 10,
                 ),
                 Obx(() => RichText(
-                      text: TextSpan(
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 12),
-                          children: [
-                            TextSpan(
-                              text: controller
-                                  .handleText(controller.fullText.value),
+                      text: TextSpan(style: AppFont.defaultText, children: [
+                        TextSpan(
+                          text:
+                              controller.handleText(controller.fullText.value),
+                        ),
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: GestureDetector(
+                            onTap: () {
+                              controller.isFullText.value =
+                                  !controller.isFullText.value;
+                            },
+                            child: Text(
+                              controller.isFullText.value
+                                  ? " Sembunyikan"
+                                  : "Selengkapnya",
+                              style: AppFont.semiMediumText
+                                  .copyWith(color: Colors.grey),
                             ),
-                            WidgetSpan(
-                              alignment: PlaceholderAlignment.middle,
-                              child: GestureDetector(
-                                onTap: () {
-                                  controller.isFullText.value =
-                                      !controller.isFullText.value;
-                                },
-                                child: Text(
-                                  controller.isFullText.value
-                                      ? " Sembunyikan"
-                                      : "Selengkapnya",
-                                  style: const TextStyle(
-                                      color: Colors.grey, fontSize: 12),
-                                ),
-                              ),
-                            ),
-                          ]),
+                          ),
+                        ),
+                      ]),
                     )),
                 const SizedBox(
                   height: 5,
                 ),
                 const Text("Lihat semua 32 komentar",
-                    style: TextStyle(color: Colors.grey, fontSize: 13)),
+                    style: TextStyle(color: Colors.grey)),
                 Row(
                   children: [
                     Container(
@@ -146,12 +142,9 @@ class NewPost extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           RichText(
-                            text: const TextSpan(
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 13,
-                                    fontFamily: "Nunito"),
-                                children: [
+                            text: TextSpan(
+                                style: AppFont.defaultText,
+                                children: const [
                                   TextSpan(
                                     text: "Flora Shafiqa ",
                                     style:
@@ -162,10 +155,11 @@ class NewPost extends StatelessWidget {
                                   ),
                                 ]),
                           ),
-                          const Text(
+                          Text(
                             "2 jam",
                             maxLines: 2,
-                            style: TextStyle(color: Colors.grey, fontSize: 9),
+                            style:
+                                AppFont.smallText.copyWith(color: Colors.grey),
                           )
                         ],
                       ),
@@ -184,36 +178,29 @@ class NewPost extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Flora Shafiqa",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 2,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  "not bad...(emot keren)",
-                                  style: TextStyle(
-                                    fontSize: 12,
+                          RichText(
+                            text: TextSpan(
+                                style: AppFont.defaultText,
+                                children: const [
+                                  TextSpan(
+                                    text: "Flora Shafiqa ",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                ),
-                              )
-                            ],
+                                  TextSpan(
+                                    text: "Not bad...(emot keren)",
+                                  ),
+                                ]),
                           ),
                           Text(
                             "2 jam",
                             maxLines: 2,
-                            style: TextStyle(color: Colors.grey, fontSize: 9),
+                            style:
+                                AppFont.smallText.copyWith(color: Colors.grey),
                           )
                         ],
                       ),

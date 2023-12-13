@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/themes/app_font.dart';
 
 import '../global/profile_picture.dart';
 
@@ -29,12 +30,12 @@ class ChatList extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Expanded(
+                Expanded(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      ProfilePicture(size: 50),
-                      SizedBox(
+                      const ProfilePicture(size: 50),
+                      const SizedBox(
                         width: 8,
                       ),
                       Expanded(
@@ -46,16 +47,16 @@ class ChatList extends StatelessWidget {
                               "Muhammad Rafli Silehu",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
+                              style: AppFont.semiLargeText
+                                  .copyWith(fontWeight: FontWeight.bold),
                             ),
                             Expanded(
                               child: Text(
                                 "Hallo kak perkenalkan nama saya perkenalkan lorem ipsum manual 123 tes tes 321 12345 processMotionEvent MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=785.0, y[0]=2145.0, toolType[0]=TOOL_TYPE_FINGER.",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style:
-                                    TextStyle(fontSize: 12, color: Colors.grey),
+                                style: AppFont.semiMediumText
+                                    .copyWith(color: Colors.grey),
                               ),
                             ),
                           ],
@@ -68,24 +69,26 @@ class ChatList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const Text(
+                    Text(
                       "3:16 pm",
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                      style:
+                          AppFont.semiMediumText.copyWith(color: Colors.grey),
                     ),
                     const SizedBox(
                       height: 3,
                     ),
                     Container(
-                      height: 15,
-                      width: 15,
+                      height: 16,
+                      width: 16,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: AppColor.primaryColor,
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           "3",
-                          style: TextStyle(fontSize: 9, color: Colors.white),
+                          style:
+                              AppFont.smallText.copyWith(color: Colors.white),
                         ),
                       ),
                     )
