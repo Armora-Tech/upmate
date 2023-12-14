@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:upmatev2/models/user_model.dart';
 
 import '../models/post_model.dart';
@@ -16,7 +17,7 @@ class HomeController extends GetxController {
           .obs;
   RxBool isFullText = false.obs;
 
-  final Map<String, dynamic> action = {
+  final Map<String, dynamic>  action = {
     "90": Icons.share_outlined,
     "120": Icons.bookmark_outline_rounded,
     "6": Icons.chat_bubble_outline_rounded,
@@ -56,13 +57,23 @@ class HomeController extends GetxController {
           .get();
 
       for(var e in querySnapshot.docs){
-        data.add(e as PostModel);
-      }
-      if (kDebugMode) {
-        print("PostModel: $data");
+        var post = e.data() as PostModel;
+        await post.initUsers();
+        await post.getComment();
+
+        if (kDebugMode) {
+          print("PostModel: ${post.postTitle}");
+          print("PostModel: ${post.interests}");
+          print("Likes: ${post.likes}");
+          if(post.comments!.isNotEmpty) {
+            print("Comment: ${post.comments?[0].text}");
+          }
+        }
+        data.add(post);
       }
       return data;
     } catch (e) {
+      print("ERROR: $e");
       return [];
     }
   }

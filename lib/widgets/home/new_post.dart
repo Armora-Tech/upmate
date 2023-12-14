@@ -69,7 +69,11 @@ class NewPost extends StatelessWidget {
                   children: List.generate(controller.action.length, (index) {
                     final item = controller.action;
                     return GestureDetector(
-                      onTap: () => {},
+                      onTap: () async {
+                        print("ITS TRIGGERED");
+                        var posts = await controller.getPosts();
+                        print("POSTS:  $posts");
+                      },
                       child: Container(
                         color: Colors.white,
                         child: Column(
