@@ -157,7 +157,7 @@ class BottomSheetUtil {
                               ),
                               Text(
                                 "Ambil Gambar",
-                                style: AppFont.semiLargeText
+                                style: AppFont.text16
                                     .copyWith(color: Colors.white),
                               ),
                             ],
@@ -183,7 +183,7 @@ class BottomSheetUtil {
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
                             "Kirim(${controller.selectedAssetList.length})",
-                            style: AppFont.semiLargeText
+                            style: AppFont.text16
                                 .copyWith(color: Colors.white),
                           ),
                         ),
@@ -221,7 +221,7 @@ class BottomSheetUtil {
                   child: Center(
                     child: Text(
                       "Ambil gambar",
-                      style: AppFont.semiLargeText
+                      style: AppFont.text16
                           .copyWith(color: Colors.blueAccent),
                     ),
                   ),
@@ -238,7 +238,7 @@ class BottomSheetUtil {
                   child: Center(
                     child: Text(
                       "Pilih dari gallery",
-                      style: AppFont.semiLargeText
+                      style: AppFont.text16
                           .copyWith(color: Colors.blueAccent),
                     ),
                   ),

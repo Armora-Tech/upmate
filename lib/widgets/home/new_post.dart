@@ -85,7 +85,7 @@ class NewPost extends StatelessWidget {
                             ),
                             Text(
                               item.keys.elementAt(index),
-                              style: AppFont.smallText,
+                              style: AppFont.text10,
                             )
                           ],
                         ),
@@ -97,7 +97,7 @@ class NewPost extends StatelessWidget {
                   height: 10,
                 ),
                 Obx(() => RichText(
-                      text: TextSpan(style: AppFont.defaultText, children: [
+                      text: TextSpan(style: AppFont.text14, children: [
                         TextSpan(
                           text:
                               controller.handleText(controller.fullText.value),
@@ -113,7 +113,7 @@ class NewPost extends StatelessWidget {
                               controller.isFullText.value
                                   ? " Sembunyikan"
                                   : "Selengkapnya",
-                              style: AppFont.semiMediumText
+                              style: AppFont.text12
                                   .copyWith(color: Colors.grey),
                             ),
                           ),
@@ -143,7 +143,7 @@ class NewPost extends StatelessWidget {
                         children: [
                           RichText(
                             text: TextSpan(
-                                style: AppFont.defaultText,
+                                style: AppFont.text14,
                                 children: const [
                                   TextSpan(
                                     text: "Flora Shafiqa ",
@@ -159,7 +159,7 @@ class NewPost extends StatelessWidget {
                             "2 jam",
                             maxLines: 2,
                             style:
-                                AppFont.smallText.copyWith(color: Colors.grey),
+                                AppFont.text10.copyWith(color: Colors.grey),
                           )
                         ],
                       ),
@@ -184,7 +184,7 @@ class NewPost extends StatelessWidget {
                         children: [
                           RichText(
                             text: TextSpan(
-                                style: AppFont.defaultText,
+                                style: AppFont.text14,
                                 children: const [
                                   TextSpan(
                                     text: "Flora Shafiqa ",
@@ -200,7 +200,7 @@ class NewPost extends StatelessWidget {
                             "2 jam",
                             maxLines: 2,
                             style:
-                                AppFont.smallText.copyWith(color: Colors.grey),
+                                AppFont.text10.copyWith(color: Colors.grey),
                           )
                         ],
                       ),

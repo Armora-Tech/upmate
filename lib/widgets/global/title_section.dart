@@ -11,7 +11,7 @@ class TitleSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Text(
         title,
-        style: AppFont.largeText.copyWith(fontWeight: FontWeight.bold),
+        style: AppFont.text18.copyWith(fontWeight: FontWeight.bold),
       ),
     );
   }

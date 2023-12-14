@@ -39,13 +39,13 @@ class Follow extends StatelessWidget {
                             child: Text(
                               "Telah mengikuti anda.",
                               maxLines: 1,
-                              style: AppFont.semiMediumText,
+                              style: AppFont.text12,
                             ),
                           ),
                           Text(
                             "1 menit",
                             maxLines: 1,
-                            style: AppFont.semiMediumText
+                            style: AppFont.text12
                                 .copyWith(color: Colors.grey),
                           )
                         ],
@@ -70,7 +70,7 @@ class Follow extends StatelessWidget {
                 child: Center(
                   child: Text(
                     "Ikuti balik",
-                    style: AppFont.semiMediumText.copyWith(color: Colors.white),
+                    style: AppFont.text12.copyWith(color: Colors.white),
                   ),
                 )),
           )

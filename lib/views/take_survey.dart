@@ -27,7 +27,7 @@ class TakeSurveyView extends StatelessWidget {
                     ),
                     Text(
                       "Take Survey",
-                      style: AppFont.doubleExtraLargeText
+                      style: AppFont.text28
                           .copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
@@ -37,13 +37,13 @@ class TakeSurveyView extends StatelessWidget {
                       "Dapatkan rekomendasi konten hasil personalisasi Anda.",
                       overflow: TextOverflow.clip,
                       style:
-                          AppFont.semiMediumText.copyWith(color: Colors.grey),
+                          AppFont.text12.copyWith(color: Colors.grey),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     Text("Apakah kamu suka logika matematika ?",
-                        style: AppFont.semiLargeText
+                        style: AppFont.text16
                             .copyWith(fontWeight: FontWeight.w600)),
                     const SizedBox(
                       height: 30,

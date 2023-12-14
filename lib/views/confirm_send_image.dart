@@ -68,7 +68,7 @@ class ConfirmSendImageView extends StatelessWidget {
                     child: Row(
                       children: [
                         Text("Kirim gambar",
-                            style: AppFont.defaultText.copyWith(
+                            style: AppFont.text14.copyWith(
                               color: Colors.white,
                               fontWeight: FontWeight.normal,
                             )),

@@ -69,7 +69,7 @@ class NotificationView extends StatelessWidget {
                           children: [
                             Text(
                               "Notification",
-                              style: AppFont.extraLargeText.copyWith(
+                              style: AppFont.text23.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

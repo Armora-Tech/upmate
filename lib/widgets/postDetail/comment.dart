@@ -25,7 +25,7 @@ class Comment extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 RichText(
-                  text: TextSpan(style: AppFont.defaultText, children: const [
+                  text: TextSpan(style: AppFont.text14, children: const [
                     TextSpan(
                       text: "Flora Shafiqa ",
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -40,7 +40,7 @@ class Comment extends StatelessWidget {
                     Text(
                       "2 jam",
                       style:
-                          AppFont.semiMediumText.copyWith(color: Colors.grey),
+                          AppFont.text12.copyWith(color: Colors.grey),
                     ),
                     const SizedBox(
                       width: 10,
@@ -48,7 +48,7 @@ class Comment extends StatelessWidget {
                     Text(
                       "2 suka",
                       style:
-                          AppFont.semiMediumText.copyWith(color: Colors.grey),
+                          AppFont.text12.copyWith(color: Colors.grey),
                     ),
                     const SizedBox(
                       width: 10,
@@ -56,7 +56,7 @@ class Comment extends StatelessWidget {
                     Text(
                       "Balas",
                       style:
-                          AppFont.semiMediumText.copyWith(color: Colors.grey),
+                          AppFont.text12.copyWith(color: Colors.grey),
                     ),
                     const SizedBox(
                       width: 10,
@@ -64,7 +64,7 @@ class Comment extends StatelessWidget {
                     Text(
                       "Kirim",
                       style:
-                          AppFont.semiMediumText.copyWith(color: Colors.grey),
+                          AppFont.text12.copyWith(color: Colors.grey),
                     ),
                   ],
                 )

@@ -156,7 +156,7 @@ class PostView extends StatelessWidget {
                                                       .postDescription),
                                               child: Text(
                                                 "Next",
-                                                style: AppFont.semiLargeText
+                                                style: AppFont.text16
                                                     .copyWith(
                                                         color: galleryController
                                                                 .selectedAssetList
@@ -219,7 +219,7 @@ class PostView extends StatelessWidget {
                                     ),
                                     Text(
                                       "Ambil Gambar",
-                                      style: AppFont.defaultText
+                                      style: AppFont.text14
                                           .copyWith(color: AppColor.black),
                                     ),
                                   ],

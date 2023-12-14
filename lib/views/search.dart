@@ -57,7 +57,7 @@ class SearchView extends StatelessWidget {
                               ),
                               Text(
                                 "Search",
-                                style: AppFont.largeText.copyWith(
+                                style: AppFont.text18.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -67,7 +67,7 @@ class SearchView extends StatelessWidget {
                             height: 10,
                           ),
                           TextField(
-                            style: AppFont.defaultText,
+                            style: AppFont.text14,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: AppColor.bgSearch,
@@ -82,7 +82,7 @@ class SearchView extends StatelessWidget {
                                 color: Colors.black,
                               ),
                               hintText: "Search",
-                              hintStyle: AppFont.defaultText.copyWith(
+                              hintStyle: AppFont.text14.copyWith(
                                 color: AppColor.black,
                                 fontFamily: "Nunito",
                               ),

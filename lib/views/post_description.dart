@@ -28,7 +28,7 @@ class PostDescriptionView extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: TextField(
                       focusNode: controller.focusNode,
-                      style: AppFont.semiLargeText,
+                      style: AppFont.text16,
                       controller: controller.description,
                       maxLength: InputValidator.maxBioLength,
                       maxLines: null,
@@ -39,7 +39,7 @@ class PostDescriptionView extends StatelessWidget {
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         hintText: "Apa yang ingin anda beritahukan?",
-                        hintStyle: AppFont.defaultText.copyWith(
+                        hintStyle: AppFont.text14.copyWith(
                           color: Colors.grey,
                         ),
                       ),
@@ -72,7 +72,7 @@ class PostDescriptionView extends StatelessWidget {
                               ),
                               Text(
                                 "Post",
-                                style: AppFont.semiLargeText.copyWith(
+                                style: AppFont.text16.copyWith(
                                     color: Colors.blueAccent,
                                     fontWeight: FontWeight.w600),
                               ),

@@ -82,7 +82,7 @@ class Popular extends StatelessWidget {
                                   0.3), // Adjust opacity and color for the blur effect
                               child: Text(
                                 popular[index]["type"],
-                                style: AppFont.semiMediumText.copyWith(
+                                style: AppFont.text12.copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -130,7 +130,7 @@ class Popular extends StatelessWidget {
                                         popular[index]["info"],
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
-                                        style: AppFont.smallText
+                                        style: AppFont.text10
                                             .copyWith(color: Colors.white),
                                       ),
                                     ],
@@ -151,7 +151,7 @@ class Popular extends StatelessWidget {
                                       child: Center(
                                         child: Text(
                                           "Ikuti",
-                                          style: AppFont.semiMediumText
+                                          style: AppFont.text12
                                               .copyWith(color: Colors.white),
                                         ),
                                       ),

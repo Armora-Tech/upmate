@@ -84,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                           Text(
                             "Flora Shafiqa",
-                            style: AppFont.semiExtraLargeText
+                            style: AppFont.text20
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           GestureDetector(

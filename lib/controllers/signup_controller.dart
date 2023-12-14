@@ -80,12 +80,6 @@ class SignupController extends GetxController {
     errorUsernameMessage = InputValidator.usernameValidationMessage(username);
     errorEmailMessage = InputValidator.emailValidationMessage(email);
     errorPassMessage = InputValidator.passValidationMessage(pass);
-    if ((pass.text != confPass.text) &&
-        (InputValidator.isPassValid(pass) &&
-            InputValidator.isPassValid(confPass))) {
-      errorConfPassMessage = "Password dan konfirmasi password harus sama".obs;
-    } else {
-      errorConfPassMessage = InputValidator.confPassValidationMessage(confPass);
-    }
+    errorConfPassMessage = InputValidator.confPassValidationMessage(confPass, pass);
   }
 }

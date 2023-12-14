@@ -111,7 +111,7 @@ class PostDetailView extends StatelessWidget {
                               ),
                               Text(
                                 item.keys.elementAt(index),
-                                style: AppFont.smallText
+                                style: AppFont.text10
                                     .copyWith(color: Colors.grey),
                               )
                             ],
@@ -173,7 +173,7 @@ class PostDetailView extends StatelessWidget {
                           ),
                            Text(
                             "Post",
-                            style:AppFont.semiExtraLargeText.copyWith(
+                            style:AppFont.text20.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -234,7 +234,7 @@ class PostDetailView extends StatelessWidget {
                                     child: SingleChildScrollView(
                                       child: TextField(
                                         focusNode: controller.focusNode,
-                                        style: AppFont.semiLargeText,
+                                        style: AppFont.text16,
                                         controller:
                                             controller.textEditingController,
                                         maxLines: null,
@@ -250,7 +250,7 @@ class PostDetailView extends StatelessWidget {
                                           focusedBorder: InputBorder.none,
                                           hintText: "Ketikkan Pesan",
                                           hintStyle:
-                                              AppFont.defaultText.copyWith(
+                                              AppFont.text14.copyWith(
                                             color: Colors.grey,
                                             fontFamily: "Nunito",
                                           ),

@@ -61,7 +61,7 @@ class ChatView extends StatelessWidget {
                               children: [
                                 Text(
                                   "Chats",
-                                  style: AppFont.extraLargeText.copyWith(
+                                  style: AppFont.text23.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -90,7 +90,7 @@ class ChatView extends StatelessWidget {
                                 ? Container(
                                     margin: const EdgeInsets.only(top: 10),
                                     child: TextField(
-                                      style: AppFont.defaultText,
+                                      style: AppFont.text14,
                                       decoration: InputDecoration(
                                         filled: true,
                                         fillColor: AppColor.bgSearch,
@@ -107,7 +107,7 @@ class ChatView extends StatelessWidget {
                                           color: Colors.black,
                                         ),
                                         hintText: "Search",
-                                        hintStyle: AppFont.defaultText.copyWith(
+                                        hintStyle: AppFont.text14.copyWith(
                                           color: AppColor.black,
                                         ),
                                       ),
