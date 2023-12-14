@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/camera_controller.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
+import 'package:upmatev2/themes/app_font.dart';
 
 class ConfirmSendImageView extends StatelessWidget {
   const ConfirmSendImageView({super.key});
@@ -64,17 +65,17 @@ class ConfirmSendImageView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30))),
                     onPressed: () =>
                         controller.sendImageCamera(chatRoomController.chats),
-                    child: const Row(
+                    child: Row(
                       children: [
                         Text("Kirim gambar",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14)),
-                        SizedBox(
+                            style: AppFont.defaultText.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal,
+                            )),
+                        const SizedBox(
                           width: 10,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.send_rounded,
                           color: Colors.white,
                           size: 18,

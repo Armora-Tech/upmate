@@ -6,6 +6,7 @@ import 'package:upmatev2/models/chat_model.dart';
 import 'package:upmatev2/models/user_model.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/themes/app_font.dart';
 
 import '../../utils/auth.dart';
 import '../global/profile_picture.dart';
@@ -20,111 +21,92 @@ class ChatList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ChatModel>>(
-      future: _chatController.getChats(),
-      builder: (context, snapshot) {
-        List<ChatModel> datas = snapshot.data!;
-        title = [];
-        print("USERNOW: $user");
-        for (var e in datas) {
-          try {
-            UserModel uTemp =
-                e.users!.firstWhere((element) => element.uid != user?.uid);
-            title.add(e.title.isNotEmpty ? e.title : uTemp.displayName ?? '');
-          } catch (e) {
-            print("ERRLIST: $e");
-          }
-        }
-        return ListView.separated(
-          scrollDirection: Axis.vertical,
-          itemCount: datas.length - 1,
-          separatorBuilder: (context, index) {
-            return const SizedBox(
-              height: 20,
-            );
-          },
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () => Get.toNamed(RouteName.chatRoom),
-              child: Container(
-                color: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                width: Get.width,
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          ProfilePicture(size: 50),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  title[index],
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    datas[index].lastMessage,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.grey),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+    return ListView.separated(
+      scrollDirection: Axis.vertical,
+      itemCount: 15,
+      separatorBuilder: (context, index) {
+        return const SizedBox(
+          height: 20,
+        );
+      },
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () => Get.toNamed(RouteName.chatRoom),
+          child: Container(
+            color: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            width: Get.width,
+            height: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const ProfilePicture(size: 50),
+                      const SizedBox(
+                        width: 8,
                       ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          // "3:16 pm",
-                          datas[index].lastMessageTime ?? "",
-                          style:
-                              const TextStyle(color: Colors.grey, fontSize: 12),
-                        ),
-                        const SizedBox(
-                          height: 3,
-                        ),
-                        Container(
-                          height: 15,
-                          width: 15,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColor.primaryColor,
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "3",
-                              style:
-                                  TextStyle(fontSize: 9, color: Colors.white),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Muhammad Rafli Silehu",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppFont.semiLargeText
+                                  .copyWith(fontWeight: FontWeight.bold),
                             ),
-                          ),
-                        )
-                      ],
+                            Expanded(
+                              child: Text(
+                                "Hallo kak perkenalkan nama saya perkenalkan lorem ipsum manual 123 tes tes 321 12345 processMotionEvent MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=785.0, y[0]=2145.0, toolType[0]=TOOL_TYPE_FINGER.",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppFont.semiMediumText
+                                    .copyWith(color: Colors.grey),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      "3:16 pm",
+                      style:
+                          AppFont.semiMediumText.copyWith(color: Colors.grey),
+                    ),
+                    const SizedBox(
+                      height: 3,
+                    ),
+                    Container(
+                      height: 16,
+                      width: 16,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColor.primaryColor,
+                      ),
+                      child: Center(
+                        child: Text(
+                          "3",
+                          style:
+                              AppFont.smallText.copyWith(color: Colors.white),
+                        ),
+                      ),
                     )
                   ],
-                ),
-              ),
-            );
-          },
+                )
+              ],
+            ),
+          ),
         );
       },
     );

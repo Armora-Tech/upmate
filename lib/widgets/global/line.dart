@@ -9,10 +9,9 @@ class Line extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-                          height: 0.5,
-                          width: Get.width,
-                          color: AppColor.lightGrey,
-                        
-                      );
+      height: 0.5,
+      width: Get.width,
+      color: AppColor.lightGrey,
+    );
   }
 }

@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 
+import '../../themes/app_font.dart';
+
 class ChatShimmer extends StatelessWidget {
   const ChatShimmer({super.key});
 
@@ -70,22 +72,22 @@ class ChatShimmer extends StatelessWidget {
           child: Container(
             color: Colors.white,
             width: Get.width,
-            child: const SafeArea(
+            child: SafeArea(
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 13),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "Chats",
-                          style: TextStyle(
-                            fontSize: 23,
+                          style: AppFont.extraLargeText.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Row(children: [
+                        const Row(children: [
                           Icon(
                             Icons.search,
                             size: 26,
@@ -103,7 +105,7 @@ class ChatShimmer extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Line()
+                  const Line()
                 ],
               ),
             ),

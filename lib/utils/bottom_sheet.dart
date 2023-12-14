@@ -7,6 +7,7 @@ import 'package:upmatev2/controllers/edit_profile_controller.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/views/camera_view.dart';
 import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/scroll_up.dart';
@@ -70,6 +71,7 @@ class BottomSheetUtil {
                                       ? ShimmerSkelton(
                                           height: size,
                                           width: size,
+                                          borderRadius: 0,
                                         )
                                       : GestureDetector(
                                           onTap: () => controller.addImage(
@@ -140,23 +142,23 @@ class BottomSheetUtil {
                                 routeName: RouteName.confirmSendImage),
                             transition: Transition.rightToLeft);
                       },
-                      child: const IntrinsicWidth(
+                      child: IntrinsicWidth(
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.camera_alt_rounded,
                                 color: Colors.white,
                                 size: 23,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Text(
                                 "Ambil Gambar",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
+                                style: AppFont.semiLargeText
+                                    .copyWith(color: Colors.white),
                               ),
                             ],
                           ),
@@ -181,8 +183,8 @@ class BottomSheetUtil {
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
                             "Kirim(${controller.selectedAssetList.length})",
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 16),
+                            style: AppFont.semiLargeText
+                                .copyWith(color: Colors.white),
                           ),
                         ),
                       )),
@@ -216,10 +218,11 @@ class BottomSheetUtil {
                   color: Colors.white,
                   height: 45,
                   width: Get.width,
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       "Ambil gambar",
-                      style: TextStyle(color: Colors.blueAccent, fontSize: 16),
+                      style: AppFont.semiLargeText
+                          .copyWith(color: Colors.blueAccent),
                     ),
                   ),
                 ),
@@ -232,10 +235,11 @@ class BottomSheetUtil {
                   color: Colors.white,
                   height: 45,
                   width: Get.width,
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       "Pilih dari gallery",
-                      style: TextStyle(color: Colors.blueAccent, fontSize: 16),
+                      style: AppFont.semiLargeText
+                          .copyWith(color: Colors.blueAccent),
                     ),
                   ),
                 ),

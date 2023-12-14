@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/explore/interest_box.dart';
 
 class ExploreView extends StatelessWidget {
@@ -20,19 +21,21 @@ class ExploreView extends StatelessWidget {
               const SizedBox(
                 height: 100,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 child: Text(
                   "Tag interest mu",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: AppFont.semiLargeText
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
               const InterestBox(),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 child: Text(
                   "Tag interest lainnya",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: AppFont.semiLargeText
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
               Column(
@@ -77,28 +80,23 @@ class ExploreView extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(30)),
                             backgroundColor: AppColor.bgSearch),
                         onPressed: () => Get.toNamed(RouteName.search),
-                        child: const Center(
+                        child: Center(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 13.0, vertical: 3),
                             child: Row(
                               children: [
                                 Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.search,
                                       color: Colors.black,
-                                      size: 24,
+                                      size: 23,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
-                                    Text(
-                                      "Search",
-                                      style: TextStyle(
-                                          color: AppColor.primaryColor,
-                                          fontSize: 14),
-                                    )
+                                    Text("Search", style: AppFont.defaultText)
                                   ],
                                 )
                               ],

@@ -6,6 +6,7 @@ import 'package:upmatev2/widgets/global/line.dart';
 
 import '../controllers/chat_controller.dart';
 import '../themes/app_color.dart';
+import '../themes/app_font.dart';
 
 class ChatView extends StatelessWidget {
   const ChatView({super.key});
@@ -41,9 +42,7 @@ class ChatView extends StatelessWidget {
               child: SafeArea(
                 child: AnimatedContainer(
                   duration: Duration(
-                      milliseconds: controller.isShowSearch.value
-                          ? 300
-                          : 0),
+                      milliseconds: controller.isShowSearch.value ? 300 : 0),
                   height: controller.isShowSearch.value ? 120 : 60,
                   curve: Curves.easeInOut,
                   color: Colors.white,
@@ -60,10 +59,9 @@ class ChatView extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
+                                Text(
                                   "Chats",
-                                  style: TextStyle(
-                                    fontSize: 23,
+                                  style: AppFont.extraLargeText.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -92,7 +90,7 @@ class ChatView extends StatelessWidget {
                                 ? Container(
                                     margin: const EdgeInsets.only(top: 10),
                                     child: TextField(
-                                      style: const TextStyle(fontSize: 14),
+                                      style: AppFont.defaultText,
                                       decoration: InputDecoration(
                                         filled: true,
                                         fillColor: AppColor.bgSearch,
@@ -109,10 +107,8 @@ class ChatView extends StatelessWidget {
                                           color: Colors.black,
                                         ),
                                         hintText: "Search",
-                                        hintStyle: const TextStyle(
+                                        hintStyle: AppFont.defaultText.copyWith(
                                           color: AppColor.black,
-                                          fontSize: 14,
-                                          fontFamily: "Nunito",
                                         ),
                                       ),
                                     ),

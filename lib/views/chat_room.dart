@@ -6,6 +6,7 @@ import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
 import 'package:upmatev2/themes/app_color.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/chatRoom/shimmer.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
 import '../utils/bottom_sheet.dart';
@@ -185,20 +186,20 @@ class ChatRoomView extends StatelessWidget {
                                                       ? Colors.black
                                                       : Colors.white),
                                             ),
-                                          const Row(
+                                          Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.end,
                                             children: [
                                               Text(
                                                 "09.00",
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: Colors.grey),
+                                                style: AppFont.smallText
+                                                    .copyWith(
+                                                        color: Colors.grey),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 3,
                                               ),
-                                              Icon(
+                                              const Icon(
                                                 Icons.check_rounded,
                                                 color: Colors.grey,
                                                 size: 16,
@@ -248,12 +249,12 @@ class ChatRoomView extends StatelessWidget {
                                             const SizedBox(
                                               width: 10,
                                             ),
-                                            const Expanded(
+                                            Expanded(
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
+                                                  const Text(
                                                     "Muhammad Rafli Silehu",
                                                     maxLines: 1,
                                                     overflow:
@@ -265,11 +266,12 @@ class ChatRoomView extends StatelessWidget {
                                                   ),
                                                   Text(
                                                     "Online",
-                                                    style: TextStyle(
+                                                    style: AppFont
+                                                        .semiMediumText
+                                                        .copyWith(
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.w300,
-                                                      fontSize: 12,
                                                     ),
                                                   )
                                                 ],
@@ -282,7 +284,6 @@ class ChatRoomView extends StatelessWidget {
                                         padding: EdgeInsets.only(left: 15),
                                         child: Icon(
                                           Icons.more_vert_rounded,
-                                          size: 28,
                                           color: Colors.white,
                                         ),
                                       )
@@ -336,7 +337,6 @@ class ChatRoomView extends StatelessWidget {
                                             controller.isShowEmoji.value
                                                 ? Icons.emoji_emotions_rounded
                                                 : Icons.emoji_emotions_outlined,
-                                            size: 28,
                                           ),
                                         ),
                                         const SizedBox(width: 2),
@@ -344,8 +344,7 @@ class ChatRoomView extends StatelessWidget {
                                           child: SingleChildScrollView(
                                             child: TextField(
                                               focusNode: controller.focusNode,
-                                              style:
-                                                  const TextStyle(fontSize: 16),
+                                              style: AppFont.semiLargeText,
                                               controller: controller
                                                   .textEditingController,
                                               maxLines: null,
@@ -359,14 +358,13 @@ class ChatRoomView extends StatelessWidget {
                                                         .value = false;
                                                 controller.update();
                                               },
-                                              decoration: const InputDecoration(
+                                              decoration: InputDecoration(
                                                 enabledBorder: InputBorder.none,
                                                 focusedBorder: InputBorder.none,
                                                 hintText: "Ketikkan Pesan",
-                                                hintStyle: TextStyle(
+                                                hintStyle: AppFont.defaultText
+                                                    .copyWith(
                                                   color: Colors.grey,
-                                                  fontSize: 14,
-                                                  fontFamily: "Nunito",
                                                 ),
                                               ),
                                             ),
@@ -379,7 +377,8 @@ class ChatRoomView extends StatelessWidget {
                                       ? GestureDetector(
                                           onTap: () {
                                             if (!Get.isBottomSheetOpen!) {
-                                              galleryController.selectedAssetList
+                                              galleryController
+                                                  .selectedAssetList
                                                   .clear();
                                             }
                                             BottomSheetUtil.showGalleryChat(

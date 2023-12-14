@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 
+import '../../themes/app_font.dart';
+
 class NotificationShimmer extends StatelessWidget {
   const NotificationShimmer({super.key});
 
@@ -76,22 +78,22 @@ class NotificationShimmer extends StatelessWidget {
           child: Container(
             color: Colors.white,
             width: Get.width,
-            child: const SafeArea(
+            child: SafeArea(
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 13),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "Notification",
-                          style: TextStyle(
-                            fontSize: 23,
+                          style: AppFont.extraLargeText.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.more_vert_rounded,
                           size: 28,
                           color: Colors.black,
@@ -99,7 +101,7 @@ class NotificationShimmer extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Line()
+                  const Line()
                 ],
               ),
             ),

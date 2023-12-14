@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/notification_controller.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/title_section.dart';
 import 'package:upmatev2/widgets/notification/follow.dart';
@@ -57,31 +58,29 @@ class NotificationView extends StatelessWidget {
               child: Container(
                 color: Colors.white,
                 width: Get.width,
-                child: const SafeArea(
+                child: SafeArea(
                   child: Column(
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 13),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               "Notification",
-                              style: TextStyle(
-                                fontSize: 23,
+                              style: AppFont.extraLargeText.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.more_vert_rounded,
-                              size: 28,
                               color: Colors.black,
                             )
                           ],
                         ),
                       ),
-                      Line()
+                      const Line()
                     ],
                   ),
                 ),

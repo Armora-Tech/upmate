@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/themes/app_font.dart';
+import 'package:upmatev2/utils/input_validator.dart';
 import '../controllers/post_controller.dart';
 import '../widgets/global/line.dart';
 
@@ -17,10 +19,36 @@ class PostDescriptionView extends StatelessWidget {
         },
         child: Scaffold(
           body: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
+            child: Stack(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 65, bottom: 10),
+                  height: Get.height,
+                  width: Get.width,
+                  child: SingleChildScrollView(
+                    child: TextField(
+                      focusNode: controller.focusNode,
+                      style: AppFont.semiLargeText,
+                      controller: controller.description,
+                      maxLength: InputValidator.maxBioLength,
+                      maxLines: null,
+                      keyboardType: TextInputType.text,
+                      autofocus: true,
+                      onChanged: (text) {},
+                      decoration: InputDecoration(
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        hintText: "Apa yang ingin anda beritahukan?",
+                        hintStyle: AppFont.defaultText.copyWith(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  child: Container(
                     color: Colors.white,
                     width: Get.width,
                     child: Column(
@@ -42,11 +70,10 @@ class PostDescriptionView extends StatelessWidget {
                                   color: Colors.black,
                                 ),
                               ),
-                              const Text(
+                              Text(
                                 "Post",
-                                style: TextStyle(
+                                style: AppFont.semiLargeText.copyWith(
                                     color: Colors.blueAccent,
-                                    fontSize: 16,
                                     fontWeight: FontWeight.w600),
                               ),
                             ],
@@ -56,35 +83,8 @@ class PostDescriptionView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: Get.height,
-                    width: Get.width,
-                    child: TextField(
-                      focusNode: controller.focusNode,
-                      style: const TextStyle(fontSize: 16),
-                      controller: controller.description,
-                      maxLength: 1000,
-                      maxLines: null,
-                      keyboardType: TextInputType.text,
-                      autofocus: true,
-                      onChanged: (text) {},
-                      decoration: const InputDecoration(
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        hintText: "Apa yang ingin anda beritahukan?",
-                        hintStyle: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                          fontFamily: "Nunito",
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ));

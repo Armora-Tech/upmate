@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/post_detail_controller.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/emoji_section.dart';
 import 'package:upmatev2/widgets/postDetail/comment.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
@@ -110,8 +111,8 @@ class PostDetailView extends StatelessWidget {
                               ),
                               Text(
                                 item.keys.elementAt(index),
-                                style: const TextStyle(
-                                    fontSize: 9, color: Colors.grey),
+                                style: AppFont.smallText
+                                    .copyWith(color: Colors.grey),
                               )
                             ],
                           ),
@@ -170,10 +171,9 @@ class PostDetailView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const Text(
+                           Text(
                             "Post",
-                            style: TextStyle(
-                              fontSize: 20,
+                            style:AppFont.semiExtraLargeText.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -234,7 +234,7 @@ class PostDetailView extends StatelessWidget {
                                     child: SingleChildScrollView(
                                       child: TextField(
                                         focusNode: controller.focusNode,
-                                        style: const TextStyle(fontSize: 16),
+                                        style: AppFont.semiLargeText,
                                         controller:
                                             controller.textEditingController,
                                         maxLines: null,
@@ -245,13 +245,13 @@ class PostDetailView extends StatelessWidget {
                                               : controller.isTextFieldEmpty
                                                   .value = true;
                                         },
-                                        decoration: const InputDecoration(
+                                        decoration: InputDecoration(
                                           enabledBorder: InputBorder.none,
                                           focusedBorder: InputBorder.none,
                                           hintText: "Ketikkan Pesan",
-                                          hintStyle: TextStyle(
+                                          hintStyle:
+                                              AppFont.defaultText.copyWith(
                                             color: Colors.grey,
-                                            fontSize: 14,
                                             fontFamily: "Nunito",
                                           ),
                                         ),

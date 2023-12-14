@@ -1,6 +1,7 @@
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' as foundation;
+import 'package:upmatev2/themes/app_font.dart';
 import '../../themes/app_color.dart';
 
 class EmojiSection extends StatelessWidget {
@@ -41,9 +42,9 @@ class EmojiSection extends StatelessWidget {
           enableSkinTones: true,
           recentTabBehavior: RecentTabBehavior.RECENT,
           recentsLimit: 28,
-          noRecents: const Text(
+          noRecents:  Text(
             'No Recents',
-            style: TextStyle(fontSize: 20, color: Colors.black26),
+            style: AppFont.semiExtraLargeText.copyWith(color: Colors.black26),
             textAlign: TextAlign.center,
           ), // Needs to be const Widget
           loadingIndicator: const SizedBox.shrink(), // Needs to be const Widget

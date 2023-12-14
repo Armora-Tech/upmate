@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/routes/route_name.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/title_section.dart';
 import 'package:upmatev2/widgets/home/new_post.dart';
 import 'package:upmatev2/widgets/home/popular.dart';
@@ -82,9 +83,9 @@ class _HomeViewState extends State<HomeView> {
                                 )),
                           ),
                           Text(
-                            controller.displayName??"",
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                            "Flora Shafiqa",
+                            style: AppFont.semiExtraLargeText
+                                .copyWith(fontWeight: FontWeight.bold),
                           ),
                           GestureDetector(
                               onTap: () => Get.toNamed(RouteName.profile),

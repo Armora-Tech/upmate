@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_color.dart';
 
 import '../routes/route_name.dart';
+import '../themes/app_font.dart';
 
 class TagInterestView extends StatelessWidget {
   const TagInterestView({super.key});
@@ -38,25 +39,26 @@ class TagInterestView extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Text(
+                      Text(
                         "Tag Interest",
-                        style: TextStyle(
-                            fontSize: 28, fontWeight: FontWeight.bold),
+                        style: AppFont.doubleExtraLargeText
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
                         height: 5,
                       ),
-                      const Text(
+                      Text(
                         "Dapatkan rekomendasi konten hasil personalisasi Anda. Anda dapat memilih hingga 4 opsi",
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                        style:
+                            AppFont.semiMediumText.copyWith(color: Colors.grey),
                         overflow: TextOverflow.clip,
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      const Text("Apakah kamu suka logika matematika ?",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600)),
+                      Text("Apakah kamu suka logika matematika ?",
+                          style: AppFont.semiLargeText
+                              .copyWith(fontWeight: FontWeight.w600)),
                       const SizedBox(
                         height: 30,
                       ),
@@ -96,7 +98,7 @@ class TagInterestView extends StatelessWidget {
                 Padding(
                     padding: const EdgeInsets.only(bottom: 30),
                     child: ElevatedButton(
-                     onPressed: () => Get.toNamed(RouteName.start),
+                        onPressed: () => Get.toNamed(RouteName.start),
                         child: const Center(
                             child: Text(
                           "Next",

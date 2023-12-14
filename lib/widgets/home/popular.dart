@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/themes/app_font.dart';
 
 class Popular extends StatelessWidget {
   const Popular({super.key});
@@ -81,10 +82,10 @@ class Popular extends StatelessWidget {
                                   0.3), // Adjust opacity and color for the blur effect
                               child: Text(
                                 popular[index]["type"],
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12),
+                                style: AppFont.semiMediumText.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
@@ -120,7 +121,6 @@ class Popular extends StatelessWidget {
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 14,
                                         ),
                                       ),
                                       const SizedBox(
@@ -130,10 +130,8 @@ class Popular extends StatelessWidget {
                                         popular[index]["info"],
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 10,
-                                        ),
+                                        style: AppFont.smallText
+                                            .copyWith(color: Colors.white),
                                       ),
                                     ],
                                   ),
@@ -150,12 +148,11 @@ class Popular extends StatelessWidget {
                                         side: const BorderSide(
                                             width: 0.3, color: Colors.white),
                                       ),
-                                      child: const Center(
+                                      child: Center(
                                         child: Text(
                                           "Ikuti",
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.white),
+                                          style: AppFont.semiMediumText
+                                              .copyWith(color: Colors.white),
                                         ),
                                       ),
                                     ),
