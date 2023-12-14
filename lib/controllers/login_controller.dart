@@ -2,10 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../routes/route_name.dart';
-import '../utils/input_validator.dart';
 import '../utils/auth.dart';
 import '../utils/cancellation.dart';
+import '../utils/input_validator.dart';
 
 enum LoginProvider { email, google, facebook }
 
@@ -42,7 +41,7 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  Future<void> login() async {
+  Future<void> login(BuildContext context, LoginProvider loginProvider) async {
     if (_cancellationToken.isCancelled) return;
     _cancellationToken.cancel();
     inputValidation();
@@ -52,13 +51,13 @@ class LoginController extends GetxController {
       try {
         if (loginProvider == LoginProvider.email) {
           await _auth.signInWithEmailAndPassword(
-              this.email.text, this.pass.text, context);
+              email.text, pass.text, context);
         } else if (loginProvider == LoginProvider.google) {
           await _auth.signInWithGoogle(context);
         } else if (loginProvider == LoginProvider.facebook) {
           await _auth.signInWithFacebook(context);
         }
-      }catch(e){
+      } catch (e) {
         if (kDebugMode) {
           print("Error: $e");
         }
@@ -66,8 +65,8 @@ class LoginController extends GetxController {
       }
     }
     isLoading.value = false;
-    update();
     _cancellationToken = CancellationToken();
+    update();
   }
 
   void inputValidation() {
