@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class PostController extends GetxController {
   late TextEditingController description;
   late FocusNode focusNode;
+  RxBool isCover = false.obs;
 
   @override
   void onInit() {

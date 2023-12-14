@@ -15,10 +15,12 @@ class PostImage extends StatelessWidget {
         Container(
           color: const Color.fromARGB(255, 18, 18, 18),
           clipBehavior: Clip.none,
+          width: Get.width,
+          height: Get.width,
           child: CarouselSlider(
             options: CarouselOptions(
               viewportFraction: 1,
-              aspectRatio: 16 / 9,
+              aspectRatio: 1,
               enlargeCenterPage: false,
               enableInfiniteScroll: false,
               onPageChanged: (index, reason) {
@@ -34,7 +36,8 @@ class PostImage extends StatelessWidget {
                 child: SizedBox(
                   width: Get.width,
                   child: Hero(
-                      tag: image, child: Image.asset(image, fit: BoxFit.cover)),
+                      tag: image,
+                      child: Image.asset(image, fit: BoxFit.contain)),
                 ),
               );
             }).toList(),
