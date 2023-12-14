@@ -25,7 +25,7 @@ class ExploreView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 child: Text(
                   "Tag interest mu",
-                  style: AppFont.semiLargeText
+                  style: AppFont.text16
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -34,7 +34,7 @@ class ExploreView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 child: Text(
                   "Tag interest lainnya",
-                  style: AppFont.semiLargeText
+                  style: AppFont.text16
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -96,7 +96,7 @@ class ExploreView extends StatelessWidget {
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    Text("Search", style: AppFont.defaultText)
+                                    Text("Search", style: AppFont.text14)
                                   ],
                                 )
                               ],

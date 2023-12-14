@@ -68,7 +68,7 @@ class ConfirmPostImageView extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(30))),
                         onPressed: () => Get.toNamed(RouteName.postDescription),
                         child:  Text("Next",
-                            style: AppFont.defaultText.copyWith(
+                            style: AppFont.text14.copyWith(
                                 color: Colors.blueAccent,
                                )),
                       ),

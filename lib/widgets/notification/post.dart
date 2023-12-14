@@ -25,21 +25,21 @@ class Post extends StatelessWidget {
                 ),
                 Expanded(
                   child: RichText(
-                    text: TextSpan(style: AppFont.defaultText, children: [
+                    text: TextSpan(style: AppFont.text14, children: [
                       const TextSpan(
                         text: "Muhammad Rafli Silehu",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       TextSpan(
                           text: " menyukai postingan Anda.",
-                          style: AppFont.semiMediumText),
+                          style: AppFont.text12),
                       const WidgetSpan(
                           child: SizedBox(
                         width: 5,
                       )),
                       TextSpan(
                           text: "3 jam ",
-                          style: AppFont.semiMediumText
+                          style: AppFont.text12
                               .copyWith(color: Colors.grey)),
                     ]),
                   ),

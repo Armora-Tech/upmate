@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
+import 'package:upmatev2/controllers/post_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/themes/app_font.dart';
@@ -17,6 +18,7 @@ class PostView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<PostController>();
     final galleryController = Get.find<GalleryController>();
     return GetBuilder<GalleryController>(
         builder: (_) => Scaffold(
@@ -81,15 +83,22 @@ class PostView extends StatelessWidget {
                                                       items: galleryController
                                                           .selectedAssetList
                                                           .map<Widget>((image) {
-                                                        return SizedBox(
-                                                          width: Get.width,
-                                                          child:
-                                                              AssetEntityImage(
-                                                            image,
-                                                            isOriginal: true,
-                                                            fit: BoxFit.contain,
-                                                          ),
-                                                        );
+                                                        return GetBuilder<
+                                                                PostController>(
+                                                            builder:
+                                                                (_) => SizedBox(
+                                                                      width: Get
+                                                                          .width,
+                                                                      child:
+                                                                          AssetEntityImage(
+                                                                        image,
+                                                                        isOriginal:
+                                                                            true,
+                                                                        fit: controller.isCover.value
+                                                                            ? BoxFit.cover
+                                                                            : BoxFit.contain,
+                                                                      ),
+                                                                    ));
                                                       }).toList(),
                                                     ),
                                                     galleryController
@@ -117,7 +126,62 @@ class PostView extends StatelessWidget {
                                                                   child: Text(
                                                                       "${galleryController.selectedIndex.value + 1}/${galleryController.selectedAssetList.length}"),
                                                                 ));
-                                                          })
+                                                          }),
+                                                    Positioned(
+                                                      bottom: 10,
+                                                      left: 15,
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          controller.isCover
+                                                              .toggle();
+                                                          controller.update();
+                                                        },
+                                                        child: Container(
+                                                            height: 45,
+                                                            width: 35,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(3),
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child: Center(
+                                                              child: Transform
+                                                                  .rotate(
+                                                                angle: -10,
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                child:
+                                                                    const Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons
+                                                                          .arrow_back_ios,
+                                                                      size: 13,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                    Icon(
+                                                                      Icons
+                                                                          .arrow_forward_ios,
+                                                                      size: 13,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            )),
+                                                      ),
+                                                    )
                                                   ],
                                                 ),
                                         )
@@ -156,15 +220,14 @@ class PostView extends StatelessWidget {
                                                       .postDescription),
                                               child: Text(
                                                 "Next",
-                                                style: AppFont.semiLargeText
-                                                    .copyWith(
-                                                        color: galleryController
-                                                                .selectedAssetList
-                                                                .isEmpty
-                                                            ? Colors.grey
-                                                            : Colors.blueAccent,
-                                                        fontWeight:
-                                                            FontWeight.w600),
+                                                style: AppFont.text16.copyWith(
+                                                    color: galleryController
+                                                            .selectedAssetList
+                                                            .isEmpty
+                                                        ? Colors.grey
+                                                        : Colors.blueAccent,
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                               ),
                                             ),
                                           ],
@@ -219,7 +282,7 @@ class PostView extends StatelessWidget {
                                     ),
                                     Text(
                                       "Ambil Gambar",
-                                      style: AppFont.defaultText
+                                      style: AppFont.text14
                                           .copyWith(color: AppColor.black),
                                     ),
                                   ],

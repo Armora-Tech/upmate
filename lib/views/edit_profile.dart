@@ -70,9 +70,12 @@ class EditProfileView extends StatelessWidget {
                                 List.generate(controller.data.length, (index) {
                               final Map<String, dynamic> data = controller.data;
                               return GestureDetector(
-                                onTap: () => Get.to(
-                                    () => EditPage(index: index),
-                                    transition: Transition.rightToLeft),
+                                onTap: () {
+                                  controller.chooseInput(
+                                      controller.data.keys.elementAt(index));
+                                  Get.to(() => EditPage(index: index),
+                                      transition: Transition.rightToLeft);
+                                },
                                 child: Container(
                                   color: Colors.white,
                                   height: 50,
@@ -151,7 +154,7 @@ class EditProfileView extends StatelessWidget {
                               ),
                               Text(
                                 "Edit Profile",
-                                style: AppFont.semiExtraLargeText
+                                style: AppFont.text20
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(

@@ -37,7 +37,7 @@ class LoginView extends StatelessWidget {
                 ),
                 Text(
                   "Welcome back!",
-                  style: AppFont.semiDoubleExtraLargeText
+                  style: AppFont.text25
                       .copyWith(fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
@@ -51,7 +51,7 @@ class LoginView extends StatelessWidget {
                             TextField(
                                 keyboardType: TextInputType.emailAddress,
                                 controller: controller.email,
-                                style: AppFont.defaultText,
+                                style: AppFont.text14,
                                 decoration: InputDecoration(
                                   helperText:
                                       controller.errorEmailMessage?.value,
@@ -63,7 +63,7 @@ class LoginView extends StatelessWidget {
                             TextField(
                                 focusNode: controller.focusNode,
                                 controller: controller.pass,
-                                style: AppFont.defaultText,
+                                style: AppFont.text14,
                                 obscureText: controller.isVisible.value,
                                 decoration: InputDecoration(
                                   helperText:
@@ -99,7 +99,7 @@ class LoginView extends StatelessWidget {
                                           size: 23, color: Colors.white)
                                       : Text(
                                           "Sign In",
-                                          style: AppFont.semiLargeText.copyWith(
+                                          style: AppFont.text16.copyWith(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w500),
                                         ),
@@ -114,7 +114,7 @@ class LoginView extends StatelessWidget {
                   child: Text(
                     "Forgot Password?",
                     style:
-                        AppFont.semiMediumText.copyWith(color: AppColor.black),
+                        AppFont.text12.copyWith(color: AppColor.black),
                   ),
                 ),
                 const SizedBox(

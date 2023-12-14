@@ -35,7 +35,7 @@ class VerifyView extends StatelessWidget {
                 ),
                 Text(
                   "Verify your email",
-                  style: AppFont.extraLargeText
+                  style: AppFont.text23
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
@@ -158,7 +158,7 @@ class VerifyView extends StatelessWidget {
                     child: Center(
                       child: Text(
                         "Verify",
-                        style: AppFont.semiLargeText.copyWith(
+                        style: AppFont.text16.copyWith(
                             color: Colors.white, fontWeight: FontWeight.w500),
                       ),
                     ))

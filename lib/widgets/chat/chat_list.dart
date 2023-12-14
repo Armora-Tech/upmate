@@ -57,7 +57,7 @@ class ChatList extends StatelessWidget {
                               "Muhammad Rafli Silehu",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: AppFont.semiLargeText
+                              style: AppFont.text16
                                   .copyWith(fontWeight: FontWeight.bold),
                             ),
                             Expanded(
@@ -65,7 +65,7 @@ class ChatList extends StatelessWidget {
                                 "Hallo kak perkenalkan nama saya perkenalkan lorem ipsum manual 123 tes tes 321 12345 processMotionEvent MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=785.0, y[0]=2145.0, toolType[0]=TOOL_TYPE_FINGER.",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: AppFont.semiMediumText
+                                style: AppFont.text12
                                     .copyWith(color: Colors.grey),
                               ),
                             ),
@@ -82,7 +82,7 @@ class ChatList extends StatelessWidget {
                     Text(
                       "3:16 pm",
                       style:
-                          AppFont.semiMediumText.copyWith(color: Colors.grey),
+                          AppFont.text12.copyWith(color: Colors.grey),
                     ),
                     const SizedBox(
                       height: 3,
@@ -98,7 +98,7 @@ class ChatList extends StatelessWidget {
                         child: Text(
                           "3",
                           style:
-                              AppFont.smallText.copyWith(color: Colors.white),
+                              AppFont.text10.copyWith(color: Colors.white),
                         ),
                       ),
                     )

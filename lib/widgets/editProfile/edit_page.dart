@@ -17,10 +17,10 @@ class EditPage extends StatelessWidget {
     return GetBuilder<EditProfileController>(
         builder: (_) => WillPopScope(
             onWillPop: () async {
-              controller.textEditingController.clear();
-              controller.confirmPass.clear();
-              controller.errorMessage = null;
+              controller.inputText.clear();
+              controller.confPass.clear();
               controller.errorConfPassMessage = null;
+              controller.errorMessage = null;
               Get.back();
               return Future.value(false);
             },
@@ -39,18 +39,18 @@ class EditPage extends StatelessWidget {
                             keyboardType: controller.isEmail(index).value
                                 ? TextInputType.emailAddress
                                 : TextInputType.text,
-                            controller: controller.textEditingController,
+                            controller: controller.inputText,
                             onChanged: (text) {
                               controller.isEmptyText.value = text.isEmpty;
                               controller.update();
                             },
-                            style: AppFont.defaultText,
+                            style: AppFont.text14,
                             maxLength: controller.maxLength[index],
                             decoration: InputDecoration(
                                 helperText: controller.errorMessage?.value,
                                 labelText:
                                     controller.data.keys.elementAt(index),
-                                labelStyle: AppFont.defaultText,
+                                labelStyle: AppFont.text14,
                                 enabledBorder: UnderlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: const BorderSide(
@@ -61,8 +61,7 @@ class EditPage extends StatelessWidget {
                                         width: 1,
                                         color: AppColor.primaryColor)),
                                 suffixIcon: GestureDetector(
-                                  onTap: () =>
-                                      controller.textEditingController.clear(),
+                                  onTap: () => controller.inputText.clear(),
                                   child: const Icon(
                                     Icons.close,
                                     color: Colors.black,
@@ -73,15 +72,15 @@ class EditPage extends StatelessWidget {
                           controller.isPass(index).value
                               ? TextField(
                                   obscureText: true,
-                                  controller: controller.confirmPass,
-                                  style: AppFont.defaultText,
+                                  controller: controller.confPass,
+                                  style: AppFont.text14,
                                   maxLength: controller.maxLength[index],
                                   decoration: InputDecoration(
                                       helperText: controller
                                           .errorConfPassMessage?.value,
                                       labelText:
                                           "Konfirmasi ${controller.data.keys.elementAt(index)}",
-                                      labelStyle: AppFont.defaultText,
+                                      labelStyle: AppFont.text14,
                                       enabledBorder: UnderlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -95,7 +94,7 @@ class EditPage extends StatelessWidget {
                                               color: AppColor.primaryColor)),
                                       suffixIcon: GestureDetector(
                                         onTap: () =>
-                                            controller.confirmPass.clear(),
+                                            controller.confPass.clear(),
                                         child: const Icon(
                                           Icons.close,
                                           color: Colors.black,
@@ -124,9 +123,8 @@ class EditPage extends StatelessWidget {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        controller.textEditingController
-                                            .clear();
-                                        controller.confirmPass.clear();
+                                        controller.inputText.clear();
+                                        controller.confPass.clear();
                                         controller.errorMessage = null;
                                         controller.errorConfPassMessage = null;
                                         Get.back();
@@ -145,16 +143,15 @@ class EditPage extends StatelessWidget {
                                       child: Text(
                                         controller.data.keys.elementAt(index),
                                         textAlign: TextAlign.center,
-                                        style: AppFont.semiLargeText.copyWith(
+                                        style: AppFont.text16.copyWith(
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                     GestureDetector(
                                         onTap: () => controller.save(
-                                            controller.data.keys
-                                                .elementAt(index),
-                                            controller.minLength[index],
-                                            controller.maxLength[index]),
+                                              controller.data.keys
+                                                  .elementAt(index),
+                                            ),
                                         child:
                                             Obx(() => controller.isLoading.value
                                                 ? const SizedBox(
@@ -171,7 +168,7 @@ class EditPage extends StatelessWidget {
                                                       "Simpan",
                                                       style: TextStyle(
                                                         color: controller
-                                                                .textEditingController
+                                                                .inputText
                                                                 .text
                                                                 .isEmpty
                                                             ? Colors.grey

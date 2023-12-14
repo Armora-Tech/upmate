@@ -123,7 +123,7 @@ class GalleryView extends StatelessWidget {
                                       Text(
                                         "Gallery",
                                         style:
-                                            AppFont.semiExtraLargeText.copyWith(
+                                            AppFont.text20.copyWith(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),

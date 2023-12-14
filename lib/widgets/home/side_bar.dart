@@ -81,7 +81,7 @@ class SideBar extends StatelessWidget {
                     ),
                     Text(
                       "Flora Shafiqa",
-                      style: AppFont.semiExtraLargeText.copyWith(
+                      style: AppFont.text20.copyWith(
                           fontWeight: FontWeight.w600, color: Colors.white),
                     ),
                     const Text(
@@ -137,7 +137,7 @@ class SideBar extends StatelessWidget {
                                   ),
                                   Text(
                                     item.key,
-                                    style: AppFont.semiMediumText
+                                    style: AppFont.text12
                                         .copyWith(fontWeight: FontWeight.w600),
                                   )
                                 ],

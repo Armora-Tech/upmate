@@ -22,7 +22,7 @@ class ScrollUp extends StatelessWidget {
             child: Row(children: [
               Text(
                 "Gulir ke atas",
-                style: AppFont.semiLargeText,
+                style: AppFont.text16,
               ),
               const SizedBox(
                 width: 5,

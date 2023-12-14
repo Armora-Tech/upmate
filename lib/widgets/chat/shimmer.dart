@@ -83,7 +83,7 @@ class ChatShimmer extends StatelessWidget {
                       children: [
                         Text(
                           "Chats",
-                          style: AppFont.extraLargeText.copyWith(
+                          style: AppFont.text23.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),

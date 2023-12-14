@@ -192,7 +192,7 @@ class ChatRoomView extends StatelessWidget {
                                             children: [
                                               Text(
                                                 "09.00",
-                                                style: AppFont.smallText
+                                                style: AppFont.text10
                                                     .copyWith(
                                                         color: Colors.grey),
                                               ),
@@ -267,7 +267,7 @@ class ChatRoomView extends StatelessWidget {
                                                   Text(
                                                     "Online",
                                                     style: AppFont
-                                                        .semiMediumText
+                                                        .text12
                                                         .copyWith(
                                                       color: Colors.white,
                                                       fontWeight:
@@ -344,7 +344,7 @@ class ChatRoomView extends StatelessWidget {
                                           child: SingleChildScrollView(
                                             child: TextField(
                                               focusNode: controller.focusNode,
-                                              style: AppFont.semiLargeText,
+                                              style: AppFont.text16,
                                               controller: controller
                                                   .textEditingController,
                                               maxLines: null,
@@ -362,7 +362,7 @@ class ChatRoomView extends StatelessWidget {
                                                 enabledBorder: InputBorder.none,
                                                 focusedBorder: InputBorder.none,
                                                 hintText: "Ketikkan Pesan",
-                                                hintStyle: AppFont.defaultText
+                                                hintStyle: AppFont.text14
                                                     .copyWith(
                                                   color: Colors.grey,
                                                 ),

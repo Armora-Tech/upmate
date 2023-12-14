@@ -99,7 +99,7 @@ class ProfileView extends StatelessWidget {
                               Text(
                                 "Flora Shafiqa",
                                 maxLines: 1,
-                                style: AppFont.semiLargeText
+                                style: AppFont.text16
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
                               const Text(
@@ -127,7 +127,7 @@ class ProfileView extends StatelessWidget {
                                       child: Center(
                                         child: RichText(
                                           text: TextSpan(
-                                              style: AppFont.defaultText,
+                                              style: AppFont.text14,
                                               children: const [
                                                 TextSpan(
                                                   text: "Mengikuti  ",
@@ -154,7 +154,7 @@ class ProfileView extends StatelessWidget {
                                       child: Center(
                                         child: RichText(
                                           text: TextSpan(
-                                              style: AppFont.defaultText,
+                                              style: AppFont.text14,
                                               children: const [
                                                 TextSpan(
                                                   text: "Pengikut  ",
@@ -206,7 +206,7 @@ class ProfileView extends StatelessWidget {
                                       child: Center(
                                         child: Text(
                                           "Edit Profil",
-                                          style: AppFont.defaultText.copyWith(
+                                          style: AppFont.text14.copyWith(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,
                                           ),

@@ -17,15 +17,6 @@ class InputValidator {
     return "$input minimal $length karakter".obs;
   }
 
-  static bool isValid(
-      TextEditingController text, int? minLength, int? maxLength) {
-    if (minLength == null || maxLength == null) {
-      return text.text.isEmail;
-    } else {
-      return text.text.length >= minLength && text.text.length <= maxLength;
-    }
-  }
-
   static bool isPassValid(TextEditingController pass) {
     return pass.text.length >= minPassLength &&
         pass.text.length <= maxPassLength;
@@ -41,18 +32,6 @@ class InputValidator {
         fullName.text.length <= maxFullNameLength;
   }
 
-  static RxString? validationMessage(
-      String input, TextEditingController text, int? minLength) {
-    if (!isValid(text, minLength, 0)) {
-      if (minLength == null) {
-        return "Format email tidak valid".obs;
-      }
-      return minMessage(input, minLength);
-    } else {
-      return null;
-    }
-  }
-
   static RxString? passValidationMessage(TextEditingController pass) {
     if (!isPassValid(pass)) {
       return minMessage("Password", minPassLength);
@@ -61,9 +40,14 @@ class InputValidator {
     }
   }
 
-  static RxString? confPassValidationMessage(TextEditingController confPass) {
+  static RxString? confPassValidationMessage(
+      TextEditingController confPass, TextEditingController pass) {
     if (!isPassValid(confPass)) {
       return minMessage("Konfirmasi Password", minPassLength);
+    } else if ((confPass != pass) &&
+        isPassValid(confPass) &&
+        isPassValid(pass)) {
+      return "Password dan konfirmasi password harus sama".obs;
     } else {
       return null;
     }
