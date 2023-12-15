@@ -1,12 +1,14 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
 
 class DetailProfilePicture extends StatelessWidget {
   const DetailProfilePicture({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<StartController>();
     return GestureDetector(
       onTap: () => Get.back(),
       child: Scaffold(
@@ -23,7 +25,7 @@ class DetailProfilePicture extends StatelessWidget {
                 decoration: const BoxDecoration(
                     color: Colors.grey, shape: BoxShape.circle),
                 child: Image.network(
-                  "https://i.pinimg.com/736x/e5/93/09/e593098f04ed9c1f5fa05749ff0aff26.jpg",
+                  controller.photoURL!,
                   fit: BoxFit.cover,
                 ),
               ),

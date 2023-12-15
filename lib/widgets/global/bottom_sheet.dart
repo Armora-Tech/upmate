@@ -13,7 +13,7 @@ import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/scroll_up.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 
-class BottomSheetUtil {
+class BottomSheetWidget {
   static void showGalleryChat(
       GalleryController controller, ChatRoomController chatController) {
     Get.bottomSheet(

@@ -8,24 +8,27 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../models/user_model.dart';
 import '../routes/route_name.dart';
+import '../widgets/global/snack_bar.dart';
 
 class Auth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  Future<void> signInWithEmailAndPassword(
-      String email, String password, BuildContext context) async {
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       if (userCredential.user != null) {
-        await Get.toNamed(RouteName.start);
+        await Get.offAllNamed(RouteName.start);
       } else {
-        //TODO: SHOW ERROR HERE
+        SnackBarWidget.showSnackBar(
+            "Sing In Gagal", "Email atau password salah", Colors.red);
       }
     } catch (e) {
+      SnackBarWidget.showSnackBar(
+          "Sing In Gagal", "Email atau password salah", Colors.red);
       if (kDebugMode) {
         print('Error signing in: $e');
       }
@@ -33,7 +36,7 @@ class Auth {
     }
   }
 
-  Future<void> signInWithGoogle(BuildContext context) async {
+  Future<void> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
           await googleSignIn.signIn();
@@ -51,7 +54,7 @@ class Auth {
           await _auth.signInWithCredential(credential);
 
       if (userCredential.user != null) {
-        await Get.toNamed(RouteName.start);
+        await Get.offAllNamed(RouteName.start);
       } else {
         //TODO: SHOW ERROR HERE
       }
@@ -66,7 +69,7 @@ class Auth {
     }
   }
 
-  Future<void> signInWithFacebook(BuildContext context) async {
+  Future<void> signInWithFacebook() async {
     try {
       final LoginResult result = await FacebookAuth.instance.login(
         permissions: ['email'],
@@ -80,7 +83,7 @@ class Auth {
               await _auth.signInWithCredential(credential);
 
           if (userCredential.user != null) {
-            await Get.toNamed(RouteName.start);
+            await Get.offAllNamed(RouteName.start);
           } else {
             //TODO: SHOW ERROR HERE
           }
@@ -114,7 +117,7 @@ class Auth {
 
   Future<void> signOut() async {
     await _auth.signOut();
-    await Get.toNamed(RouteName.login);
+    Get.offNamed(RouteName.login);
   }
 
   Future<User?> signUpWithEmailAndPassword(

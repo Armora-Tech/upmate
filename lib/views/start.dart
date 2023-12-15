@@ -13,7 +13,7 @@ class StartView extends StatelessWidget {
     final botNavController = Get.find<BottomNavController>();
     return Obx(() => Scaffold(
           resizeToAvoidBottomInset: false,
-          drawer: SideBar(),
+          drawer: const SideBar(),
           body: Stack(
             fit: StackFit.expand,
             children: [
@@ -48,7 +48,6 @@ class StartView extends StatelessWidget {
                             onTapDown: (details) {
                               botNavController.iconSize.value = 23;
                               botNavController.textSize.value = 8;
-
                               botNavController.selectTab(index);
                             },
                             onTapCancel: () {
@@ -59,7 +58,7 @@ class StartView extends StatelessWidget {
                             },
                             child: Container(
                               color: Colors.white,
-                              width: botNavController.widthTab,
+                              width: botNavController.widthTab.value,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -103,11 +102,10 @@ class StartView extends StatelessWidget {
                       AnimatedPositioned(
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeIn,
-                        left: botNavController
-                            .handleBarAnimation(), // Menggunakan nilai yang dikembalikan dari controller
+                        left: botNavController.handleBarAnimation(),
                         child: Container(
                           height: 3.5,
-                          width: botNavController.widthTab,
+                          width: botNavController.widthTab.value,
                           decoration: BoxDecoration(
                             color: AppColor.black,
                             borderRadius: BorderRadius.circular(20),

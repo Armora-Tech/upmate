@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/chat_controller.dart';
-import 'package:upmatev2/models/chat_model.dart';
-import 'package:upmatev2/models/user_model.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/themes/app_font.dart';

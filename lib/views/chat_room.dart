@@ -9,7 +9,7 @@ import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/chatRoom/shimmer.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
-import '../utils/bottom_sheet.dart';
+import '../widgets/global/bottom_sheet.dart';
 import '../widgets/global/detail_image.dart';
 import '../widgets/global/emoji_section.dart';
 import '../widgets/global/line.dart';
@@ -381,7 +381,7 @@ class ChatRoomView extends StatelessWidget {
                                                   .selectedAssetList
                                                   .clear();
                                             }
-                                            BottomSheetUtil.showGalleryChat(
+                                            BottomSheetWidget.showGalleryChat(
                                                 galleryController, controller);
                                           },
                                           child: const Icon(

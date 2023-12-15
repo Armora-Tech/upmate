@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/edit_profile_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
-import 'package:upmatev2/utils/bottom_sheet.dart';
+import 'package:upmatev2/widgets/global/bottom_sheet.dart';
 import 'package:upmatev2/widgets/editProfile/edit_page.dart';
 import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
@@ -54,7 +54,7 @@ class EditProfileView extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () =>
-                                BottomSheetUtil.showChooseImage(controller),
+                                BottomSheetWidget.showChooseImage(controller),
                             child: const Text(
                               "Ubah Gambar",
                               style: TextStyle(

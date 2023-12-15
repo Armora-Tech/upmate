@@ -4,7 +4,7 @@ import 'package:upmatev2/controllers/edit_profile_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
 
 import '../../themes/app_color.dart';
-import '../../utils/loading.dart';
+import '../global/loading.dart';
 import '../global/line.dart';
 
 class EditPage extends StatelessWidget {
@@ -157,7 +157,7 @@ class EditPage extends StatelessWidget {
                                                 ? const SizedBox(
                                                     width: 50,
                                                     child: Center(
-                                                        child: LoadingUtil(
+                                                        child: Loading(
                                                             size: 25,
                                                             color: Colors
                                                                 .blueAccent)),

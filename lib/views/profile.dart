@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
@@ -15,6 +16,7 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ProfileController>();
+    final startController = Get.find<StartController>();
     return SafeArea(
       child: Scaffold(
         body: GetBuilder<ProfileController>(
@@ -80,9 +82,11 @@ class ProfileView extends StatelessWidget {
                                       border: Border.all(
                                           width: 3, color: Colors.white),
                                     ),
-                                    child: const Hero(
+                                    child: Hero(
                                       tag: "profile",
-                                      child: ProfilePicture(size: 75),
+                                      child: ProfilePicture(
+                                          imageURL: startController.photoURL,
+                                          size: 75),
                                     ),
                                   ),
                                 ),
@@ -97,15 +101,15 @@ class ProfileView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Flora Shafiqa",
+                                startController.displayName!,
                                 maxLines: 1,
                                 style: AppFont.text16
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
-                              const Text(
-                                "@florashafiqa",
+                              Text(
+                                startController.email!,
                                 maxLines: 1,
-                                style: TextStyle(color: Colors.grey),
+                                style: const TextStyle(color: Colors.grey),
                               ),
                               const Text(
                                 "Ada yang mau ikut aku???, ayo ikut ke dunia Flora simsalabim akan ku buat harimu menjadi penuh cinta. Hai Semuanya aku Flora",

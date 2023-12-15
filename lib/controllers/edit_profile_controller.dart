@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/widgets/global/snack_bar.dart';
 
 import '../utils/input_validator.dart';
 
@@ -77,8 +78,7 @@ class EditProfileController extends GetxController {
     if (isValid(input).value) {
       inputText.clear();
       Get.back();
-      Get.snackbar("Memperbarui $input", "Berhasil",
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10));
+      SnackBarWidget.showSnackBar("Memperbarui $input", "Berhasil", Colors.black);
     }
     isLoading.value = false;
     update();

@@ -17,7 +17,7 @@ import 'routes/routes.dart';
 
 late bool isLogin;
 late List<CameraDescription> cameras;
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FirebaseFirestore.instance.settings = const Settings(
@@ -49,10 +49,9 @@ class MyApp extends StatelessWidget {
         );
       },
       theme: AppTheme.lightTheme,
-      initialRoute: isLogin ? RouteName.login : RouteName.start,
       initialBinding: isLogin ? LoginBinding() : StartBinding(),
       getPages: AppPage.pages,
-      home: isLogin ? LoginView() : const StartView(),
+      home: isLogin ? const LoginView() : const StartView(),
     );
   }
 }

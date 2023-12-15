@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:upmatev2/models/user_model.dart';
-
 import '../models/post_model.dart';
 import '../utils/auth.dart';
 
@@ -78,5 +75,4 @@ class HomeController extends GetxController {
     }
   }
 
-  String? get displayName => FirebaseAuth.instance.currentUser?.displayName;
 }

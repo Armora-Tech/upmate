@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/title_section.dart';
@@ -8,24 +9,13 @@ import 'package:upmatev2/widgets/home/popular.dart';
 import '../controllers/home_controller.dart';
 import '../widgets/global/profile_picture.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  final controller = Get.put(HomeController());
-
-  @override
-  void dispose() {
-    Get.delete<HomeController>();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+  final controller = Get.put(HomeController());
+  final startController = Get.find<StartController>();
     return Scaffold(
       body: Stack(children: [
         const SingleChildScrollView(
@@ -83,13 +73,14 @@ class _HomeViewState extends State<HomeView> {
                                 )),
                           ),
                           Text(
-                            "Flora Shafiqa",
+                            startController.displayName?? "",
                             style: AppFont.text20
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           GestureDetector(
                               onTap: () => Get.toNamed(RouteName.profile),
-                              child: const ProfilePicture(
+                              child: ProfilePicture(
+                                imageURL: startController.photoURL,
                                 size: 35,
                               ))
                         ],

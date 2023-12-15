@@ -4,10 +4,10 @@ import 'package:upmatev2/controllers/login_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/themes/app_font.dart';
-import 'package:upmatev2/utils/loading.dart';
+import 'package:upmatev2/widgets/global/loading.dart';
 
 class LoginView extends StatelessWidget {
-  LoginView({super.key});
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +37,7 @@ class LoginView extends StatelessWidget {
                 ),
                 Text(
                   "Welcome back!",
-                  style: AppFont.text25
-                      .copyWith(fontWeight: FontWeight.w500),
+                  style: AppFont.text25.copyWith(fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
                   height: 20,
@@ -90,12 +89,12 @@ class LoginView extends StatelessWidget {
                             ElevatedButton(
                                 onPressed: controller.isLoading.value
                                     ? () => {}
-                                    : () =>
-                                controller.login(context, LoginProvider.email),
+                                    : () async => await controller
+                                        .login(LoginProvider.email),
                                 child: Center(
                                     child: Obx(
                                   () => controller.isLoading.value
-                                      ? const LoadingUtil(
+                                      ? const Loading(
                                           size: 23, color: Colors.white)
                                       : Text(
                                           "Sign In",
@@ -113,8 +112,7 @@ class LoginView extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: Text(
                     "Forgot Password?",
-                    style:
-                        AppFont.text12.copyWith(color: AppColor.black),
+                    style: AppFont.text12.copyWith(color: AppColor.black),
                   ),
                 ),
                 const SizedBox(
@@ -156,8 +154,7 @@ class LoginView extends StatelessWidget {
                         height: 50,
                         child: IconButton(
                             onPressed: () async {
-                              await controller.login(
-                                  context, LoginProvider.google);
+                              await controller.login(LoginProvider.google);
                             },
                             icon: Image.asset(
                               "assets/images/google.png",
@@ -169,10 +166,8 @@ class LoginView extends StatelessWidget {
                     SizedBox(
                         height: 50,
                         child: IconButton(
-                            onPressed: () async {
-                              await controller.login(
-                                  context, LoginProvider.facebook);
-                            },
+                            onPressed: () async =>
+                                await controller.login(LoginProvider.facebook),
                             icon: Image.asset(
                               "assets/images/facebook.png",
                               fit: BoxFit.cover,

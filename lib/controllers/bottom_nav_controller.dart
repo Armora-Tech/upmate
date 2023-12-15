@@ -15,7 +15,7 @@ class BottomNavController extends GetxController
   RxDouble initialTextSize = 9.0.obs;
   RxDouble iconSize = 26.0.obs;
   RxDouble textSize = 9.0.obs;
-  double widthTab = Get.width / 5;
+  RxDouble widthTab = (Get.width / 5).obs;
   late final TabController tabController;
 
   final Map<String, List<dynamic>> tabs = {
@@ -37,6 +37,7 @@ class BottomNavController extends GetxController
   @override
   void onInit() {
     tabController = TabController(length: pages.length, vsync: this);
+    debugPrint("init");
     super.onInit();
   }
 
@@ -63,13 +64,13 @@ class BottomNavController extends GetxController
       case 0:
         return 0;
       case 1:
-        return widthTab;
+        return widthTab.value;
       case 3:
-        return widthTab * 3;
+        return widthTab.value * 3;
       case 4:
-        return widthTab * 4;
+        return widthTab.value * 4;
       default:
-        return widthTab * oldSelectedTab.value;
+        return widthTab.value * oldSelectedTab.value;
     }
   }
 }

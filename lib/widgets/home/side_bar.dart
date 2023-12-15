@@ -1,20 +1,19 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/login_controller.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/detail_profile_picture.dart';
-
-import '../../utils/auth.dart';
 import '../global/line.dart';
 
 class SideBar extends StatelessWidget {
-  SideBar({super.key});
-
-  final Auth _auth = Auth();
+  const SideBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<StartController>();
+    final loginController = Get.find<LoginController>();
     Map<dynamic, dynamic> content = {
       "Akun": Icons.account_circle_outlined,
       "Pengaturan": Icons.settings_outlined,
@@ -69,7 +68,7 @@ class SideBar extends StatelessWidget {
                               shape: BoxShape.circle),
                           child: ClipOval(
                             child: Image.network(
-                              "https://i.pinimg.com/736x/e5/93/09/e593098f04ed9c1f5fa05749ff0aff26.jpg",
+                              controller.photoURL!,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -80,13 +79,13 @@ class SideBar extends StatelessWidget {
                       height: 15.0,
                     ),
                     Text(
-                      "Flora Shafiqa",
+                      controller.displayName!,
                       style: AppFont.text20.copyWith(
                           fontWeight: FontWeight.w600, color: Colors.white),
                     ),
-                    const Text(
-                      "@florashafiqa",
-                      style: TextStyle(color: Colors.grey),
+                    Text(
+                      controller.email!,
+                      style: const TextStyle(color: Colors.grey),
                     ),
                   ],
                 ),
@@ -102,17 +101,10 @@ class SideBar extends StatelessWidget {
                         var key = item.key.toLowerCase();
                         if (key == "akun") {
                           Get.toNamed(RouteName.profile);
-                        } else if (item.key.toLowerCase() == "pengaturan") {
+                        } else if (key == "pengaturan") {
                           Get.toNamed(RouteName.editProfile);
                         } else if (key == "keluar") {
-                          try {
-                            _auth.signOut();
-                          } catch (e) {
-                            if (kDebugMode) {
-                              print('Error navigating to start page: $e');
-                              print("Sign out failed!");
-                            }
-                          }
+                          await loginController.signOut();
                         }
                       },
                       child: Column(

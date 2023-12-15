@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/signup_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
-import 'package:upmatev2/utils/loading.dart';
+import 'package:upmatev2/widgets/global/loading.dart';
 import '../routes/route_name.dart';
 import '../themes/app_color.dart';
 
@@ -148,7 +148,7 @@ class SignupView extends StatelessWidget {
                                     : () => controller.signup(),
                                 child: Center(
                                   child: Obx(() => controller.isLoading.value
-                                      ? const LoadingUtil(
+                                      ? const Loading(
                                           size: 23, color: Colors.white)
                                       : Text(
                                           "Sign Up",
