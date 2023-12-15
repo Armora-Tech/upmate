@@ -16,6 +16,7 @@ class PostModel {
   List<dynamic> _bookmarks;
   List<dynamic> _likes;
   List<CommentModel>? _comments;
+  bool _isCover;
 
   PostModel._(
       {required DocumentReference ref,
@@ -27,7 +28,8 @@ class PostModel {
       required DateTime? timestamp,
       required List<dynamic> bookmarks,
       required List<dynamic> likes,
-      required String? postPhoto})
+      required String? postPhoto,
+      bool isCover = false})
       : _ref = ref,
         _forumRef = forumRef,
         _interests = interests,
@@ -37,7 +39,8 @@ class PostModel {
         _timestamp = timestamp,
         _bookmarks = bookmarks,
         _likes = likes,
-        _postPhoto = postPhoto;
+        _postPhoto = postPhoto,
+        _isCover = isCover;
 
   factory PostModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -55,7 +58,8 @@ class PostModel {
         timestamp: (data?['timestamp'] as Timestamp?)?.toDate(),
         bookmarks: data?['bookmarks'] ?? [],
         likes: data?['likes'] ?? [],
-        postPhoto: data?['post_photo'] ?? "");
+        postPhoto: data?['post_photo'] ?? "",
+        isCover: data?['isCover'] ?? false);
   }
 
   Map<String, dynamic> toFirestore() {
@@ -68,7 +72,8 @@ class PostModel {
       "timestamp": _timestamp,
       "bookmarks": _bookmarks,
       "likes": _likes,
-      "post_photo": _postPhoto
+      "post_photo": _postPhoto,
+      "isCover": _isCover
     };
   }
 
@@ -147,4 +152,6 @@ class PostModel {
   List get likes => _likes;
 
   List<CommentModel>? get comments => _comments;
+
+  bool get isCover => _isCover;
 }
