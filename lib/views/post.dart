@@ -63,128 +63,130 @@ class PostView extends StatelessWidget {
                                                             AppColor.lightGrey),
                                                   ),
                                                 )
-                                              : Stack(
-                                                  children: [
-                                                    CarouselSlider(
-                                                      options: CarouselOptions(
-                                                        viewportFraction: 1,
-                                                        aspectRatio: 1,
-                                                        enlargeCenterPage:
-                                                            false,
-                                                        enableInfiniteScroll:
-                                                            false,
-                                                        onPageChanged:
-                                                            (index, reason) {
-                                                          galleryController
-                                                              .selectedIndex
-                                                              .value = index;
-                                                        },
-                                                      ),
-                                                      items: galleryController
-                                                          .selectedAssetList
-                                                          .map<Widget>((image) {
-                                                        return GetBuilder<
-                                                                PostController>(
-                                                            builder:
-                                                                (_) => SizedBox(
-                                                                      width: Get
-                                                                          .width,
-                                                                      child:
-                                                                          AssetEntityImage(
-                                                                        image,
-                                                                        isOriginal:
-                                                                            true,
-                                                                        fit: controller.isCover.value
-                                                                            ? BoxFit.cover
-                                                                            : BoxFit.contain,
-                                                                      ),
-                                                                    ));
-                                                      }).toList(),
-                                                    ),
-                                                    galleryController
+                                              : Obx(
+                                                  () => Stack(
+                                                    alignment: Alignment.center,
+                                                    children: [
+                                                      CarouselSlider(
+                                                        options:
+                                                            CarouselOptions(
+                                                          viewportFraction: 1,
+                                                          aspectRatio:
+                                                              controller.isCover
+                                                                      .value
+                                                                  ? 1
+                                                                  : 16 / 9,
+                                                          enlargeCenterPage:
+                                                              false,
+                                                          enableInfiniteScroll:
+                                                              false,
+                                                          onPageChanged:
+                                                              (index, reason) {
+                                                            galleryController
+                                                                .selectedIndex
+                                                                .value = index;
+                                                          },
+                                                        ),
+                                                        items: galleryController
                                                             .selectedAssetList
-                                                            .isEmpty
-                                                        ? const SizedBox()
-                                                        : Obx(() {
-                                                            return Positioned(
-                                                                top: 10,
-                                                                right: 10,
-                                                                child:
-                                                                    Container(
-                                                                  padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                      horizontal:
-                                                                          20,
-                                                                      vertical:
-                                                                          5),
-                                                                  decoration: BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              30)),
-                                                                  child: Text(
-                                                                      "${galleryController.selectedIndex.value + 1}/${galleryController.selectedAssetList.length}"),
-                                                                ));
-                                                          }),
-                                                    Positioned(
-                                                      bottom: 10,
-                                                      left: 15,
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          controller.isCover
-                                                              .toggle();
-                                                          controller.update();
-                                                        },
-                                                        child: Container(
-                                                            height: 45,
-                                                            width: 35,
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(3),
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              color: Colors
-                                                                  .transparent,
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                            child: Center(
-                                                              child: Transform
-                                                                  .rotate(
-                                                                angle: -10,
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                child:
-                                                                    const Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Icon(
-                                                                      Icons
-                                                                          .arrow_back_ios,
-                                                                      size: 13,
-                                                                      color: Colors
-                                                                          .white,
+                                                            .map<Widget>(
+                                                                (image) {
+                                                          return GetBuilder<
+                                                                  PostController>(
+                                                              builder: (_) =>
+                                                                  SizedBox(
+                                                                    width: Get
+                                                                        .width,
+                                                                    child:
+                                                                        AssetEntityImage(
+                                                                      image,
+                                                                      isOriginal:
+                                                                          true,
+                                                                      fit: BoxFit
+                                                                          .cover,
                                                                     ),
-                                                                    Icon(
-                                                                      Icons
-                                                                          .arrow_forward_ios,
-                                                                      size: 13,
-                                                                      color: Colors
-                                                                          .white,
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            )),
+                                                                  ));
+                                                        }).toList(),
                                                       ),
-                                                    )
-                                                  ],
-                                                ),
-                                        )
+                                                      galleryController
+                                                              .selectedAssetList
+                                                              .isEmpty
+                                                          ? const SizedBox()
+                                                          : Positioned(
+                                                              top: 10,
+                                                              right: 10,
+                                                              child: Container(
+                                                                padding: const EdgeInsets
+                                                                    .symmetric(
+                                                                    horizontal:
+                                                                        20,
+                                                                    vertical:
+                                                                        5),
+                                                                decoration: BoxDecoration(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            30)),
+                                                                child: Text(
+                                                                    "${galleryController.selectedIndex.value + 1}/${galleryController.selectedAssetList.length}"),
+                                                              )),
+                                                      Positioned(
+                                                        bottom: 10,
+                                                        left: 15,
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            controller.isCover
+                                                                .toggle();
+                                                            controller.update();
+                                                          },
+                                                          child:
+                                                              Transform.rotate(
+                                                            angle: -10,
+                                                            child: Container(
+                                                              height: 35,
+                                                              width: 35,
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      left: 3),
+                                                              decoration: const BoxDecoration(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          134,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                                  shape: BoxShape
+                                                                      .circle),
+                                                              child: const Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceEvenly,
+                                                                children: [
+                                                                  Icon(
+                                                                    Icons
+                                                                        .arrow_back_ios,
+                                                                    size: 13,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  Icon(
+                                                                    Icons
+                                                                        .arrow_forward_ios,
+                                                                    size: 13,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ))
                                 ],
                               ),
                               Positioned(

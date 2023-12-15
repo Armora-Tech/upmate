@@ -73,7 +73,7 @@ class HomeView extends StatelessWidget {
                                 )),
                           ),
                           Text(
-                            startController.displayName?? "",
+                            startController.displayName!,
                             style: AppFont.text20
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
