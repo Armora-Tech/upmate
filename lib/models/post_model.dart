@@ -133,6 +133,68 @@ class PostModel {
     }
   }
 
+  Future<void> update({
+    DocumentReference? forumRef,
+    List<dynamic>? interests,
+    String? postDescription,
+    String? postTitle,
+    DocumentReference<Map<String, dynamic>>? userRaw,
+    DateTime? timestamp,
+    List<dynamic>? bookmarks,
+    List<dynamic>? likes,
+    String? postPhoto,
+    bool? isCover,
+  }) async {
+    final Map<String, dynamic> updatedData = {};
+
+    if (forumRef != null) updatedData['forumRef'] = forumRef;
+    if (interests != null) updatedData['interests'] = interests;
+    if (postDescription != null) {
+      updatedData['post_description'] = postDescription;
+    }
+    if (postTitle != null) updatedData['post_title'] = postTitle;
+    if (userRaw != null) updatedData['post_user'] = userRaw;
+    if (timestamp != null) updatedData['timestamp'] = timestamp;
+    if (bookmarks != null) updatedData['bookmarks'] = bookmarks;
+    if (likes != null) updatedData['likes'] = likes;
+    if (postPhoto != null) updatedData['post_photo'] = postPhoto;
+    if (isCover != null) updatedData['isCover'] = isCover;
+
+    if (updatedData.isNotEmpty) {
+      await _ref.update(updatedData);
+      _updateLocalFields(updatedData);
+    }
+  }
+
+  void _updateLocalFields(Map<String, dynamic> updatedData) {
+    if (updatedData.containsKey('forumRef')) {
+      _forumRef = updatedData['forumRef'];
+    }
+    if (updatedData.containsKey('interests')) {
+      _interests = updatedData['interests'];
+    }
+    if (updatedData.containsKey('post_description')) {
+      _postDescription = updatedData['post_description'];
+    }
+    if (updatedData.containsKey('post_title')) {
+      _postTitle = updatedData['post_title'];
+    }
+    if (updatedData.containsKey('post_user')) {
+      _userRaw = updatedData['post_user'];
+    }
+    if (updatedData.containsKey('timestamp')) {
+      _timestamp = updatedData['timestamp'];
+    }
+    if (updatedData.containsKey('bookmarks')) {
+      _bookmarks = updatedData['bookmarks'];
+    }
+    if (updatedData.containsKey('likes')) _likes = updatedData['likes'];
+    if (updatedData.containsKey('post_photo')) {
+      _postPhoto = updatedData['post_photo'];
+    }
+    if (updatedData.containsKey('isCover')) _isCover = updatedData['isCover'];
+  }
+
   DocumentReference get ref => _ref;
 
   DocumentReference? get forumRef => _forumRef;
