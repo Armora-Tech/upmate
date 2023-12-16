@@ -20,9 +20,9 @@ class StartController extends GetxController {
     user = await _auth.getUserModel();
   }
 
-  String get username => user!.username == ""
-      ? "@${displayName!.replaceAll(" ", "")}"
-      : "@${user!.username}";
+  String get usernameWithAt => user!.username == ""
+      ? "@${displayName!.replaceAll(" ", "").toLowerCase()}"
+      : "@${user!.username.toLowerCase()}";
   String? get displayName =>
       FirebaseAuth.instance.currentUser?.displayName ?? "";
   String? get email => FirebaseAuth.instance.currentUser?.email ?? "";

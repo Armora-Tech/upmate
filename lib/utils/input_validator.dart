@@ -22,9 +22,16 @@ class InputValidator {
         pass.text.length <= maxPassLength;
   }
 
-  static bool isUsernameValid(TextEditingController username) {
+  static bool isUsernameLengthValid(TextEditingController username) {
     return username.text.length >= minUsernameLength &&
         username.text.length <= maxUsernameLength;
+  }
+
+  static bool isUsernameFormatValid(TextEditingController username) {
+    bool isLowerCase = username.text == username.text.toLowerCase();
+    bool hasNoSpaces = !username.text.contains(' ');
+
+    return isLowerCase && hasNoSpaces;
   }
 
   static bool isFullNameValid(TextEditingController fullName) {
@@ -62,9 +69,12 @@ class InputValidator {
   }
 
   static RxString? usernameValidationMessage(TextEditingController username) {
-    if (!isUsernameValid(username)) {
+    if (!isUsernameLengthValid(username)) {
       return minMessage("Username", minUsernameLength);
     } else {
+      if (!isUsernameFormatValid(username)) {
+        return "Nama pengguna harus terdiri dari huruf kecil tanpa spasi".obs;
+      }
       return null;
     }
   }

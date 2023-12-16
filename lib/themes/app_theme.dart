@@ -35,7 +35,8 @@ class AppTheme {
           selectionHandleColor: AppColor.primaryColor),
       inputDecorationTheme: InputDecorationTheme(
           counterStyle: AppFont.text10,
-          helperStyle: AppFont.text10.copyWith(color: Colors.red),
+          helperStyle: AppFont.text10
+              .copyWith(color: Colors.red, overflow: TextOverflow.visible),
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           enabledBorder: OutlineInputBorder(

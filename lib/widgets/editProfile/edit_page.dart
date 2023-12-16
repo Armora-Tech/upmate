@@ -47,9 +47,10 @@ class EditPage extends StatelessWidget {
                             style: AppFont.text14,
                             maxLength: controller.maxLength[index],
                             decoration: InputDecoration(
+                                helperMaxLines: 3,
                                 helperText: controller.errorMessage?.value,
                                 labelText:
-                                    controller.data.keys.elementAt(index),
+                                    controller.data!.keys.elementAt(index),
                                 labelStyle: AppFont.text14,
                                 enabledBorder: UnderlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -76,10 +77,11 @@ class EditPage extends StatelessWidget {
                                   style: AppFont.text14,
                                   maxLength: controller.maxLength[index],
                                   decoration: InputDecoration(
+                                      helperMaxLines: 3,
                                       helperText: controller
                                           .errorConfPassMessage?.value,
                                       labelText:
-                                          "Konfirmasi ${controller.data.keys.elementAt(index)}",
+                                          "Konfirmasi ${controller.data!.keys.elementAt(index)}",
                                       labelStyle: AppFont.text14,
                                       enabledBorder: UnderlineInputBorder(
                                           borderRadius:
@@ -141,7 +143,7 @@ class EditPage extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        controller.data.keys.elementAt(index),
+                                        controller.data!.keys.elementAt(index),
                                         textAlign: TextAlign.center,
                                         style: AppFont.text16.copyWith(
                                             fontWeight: FontWeight.bold),
@@ -149,7 +151,7 @@ class EditPage extends StatelessWidget {
                                     ),
                                     GestureDetector(
                                         onTap: () => controller.save(
-                                              controller.data.keys
+                                              controller.data!.keys
                                                   .elementAt(index),
                                             ),
                                         child:

@@ -37,8 +37,7 @@ class SignupView extends StatelessWidget {
                 ),
                 Text(
                   "Let's get start it!",
-                  style: AppFont.text25
-                      .copyWith(fontWeight: FontWeight.w500),
+                  style: AppFont.text25.copyWith(fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
                   height: 20,
@@ -53,6 +52,7 @@ class SignupView extends StatelessWidget {
                                 style: AppFont.text14,
                                 decoration: InputDecoration(
                                   hintText: "Nama Lengkap",
+                                  helperMaxLines: 3,
                                   helperText:
                                       controller.errorFullNameMessage?.value,
                                 )),
@@ -63,6 +63,7 @@ class SignupView extends StatelessWidget {
                                 controller: controller.username,
                                 style: AppFont.text14,
                                 decoration: InputDecoration(
+                                  helperMaxLines: 3,
                                   helperText:
                                       controller.errorUsernameMessage?.value,
                                   hintText: "Username",
@@ -75,6 +76,7 @@ class SignupView extends StatelessWidget {
                                 style: AppFont.text14,
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
+                                  helperMaxLines: 3,
                                   helperText:
                                       controller.errorEmailMessage?.value,
                                   hintText: "Email",
@@ -90,6 +92,7 @@ class SignupView extends StatelessWidget {
                                 obscureText: controller.isVisible.value,
                                 decoration: InputDecoration(
                                   counterText: "",
+                                  helperMaxLines: 3,
                                   helperText:
                                       controller.errorPassMessage?.value,
                                   hintText: "Password",
@@ -120,6 +123,7 @@ class SignupView extends StatelessWidget {
                                     controller.isConfirmPassVisible.value,
                                 decoration: InputDecoration(
                                   counterText: "",
+                                  helperMaxLines: 3,
                                   helperText:
                                       controller.errorConfPassMessage?.value,
                                   hintText: "Konfirmasi Password",

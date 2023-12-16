@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/widgets/global/snack_bar.dart';
 
 import '../utils/input_validator.dart';
@@ -19,17 +20,12 @@ class EditProfileController extends GetxController {
   RxString? errorEmailMessage;
   RxString? errorUsernameMessage;
   RxString? errorFullNameMessage;
+  final startController = Get.find<StartController>();
   RxBool isEmptyText = true.obs;
   RxBool isLoading = false.obs;
   File? image;
 
-  Map<String, dynamic> data = {
-    "Nama Pengguna": "Flora Shafiqa",
-    "Nama Lengkap": "Flora Shafiqa Riyadi",
-    "Bio": "",
-    "Email": "flora@gmail.com",
-    "Password": "*****"
-  };
+  Map<String, dynamic>? data;
 
   List<int?> maxLength = [
     InputValidator.maxUsernameLength,
@@ -55,6 +51,15 @@ class EditProfileController extends GetxController {
     confPass = TextEditingController();
     bio = TextEditingController();
     inputText = TextEditingController();
+    data = {
+      "Nama Pengguna": startController.user!.username == ""
+          ? startController.displayName!
+          : startController.user!.username,
+      "Nama Lengkap": startController.displayName,
+      "Bio": "",
+      "Email": startController.email,
+      "Password": "*****"
+    };
     super.onInit();
   }
 
@@ -78,7 +83,8 @@ class EditProfileController extends GetxController {
     if (isValid(input).value) {
       inputText.clear();
       Get.back();
-      SnackBarWidget.showSnackBar("Memperbarui $input", "Berhasil", Colors.black);
+      SnackBarWidget.showSnackBar(
+          "Memperbarui $input", "Berhasil", Colors.black);
     }
     isLoading.value = false;
     update();
@@ -87,7 +93,9 @@ class EditProfileController extends GetxController {
   RxBool isValid(String input) {
     switch (input) {
       case "Nama Pengguna":
-        return (InputValidator.isUsernameValid(username)).obs;
+        return (InputValidator.isUsernameLengthValid(username) &&
+                InputValidator.isUsernameFormatValid(username))
+            .obs;
       case "Nama Lengkap":
         return (InputValidator.isFullNameValid(fullName)).obs;
       case "Email":
@@ -169,7 +177,7 @@ class EditProfileController extends GetxController {
   }
 
   RxBool isPass(int index) =>
-      (data.keys.elementAt(index).toLowerCase() == "password").obs;
+      (data!.keys.elementAt(index).toLowerCase() == "password").obs;
   RxBool isEmail(int index) =>
-      (data.keys.elementAt(index).toLowerCase() == "email").obs;
+      (data!.keys.elementAt(index).toLowerCase() == "email").obs;
 }
