@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/utils/input_validator.dart';
 import '../controllers/post_controller.dart';
+import '../routes/route_name.dart';
 import '../widgets/global/line.dart';
 
 class PostDescriptionView extends StatelessWidget {
@@ -70,11 +71,15 @@ class PostDescriptionView extends StatelessWidget {
                                   color: Colors.black,
                                 ),
                               ),
-                              Text(
-                                "Post",
-                                style: AppFont.text16.copyWith(
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.w600),
+                              GestureDetector(
+                                onTap: () =>
+                                    Get.toNamed(RouteName.postInterest),
+                                child: Text(
+                                  "Next",
+                                  style: AppFont.text16.copyWith(
+                                      color: Colors.blueAccent,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                             ],
                           ),

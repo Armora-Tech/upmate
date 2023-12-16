@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/signup_controller.dart';
 import 'package:upmatev2/themes/app_color.dart';
 
 import '../routes/route_name.dart';
@@ -10,19 +11,7 @@ class TagInterestView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> tags = [
-      "Data Science",
-      "Statistika",
-      "Machine Learning",
-      " Programming",
-      "Kalkulus",
-      "Aljabar Linier",
-      "Sistem digital",
-      "Matematika",
-      "Akuntan",
-      "Fisika",
-      "Robotik"
-    ];
+    final controller = Get.find<SignupController>();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -49,8 +38,7 @@ class TagInterestView extends StatelessWidget {
                       ),
                       Text(
                         "Dapatkan rekomendasi konten hasil personalisasi Anda. Anda dapat memilih hingga 4 opsi",
-                        style:
-                            AppFont.text12.copyWith(color: Colors.grey),
+                        style: AppFont.text12.copyWith(color: Colors.grey),
                         overflow: TextOverflow.clip,
                       ),
                       const SizedBox(
@@ -62,34 +50,78 @@ class TagInterestView extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      Wrap(
-                        runSpacing: 20,
-                        spacing: 20,
-                        runAlignment: WrapAlignment.center,
-                        direction: Axis.horizontal,
-                        children: List.generate(
-                          tags.length,
-                          (index) => Container(
-                            width: Get.width / 2 - 45,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    width: 1, color: AppColor.lightGrey)),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    "# ${tags[index]}",
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Wrap(
+                          runSpacing: 20,
+                          spacing: 20,
+                          runAlignment: WrapAlignment.center,
+                          direction: Axis.horizontal,
+                          children: List.generate(
+                              controller.tags.length,
+                              (index) =>
+                                  GetBuilder<SignupController>(builder: (_) {
+                                    bool isSelectedTags = controller
+                                        .selectedTags
+                                        .contains(controller.tags[index]);
+                                    return Material(
+                                      clipBehavior: Clip.hardEdge,
+                                      elevation: 0,
+                                      color: isSelectedTags
+                                          ? AppColor.primaryColor
+                                          : Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: InkWell(
+                                        onTap: () =>
+                                            controller.toggleInterest(index),
+                                        child: Container(
+                                          width: Get.width / 2 - 45,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 10),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: isSelectedTags
+                                                      ? AppColor.primaryColor
+                                                      : AppColor.lightGrey)),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "#",
+                                                overflow: TextOverflow.visible,
+                                                style: AppFont.text12.copyWith(
+                                                    fontWeight: FontWeight.w700,
+                                                    color: isSelectedTags
+                                                        ? Colors.white
+                                                        : Colors.black),
+                                              ),
+                                              const SizedBox(
+                                                width: 3,
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  controller.tags[index],
+                                                  overflow:
+                                                      TextOverflow.visible,
+                                                  style: AppFont.text12
+                                                      .copyWith(
+                                                          color: isSelectedTags
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w700),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  })),
                         ),
                       )
                     ],

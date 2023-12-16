@@ -192,9 +192,8 @@ class ChatRoomView extends StatelessWidget {
                                             children: [
                                               Text(
                                                 "09.00",
-                                                style: AppFont.text10
-                                                    .copyWith(
-                                                        color: Colors.grey),
+                                                style: AppFont.text10.copyWith(
+                                                    color: Colors.grey),
                                               ),
                                               const SizedBox(
                                                 width: 3,
@@ -266,9 +265,8 @@ class ChatRoomView extends StatelessWidget {
                                                   ),
                                                   Text(
                                                     "Online",
-                                                    style: AppFont
-                                                        .text12
-                                                        .copyWith(
+                                                    style:
+                                                        AppFont.text12.copyWith(
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.w300,
@@ -349,7 +347,7 @@ class ChatRoomView extends StatelessWidget {
                                                   .textEditingController,
                                               maxLines: null,
                                               onChanged: (text) {
-                                                text.isEmpty
+                                                text.trim().isEmpty
                                                     ? controller
                                                         .isTextFieldEmpty
                                                         .value = true
@@ -362,8 +360,8 @@ class ChatRoomView extends StatelessWidget {
                                                 enabledBorder: InputBorder.none,
                                                 focusedBorder: InputBorder.none,
                                                 hintText: "Ketikkan Pesan",
-                                                hintStyle: AppFont.text14
-                                                    .copyWith(
+                                                hintStyle:
+                                                    AppFont.text14.copyWith(
                                                   color: Colors.grey,
                                                 ),
                                               ),

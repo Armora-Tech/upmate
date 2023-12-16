@@ -59,7 +59,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   }
 
   void sendChat() {
-    chats.add({"user": textEditingController.text});
+    chats.add({"user": textEditingController.text.trim()});
 
     textEditingController.clear();
     isTextFieldEmpty.value = true;

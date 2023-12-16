@@ -18,25 +18,25 @@ class InputValidator {
   }
 
   static bool isPassValid(TextEditingController pass) {
-    return pass.text.length >= minPassLength &&
-        pass.text.length <= maxPassLength;
+    return pass.text.trim().length >= minPassLength &&
+        pass.text.trim().length <= maxPassLength;
   }
 
   static bool isUsernameLengthValid(TextEditingController username) {
-    return username.text.length >= minUsernameLength &&
-        username.text.length <= maxUsernameLength;
+    return username.text.trim().length >= minUsernameLength &&
+        username.text.trim().length <= maxUsernameLength;
   }
 
   static bool isUsernameFormatValid(TextEditingController username) {
-    bool isLowerCase = username.text == username.text.toLowerCase();
-    bool hasNoSpaces = !username.text.contains(' ');
+    bool isLowerCase = username.text == username.text.trim().toLowerCase();
+    bool hasNoSpaces = !username.text.trim().contains(' ');
 
     return isLowerCase && hasNoSpaces;
   }
 
   static bool isFullNameValid(TextEditingController fullName) {
-    return fullName.text.length >= minFullNameLength &&
-        fullName.text.length <= maxFullNameLength;
+    return fullName.text.trim().length >= minFullNameLength &&
+        fullName.text.trim().length <= maxFullNameLength;
   }
 
   static RxString? passValidationMessage(TextEditingController pass) {
@@ -51,7 +51,7 @@ class InputValidator {
       TextEditingController confPass, TextEditingController pass) {
     if (!isPassValid(confPass)) {
       return minMessage("Konfirmasi Password", minPassLength);
-    } else if ((confPass != pass) &&
+    } else if ((confPass.text.trim().trim() != pass.text.trim().trim()) &&
         isPassValid(confPass) &&
         isPassValid(pass)) {
       return "Password dan konfirmasi password harus sama".obs;
@@ -61,7 +61,7 @@ class InputValidator {
   }
 
   static RxString? emailValidationMessage(TextEditingController email) {
-    if (!email.text.isEmail) {
+    if (!email.text.trim().isEmail) {
       return "Format email tidak valid".obs;
     } else {
       return null;
@@ -70,7 +70,7 @@ class InputValidator {
 
   static RxString? usernameValidationMessage(TextEditingController username) {
     if (!isUsernameLengthValid(username)) {
-      return minMessage("Username", minUsernameLength);
+      return minMessage("Nama pengguna", minUsernameLength);
     } else {
       if (!isUsernameFormatValid(username)) {
         return "Nama pengguna harus terdiri dari huruf kecil tanpa spasi".obs;

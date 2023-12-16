@@ -215,11 +215,11 @@ class Auth {
     return querySnapshot.data();
   }
 
-  DocumentReference getCurrentUserReference() {
+  DocumentReference<Map<String, dynamic>> getCurrentUserReference() {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       String userUid = user.uid;
-      DocumentReference userReference =
+      DocumentReference<Map<String, dynamic>> userReference =
           FirebaseFirestore.instance.collection('users').doc(userUid);
       return userReference;
     } else {

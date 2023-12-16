@@ -23,6 +23,21 @@ class SignupController extends GetxController {
   RxBool isConfirmPassFocused = false.obs;
   RxBool isLoading = false.obs;
 
+  List<String> selectedTags = [];
+  List<String> tags = [
+    "Data Science",
+    "Statistika",
+    "Machine Learning",
+    "Programming",
+    "Kalkulus",
+    "Aljabar Linier",
+    "Sistem digital",
+    "Matematika",
+    "Akuntan",
+    "Fisika",
+    "Robotik"
+  ];
+
   @override
   void onInit() {
     username = TextEditingController();
@@ -83,5 +98,14 @@ class SignupController extends GetxController {
     errorPassMessage = InputValidator.passValidationMessage(pass);
     errorConfPassMessage =
         InputValidator.confPassValidationMessage(confPass, pass);
+  }
+
+  void toggleInterest(int index) {
+    if (selectedTags.contains(tags[index])) {
+      selectedTags.remove(tags[index]);
+    } else {
+      selectedTags.add(tags[index]);
+    }
+    update();
   }
 }

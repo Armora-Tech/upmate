@@ -150,10 +150,17 @@ class EditPage extends StatelessWidget {
                                       ),
                                     ),
                                     GestureDetector(
-                                        onTap: () => controller.save(
-                                              controller.data!.keys
-                                                  .elementAt(index),
-                                            ),
+                                        onTap:
+                                            controller.inputText.text.isEmpty &&
+                                                    controller.data!.keys
+                                                            .elementAt(index)
+                                                            .toLowerCase() !=
+                                                        "bio"
+                                                ? () {}
+                                                : () => controller.save(
+                                                      controller.data!.keys
+                                                          .elementAt(index),
+                                                    ),
                                         child:
                                             Obx(() => controller.isLoading.value
                                                 ? const SizedBox(
@@ -170,9 +177,15 @@ class EditPage extends StatelessWidget {
                                                       "Simpan",
                                                       style: TextStyle(
                                                         color: controller
-                                                                .inputText
-                                                                .text
-                                                                .isEmpty
+                                                                    .inputText
+                                                                    .text
+                                                                    .isEmpty &&
+                                                                controller.data!
+                                                                        .keys
+                                                                        .elementAt(
+                                                                            index)
+                                                                        .toLowerCase() !=
+                                                                    "bio"
                                                             ? Colors.grey
                                                             : Colors.blueAccent,
                                                       ),

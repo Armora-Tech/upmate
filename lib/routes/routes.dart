@@ -7,6 +7,7 @@ import 'package:upmatev2/views/chat_room.dart';
 import 'package:upmatev2/views/confirm_send_image.dart';
 import 'package:upmatev2/views/gallery.dart';
 import 'package:upmatev2/views/post_description.dart';
+import 'package:upmatev2/views/post_interest.dart';
 import 'package:upmatev2/views/profile.dart';
 import '../bindings/chat_room_binding.dart';
 import '../bindings/post_binding.dart';
@@ -104,6 +105,10 @@ class AppPage {
     GetPage(
         name: RouteName.galleryView,
         page: () => const GalleryView(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: RouteName.postInterest,
+        page: () => const PostInterestView(),
         transition: Transition.rightToLeft),
   ];
 }
