@@ -67,7 +67,8 @@ class SignupController extends GetxController {
 
   RxBool isInputValid() {
     return (InputValidator.isFullNameValid(fullName) &&
-            InputValidator.isUsernameValid(username) &&
+            InputValidator.isUsernameLengthValid(username) &&
+            InputValidator.isUsernameFormatValid(username) &&
             email.text.isEmail &&
             InputValidator.isPassValid(pass) &&
             InputValidator.isPassValid(confPass) &&
@@ -80,6 +81,7 @@ class SignupController extends GetxController {
     errorUsernameMessage = InputValidator.usernameValidationMessage(username);
     errorEmailMessage = InputValidator.emailValidationMessage(email);
     errorPassMessage = InputValidator.passValidationMessage(pass);
-    errorConfPassMessage = InputValidator.confPassValidationMessage(confPass, pass);
+    errorConfPassMessage =
+        InputValidator.confPassValidationMessage(confPass, pass);
   }
 }

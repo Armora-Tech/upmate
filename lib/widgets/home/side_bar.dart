@@ -84,7 +84,7 @@ class SideBar extends StatelessWidget {
                           fontWeight: FontWeight.w600, color: Colors.white),
                     ),
                     Text(
-                      controller.username,
+                      controller.usernameWithAt,
                       style: const TextStyle(color: Colors.grey),
                     ),
                   ],

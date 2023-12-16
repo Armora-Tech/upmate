@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/edit_profile_controller.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/bottom_sheet.dart';
 import 'package:upmatev2/widgets/editProfile/edit_page.dart';
@@ -15,6 +16,7 @@ class EditProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EditProfileController>();
+    final startController = Get.find<StartController>();
     return Scaffold(
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
@@ -46,7 +48,8 @@ class EditProfileView extends StatelessWidget {
                                             fit: BoxFit.cover,
                                           ),
                                         )
-                                      : const ProfilePicture(
+                                      :  ProfilePicture(
+                                        imageURL: startController.photoURL,
                                           size: 120,
                                         ))),
                           const SizedBox(
@@ -67,12 +70,12 @@ class EditProfileView extends StatelessWidget {
                           ),
                           Column(
                             children:
-                                List.generate(controller.data.length, (index) {
-                              final Map<String, dynamic> data = controller.data;
+                                List.generate(controller.data!.length, (index) {
+                              final Map<String, dynamic> data = controller.data!;
                               return GestureDetector(
                                 onTap: () {
                                   controller.chooseInput(
-                                      controller.data.keys.elementAt(index));
+                                      controller.data!.keys.elementAt(index));
                                   Get.to(() => EditPage(index: index),
                                       transition: Transition.rightToLeft);
                                 },
