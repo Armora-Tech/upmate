@@ -18,19 +18,19 @@ class PostModel {
   List<CommentModel>? _comments;
   bool _isCover;
 
-  PostModel._(
-      {required DocumentReference ref,
-      DocumentReference? forumRef,
-      required List<dynamic> interests,
-      required String postDescription,
-      required String postTitle,
-      required DocumentReference<Map<String, dynamic>> userRaw,
-      required DateTime? timestamp,
-      required List<dynamic> bookmarks,
-      required List<dynamic> likes,
-      required String? postPhoto,
-      bool isCover = false})
-      : _ref = ref,
+  PostModel({
+    required DocumentReference ref,
+    DocumentReference? forumRef,
+    required List<dynamic> interests,
+    required String postDescription,
+    required String postTitle,
+    required DocumentReference<Map<String, dynamic>> userRaw,
+    required DateTime? timestamp,
+    required List<dynamic> bookmarks,
+    required List<dynamic> likes,
+    required String? postPhoto,
+    bool isCover = false,
+  }) : _ref = ref,
         _forumRef = forumRef,
         _interests = interests,
         _postDescription = postDescription,
@@ -48,7 +48,7 @@ class PostModel {
   ) {
     final data = snapshot.data();
 
-    return PostModel._(
+    return PostModel(
         ref: snapshot.reference,
         forumRef: data?['forumRef'],
         interests: data?['interests'] ?? [],
@@ -61,6 +61,8 @@ class PostModel {
         postPhoto: data?['post_photo'] ?? "",
         isCover: data?['isCover'] ?? false);
   }
+
+
 
   Map<String, dynamic> toFirestore() {
     return {
