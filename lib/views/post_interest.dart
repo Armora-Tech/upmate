@@ -48,7 +48,9 @@ class PostInterestView extends StatelessWidget {
                                   ),
                                 ),
                                 GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    controller.addPost();
+                                  },
                                   child: Text(
                                     "Post",
                                     style: AppFont.text16.copyWith(

@@ -8,8 +8,7 @@ class PostModel {
   DocumentReference? _forumRef;
   List<dynamic> _interests;
   String _postDescription;
-  String _postTitle;
-  String? _postPhoto;
+  List<String> _postPhoto;
   DocumentReference<Map<String, dynamic>> _userRaw;
   UserModel? _user;
   DateTime? _timestamp;
@@ -23,18 +22,16 @@ class PostModel {
     DocumentReference? forumRef,
     required List<dynamic> interests,
     required String postDescription,
-    required String postTitle,
     required DocumentReference<Map<String, dynamic>> userRaw,
     required DateTime? timestamp,
     required List<dynamic> bookmarks,
     required List<dynamic> likes,
-    required String? postPhoto,
+    required List<String> postPhoto,
     bool isCover = false,
   }) : _ref = ref,
         _forumRef = forumRef,
         _interests = interests,
         _postDescription = postDescription,
-        _postTitle = postTitle,
         _userRaw = userRaw,
         _timestamp = timestamp,
         _bookmarks = bookmarks,
@@ -53,12 +50,11 @@ class PostModel {
         forumRef: data?['forumRef'],
         interests: data?['interests'] ?? [],
         postDescription: data?['post_description'] ?? '',
-        postTitle: data?['post_title'],
         userRaw: data?['post_user'],
         timestamp: (data?['timestamp'] as Timestamp?)?.toDate(),
         bookmarks: data?['bookmarks'] ?? [],
         likes: data?['likes'] ?? [],
-        postPhoto: data?['post_photo'] ?? "",
+        postPhoto: data?['post_photo'] ?? [],
         isCover: data?['isCover'] ?? false);
   }
 
@@ -69,7 +65,6 @@ class PostModel {
       "forumRef": _forumRef,
       "interests": _interests,
       "post_description": _postDescription,
-      "post_title": _postTitle,
       "post_user": _user,
       "timestamp": _timestamp,
       "bookmarks": _bookmarks,
@@ -178,9 +173,6 @@ class PostModel {
     if (updatedData.containsKey('post_description')) {
       _postDescription = updatedData['post_description'];
     }
-    if (updatedData.containsKey('post_title')) {
-      _postTitle = updatedData['post_title'];
-    }
     if (updatedData.containsKey('post_user')) {
       _userRaw = updatedData['post_user'];
     }
@@ -206,8 +198,6 @@ class PostModel {
   List<dynamic> get interests => _interests;
 
   String get postDescription => _postDescription;
-
-  String get postTitle => _postTitle;
 
   DateTime? get timestamp => _timestamp;
 
