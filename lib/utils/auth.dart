@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -5,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
 
+import '../controllers/signup_controller.dart';
 import '../models/user_model.dart';
 import '../routes/route_name.dart';
 import '../widgets/global/snack_bar.dart';
@@ -119,6 +123,36 @@ class Auth {
     await _auth.signOut();
     await googleSignIn.signOut();
     Get.offNamed(RouteName.login);
+  }
+
+  Future<void> sendOTP(String email) async {
+    final url = Uri.parse('https://armoratech.my.id/upmateotp/otp');
+    final Map<String, String> headers = {
+      'Content-Type': 'application/json',
+    };
+    final Map<String, String> body = {'email': email};
+    print("BODY: $body");
+    final response = await http.post(url, headers: headers, body: jsonEncode(body));
+    if (response.statusCode == 200) {
+      //success
+      return;
+    } else {
+      //error
+      print("error 500");
+      throw Error();
+    }
+  }
+
+  Future<bool> checkOTP(String s) async {
+    final signupController = Get.find<SignupController>();
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("otps")
+        .doc(signupController.email.text)
+        .get();
+    final data = snapshot.get('otp');
+    print("OTP: $data");
+
+    return s==data;
   }
 
   Future<User?> signUpWithEmailAndPassword(

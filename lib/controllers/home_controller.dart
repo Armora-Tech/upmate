@@ -59,7 +59,6 @@ class HomeController extends GetxController {
         await post.getComment();
 
         if (kDebugMode) {
-          print("PostModel: ${post.postTitle}");
           print("PostModel: ${post.interests}");
           print("Likes: ${post.likes}");
           if(post.comments!.isNotEmpty) {

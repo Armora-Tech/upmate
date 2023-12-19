@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_font.dart';
+import 'package:upmatev2/utils/auth.dart';
 
 import '../routes/route_name.dart';
 
@@ -10,6 +11,7 @@ class VerifyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authControl = Auth();
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -154,7 +156,15 @@ class VerifyView extends StatelessWidget {
                   height: 40,
                 ),
                 ElevatedButton(
-                    onPressed: () => Get.toNamed(RouteName.takeSurvey),
+                    onPressed: () async {
+                      // final isOK = await authControl.checkOTP("123");
+                      // print("CECK: $isOK");
+
+                      // if(authControl.checkOTP(string)){
+                      //
+                      // }
+                      // Get.toNamed(RouteName.takeSurvey)
+                    },
                     child: Center(
                       child: Text(
                         "Verify",

@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:upmatev2/utils/input_validator.dart';
 
 import '../routes/route_name.dart';
+import '../utils/auth.dart';
 
 class SignupController extends GetxController {
+  final _auth = Auth();
   late TextEditingController username;
   late TextEditingController fullName;
   late TextEditingController email;
@@ -74,6 +76,7 @@ class SignupController extends GetxController {
     isLoading.value = true;
     await Future.delayed(const Duration(milliseconds: 1000));
     if (isInputValid().value) {
+      await _auth.sendOTP(email.text);
       Get.toNamed(RouteName.verify);
     }
     isLoading.value = false;
