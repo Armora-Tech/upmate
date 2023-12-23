@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class InputValidator {
+  static Locale currentLocale = Get.locale!;
   static const int minPassLength = 6;
   static const int maxPassLength = 32;
   static const int minUsernameLength = 5;
@@ -14,7 +15,13 @@ class InputValidator {
   static const int maxDescLength = 200;
 
   static RxString minMessage(String input, int length) {
-    return "$input minimal $length karakter".obs;
+    String firstCharUpperCase =
+        input[0].toUpperCase() + input.substring(1).toLowerCase();
+    if (currentLocale.languageCode == 'id') {
+      return "$firstCharUpperCase minimal $length karakter".obs;
+    } else {
+      return "$firstCharUpperCase at least $length characters".obs;
+    }
   }
 
   static bool isPassValid(TextEditingController pass) {
@@ -41,7 +48,7 @@ class InputValidator {
 
   static RxString? passValidationMessage(TextEditingController pass) {
     if (!isPassValid(pass)) {
-      return minMessage("Password", minPassLength);
+      return minMessage("password".tr, minPassLength);
     } else {
       return null;
     }
@@ -50,11 +57,11 @@ class InputValidator {
   static RxString? confPassValidationMessage(
       TextEditingController confPass, TextEditingController pass) {
     if (!isPassValid(confPass)) {
-      return minMessage("Konfirmasi Password", minPassLength);
+      return minMessage("confirm_password".tr, minPassLength);
     } else if ((confPass.text.trim().trim() != pass.text.trim().trim()) &&
         isPassValid(confPass) &&
         isPassValid(pass)) {
-      return "Password dan konfirmasi password harus sama".obs;
+      return "password_and_conf_pass_must_be_the_same".tr.obs;
     } else {
       return null;
     }
@@ -62,7 +69,7 @@ class InputValidator {
 
   static RxString? emailValidationMessage(TextEditingController email) {
     if (!email.text.trim().isEmail) {
-      return "Format email tidak valid".obs;
+      return "invalid_email_format".tr.obs;
     } else {
       return null;
     }
@@ -70,10 +77,12 @@ class InputValidator {
 
   static RxString? usernameValidationMessage(TextEditingController username) {
     if (!isUsernameLengthValid(username)) {
-      return minMessage("Nama pengguna", minUsernameLength);
+      return minMessage("username".tr, minUsernameLength);
     } else {
       if (!isUsernameFormatValid(username)) {
-        return "Nama pengguna harus terdiri dari huruf kecil tanpa spasi".obs;
+        return "username_must_consist_of_lowercase_letters_without_spaces"
+            .tr
+            .obs;
       }
       return null;
     }
@@ -81,7 +90,7 @@ class InputValidator {
 
   static RxString? fullNameValidationMessage(TextEditingController fullName) {
     if (!isFullNameValid(fullName)) {
-      return minMessage("Nama Lengkap", minFullNameLength);
+      return minMessage("full_name".tr, minFullNameLength);
     } else {
       return null;
     }

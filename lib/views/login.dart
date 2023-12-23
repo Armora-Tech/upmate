@@ -36,7 +36,7 @@ class LoginView extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  "Welcome back!",
+                  "welcome_back".tr,
                   style: AppFont.text25.copyWith(fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
@@ -67,7 +67,7 @@ class LoginView extends StatelessWidget {
                                 decoration: InputDecoration(
                                   helperText:
                                       controller.errorPassMessage?.value,
-                                  hintText: "Password",
+                                  hintText: "password".tr,
                                   suffixIcon: GestureDetector(
                                     onTap: () {
                                       controller.isVisible.toggle();
@@ -97,7 +97,7 @@ class LoginView extends StatelessWidget {
                                       ? const Loading(
                                           size: 23, color: Colors.white)
                                       : Text(
-                                          "Sign In",
+                                          "sign_in".tr,
                                           style: AppFont.text16.copyWith(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w500),
@@ -111,7 +111,7 @@ class LoginView extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    "Forgot Password?",
+                    "forgot_password".tr,
                     style: AppFont.text12.copyWith(color: AppColor.black),
                   ),
                 ),
@@ -127,11 +127,11 @@ class LoginView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5),
                           color: const Color.fromARGB(255, 193, 193, 193)),
                     )),
-                    const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: Text(
-                          "Sign In With",
-                          style: TextStyle(
+                          "sign_in_with".tr,
+                          style: const TextStyle(
                               fontSize: 13,
                               color: Color.fromARGB(255, 130, 130, 130)),
                         )),
@@ -180,18 +180,18 @@ class LoginView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      "Already have an account?",
-                      style: TextStyle(color: Color(0xFF505050)),
+                    Text(
+                      "don't_have_an_account".tr,
+                      style: const TextStyle(color: Color(0xFF505050)),
                     ),
                     const SizedBox(
                       width: 2,
                     ),
                     GestureDetector(
                         onTap: () => Get.toNamed(RouteName.signup),
-                        child: const Text(
-                          "Sign Up",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        child: Text(
+                          "sign_up".tr,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         )),
                   ],
                 ),

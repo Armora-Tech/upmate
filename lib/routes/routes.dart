@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:upmatev2/bindings/edit_profile_binding.dart';
 import 'package:upmatev2/bindings/login_binding.dart';
+import 'package:upmatev2/bindings/settings_binding.dart';
 import 'package:upmatev2/bindings/signup_binding.dart';
 import 'package:upmatev2/bindings/start_binding.dart';
 import 'package:upmatev2/views/chat_room.dart';
@@ -9,6 +10,7 @@ import 'package:upmatev2/views/gallery.dart';
 import 'package:upmatev2/views/post_description.dart';
 import 'package:upmatev2/views/post_interest.dart';
 import 'package:upmatev2/views/profile.dart';
+import 'package:upmatev2/views/settings.dart';
 import '../bindings/chat_room_binding.dart';
 import '../bindings/post_binding.dart';
 import '../bindings/post_detail_binding.dart';
@@ -109,6 +111,11 @@ class AppPage {
     GetPage(
         name: RouteName.postInterest,
         page: () => const PostInterestView(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: RouteName.settings,
+        page: () => const SettingsView(),
+        binding: SettingsBinding(),
         transition: Transition.rightToLeft),
   ];
 }

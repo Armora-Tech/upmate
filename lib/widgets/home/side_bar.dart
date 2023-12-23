@@ -15,13 +15,13 @@ class SideBar extends StatelessWidget {
     final controller = Get.find<StartController>();
     final loginController = Get.find<LoginController>();
     Map<dynamic, dynamic> content = {
-      "Akun": Icons.account_circle_outlined,
-      "Pengaturan": Icons.settings_outlined,
-      "Privasi": Icons.lock_outlined,
-      "Bookmarks": Icons.bookmark_outline_outlined,
-      "Pusat Bantuan": Icons.help_outline_outlined,
+      "account".tr: Icons.account_circle_outlined,
+      "settings".tr: Icons.settings_outlined,
+      "privacy".tr: Icons.lock_outlined,
+      "bookmarks".tr: Icons.bookmark_outline_outlined,
+      "help_center".tr: Icons.help_outline_outlined,
       "FAQ": Icons.help_center_outlined,
-      "Keluar": Icons.logout,
+      "logout".tr: Icons.logout,
     };
     return Drawer(
       backgroundColor: Colors.white,
@@ -98,18 +98,18 @@ class SideBar extends StatelessWidget {
                   .map(
                     (item) => GestureDetector(
                       onTap: () async {
-                        var key = item.key.toLowerCase();
-                        if (key == "akun") {
+                        var key = item.key;
+                        if (key == "account".tr) {
                           Get.toNamed(RouteName.profile);
-                        } else if (key == "pengaturan") {
-                          Get.toNamed(RouteName.editProfile);
-                        } else if (key == "keluar") {
+                        } else if (key == "settings".tr) {
+                          Get.toNamed(RouteName.settings);
+                        } else if (key == "logout".tr) {
                           await loginController.signOut();
                         }
                       },
                       child: Column(
                         children: [
-                          item.key.toLowerCase() == "keluar"
+                          item.key == "logout".tr
                               ? const Line()
                               : const SizedBox.shrink(),
                           Container(

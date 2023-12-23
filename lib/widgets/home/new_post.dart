@@ -115,10 +115,10 @@ class NewPost extends StatelessWidget {
                             },
                             child: Text(
                               controller.isFullText.value
-                                  ? " Sembunyikan"
-                                  : "Selengkapnya",
-                              style: AppFont.text12
-                                  .copyWith(color: Colors.grey),
+                                  ? "less".tr
+                                  : "more".tr,
+                              style:
+                                  AppFont.text12.copyWith(color: Colors.grey),
                             ),
                           ),
                         ),
@@ -127,8 +127,8 @@ class NewPost extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                const Text("Lihat semua 32 komentar",
-                    style: TextStyle(color: Colors.grey)),
+                Text("${"see_all".tr} 32 ${"comment".tr}",
+                    style: const TextStyle(color: Colors.grey)),
                 Row(
                   children: [
                     Container(
@@ -160,10 +160,9 @@ class NewPost extends StatelessWidget {
                                 ]),
                           ),
                           Text(
-                            "2 jam",
+                            "2 ${"hours".tr}",
                             maxLines: 2,
-                            style:
-                                AppFont.text10.copyWith(color: Colors.grey),
+                            style: AppFont.text10.copyWith(color: Colors.grey),
                           )
                         ],
                       ),
@@ -201,10 +200,9 @@ class NewPost extends StatelessWidget {
                                 ]),
                           ),
                           Text(
-                            "2 jam",
+                            "2 ${"hours".tr}",
                             maxLines: 2,
-                            style:
-                                AppFont.text10.copyWith(color: Colors.grey),
+                            style: AppFont.text10.copyWith(color: Colors.grey),
                           )
                         ],
                       ),

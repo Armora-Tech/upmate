@@ -36,7 +36,7 @@ class SignupView extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  "Let's get start it!",
+                  "let's_get_start_it".tr,
                   style: AppFont.text25.copyWith(fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
@@ -51,7 +51,7 @@ class SignupView extends StatelessWidget {
                                 controller: controller.fullName,
                                 style: AppFont.text14,
                                 decoration: InputDecoration(
-                                  hintText: "Nama Lengkap",
+                                  hintText: "full_name".tr,
                                   helperMaxLines: 3,
                                   helperText:
                                       controller.errorFullNameMessage?.value,
@@ -66,7 +66,7 @@ class SignupView extends StatelessWidget {
                                   helperMaxLines: 3,
                                   helperText:
                                       controller.errorUsernameMessage?.value,
-                                  hintText: "Username",
+                                  hintText: "username".tr,
                                 )),
                             const SizedBox(
                               height: 15,
@@ -95,7 +95,7 @@ class SignupView extends StatelessWidget {
                                   helperMaxLines: 3,
                                   helperText:
                                       controller.errorPassMessage?.value,
-                                  hintText: "Password",
+                                  hintText: "password".tr,
                                   suffixIcon: GestureDetector(
                                     onTap: () {
                                       controller.isVisible.toggle();
@@ -126,7 +126,7 @@ class SignupView extends StatelessWidget {
                                   helperMaxLines: 3,
                                   helperText:
                                       controller.errorConfPassMessage?.value,
-                                  hintText: "Konfirmasi Password",
+                                  hintText: "confirm_password".tr,
                                   suffixIcon: GestureDetector(
                                     onTap: () {
                                       controller.isConfirmPassVisible.toggle();
@@ -155,7 +155,7 @@ class SignupView extends StatelessWidget {
                                       ? const Loading(
                                           size: 23, color: Colors.white)
                                       : Text(
-                                          "Sign Up",
+                                          "sign_up".tr,
                                           style: AppFont.text16.copyWith(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w500),
@@ -178,7 +178,7 @@ class SignupView extends StatelessWidget {
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: Text(
-                          "Sign Up With",
+                          "sign_up_with".tr,
                           style: AppFont.text12.copyWith(
                               color: const Color.fromARGB(255, 130, 130, 130)),
                         )),
@@ -220,18 +220,18 @@ class SignupView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      "Already have an account?",
-                      style: TextStyle(color: Color(0xFF505050)),
+                    Text(
+                      "already_have_an_account".tr,
+                      style: const TextStyle(color: Color(0xFF505050)),
                     ),
                     const SizedBox(
                       width: 2,
                     ),
                     GestureDetector(
                         onTap: () => Get.toNamed(RouteName.login),
-                        child: const Text(
-                          "Sign In",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        child: Text(
+                          "sign_in".tr,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         )),
                   ],
                 ),

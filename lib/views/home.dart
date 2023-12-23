@@ -14,35 +14,35 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  final controller = Get.put(HomeController());
-  final startController = Get.find<StartController>();
+    final controller = Get.put(HomeController());
+    final startController = Get.find<StartController>();
     return Scaffold(
       body: Stack(children: [
-        const SingleChildScrollView(
+        SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
-              NewPost(),
-              SizedBox(
+              const NewPost(),
+              const SizedBox(
                 height: 10,
               ),
-              TitleSection(title: "Popular"),
-              SizedBox(
+              TitleSection(title: "popular".tr),
+              const SizedBox(
                 height: 20,
               ),
-              Popular(),
-              SizedBox(
+              const Popular(),
+              const SizedBox(
                 height: 20,
               ),
-              TitleSection(title: "Orang dengan ketertarikan yang sama"),
-              SizedBox(
+              TitleSection(title: "people_with_similar_interests".tr),
+              const SizedBox(
                 height: 20,
               ),
-              Popular(),
-              SizedBox(
+              const Popular(),
+              const SizedBox(
                 height: 100,
               ),
             ],

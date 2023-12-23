@@ -11,7 +11,7 @@ class Popular extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> popular = [
       {
-        "type": "Topik",
+        "type": "topic".tr,
         "title": "UI/IX Design",
         "info":
             "Diikuti oleh Percy Hedinson, Riska Nur, Lia Dahlia dan 9 Lainnya"
@@ -22,7 +22,7 @@ class Popular extends StatelessWidget {
         "info": "Disarankan untuk anda"
       },
       {
-        "type": "Topik",
+        "type": "topic".tr,
         "title": "UI/IX Design",
         "info":
             "Diikuti oleh Percy Hedinson, Riska Nur, Lia Dahlia dan 9 Lainnya"
@@ -71,15 +71,11 @@ class Popular extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: BackdropFilter(
-                            filter: ImageFilter.blur(
-                                sigmaX: 5,
-                                sigmaY:
-                                    5), // Adjust sigmaX and sigmaY for blur intensity
+                            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 15, vertical: 5),
-                              color: Colors.grey.withOpacity(
-                                  0.3), // Adjust opacity and color for the blur effect
+                              color: Colors.grey.withOpacity(0.3),
                               child: Text(
                                 popular[index]["type"],
                                 style: AppFont.text12.copyWith(
@@ -98,15 +94,11 @@ class Popular extends StatelessWidget {
                         width: containerWidth,
                         child: ClipRRect(
                           child: BackdropFilter(
-                            filter: ImageFilter.blur(
-                                sigmaX: 5,
-                                sigmaY:
-                                    5), // Adjust sigmaX and sigmaY for blur intensity
+                            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                             child: Container(
                               height: 120,
                               width: containerWidth,
-                              color: Colors.grey.withOpacity(
-                                  0.3), // Adjust opacity and color for the blur effect
+                              color: Colors.grey.withOpacity(0.3),
                               padding: const EdgeInsets.all(10),
                               child: Column(
                                 mainAxisAlignment:
