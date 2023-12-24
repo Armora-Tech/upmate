@@ -225,26 +225,26 @@ class ChatRoomShimmer extends StatelessWidget {
                       )
                     ],
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.emoji_emotions_outlined,
                             ),
-                            SizedBox(width: 17),
+                            const SizedBox(width: 17),
                             Text(
-                              "Ketikkan Pesan",
-                              style: TextStyle(
+                              "type_a_message".tr,
+                              style: const TextStyle(
                                 color: Colors.grey,
                               ),
                             )
                           ],
                         ),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.camera_alt_outlined,
                       ),
                     ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
 
@@ -21,7 +22,7 @@ class ScrollUp extends StatelessWidget {
                 color: Colors.white, borderRadius: BorderRadius.circular(30)),
             child: Row(children: [
               Text(
-                "Gulir ke atas",
+                "scroll_up".tr,
                 style: AppFont.text16,
               ),
               const SizedBox(

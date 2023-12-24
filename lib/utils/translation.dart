@@ -37,6 +37,7 @@ class Message extends Translations {
           "seconds": "seconds",
           "topic": "Topic",
           "popular": "Popular",
+          "follow": "Follow",
           "people_with_similar_interests": "People with similar interests",
           "account": "Account",
           "settings": "Settings",
@@ -45,7 +46,38 @@ class Message extends Translations {
           "help_center": "Help Center",
           "logout": "Logout",
           // ======= Settings =========
-          "select_language" : "Select Language"
+          "select_language": "Select Language",
+          // ======== BOTTOM NAVBAR =========
+          "home": "Home",
+          "explore": "Explore",
+          "notification": "Notification",
+          "chat": "Chat",
+          // ========= EXPLORE ===========
+          "search": "Search",
+          "your_interest_tag": "Your interest tag",
+          "math": "Math",
+          "calculus": "Calculus",
+          "algebra": "Algebra",
+          "economy": "Economy",
+          "other_interest_tags": "Other interest tags",
+          // ========= NOTIFICATION ==========
+          "latest": "Latest",
+          "has_followed_you": "has followed you.",
+          "follow_back": "Follow back",
+          "today": "Today",
+          "liked_your_post": "liked your post.",
+          "yesterday": "Yesterday",
+          // ========= CHAT ROOM ============
+          "type_a_message": "Type a message",
+          "online": "Online",
+          // ======== BOTTOM SHEET PICTURE ===========
+          "select_from_gallery": "Select from gallery",
+          "take_a_picture": "Take a picture",
+          "send_picture": "Send picture",
+          "send": "Send",
+          "scroll_up": "Scroll up",
+          // =========== EMOJI ===========
+          "no_recents": "No recents",
         },
         "id": {
           // ========= LOGIN SIGNUP PAGE ========
@@ -81,6 +113,7 @@ class Message extends Translations {
           "seconds": "detik",
           "topic": "Topik",
           "popular": "Populer",
+          "follow": "Ikuti",
           "people_with_similar_interests":
               "Orang dengan ketertarikan yang sama",
           "account": "Akun",
@@ -90,7 +123,38 @@ class Message extends Translations {
           "help_center": "Pusat Bantuan",
           "logout": "Keluar",
           // ======= Settings =========
-          "select_language" : "Pilih Bahasa"
+          "select_language": "Pilih Bahasa",
+          // ======== BOTTOM NAVBAR =========
+          "home": "Beranda",
+          "explore": "Eksplor",
+          "notification": "Notifikasi",
+          "chat": "Obrolan",
+          // ========= EXPLORE ===========
+          "search": "Cari",
+          "your_interest_tag": "Tag interest mu",
+          "math": "Matematika",
+          "calculus": "Kalkulus",
+          "algebra": "Aljabar",
+          "economy": "Ekonomi",
+          "other_interest_tags": "Tag interest lainnya",
+          // ========= NOTIFICATION ==========
+          "latest": "Baru",
+          "has_followed_you": "telah mengikuti anda.",
+          "follow_back": "Ikuti balik",
+          "today": "Hari ini",
+          "liked_your_post": "menyukai postingan Anda.",
+          "yesterday": "Kemarin",
+          // ========= CHAT ROOM ============
+          "type_a_message": "Ketikkan pesan",
+          "online": "Aktif",
+          // ======== BOTTOM SHEET PICTURE ===========
+          "select_from_gallery": "Pilih dari gallery",
+          "take_a_picture": "Ambil gambar",
+          "send_picture": "Kirim gambar",
+          "send": "Kirim",
+          "scroll_up": "Gulir ke atas",
+          // =========== EMOJI ===========
+          "no_recents": "Tidak ada yang terbaru",
         }
       };
 }

@@ -82,7 +82,7 @@ class ChatShimmer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Chats",
+                          "chat".tr,
                           style: AppFont.text23.copyWith(
                             fontWeight: FontWeight.bold,
                           ),

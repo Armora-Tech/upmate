@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
 
@@ -24,35 +24,27 @@ class Follow extends StatelessWidget {
                   width: 5,
                 ),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Muhammad Rafli Silehu",
-                        maxLines: 2,
+                  child: RichText(
+                    text: TextSpan(style: AppFont.text14, children: [
+                      const TextSpan(
+                        text: "Muhammad Rafli Silehu",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "Telah mengikuti anda.",
-                              maxLines: 1,
-                              style: AppFont.text12,
-                            ),
-                          ),
-                          Text(
-                            "1 menit",
-                            maxLines: 1,
-                            style: AppFont.text12
-                                .copyWith(color: Colors.grey),
-                          )
-                        ],
-                      )
-                    ],
+                      TextSpan(
+                        text: " ${"has_followed_you".tr}",
+                        style: AppFont.text12,
+                      ),
+                      const WidgetSpan(
+                          child: SizedBox(
+                        width: 5,
+                      )),
+                      TextSpan(
+                        text: "1 ${"minute".tr}",
+                        style: AppFont.text12.copyWith(color: Colors.grey),
+                      ),
+                    ]),
                   ),
-                ),
+                )
               ],
             ),
           ),
@@ -69,7 +61,7 @@ class Follow extends StatelessWidget {
                     )),
                 child: Center(
                   child: Text(
-                    "Ikuti balik",
+                    "follow_back".tr,
                     style: AppFont.text12.copyWith(color: Colors.white),
                   ),
                 )),

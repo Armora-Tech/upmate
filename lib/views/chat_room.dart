@@ -264,7 +264,7 @@ class ChatRoomView extends StatelessWidget {
                                                         color: Colors.white),
                                                   ),
                                                   Text(
-                                                    "Online",
+                                                    "online".tr,
                                                     style:
                                                         AppFont.text12.copyWith(
                                                       color: Colors.white,
@@ -359,7 +359,7 @@ class ChatRoomView extends StatelessWidget {
                                               decoration: InputDecoration(
                                                 enabledBorder: InputBorder.none,
                                                 focusedBorder: InputBorder.none,
-                                                hintText: "Ketikkan Pesan",
+                                                hintText: "type_a_message".tr,
                                                 hintStyle:
                                                     AppFont.text14.copyWith(
                                                   color: Colors.grey,

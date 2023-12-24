@@ -43,8 +43,8 @@ class BottomSheetWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text(
-                      "Pilih dari gallery",
+                    Text(
+                      "select_from_gallery".tr,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
@@ -156,7 +156,7 @@ class BottomSheetWidget {
                                 width: 10,
                               ),
                               Text(
-                                "Ambil Gambar",
+                                "take_a_picture".tr,
                                 style: AppFont.text16
                                     .copyWith(color: Colors.white),
                               ),
@@ -182,7 +182,7 @@ class BottomSheetWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
-                            "Kirim(${controller.selectedAssetList.length})",
+                            "${"send".tr}""(${controller.selectedAssetList.length})",
                             style: AppFont.text16
                                 .copyWith(color: Colors.white),
                           ),
@@ -220,7 +220,7 @@ class BottomSheetWidget {
                   width: Get.width,
                   child: Center(
                     child: Text(
-                      "Ambil gambar",
+                      "take_a_picture".tr,
                       style: AppFont.text16
                           .copyWith(color: Colors.blueAccent),
                     ),
@@ -237,7 +237,7 @@ class BottomSheetWidget {
                   width: Get.width,
                   child: Center(
                     child: Text(
-                      "Pilih dari gallery",
+                      "select_from_gallery".tr,
                       style: AppFont.text16
                           .copyWith(color: Colors.blueAccent),
                     ),

@@ -60,7 +60,7 @@ class ChatView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Chats",
+                                  "chat".tr,
                                   style: AppFont.text23.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -106,7 +106,7 @@ class ChatView extends StatelessWidget {
                                           Icons.search,
                                           color: Colors.black,
                                         ),
-                                        hintText: "Search",
+                                        hintText: "search".tr,
                                         hintStyle: AppFont.text14.copyWith(
                                           color: AppColor.black,
                                         ),

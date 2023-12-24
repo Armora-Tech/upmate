@@ -10,7 +10,7 @@ class ExploreView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> tags = ["Machine Learning", "Kalkulus", "Aljabar", "Ekonomi"];
+    List<String> tags = ["Machine Learning", "calculus".tr, "algebra".tr, "economy".tr];
     return Stack(children: [
       SingleChildScrollView(
         child: Padding(
@@ -24,7 +24,7 @@ class ExploreView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 child: Text(
-                  "Tag interest mu",
+                  "your_interest_tag".tr,
                   style: AppFont.text16
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
@@ -33,7 +33,7 @@ class ExploreView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 child: Text(
-                  "Tag interest lainnya",
+                  "other_interest_tags".tr,
                   style: AppFont.text16
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
@@ -96,7 +96,7 @@ class ExploreView extends StatelessWidget {
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    Text("Search", style: AppFont.text14)
+                                    Text("search".tr, style: AppFont.text14)
                                   ],
                                 )
                               ],

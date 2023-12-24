@@ -88,7 +88,7 @@ class NotificationShimmer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Notification",
+                          "notification".tr,
                           style: AppFont.text23.copyWith(
                             fontWeight: FontWeight.bold,
                           ),

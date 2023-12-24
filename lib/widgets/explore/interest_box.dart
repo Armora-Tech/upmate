@@ -44,10 +44,10 @@ class InterestBox extends StatelessWidget {
                                 Color.fromARGB(127, 0, 0, 0),
                                 Color.fromARGB(230, 0, 0, 0)
                               ])),
-                      child: const Text(
-                        "#Matematika",
+                      child: Text(
+                        "#${"math".tr}",
                         maxLines: 3,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     )

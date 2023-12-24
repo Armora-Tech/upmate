@@ -67,7 +67,7 @@ class ConfirmSendImageView extends StatelessWidget {
                         controller.sendImageCamera(chatRoomController.chats),
                     child: Row(
                       children: [
-                        Text("Kirim gambar",
+                        Text("send_picture".tr,
                             style: AppFont.text14.copyWith(
                               color: Colors.white,
                               fontWeight: FontWeight.normal,

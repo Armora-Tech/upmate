@@ -142,7 +142,7 @@ class Popular extends StatelessWidget {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          "Ikuti",
+                                          "follow".tr,
                                           style: AppFont.text12
                                               .copyWith(color: Colors.white),
                                         ),

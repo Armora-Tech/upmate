@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:upmatev2/bindings/login_binding.dart';
 import 'package:upmatev2/bindings/start_binding.dart';
-import 'package:upmatev2/controllers/login_controller.dart';
 import 'package:upmatev2/themes/app_theme.dart';
 import 'package:upmatev2/utils/translation.dart';
 import 'package:upmatev2/views/login.dart';

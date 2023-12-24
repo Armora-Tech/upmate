@@ -11,6 +11,16 @@ class StartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final botNavController = Get.find<BottomNavController>();
+    final Map<String, List<dynamic>> tabs = {
+      "home".tr: [Icons.home_outlined, Icons.home_rounded],
+      "explore".tr: [Icons.explore_outlined, Icons.explore_rounded],
+      "Post": [Icons.add_box_outlined, Icons.add_box_rounded],
+      "notification".tr: [
+        Icons.notifications_outlined,
+        Icons.notifications_rounded
+      ],
+      "chat".tr: [Icons.chat_outlined, Icons.chat_rounded],
+    };
     return Obx(() => Scaffold(
           resizeToAvoidBottomInset: false,
           drawer: const SideBar(),
@@ -35,9 +45,8 @@ class StartView extends StatelessWidget {
                     children: [
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: List.generate(botNavController.tabs.length,
-                            (index) {
-                          final item = botNavController.tabs;
+                        children: List.generate(tabs.length, (index) {
+                          final item = tabs;
                           return GestureDetector(
                             onTapUp: (details) {
                               botNavController.iconSize.value =

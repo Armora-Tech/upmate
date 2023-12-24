@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
@@ -31,14 +32,14 @@ class Post extends StatelessWidget {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       TextSpan(
-                          text: " menyukai postingan Anda.",
+                          text: " ${"liked_your_post".tr}",
                           style: AppFont.text12),
                       const WidgetSpan(
                           child: SizedBox(
                         width: 5,
                       )),
                       TextSpan(
-                          text: "3 jam ",
+                          text: "3 ${"hours".tr} ",
                           style: AppFont.text12
                               .copyWith(color: Colors.grey)),
                     ]),

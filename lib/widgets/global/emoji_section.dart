@@ -1,6 +1,7 @@
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' as foundation;
+import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import '../../themes/app_color.dart';
 
@@ -43,7 +44,7 @@ class EmojiSection extends StatelessWidget {
           recentTabBehavior: RecentTabBehavior.RECENT,
           recentsLimit: 28,
           noRecents:  Text(
-            'No Recents',
+            'no_recents'.tr,
             style: AppFont.text20.copyWith(color: Colors.black26),
             textAlign: TextAlign.center,
           ), // Needs to be const Widget

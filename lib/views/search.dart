@@ -56,7 +56,7 @@ class SearchView extends StatelessWidget {
                                 width: 10,
                               ),
                               Text(
-                                "Search",
+                                "search".tr,
                                 style: AppFont.text18.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -81,7 +81,7 @@ class SearchView extends StatelessWidget {
                                 Icons.search,
                                 color: Colors.black,
                               ),
-                              hintText: "Search",
+                              hintText: "search".tr,
                               hintStyle: AppFont.text14.copyWith(
                                 color: AppColor.black,
                                 fontFamily: "Nunito",

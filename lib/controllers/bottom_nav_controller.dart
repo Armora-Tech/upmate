@@ -18,14 +18,6 @@ class BottomNavController extends GetxController
   RxDouble widthTab = (Get.width / 5).obs;
   late final TabController tabController;
 
-  final Map<String, List<dynamic>> tabs = {
-    "Home": [Icons.home_outlined, Icons.home_rounded],
-    "Explore": [Icons.explore_outlined, Icons.explore_rounded],
-    "Post": [Icons.add_box_outlined, Icons.add_box_rounded],
-    "Notification": [Icons.notifications_outlined, Icons.notifications_rounded],
-    "Chat": [Icons.chat_outlined, Icons.chat_rounded],
-  };
-
   final List<Widget> pages = [
     const HomeView(),
     const ExploreView(),
