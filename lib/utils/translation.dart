@@ -98,7 +98,17 @@ class Message extends Translations {
           "physics": "Physics",
           "robotic": "Robotic",
           "programming": "Programming",
-          "accountant": "Accountant"
+          "accountant": "Accountant",
+          // ========= EDIT PROFILE ==========
+          "edit_profile": "Edit Profile",
+          "change_picture": "Change Picture",
+          "save": "Save",
+          "confrim": "Confirm",
+          // ========= PROFILE ============
+          "following": "Following",
+          "followers": "Followers",
+          "no_posts": "No posts",
+          "no_posts_saved": "No posts saved"
         },
         "id": {
           // ========= LOGIN SIGNUP PAGE ========
@@ -194,7 +204,17 @@ class Message extends Translations {
           "physics": "Fisika",
           "robotic": "Robotik",
           "programming": "Pemrograman",
-          "accountant": "Akuntan"
+          "accountant": "Akuntan",
+          // ========= EDIT PROFILE ==========
+          "edit_profile": "Edit Profil",
+          "change_picture": "Ubah Gambar",
+          "save": "Simpan",
+          "confrim": "Konfirmasi",
+          // ========= PROFILE ============
+          "following": "Mengikuti",
+          "followers": "Pengikut",
+          "no_posts": "Tidak ada postingan",
+          "no_posts_saved": "Tidak ada postingan yang disimpan"
         }
       };
 }

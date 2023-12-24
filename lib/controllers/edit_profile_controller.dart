@@ -24,7 +24,6 @@ class EditProfileController extends GetxController {
   RxBool isEmptyText = true.obs;
   RxBool isLoading = false.obs;
   File? image;
-
   Map<String, dynamic>? data;
 
   List<int?> maxLength = [
@@ -52,14 +51,15 @@ class EditProfileController extends GetxController {
     bio = TextEditingController();
     inputText = TextEditingController();
     data = {
-      "Nama Pengguna": startController.user!.username == ""
+      "username".tr: startController.user!.username == ""
           ? startController.displayName!
           : startController.user!.username,
-      "Nama Lengkap": startController.displayName,
+      "full_name".tr: startController.displayName,
       "Bio": "",
       "Email": startController.email,
-      "Password": "*****"
+      "password".tr: "*****"
     };
+    print("${Get.locale!.languageCode}");
     super.onInit();
   }
 
@@ -76,108 +76,75 @@ class EditProfileController extends GetxController {
 
   Future<void> save(String input) async {
     inputValidation(input);
-    chooseMessage(input);
-    debugPrint("hah: $errorMessage");
     isLoading.value = true;
     await Future.delayed(const Duration(milliseconds: 2000));
     if (isValid(input).value) {
       inputText.clear();
       Get.back();
-      SnackBarWidget.showSnackBar(
-          "Memperbarui $input", "Berhasil", Colors.black);
+      if (Get.locale!.languageCode == "id") {
+        SnackBarWidget.showSnackBar(
+            "Memperbarui $input", "Berhasil", Colors.black);
+      } else {
+        SnackBarWidget.showSnackBar("Update $input", "Success", Colors.black);
+      }
     }
     isLoading.value = false;
     update();
   }
 
   RxBool isValid(String input) {
-    switch (input) {
-      case "Nama Pengguna":
-        return (InputValidator.isUsernameLengthValid(username) &&
-                InputValidator.isUsernameFormatValid(username))
-            .obs;
-      case "Nama Lengkap":
-        return (InputValidator.isFullNameValid(fullName)).obs;
-      case "Email":
-        return (email.text.isEmail).obs;
-      case "Bio":
-        return true.obs;
-      case "Password":
-        return ((InputValidator.isPassValid(pass)) &&
-                (InputValidator.isPassValid(confPass)) &&
-                pass.text == confPass.text)
-            .obs;
-      default:
-        return false.obs;
+    if (input == "username".tr) {
+      return (InputValidator.isUsernameLengthValid(username) &&
+              InputValidator.isUsernameFormatValid(username))
+          .obs;
+    } else if (input == "full_name".tr) {
+      return (InputValidator.isFullNameValid(fullName)).obs;
+    } else if (input == "Email") {
+      return (email.text.isEmail).obs;
+    } else if (input == "Bio") {
+      return true.obs;
+    } else if (input == "password".tr) {
+      return ((InputValidator.isPassValid(pass)) &&
+              (InputValidator.isPassValid(confPass)) &&
+              pass.text == confPass.text)
+          .obs;
     }
+    return false.obs;
   }
 
   void inputValidation(String input) {
-    switch (input) {
-      case "Nama Pengguna":
-        errorUsernameMessage =
-            InputValidator.usernameValidationMessage(username);
-        break;
-      case "Nama Lengkap":
-        errorFullNameMessage =
-            InputValidator.fullNameValidationMessage(fullName);
-        break;
-      case "Email":
-        errorEmailMessage = InputValidator.emailValidationMessage(email);
-        break;
-      case "Password":
-        errorPassMessage = InputValidator.passValidationMessage(pass);
-        errorConfPassMessage =
-            InputValidator.confPassValidationMessage(confPass, pass);
-        break;
-      default:
-        break;
-    }
-  }
-
-  void chooseMessage(String input) {
-    switch (input) {
-      case "Nama Pengguna":
-        errorMessage = errorUsernameMessage;
-        break;
-      case "Nama Lengkap":
-        errorMessage = errorFullNameMessage;
-        break;
-      case "Email":
-        errorMessage = errorEmailMessage;
-        break;
-      case "Password":
-        errorMessage = errorPassMessage;
-        break;
-      default:
-        break;
+    if (input == "username".tr) {
+      errorUsernameMessage = InputValidator.usernameValidationMessage(username);
+      errorMessage = errorUsernameMessage;
+    } else if (input == "full_name".tr) {
+      errorFullNameMessage = InputValidator.fullNameValidationMessage(fullName);
+      errorMessage = errorFullNameMessage;
+    } else if (input == "Email") {
+      errorEmailMessage = InputValidator.emailValidationMessage(email);
+      errorMessage = errorEmailMessage;
+    } else if (input == "password".tr) {
+      errorPassMessage = InputValidator.passValidationMessage(pass);
+      errorConfPassMessage =
+          InputValidator.confPassValidationMessage(confPass, pass);
+      errorMessage = errorPassMessage;
     }
   }
 
   void chooseInput(String input) {
-    switch (input) {
-      case "Nama Pengguna":
-        inputText = username;
-        break;
-      case "Nama Lengkap":
-        inputText = fullName;
-        break;
-      case "Email":
-        inputText = email;
-        break;
-      case "Bio":
-        inputText = bio;
-        break;
-      case "Password":
-        inputText = pass;
-        break;
-      default:
-        break;
+    if (input == "username".tr) {
+      inputText = username;
+    } else if (input == "full_name".tr) {
+      inputText = fullName;
+    } else if (input == "Email") {
+      inputText = email;
+    } else if (input == "Bio") {
+      inputText = bio;
+    } else if (input == "password".tr) {
+      inputText = pass;
     }
   }
 
   RxBool isPass(int index) =>
-      (data!.keys.elementAt(index).toLowerCase() == "password").obs;
-  RxBool isEmail(int index) =>
-      (data!.keys.elementAt(index).toLowerCase() == "email").obs;
+      (data!.keys.elementAt(index) == "password".tr).obs;
+  RxBool isEmail(int index) => (data!.keys.elementAt(index) == "Email").obs;
 }

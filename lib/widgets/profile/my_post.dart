@@ -11,13 +11,13 @@ class MyPost extends StatelessWidget {
     final startController = Get.find<StartController>();
     final userPosts = startController.user!.posts ?? [];
     return userPosts.isEmpty
-        ? const Align(
+        ? Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 30),
               child: Text(
-                "Tidak ada postingan",
-                style: TextStyle(color: Colors.grey),
+                "no_posts".tr,
+                style: const TextStyle(color: Colors.grey),
               ),
             ),
           )

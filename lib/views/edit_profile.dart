@@ -48,8 +48,8 @@ class EditProfileView extends StatelessWidget {
                                             fit: BoxFit.cover,
                                           ),
                                         )
-                                      :  ProfilePicture(
-                                        imageURL: startController.photoURL,
+                                      : ProfilePicture(
+                                          imageURL: startController.photoURL,
                                           size: 120,
                                         ))),
                           const SizedBox(
@@ -58,9 +58,9 @@ class EditProfileView extends StatelessWidget {
                           GestureDetector(
                             onTap: () =>
                                 BottomSheetWidget.showChooseImage(controller),
-                            child: const Text(
-                              "Ubah Gambar",
-                              style: TextStyle(
+                            child: Text(
+                              "change_picture".tr,
+                              style: const TextStyle(
                                 color: Colors.blueAccent,
                               ),
                             ),
@@ -71,7 +71,8 @@ class EditProfileView extends StatelessWidget {
                           Column(
                             children:
                                 List.generate(controller.data!.length, (index) {
-                              final Map<String, dynamic> data = controller.data!;
+                              final Map<String, dynamic> data =
+                                  controller.data!;
                               return GestureDetector(
                                 onTap: () {
                                   controller.chooseInput(
@@ -156,7 +157,7 @@ class EditProfileView extends StatelessWidget {
                                     )),
                               ),
                               Text(
-                                "Edit Profile",
+                                "edit_profile".tr,
                                 style: AppFont.text20
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),

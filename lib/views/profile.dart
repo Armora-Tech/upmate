@@ -132,11 +132,11 @@ class ProfileView extends StatelessWidget {
                                         child: RichText(
                                           text: TextSpan(
                                               style: AppFont.text14,
-                                              children: const [
+                                              children: [
                                                 TextSpan(
-                                                  text: "Mengikuti  ",
+                                                  text: "${"following".tr}  ",
                                                 ),
-                                                TextSpan(
+                                                const TextSpan(
                                                     text: "5",
                                                     style: TextStyle(
                                                         fontWeight:
@@ -159,11 +159,11 @@ class ProfileView extends StatelessWidget {
                                         child: RichText(
                                           text: TextSpan(
                                               style: AppFont.text14,
-                                              children: const [
+                                              children: [
                                                 TextSpan(
-                                                  text: "Pengikut  ",
+                                                  text: "${"followers".tr}  ",
                                                 ),
-                                                TextSpan(
+                                                const TextSpan(
                                                     text: "5",
                                                     style: TextStyle(
                                                         fontWeight:
@@ -209,7 +209,7 @@ class ProfileView extends StatelessWidget {
                                                   BorderRadius.circular(5))),
                                       child: Center(
                                         child: Text(
-                                          "Edit Profil",
+                                          "edit_profile".tr,
                                           style: AppFont.text14.copyWith(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,

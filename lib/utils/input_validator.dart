@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class InputValidator {
-  static Locale currentLocale = Get.locale!;
   static const int minPassLength = 6;
   static const int maxPassLength = 32;
   static const int minUsernameLength = 5;
@@ -17,7 +16,7 @@ class InputValidator {
   static RxString minMessage(String input, int length) {
     String firstCharUpperCase =
         input[0].toUpperCase() + input.substring(1).toLowerCase();
-    if (currentLocale.languageCode == 'id') {
+    if (Get.locale!.languageCode == 'id') {
       return "$firstCharUpperCase minimal $length karakter".obs;
     } else {
       return "$firstCharUpperCase at least $length characters".obs;

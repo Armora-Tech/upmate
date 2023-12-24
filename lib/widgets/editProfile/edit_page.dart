@@ -81,7 +81,7 @@ class EditPage extends StatelessWidget {
                                       helperText: controller
                                           .errorConfPassMessage?.value,
                                       labelText:
-                                          "Konfirmasi ${controller.data!.keys.elementAt(index)}",
+                                          "${"confrim".tr} ${controller.data!.keys.elementAt(index)}",
                                       labelStyle: AppFont.text14,
                                       enabledBorder: UnderlineInputBorder(
                                           borderRadius:
@@ -173,21 +173,27 @@ class EditPage extends StatelessWidget {
                                                   )
                                                 : SizedBox(
                                                     width: 50,
-                                                    child: Text(
-                                                      "Simpan",
-                                                      style: TextStyle(
-                                                        color: controller
-                                                                    .inputText
-                                                                    .text
-                                                                    .isEmpty &&
-                                                                controller.data!
-                                                                        .keys
-                                                                        .elementAt(
-                                                                            index)
-                                                                        .toLowerCase() !=
-                                                                    "bio"
-                                                            ? Colors.grey
-                                                            : Colors.blueAccent,
+                                                    child: Align(
+                                                      alignment:
+                                                          Alignment.centerRight,
+                                                      child: Text(
+                                                        "save".tr,
+                                                        style: TextStyle(
+                                                          color: controller
+                                                                      .inputText
+                                                                      .text
+                                                                      .isEmpty &&
+                                                                  controller
+                                                                          .data!
+                                                                          .keys
+                                                                          .elementAt(
+                                                                              index)
+                                                                          .toLowerCase() !=
+                                                                      "bio"
+                                                              ? Colors.grey
+                                                              : Colors
+                                                                  .blueAccent,
+                                                        ),
                                                       ),
                                                     ),
                                                   ))),
