@@ -39,7 +39,7 @@ class PostDescriptionView extends StatelessWidget {
                       decoration: InputDecoration(
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none,
-                        hintText: "Apa yang ingin anda beritahukan?",
+                        hintText: "what_do_you_want_to_share".tr,
                         hintStyle: AppFont.text14.copyWith(
                           color: Colors.grey,
                         ),
@@ -75,7 +75,7 @@ class PostDescriptionView extends StatelessWidget {
                                 onTap: () =>
                                     Get.toNamed(RouteName.postInterest),
                                 child: Text(
-                                  "Next",
+                                  "next".tr,
                                   style: AppFont.text16.copyWith(
                                       color: Colors.blueAccent,
                                       fontWeight: FontWeight.w600),

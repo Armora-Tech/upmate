@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_font.dart';
 
 class Comment extends StatelessWidget {
@@ -38,7 +39,7 @@ class Comment extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "2 jam",
+                      "2 ${"hours".tr}",
                       style:
                           AppFont.text12.copyWith(color: Colors.grey),
                     ),
@@ -46,7 +47,7 @@ class Comment extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      "2 suka",
+                      "1 ${"like".tr}",
                       style:
                           AppFont.text12.copyWith(color: Colors.grey),
                     ),
@@ -54,7 +55,7 @@ class Comment extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      "Balas",
+                      "reply".tr,
                       style:
                           AppFont.text12.copyWith(color: Colors.grey),
                     ),
@@ -62,7 +63,7 @@ class Comment extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      "Kirim",
+                      "send".tr,
                       style:
                           AppFont.text12.copyWith(color: Colors.grey),
                     ),

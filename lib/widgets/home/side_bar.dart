@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/login_controller.dart';
@@ -6,6 +8,7 @@ import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/detail_profile_picture.dart';
 import '../global/line.dart';
+import 'dart:ui' as ui;
 
 class SideBar extends StatelessWidget {
   const SideBar({super.key});
@@ -32,7 +35,8 @@ class SideBar extends StatelessWidget {
       child: Column(
         children: [
           Container(
-              height: 190,
+              height: 210,
+              clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 24, 36, 41),
                 border:
@@ -43,52 +47,77 @@ class SideBar extends StatelessWidget {
               ),
               padding: EdgeInsets.zero,
               margin: EdgeInsets.zero,
-              child: Container(
-                padding: const EdgeInsets.all(15),
-                width: Get.width,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () => Get.to(() => const DetailProfilePicture(),
-                          opaque: false,
-                          fullscreenDialog: true,
-                          transition: Transition.circularReveal),
-                      child: Hero(
-                        tag: "pp_side_bar",
-                        child: Container(
-                          height: 60,
-                          width: 60,
-                          clipBehavior: Clip.hardEdge,
-                          decoration: BoxDecoration(
-                              color: Colors.grey,
-                              border:
-                                  Border.all(width: 1.5, color: Colors.white),
-                              shape: BoxShape.circle),
-                          child: ClipOval(
-                            child: Image.network(
-                              controller.photoURL!,
-                              fit: BoxFit.cover,
+              child: Stack(
+                children: [
+                  SizedBox(
+                    height: Get.height,
+                    width: Get.width,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Image.network(
+                          controller.photoURL!,
+                          fit: BoxFit.cover,
+                        ),
+                        BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                            child: Container(
+                              height: Get.height,
+                              width: Get.width,
+                              color: const Color.fromARGB(106, 0, 0, 0),
+                            ))
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(15),
+                    width: Get.width,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () => Get.to(
+                              () => const DetailProfilePicture(),
+                              opaque: false,
+                              fullscreenDialog: true,
+                              transition: Transition.circularReveal),
+                          child: Hero(
+                            tag: "pp_side_bar",
+                            child: Container(
+                              height: 75,
+                              width: 75,
+                              clipBehavior: Clip.hardEdge,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  border: Border.all(
+                                      width: 1.5, color: Colors.white),
+                                  shape: BoxShape.circle),
+                              child: ClipOval(
+                                child: Image.network(
+                                  controller.photoURL!,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        const SizedBox(
+                          height: 15.0,
+                        ),
+                        Text(
+                          controller.displayName!,
+                          style: AppFont.text20.copyWith(
+                              fontWeight: FontWeight.w600, color: Colors.white),
+                        ),
+                        Text(
+                          controller.usernameWithAt,
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 15.0,
-                    ),
-                    Text(
-                      controller.displayName!,
-                      style: AppFont.text20.copyWith(
-                          fontWeight: FontWeight.w600, color: Colors.white),
-                    ),
-                    Text(
-                      controller.usernameWithAt,
-                      style: const TextStyle(color: Colors.grey),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               )),
           const SizedBox(
             height: 5.0,

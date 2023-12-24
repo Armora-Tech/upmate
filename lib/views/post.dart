@@ -55,10 +55,10 @@ class PostView extends StatelessWidget {
                                           width: Get.width,
                                           child: galleryController
                                                   .selectedAssetList.isEmpty
-                                              ? const Center(
+                                              ? Center(
                                                   child: Text(
-                                                    "Tidak ada gambar",
-                                                    style: TextStyle(
+                                                    "no_picture".tr,
+                                                    style: const TextStyle(
                                                         color:
                                                             AppColor.lightGrey),
                                                   ),
@@ -221,7 +221,7 @@ class PostView extends StatelessWidget {
                                                   : () => Get.toNamed(RouteName
                                                       .postDescription),
                                               child: Text(
-                                                "Next",
+                                                "next".tr,
                                                 style: AppFont.text16.copyWith(
                                                     color: galleryController
                                                             .selectedAssetList
@@ -283,7 +283,7 @@ class PostView extends StatelessWidget {
                                       width: 10,
                                     ),
                                     Text(
-                                      "Ambil Gambar",
+                                      "take_a_picture".tr,
                                       style: AppFont.text14
                                           .copyWith(color: AppColor.black),
                                     ),

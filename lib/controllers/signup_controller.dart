@@ -27,17 +27,17 @@ class SignupController extends GetxController {
 
   List<String> selectedTags = [];
   List<String> tags = [
-    "Data Science",
-    "Statistika",
-    "Machine Learning",
-    "Programming",
-    "Kalkulus",
-    "Aljabar Linier",
-    "Sistem digital",
-    "Matematika",
-    "Akuntan",
-    "Fisika",
-    "Robotik"
+    "math".tr,
+    "calculus".tr,
+    "algebra".tr,
+    "economy".tr,
+    "statistics".tr,
+    "digital_system".tr,
+    "linear_algebra".tr,
+    "physics".tr,
+    "robotic".tr,
+    "programming".tr,
+    "accountant".tr
   ];
 
   @override

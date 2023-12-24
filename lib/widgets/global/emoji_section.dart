@@ -43,9 +43,9 @@ class EmojiSection extends StatelessWidget {
           enableSkinTones: true,
           recentTabBehavior: RecentTabBehavior.RECENT,
           recentsLimit: 28,
-          noRecents:  Text(
+          noRecents: Text(
             'no_recents'.tr,
-            style: AppFont.text20.copyWith(color: Colors.black26),
+            style: AppFont.text14.copyWith(color: Colors.black26),
             textAlign: TextAlign.center,
           ), // Needs to be const Widget
           loadingIndicator: const SizedBox.shrink(), // Needs to be const Widget

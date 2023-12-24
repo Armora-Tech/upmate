@@ -82,7 +82,7 @@ class PostInterestView extends StatelessWidget {
                             height: 15,
                           ),
                           Text(
-                              "Pilihlah tag interest yang sesuai untuk postingan Anda",
+                              "choose_the_appropriate_interest_tag_for_your_post".tr,
                               overflow: TextOverflow.visible,
                               style: AppFont.text14),
                           const SizedBox(

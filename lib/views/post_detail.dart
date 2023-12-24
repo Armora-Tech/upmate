@@ -248,7 +248,7 @@ class PostDetailView extends StatelessWidget {
                                         decoration: InputDecoration(
                                           enabledBorder: InputBorder.none,
                                           focusedBorder: InputBorder.none,
-                                          hintText: "Ketikkan Pesan",
+                                          hintText: "type_a_message".tr,
                                           hintStyle:
                                               AppFont.text14.copyWith(
                                             color: Colors.grey,

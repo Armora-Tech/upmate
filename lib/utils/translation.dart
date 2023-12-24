@@ -55,10 +55,6 @@ class Message extends Translations {
           // ========= EXPLORE ===========
           "search": "Search",
           "your_interest_tag": "Your interest tag",
-          "math": "Math",
-          "calculus": "Calculus",
-          "algebra": "Algebra",
-          "economy": "Economy",
           "other_interest_tags": "Other interest tags",
           // ========= NOTIFICATION ==========
           "latest": "Latest",
@@ -67,6 +63,19 @@ class Message extends Translations {
           "today": "Today",
           "liked_your_post": "liked your post.",
           "yesterday": "Yesterday",
+          // ========= POST ===========
+          "next": "Next",
+          "no_picture": "No picture",
+          // ========= POST DESCRIPTION =========
+          "what_do_you_want_to_share": "What do you want to share?",
+          // ========== POST INTEREST ==========
+          "choose_the_appropriate_interest_tag_for_your_post":
+              "Choose the appropriate interest tag for your post",
+          // ========= POST DETAIL ============
+          "like": "Like",
+          "likes": "Likes",
+          "reply": "Reply",
+          "replies": "Replies",
           // ========= CHAT ROOM ============
           "type_a_message": "Type a message",
           "online": "Online",
@@ -78,6 +87,18 @@ class Message extends Translations {
           "scroll_up": "Scroll up",
           // =========== EMOJI ===========
           "no_recents": "No recents",
+          // =========== TAG INTERESTS ==========
+          "math": "Math",
+          "calculus": "Calculus",
+          "algebra": "Algebra",
+          "economy": "Economy",
+          "statistics": "Statistics",
+          "digital_system": "Digital system",
+          "linear_algebra": "Linear Algebra",
+          "physics": "Physics",
+          "robotic": "Robotic",
+          "programming": "Programming",
+          "accountant": "Accountant"
         },
         "id": {
           // ========= LOGIN SIGNUP PAGE ========
@@ -132,10 +153,6 @@ class Message extends Translations {
           // ========= EXPLORE ===========
           "search": "Cari",
           "your_interest_tag": "Tag interest mu",
-          "math": "Matematika",
-          "calculus": "Kalkulus",
-          "algebra": "Aljabar",
-          "economy": "Ekonomi",
           "other_interest_tags": "Tag interest lainnya",
           // ========= NOTIFICATION ==========
           "latest": "Baru",
@@ -144,6 +161,17 @@ class Message extends Translations {
           "today": "Hari ini",
           "liked_your_post": "menyukai postingan Anda.",
           "yesterday": "Kemarin",
+          // ========= POST ===========
+          "next": "Selanjutnya",
+          "no_picture": "Tidak ada gambar",
+          // ========= POST DESCRIPTION =========
+          "what_do_you_want_to_share": "Apa yang ingin anda beritahukan?",
+          // ========== POST INTEREST ==========
+          "choose_the_appropriate_interest_tag_for_your_post":
+              "Pilihlah tag interest yang sesuai untuk postingan Anda",
+          // ========= POST DETAIL ============
+          "like": "Suka",
+          "reply": "Balas",
           // ========= CHAT ROOM ============
           "type_a_message": "Ketikkan pesan",
           "online": "Aktif",
@@ -155,6 +183,18 @@ class Message extends Translations {
           "scroll_up": "Gulir ke atas",
           // =========== EMOJI ===========
           "no_recents": "Tidak ada yang terbaru",
+          // =========== TAG INTERESTS ==========
+          "math": "Matematika",
+          "calculus": "Kalkulus",
+          "algebra": "Aljabar",
+          "economy": "Ekonomi",
+          "statistics": "Statistika",
+          "digital_system": "Sistem Digital",
+          "linear_algebra": "Aljabar Linear",
+          "physics": "Fisika",
+          "robotic": "Robotik",
+          "programming": "Pemrograman",
+          "accountant": "Akuntan"
         }
       };
 }
