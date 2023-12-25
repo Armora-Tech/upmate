@@ -6,7 +6,7 @@ import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/themes/app_font.dart';
 
-import '../../utils/auth.dart';
+import '../../repositories/auth.dart';
 import '../global/profile_picture.dart';
 
 class ChatList extends StatelessWidget {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/utils/input_validator.dart';
-
 import '../routes/route_name.dart';
-import '../utils/auth.dart';
+import '../repositories/auth.dart';
 
 class SignupController extends GetxController {
   final _auth = Auth();

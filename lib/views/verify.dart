@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_font.dart';
-import 'package:upmatev2/utils/auth.dart';
-
-import '../routes/route_name.dart';
+import 'package:upmatev2/repositories/auth.dart';
 
 class VerifyView extends StatelessWidget {
   const VerifyView({super.key});
@@ -37,16 +35,16 @@ class VerifyView extends StatelessWidget {
                 ),
                 Text(
                   "verify_your_email".tr,
-                  style: AppFont.text23
-                      .copyWith(fontWeight: FontWeight.bold),
+                  style: AppFont.text23.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                 Text(
-                  "please_enter_the_4_digit_code_sent_to_youremail@example.com".tr,
+                Text(
+                  "please_enter_the_4_digit_code_sent_to_youremail@example.com"
+                      .tr,
                   overflow: TextOverflow.clip,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.w500, color: Colors.grey),
                 ),
                 const SizedBox(

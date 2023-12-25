@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/widgets/global/snack_bar.dart';
-
 import '../utils/input_validator.dart';
 
 class EditProfileController extends GetxController {

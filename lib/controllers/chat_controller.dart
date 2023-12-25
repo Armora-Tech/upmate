@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-
 import '../models/chat_model.dart';
-import '../utils/auth.dart';
+import '../repositories/auth.dart';
 
 class ChatController extends GetxController {
   final Auth _auth = Auth();

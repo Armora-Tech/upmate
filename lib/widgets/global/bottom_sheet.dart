@@ -45,7 +45,7 @@ class BottomSheetWidget {
                     ),
                     Text(
                       "select_from_gallery".tr,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 20,
@@ -182,9 +182,9 @@ class BottomSheetWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
-                            "${"send".tr}""(${controller.selectedAssetList.length})",
-                            style: AppFont.text16
-                                .copyWith(color: Colors.white),
+                            "${"send".tr}"
+                            "(${controller.selectedAssetList.length})",
+                            style: AppFont.text16.copyWith(color: Colors.white),
                           ),
                         ),
                       )),
@@ -221,8 +221,7 @@ class BottomSheetWidget {
                   child: Center(
                     child: Text(
                       "take_a_picture".tr,
-                      style: AppFont.text16
-                          .copyWith(color: Colors.blueAccent),
+                      style: AppFont.text16.copyWith(color: Colors.blueAccent),
                     ),
                   ),
                 ),
@@ -238,8 +237,7 @@ class BottomSheetWidget {
                   child: Center(
                     child: Text(
                       "select_from_gallery".tr,
-                      style: AppFont.text16
-                          .copyWith(color: Colors.blueAccent),
+                      style: AppFont.text16.copyWith(color: Colors.blueAccent),
                     ),
                   ),
                 ),
