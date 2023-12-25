@@ -26,19 +26,19 @@ class SignupController extends GetxController {
   RxBool isLoading = false.obs;
 
   List<String> selectedTags = [];
-  List<String> tags = [
-    "math".tr,
-    "calculus".tr,
-    "algebra".tr,
-    "economy".tr,
-    "statistics".tr,
-    "digital_system".tr,
-    "linear_algebra".tr,
-    "physics".tr,
-    "robotic".tr,
-    "programming".tr,
-    "accountant".tr
-  ];
+  Map<String, String> tags = {
+    "math".tr: "math",
+    "calculus".tr: "calculus",
+    "algebra".tr: "algebra",
+    "economy".tr: "economy",
+    "statistics".tr: "statistics",
+    "digital_system".tr: "digital_system",
+    "linear_algebra".tr: "linear_algebra",
+    "physics".tr: "physics",
+    "robotic".tr: "robotic",
+    "programming".tr: "programming",
+    "accountant".tr: "accountant"
+  };
 
   @override
   void onInit() {
@@ -104,10 +104,10 @@ class SignupController extends GetxController {
   }
 
   void toggleInterest(int index) {
-    if (selectedTags.contains(tags[index])) {
-      selectedTags.remove(tags[index]);
+    if (selectedTags.contains(tags.values.elementAt(index))) {
+      selectedTags.remove(tags.values.elementAt(index));
     } else {
-      selectedTags.add(tags[index]);
+      selectedTags.add(tags.values.elementAt(index));
     }
     update();
   }

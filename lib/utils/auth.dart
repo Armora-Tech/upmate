@@ -27,12 +27,12 @@ class Auth {
       if (userCredential.user != null) {
         await Get.offAllNamed(RouteName.start);
       } else {
-        SnackBarWidget.showSnackBar(
-            "Sing In Gagal", "Email atau password salah", Colors.red);
+        SnackBarWidget.showSnackBar("sign_in_failed".tr,
+            "your_email_or_password_is_wrong".tr, Colors.red);
       }
     } catch (e) {
-      SnackBarWidget.showSnackBar(
-          "Sing In Gagal", "Email atau password salah", Colors.red);
+      SnackBarWidget.showSnackBar("sign_in_failed".tr,
+          "your_email_or_password_is_wrong".tr, Colors.red);
       if (kDebugMode) {
         print('Error signing in: $e');
       }
@@ -132,7 +132,8 @@ class Auth {
     };
     final Map<String, String> body = {'email': email};
     print("BODY: $body");
-    final response = await http.post(url, headers: headers, body: jsonEncode(body));
+    final response =
+        await http.post(url, headers: headers, body: jsonEncode(body));
     if (response.statusCode == 200) {
       //success
       return;
@@ -152,7 +153,7 @@ class Auth {
     final data = snapshot.get('otp');
     print("OTP: $data");
 
-    return s==data;
+    return s == data;
   }
 
   Future<User?> signUpWithEmailAndPassword(

@@ -36,15 +36,15 @@ class VerifyView extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  "Verify your email",
+                  "verify_your_email".tr,
                   style: AppFont.text23
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
-                  "Please enter the 4 digit code sent to emaildituju@contoh.com",
+                 Text(
+                  "please_enter_the_4_digit_code_sent_to_youremail@example.com".tr,
                   overflow: TextOverflow.clip,
                   style: TextStyle(
                       fontWeight: FontWeight.w500, color: Colors.grey),

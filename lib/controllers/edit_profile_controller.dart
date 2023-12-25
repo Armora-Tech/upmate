@@ -59,7 +59,6 @@ class EditProfileController extends GetxController {
       "Email": startController.email,
       "password".tr: "*****"
     };
-    print("${Get.locale!.languageCode}");
     super.onInit();
   }
 

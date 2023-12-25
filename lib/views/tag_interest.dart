@@ -37,16 +37,10 @@ class TagInterestView extends StatelessWidget {
                         height: 5,
                       ),
                       Text(
-                        "Dapatkan rekomendasi konten hasil personalisasi Anda. Anda dapat memilih hingga 4 opsi",
+                        "get_your_personalized_content_recommendations".tr,
                         style: AppFont.text12.copyWith(color: Colors.grey),
                         overflow: TextOverflow.clip,
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text("Apakah kamu suka logika matematika ?",
-                          style: AppFont.text16
-                              .copyWith(fontWeight: FontWeight.w600)),
                       const SizedBox(
                         height: 30,
                       ),
@@ -63,7 +57,8 @@ class TagInterestView extends StatelessWidget {
                                   GetBuilder<SignupController>(builder: (_) {
                                     bool isSelectedTags = controller
                                         .selectedTags
-                                        .contains(controller.tags[index]);
+                                        .contains(controller.tags.values
+                                            .elementAt(index));
                                     return Material(
                                       clipBehavior: Clip.hardEdge,
                                       elevation: 0,
@@ -104,7 +99,8 @@ class TagInterestView extends StatelessWidget {
                                               ),
                                               Expanded(
                                                 child: Text(
-                                                  controller.tags[index],
+                                                  controller.tags.keys
+                                                      .elementAt(index),
                                                   overflow:
                                                       TextOverflow.visible,
                                                   style: AppFont.text12
@@ -131,10 +127,10 @@ class TagInterestView extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 30),
                     child: ElevatedButton(
                         onPressed: () => Get.toNamed(RouteName.start),
-                        child: const Center(
+                        child: Center(
                             child: Text(
-                          "Next",
-                          style: TextStyle(color: Colors.white),
+                          "next".tr,
+                          style: const TextStyle(color: Colors.white),
                         ))))
               ],
             ),

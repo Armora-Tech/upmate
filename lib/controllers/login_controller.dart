@@ -11,7 +11,6 @@ enum LoginProvider { email, google, facebook }
 class LoginController extends GetxController {
   final Auth _auth = Auth();
   CancellationToken _cancellationToken = CancellationToken();
-  RxString selectedLang = 'en'.obs;
 
   late TextEditingController email;
   late TextEditingController pass;
@@ -59,8 +58,6 @@ class LoginController extends GetxController {
           pass.text,
         );
       }
-      email.clear();
-      pass.clear();
     } catch (e) {
       if (kDebugMode) {
         print("Error: $e");

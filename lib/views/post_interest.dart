@@ -82,7 +82,8 @@ class PostInterestView extends StatelessWidget {
                             height: 15,
                           ),
                           Text(
-                              "choose_the_appropriate_interest_tag_for_your_post".tr,
+                              "choose_the_appropriate_interest_tag_for_your_post"
+                                  .tr,
                               overflow: TextOverflow.visible,
                               style: AppFont.text14),
                           const SizedBox(
@@ -101,7 +102,8 @@ class PostInterestView extends StatelessWidget {
                                       GetBuilder<PostController>(builder: (_) {
                                         bool isSelectedTags = controller
                                             .selectedTags
-                                            .contains(controller.tags[index]);
+                                            .contains(controller.tags.values
+                                                .elementAt(index));
                                         return Material(
                                           clipBehavior: Clip.hardEdge,
                                           elevation: 0,
@@ -153,7 +155,8 @@ class PostInterestView extends StatelessWidget {
                                                   ),
                                                   Expanded(
                                                     child: Text(
-                                                      controller.tags[index],
+                                                      controller.tags.keys
+                                                          .elementAt(index),
                                                       overflow:
                                                           TextOverflow.visible,
                                                       style: AppFont.text12

@@ -12,7 +12,6 @@ class StartController extends GetxController {
   @override
   void onInit() async {
     await _getUser();
-    debugPrint("${user!.posts}");
     super.onInit();
   }
 
@@ -20,7 +19,7 @@ class StartController extends GetxController {
     user = await _auth.getUserModel();
   }
 
-  String get usernameWithAt => user!.username == ""
+  String get usernameWithAt => user?.username == ""
       ? "@${displayName!.replaceAll(" ", "").toLowerCase()}"
       : "@${user!.username.toLowerCase()}";
   String? get displayName =>

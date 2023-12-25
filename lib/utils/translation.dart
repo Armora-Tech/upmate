@@ -26,6 +26,8 @@ class Message extends Translations {
           "password_at_least_6_characters": "Password at least 6 characters",
           "password_and_conf_pass_must_be_the_same":
               "Password and confirm password must be the same",
+          "sign_in_failed": "Sign In Failed",
+          "your_email_or_password_is_wrong": "Your email or password is wrong",
           // ========= HOME PAGE =========
           "more": "More",
           "less": "Less",
@@ -108,7 +110,14 @@ class Message extends Translations {
           "following": "Following",
           "followers": "Followers",
           "no_posts": "No posts",
-          "no_posts_saved": "No posts saved"
+          "no_posts_saved": "No posts saved",
+          // =========== TAG INTEREST ==========
+          "get_your_personalized_content_recommendations":
+              "Get your personalized content recommendations.",
+          // ============= VERIFY =============
+          "verify_your_email": "Verify your email",
+          "please_enter_the_4_digit_code_sent_to_youremail@example.com":
+              "Please enter the 4 digit code sent to youremail@example.com"
         },
         "id": {
           // ========= LOGIN SIGNUP PAGE ========
@@ -133,6 +142,8 @@ class Message extends Translations {
           "password_at_least_6_characters": "Kata sandi minimal 6 karakter",
           "password_and_conf_pass_must_be_the_same":
               "Kata sandi and konfirmasi kata sandi harus sama",
+          "sign_in_failed": "Gagal masuk",
+          "your_email_or_password_is_wrong": "Email atau password Anda salah",
           // ========= HOME PAGE =========
           "more": "Selengkapnya",
           "less": "Sembunyikan",
@@ -214,7 +225,14 @@ class Message extends Translations {
           "following": "Mengikuti",
           "followers": "Pengikut",
           "no_posts": "Tidak ada postingan",
-          "no_posts_saved": "Tidak ada postingan yang disimpan"
+          "no_posts_saved": "Tidak ada postingan yang disimpan",
+          // =========== TAG INTEREST ==========
+          "get_your_personalized_content_recommendations":
+              "Dapatkan rekomendasi konten hasil personalisasi Anda.",
+          // ============= VERIFY =============
+          "verify_your_email": "Verifikasi email Anda",
+          "please_enter_the_4_digit_code_sent_to_youremail@example.com":
+              "Masukkan 4 digit kode yang dikirimkan ke emailanda@contoh.com"
         }
       };
 }
