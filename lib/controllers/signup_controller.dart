@@ -11,6 +11,7 @@ class SignupController extends GetxController {
   late TextEditingController email;
   late TextEditingController pass;
   late TextEditingController confPass;
+  late TextEditingController edtTagInterest;
   late FocusNode focusNode;
   late FocusNode confirmPassfocusNode;
   RxString? errorPassMessage;
@@ -23,6 +24,7 @@ class SignupController extends GetxController {
   RxBool isFocused = false.obs;
   RxBool isConfirmPassFocused = false.obs;
   RxBool isLoading = false.obs;
+  RxBool isEmptyText = true.obs;
 
   List<String> selectedTags = [];
   Map<String, String> tags = {
@@ -48,6 +50,7 @@ class SignupController extends GetxController {
     confPass = TextEditingController();
     focusNode = FocusNode();
     confirmPassfocusNode = FocusNode();
+    edtTagInterest = TextEditingController();
     focusNode.addListener(() {
       isFocused.value = focusNode.hasFocus;
       update();
@@ -67,6 +70,7 @@ class SignupController extends GetxController {
     pass.dispose();
     confPass.dispose();
     focusNode.dispose();
+    edtTagInterest.dispose();
     super.onClose();
   }
 

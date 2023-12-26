@@ -15,11 +15,13 @@ import 'start_controller.dart';
 
 class PostController extends GetxController {
   late TextEditingController description;
+  late TextEditingController edtTagInterest;
   late FocusNode focusNode;
   final galleryController = Get.find<GalleryController>();
   final startController = Get.find<StartController>();
   RxBool isCover = false.obs;
   RxBool isLoading = false.obs;
+  RxBool isEmptyText = true.obs;
   List<File>? images;
   List<String> selectedTags = [];
 
@@ -29,8 +31,8 @@ class PostController extends GetxController {
     "algebra".tr: "algebra",
     "economy".tr: "economy",
     "statistics".tr: "statistics",
-    "digital_system".tr: "digital_system",
-    "linear_algebra".tr: "linear_algebra",
+    "digital_system".tr: "digital system",
+    "linear_algebra".tr: "linear algebra",
     "physics".tr: "physics",
     "robotic".tr: "robotic",
     "programming".tr: "programming",
@@ -41,6 +43,7 @@ class PostController extends GetxController {
   void onInit() {
     focusNode = FocusNode();
     description = TextEditingController();
+    edtTagInterest = TextEditingController();
     focusNode.addListener(() {});
     update();
     super.onInit();
@@ -50,6 +53,7 @@ class PostController extends GetxController {
   void dispose() {
     focusNode.dispose();
     description.dispose();
+    edtTagInterest.dispose();
     super.dispose();
   }
 
