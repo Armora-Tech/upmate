@@ -5,6 +5,7 @@ import 'package:upmatev2/themes/app_color.dart';
 
 import '../routes/route_name.dart';
 import '../themes/app_font.dart';
+import '../widgets/global/dialog_interest.dart';
 
 class TagInterestView extends StatelessWidget {
   const TagInterestView({super.key});
@@ -13,13 +14,13 @@ class TagInterestView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<SignupController>();
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: SizedBox(
-            height: Get.height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      resizeToAvoidBottomInset: false,
+      body: SizedBox(
+        height: Get.height,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Stack(
               children: [
                 SingleChildScrollView(
                   child: Column(
@@ -29,7 +30,7 @@ class TagInterestView extends StatelessWidget {
                         height: 20,
                       ),
                       Text(
-                        "Tag Interest",
+                        "tag_interest".tr,
                         style: AppFont.text28
                             .copyWith(fontWeight: FontWeight.bold),
                       ),
@@ -70,7 +71,7 @@ class TagInterestView extends StatelessWidget {
                                         onTap: () =>
                                             controller.toggleInterest(index),
                                         child: Container(
-                                          width: Get.width / 2 - 45,
+                                          width: Get.width / 2 - 30,
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 10),
                                           decoration: BoxDecoration(
@@ -119,19 +120,76 @@ class TagInterestView extends StatelessWidget {
                                     );
                                   })),
                         ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                          "type_your_interest_if_there_is_no_tag_you_are_interested_in"
+                              .tr,
+                          overflow: TextOverflow.visible,
+                          style: AppFont.text14),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Material(
+                          clipBehavior: Clip.hardEdge,
+                          elevation: 0,
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          child: InkWell(
+                            onTap: controller.isLoading.value
+                                ? () {}
+                                : () => DialogInterest.showPopup(controller),
+                            child: IntrinsicWidth(
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        width: 1, color: AppColor.lightGrey)),
+                                child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          "add_your_tag_interest".tr,
+                                          overflow: TextOverflow.visible,
+                                          style: AppFont.text12.copyWith(
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      const Icon(
+                                        Icons.add,
+                                        size: 15,
+                                      ),
+                                    ]),
+                              ),
+                            ),
+                          )),
+                      const SizedBox(
+                        height: 130,
                       )
                     ],
                   ),
                 ),
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 30),
-                    child: ElevatedButton(
-                        onPressed: () => Get.toNamed(RouteName.start),
-                        child: Center(
-                            child: Text(
-                          "next".tr,
-                          style: const TextStyle(color: Colors.white),
-                        ))))
+                Positioned(
+                  bottom: 20,
+                  width: Get.width - 40,
+                  child: ElevatedButton(
+                      onPressed: () => Get.toNamed(RouteName.start),
+                      child: Center(
+                          child: Text(
+                        "next".tr,
+                        style: const TextStyle(color: Colors.white),
+                      ))),
+                )
               ],
             ),
           ),

@@ -73,6 +73,12 @@ class Message extends Translations {
           // ========== POST INTEREST ==========
           "choose_the_appropriate_interest_tag_for_your_post":
               "Choose the appropriate interest tag for your post",
+          "type_your_interest_if_there_is_no_tag_you_are_interested_in":
+              "Type your interest if there is no tag you are interested in",
+          "your_tag_interest": "Your Tag Interest",
+          "type_your_interest": "Type your interest",
+          "add": "Add",
+          "cancel": "Cancel",
           // ========= POST DETAIL ============
           "like": "Like",
           "likes": "Likes",
@@ -90,6 +96,9 @@ class Message extends Translations {
           // =========== EMOJI ===========
           "no_recents": "No recents",
           // =========== TAG INTERESTS ==========
+          "tag_interest": "Tag Interest",
+          "get_your_personalized_content_recommendations":
+              "Get your personalized content recommendations.",
           "math": "Math",
           "calculus": "Calculus",
           "algebra": "Algebra",
@@ -101,6 +110,7 @@ class Message extends Translations {
           "robotic": "Robotic",
           "programming": "Programming",
           "accountant": "Accountant",
+          "add_your_tag_interest": "Add your tag interest",
           // ========= EDIT PROFILE ==========
           "edit_profile": "Edit Profile",
           "change_picture": "Change Picture",
@@ -111,9 +121,6 @@ class Message extends Translations {
           "followers": "Followers",
           "no_posts": "No posts",
           "no_posts_saved": "No posts saved",
-          // =========== TAG INTEREST ==========
-          "get_your_personalized_content_recommendations":
-              "Get your personalized content recommendations.",
           // ============= VERIFY =============
           "verify_your_email": "Verify your email",
           "please_enter_the_4_digit_code_sent_to_youremail@example.com":
@@ -189,7 +196,13 @@ class Message extends Translations {
           "what_do_you_want_to_share": "Apa yang ingin anda beritahukan?",
           // ========== POST INTEREST ==========
           "choose_the_appropriate_interest_tag_for_your_post":
-              "Pilihlah tag interest yang sesuai untuk postingan Anda",
+              "Pilihlah tag minat yang sesuai untuk postingan Anda",
+          "type_your_interest_if_there_is_no_tag_you_are_interested_in":
+              "Ketik minat Anda jika tidak ada tag yang Anda minati",
+          "your_tag_interest": "Tag Minat Anda",
+          "type_your_interest": "Ketik minat Anda",
+          "add": "Tambah",
+          "cancel": "Batal",
           // ========= POST DETAIL ============
           "like": "Suka",
           "reply": "Balas",
@@ -205,6 +218,9 @@ class Message extends Translations {
           // =========== EMOJI ===========
           "no_recents": "Tidak ada yang terbaru",
           // =========== TAG INTERESTS ==========
+          "tag_interest": "Tag Minat",
+          "get_your_personalized_content_recommendations":
+              "Dapatkan rekomendasi konten hasil personalisasi Anda.",
           "math": "Matematika",
           "calculus": "Kalkulus",
           "algebra": "Aljabar",
@@ -216,6 +232,7 @@ class Message extends Translations {
           "robotic": "Robotik",
           "programming": "Pemrograman",
           "accountant": "Akuntan",
+          "add_your_tag_interest": "Tambah tag minat Anda",
           // ========= EDIT PROFILE ==========
           "edit_profile": "Edit Profil",
           "change_picture": "Ubah Gambar",
@@ -226,9 +243,6 @@ class Message extends Translations {
           "followers": "Pengikut",
           "no_posts": "Tidak ada postingan",
           "no_posts_saved": "Tidak ada postingan yang disimpan",
-          // =========== TAG INTEREST ==========
-          "get_your_personalized_content_recommendations":
-              "Dapatkan rekomendasi konten hasil personalisasi Anda.",
           // ============= VERIFY =============
           "verify_your_email": "Verifikasi email Anda",
           "please_enter_the_4_digit_code_sent_to_youremail@example.com":
