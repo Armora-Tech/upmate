@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:upmatev2/models/comment_model.dart';
 import 'package:upmatev2/models/user_model.dart';
 
@@ -28,7 +29,7 @@ class PostModel {
     required List<dynamic> likes,
     required List<String> postPhoto,
     bool isCover = false,
-  }) : _ref = ref,
+  })  : _ref = ref,
         _forumRef = forumRef,
         _interests = interests,
         _postDescription = postDescription,
@@ -44,6 +45,7 @@ class PostModel {
     SnapshotOptions? options,
   ) {
     final data = snapshot.data();
+    debugPrint("snasopt post: $data");
 
     return PostModel(
         ref: snapshot.reference,
@@ -54,11 +56,11 @@ class PostModel {
         timestamp: (data?['timestamp'] as Timestamp?)?.toDate(),
         bookmarks: data?['bookmarks'] ?? [],
         likes: data?['likes'] ?? [],
-        postPhoto: data?['post_photo'] ?? [],
+        postPhoto: (data?['post_photo'] is String)
+            ? [data?['post_photo']]
+            : data?['post_photo'] ?? [],
         isCover: data?['isCover'] ?? false);
   }
-
-
 
   Map<String, dynamic> toFirestore() {
     return {

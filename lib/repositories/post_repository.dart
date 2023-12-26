@@ -37,7 +37,7 @@ class PostRepository {
     try {
       UserModel? currentUser = await _auth.getUserModel();
       List<PostModel> data = [];
-
+      debugPrint("Interest: ${currentUser?.interests}");
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('posts')
           .where('interests', arrayContainsAny: currentUser?.interests)
@@ -52,6 +52,7 @@ class PostRepository {
         await post.getComment();
 
         if (kDebugMode) {
+          print(post);
           print("PostModel: ${post.interests}");
           print("Likes: ${post.likes}");
           if (post.comments!.isNotEmpty) {

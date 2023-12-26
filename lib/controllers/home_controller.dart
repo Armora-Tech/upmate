@@ -29,7 +29,7 @@ class HomeController extends GetxController {
   @override
   Future<void> onInit() async {
     posts = await _getPosts();
-    debugPrint("$posts");
+    debugPrint("HOMEPOSE: $posts");
     super.onInit();
   }
 
