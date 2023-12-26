@@ -18,7 +18,7 @@ class PostRepository {
                   {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
               });
     } catch (e) {
-      debugPrint("ERROR : $e");
+      debugPrint("ERROR POsTing : $e");
     }
   }
 

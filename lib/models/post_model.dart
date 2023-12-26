@@ -65,7 +65,7 @@ class PostModel {
       "forumRef": _forumRef,
       "interests": _interests,
       "post_description": _postDescription,
-      "post_user": _user,
+      "post_user": _user?.ref,
       "timestamp": _timestamp,
       "bookmarks": _bookmarks,
       "likes": _likes,
@@ -82,8 +82,7 @@ class PostModel {
             toFirestore: (UserModel user, _) => user.toFirestore())
         .doc(_userRaw.id)
         .get();
-
-    _user = snapshot.data() as UserModel;
+    _user = snapshot.data() as UserModel?;
   }
 
   Future<void> getComment() async {

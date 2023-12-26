@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:upmatev2/models/post_model.dart';
-import '../repositories/post_repository.dart';
+
 import '../repositories/auth.dart';
+import '../repositories/post_repository.dart';
 import '../routes/route_name.dart';
 import 'gallery_controller.dart';
 import 'start_controller.dart';
@@ -89,6 +91,7 @@ class PostController extends GetxController {
         likes: [],
         postPhoto: imgUrl,
         isCover: isCover.value);
+
     await postModel.initUsers();
     await PostRepository().addPost(postModel);
     isLoading.value = false;
