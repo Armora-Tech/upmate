@@ -29,7 +29,12 @@ class NewPost extends StatelessWidget {
           return Column(
             children: [
               GestureDetector(
-                onTap: () => Get.toNamed(RouteName.postDetail),
+                onTap: () {
+                  controller.selectedIndex.value = index;
+                  Get.toNamed(
+                    RouteName.postDetail,
+                  );
+                },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
@@ -68,7 +73,7 @@ class NewPost extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 5,
+                height: 10,
               ),
               PostImage(controller: controller, index: index),
               Padding(
@@ -124,7 +129,12 @@ class NewPost extends StatelessWidget {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () async {},
+                              onTap: () {
+                                controller.selectedIndex.value = index;
+                                Get.toNamed(
+                                  RouteName.postDetail,
+                                );
+                              },
                               child: Container(
                                 color: Colors.white,
                                 child: Column(

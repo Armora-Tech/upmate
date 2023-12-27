@@ -6,9 +6,9 @@ import '../../themes/app_color.dart';
 import 'detail_image.dart';
 
 class PostImage extends StatelessWidget {
-  final dynamic controller;
+  final HomeController controller;
   final int index;
-  const PostImage({super.key, required this.controller, this.index = 0});
+  const PostImage({super.key, required this.controller, required this.index});
 
   @override
   Widget build(BuildContext context) {

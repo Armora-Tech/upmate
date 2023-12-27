@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/controllers/post_detail_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/emoji_section.dart';
-import 'package:upmatev2/widgets/postDetail/comment.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
+import '../models/post_model.dart';
+import '../models/user_model.dart';
 import '../themes/app_color.dart';
 import '../widgets/global/line.dart';
 import '../widgets/global/post_image.dart';
@@ -14,7 +17,12 @@ class PostDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final homeController = Get.find<HomeController>();
     final controller = Get.find<PostDetailController>();
+    controller.selectedIndex = homeController.selectedIndex;
+    int index = controller.selectedIndex.value;
+    final PostModel post = homeController.posts![index];
+    final UserModel userPost = homeController.posts![index].user!;
     return Scaffold(
       body: WillPopScope(
         onWillPop: () {
@@ -31,7 +39,7 @@ class PostDetailView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 90,
+                  height: 100,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -43,27 +51,27 @@ class PostDetailView extends StatelessWidget {
                         clipBehavior: Clip.hardEdge,
                         decoration: const BoxDecoration(shape: BoxShape.circle),
                         child: Image.network(
-                          "https://i.pinimg.com/736x/e5/93/09/e593098f04ed9c1f5fa05749ff0aff26.jpg",
+                          FirebaseAuth.instance.currentUser!.photoURL!,
                           fit: BoxFit.cover,
                         ),
                       ),
-                      const Expanded(
+                      Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Muhammad Rafli Silehu",
+                              homeController.posts![index].user!.displayName,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              "@raflisilehu | Mobile Developer at Google",
+                              homeController.usernameWithAt(index),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: Colors.grey),
+                              style: const TextStyle(color: Colors.grey),
                             )
                           ],
                         ),
@@ -72,74 +80,261 @@ class PostDetailView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 5,
-                ),
-                PostImage(controller: controller),
-                const SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    controller.fullText.value,
-                    overflow: TextOverflow.visible,
-                  ),
-                ),
-                const SizedBox(
                   height: 10,
                 ),
-                const Line(),
+                PostImage(controller: homeController, index: index),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: List.generate(controller.action.length, (index) {
-                      final item = controller.action;
-                      return GestureDetector(
-                        onTap: () => {},
-                        child: Container(
-                          color: Colors.white,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Icon(
-                                item.values.elementAt(index),
-                                size: 27,
+                              GestureDetector(
+                                onTap: () async {},
+                                child: Container(
+                                  color: Colors.white,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.share_outlined,
+                                        size: 27,
+                                      ),
+                                      const SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        "0",
+                                        style: AppFont.text10,
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
-                              const SizedBox(
-                                height: 2,
+                              GestureDetector(
+                                onTap: () async {},
+                                child: Container(
+                                  color: Colors.white,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.bookmark_outline_rounded,
+                                        size: 27,
+                                      ),
+                                      const SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        "${post.bookmarks.length}",
+                                        style: AppFont.text10,
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
-                              Text(
-                                item.keys.elementAt(index),
-                                style: AppFont.text10
-                                    .copyWith(color: Colors.grey),
-                              )
-                            ],
-                          ),
+                              GestureDetector(
+                                onTap: () async {},
+                                child: Container(
+                                  color: Colors.white,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.chat_bubble_outline_rounded,
+                                        size: 27,
+                                      ),
+                                      const SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        "${post.comments?.length}",
+                                        style: AppFont.text10,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () async {},
+                                child: Container(
+                                  color: Colors.white,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.favorite_border_rounded,
+                                        size: 27,
+                                      ),
+                                      const SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        "${post.likes.length}",
+                                        style: AppFont.text10,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ]),
+                        const SizedBox(
+                          height: 15,
                         ),
-                      );
-                    }),
-                  ),
-                ),
-                const Line(),
+                        post.postDescription.isEmpty
+                            ? const SizedBox()
+                            : Obx(() => RichText(
+                                  text: TextSpan(
+                                      style: AppFont.text14,
+                                      children: [
+                                        TextSpan(
+                                            text:
+                                                "${userPost.displayName.replaceAll(" ", "").toLowerCase()}  ",
+                                            style: AppFont.text14.copyWith(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                          text: homeController
+                                              .handleText(post.postDescription),
+                                        ),
+                                        post.postDescription.length > 80
+                                            ? WidgetSpan(
+                                                alignment:
+                                                    PlaceholderAlignment.middle,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    homeController.isFullText
+                                                        .toggle();
+                                                  },
+                                                  child: Text(
+                                                    homeController
+                                                            .isFullText.value
+                                                        ? " ${"less".tr}"
+                                                        : "more".tr,
+                                                    style: AppFont.text12
+                                                        .copyWith(
+                                                            color: Colors.grey),
+                                                  ),
+                                                ),
+                                              )
+                                            : const WidgetSpan(
+                                                child: SizedBox()),
+                                      ]),
+                                )),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        post.comments!.isNotEmpty
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("${"see_all".tr} 32 ${"comment".tr}",
+                                      style:
+                                          const TextStyle(color: Colors.grey)),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: 25,
+                                        margin:
+                                            const EdgeInsets.only(right: 10),
+                                        clipBehavior: Clip.hardEdge,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle),
+                                        child: Image.network(
+                                          "https://i.pinimg.com/736x/e5/93/09/e593098f04ed9c1f5fa05749ff0aff26.jpg",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            RichText(
+                                              text: TextSpan(
+                                                  style: AppFont.text14,
+                                                  children: const [
+                                                    TextSpan(
+                                                      text: "Flora Shafiqa ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                          "Keren banget kak (emot api)",
+                                                    ),
+                                                  ]),
+                                            ),
+                                            Text(
+                                              "2 ${"hours".tr}",
+                                              maxLines: 2,
+                                              style: AppFont.text10
+                                                  .copyWith(color: Colors.grey),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: 25,
+                                        margin:
+                                            const EdgeInsets.only(right: 10),
+                                        clipBehavior: Clip.hardEdge,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle),
+                                        child: Image.network(
+                                          "https://i.pinimg.com/736x/e5/93/09/e593098f04ed9c1f5fa05749ff0aff26.jpg",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            RichText(
+                                              text: TextSpan(
+                                                  style: AppFont.text14,
+                                                  children: const [
+                                                    TextSpan(
+                                                      text: "Flora Shafiqa ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                          "Not bad...(emot keren)",
+                                                    ),
+                                                  ]),
+                                            ),
+                                            Text(
+                                              "2 ${"hours".tr}",
+                                              maxLines: 2,
+                                              style: AppFont.text10
+                                                  .copyWith(color: Colors.grey),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            : const SizedBox(),
+                        Text(
+                          homeController.postingTimePassed(index),
+                          style: AppFont.text12.copyWith(color: Colors.grey),
+                        ),
+                      ],
+                    )),
                 const SizedBox(
                   height: 10,
-                ),
-                const Comment(),
-                Container(
-                  margin: const EdgeInsets.only(left: 40),
-                  padding: const EdgeInsets.only(left: 2),
-                  decoration: const BoxDecoration(
-                      border: Border(
-                    left: BorderSide(width: 2, color: AppColor.lightGrey),
-                  )),
-                  child: const Column(
-                    children: [
-                      Comment(),
-                      Comment(),
-                      Comment(),
-                    ],
-                  ),
                 ),
                 const SizedBox(
                   height: 150,
@@ -171,9 +366,9 @@ class PostDetailView extends StatelessWidget {
                               ),
                             ),
                           ),
-                           Text(
+                          Text(
                             "Post",
-                            style:AppFont.text20.copyWith(
+                            style: AppFont.text20.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -249,8 +444,7 @@ class PostDetailView extends StatelessWidget {
                                           enabledBorder: InputBorder.none,
                                           focusedBorder: InputBorder.none,
                                           hintText: "type_a_message".tr,
-                                          hintStyle:
-                                              AppFont.text14.copyWith(
+                                          hintStyle: AppFont.text14.copyWith(
                                             color: Colors.grey,
                                             fontFamily: "Nunito",
                                           ),

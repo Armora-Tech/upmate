@@ -28,7 +28,7 @@ class HomeView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(
-                        height: 70,
+                        height: 75,
                       ),
                       const NewPost(),
                       const SizedBox(
