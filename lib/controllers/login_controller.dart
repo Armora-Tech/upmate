@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/routes/route_name.dart';
 import '../repositories/auth.dart';
 import '../utils/cancellation.dart';
 import '../utils/input_validator.dart';
@@ -14,8 +15,8 @@ class LoginController extends GetxController {
   late TextEditingController email;
   late TextEditingController pass;
   late FocusNode focusNode;
-  RxString? errorEmailMessage;
-  RxString? errorPassMessage;
+  String? errorEmailMessage;
+  String? errorPassMessage;
   RxBool isVisible = true.obs;
   RxBool isFocused = false.obs;
   RxBool isLoading = false.obs;
@@ -48,14 +49,25 @@ class LoginController extends GetxController {
     await Future.delayed(const Duration(milliseconds: 2000));
     try {
       if (loginProvider == LoginProvider.google) {
-        await _auth.signInWithGoogle();
+        await _auth.signInWithGoogle().then((value) {
+          errorEmailMessage = null;
+          errorPassMessage = null;
+        });
       } else if (loginProvider == LoginProvider.facebook) {
-        await _auth.signInWithFacebook();
+        await _auth.signInWithFacebook().then((value) {
+          errorEmailMessage = null;
+          errorPassMessage = null;
+        });
       } else if (isInputValid().value && loginProvider == LoginProvider.email) {
-        await _auth.signInWithEmailAndPassword(
+        await _auth
+            .signInWithEmailAndPassword(
           email.text,
           pass.text,
-        );
+        )
+            .then((value) {
+          errorEmailMessage = null;
+          errorPassMessage = null;
+        });
       }
     } catch (e) {
       if (kDebugMode) {
@@ -70,7 +82,7 @@ class LoginController extends GetxController {
 
   Future<void> signOut() async {
     try {
-      await _auth.signOut();
+      await _auth.signOut().then((value) => Get.offNamed(RouteName.login));
     } catch (e) {
       if (kDebugMode) {
         print('Error navigating to start page: $e');
@@ -83,8 +95,8 @@ class LoginController extends GetxController {
   }
 
   void inputValidation() {
-    errorEmailMessage = InputValidator.emailValidationMessage(email);
-    errorPassMessage = InputValidator.passValidationMessage(pass);
+    errorEmailMessage = InputValidator.emailValidationMessage(email)?.value;
+    errorPassMessage = InputValidator.passValidationMessage(pass)?.value;
   }
 
   RxBool isInputValid() =>

@@ -122,7 +122,6 @@ class Auth {
   Future<void> signOut() async {
     await _auth.signOut();
     await googleSignIn.signOut();
-    Get.offNamed(RouteName.login);
   }
 
   Future<void> sendOTP(String email) async {

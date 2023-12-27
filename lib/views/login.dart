@@ -52,8 +52,7 @@ class LoginView extends StatelessWidget {
                                 controller: controller.email,
                                 style: AppFont.text14,
                                 decoration: InputDecoration(
-                                  helperText:
-                                      controller.errorEmailMessage?.value,
+                                  helperText: controller.errorEmailMessage,
                                   hintText: "Email",
                                 )),
                             const SizedBox(
@@ -65,8 +64,7 @@ class LoginView extends StatelessWidget {
                                 style: AppFont.text14,
                                 obscureText: controller.isVisible.value,
                                 decoration: InputDecoration(
-                                  helperText:
-                                      controller.errorPassMessage?.value,
+                                  helperText: controller.errorPassMessage,
                                   hintText: "password".tr,
                                   suffixIcon: GestureDetector(
                                     onTap: () {
