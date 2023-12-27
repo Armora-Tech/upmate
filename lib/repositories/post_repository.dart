@@ -49,6 +49,7 @@ class PostRepository {
       for (var e in querySnapshot.docs) {
         var post = e.data() as PostModel;
         await post.initUsers();
+        await post.initPhotos();
         await post.getComment();
 
         if (kDebugMode) {
@@ -63,7 +64,8 @@ class PostRepository {
       }
       return data;
     } catch (e) {
-      print("ERROR: $e");
+      rethrow;
+      print("ERROR, postrepo: $e");
       return [];
     }
   }

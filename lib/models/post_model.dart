@@ -9,7 +9,8 @@ class PostModel {
   DocumentReference? _forumRef;
   List<dynamic> _interests;
   String _postDescription;
-  List<String> _postPhoto;
+  List<dynamic>? _postPhotoRaw;
+  List<String>? _postPhoto;
   DocumentReference<Map<String, dynamic>> _userRaw;
   UserModel? _user;
   DateTime? _timestamp;
@@ -27,7 +28,8 @@ class PostModel {
     required DateTime? timestamp,
     required List<dynamic> bookmarks,
     required List<dynamic> likes,
-    required List<String> postPhoto,
+    List<dynamic>? postPhotoRaw,
+    List<String>? postPhoto,
     bool isCover = false,
   })  : _ref = ref,
         _forumRef = forumRef,
@@ -37,6 +39,7 @@ class PostModel {
         _timestamp = timestamp,
         _bookmarks = bookmarks,
         _likes = likes,
+        _postPhotoRaw = postPhotoRaw,
         _postPhoto = postPhoto,
         _isCover = isCover;
 
@@ -46,6 +49,9 @@ class PostModel {
   ) {
     final data = snapshot.data();
     debugPrint("snasopt post: $data");
+    List<dynamic> dataListPhoto =  (data?['post_photo'] is String)
+        ? [data?['post_photo']]
+        : data?['post_photo'] ?? [];
 
     return PostModel(
         ref: snapshot.reference,
@@ -56,9 +62,7 @@ class PostModel {
         timestamp: (data?['timestamp'] as Timestamp?)?.toDate(),
         bookmarks: data?['bookmarks'] ?? [],
         likes: data?['likes'] ?? [],
-        postPhoto: (data?['post_photo'] is String)
-            ? [data?['post_photo']]
-            : data?['post_photo'] ?? [],
+        postPhotoRaw: dataListPhoto,
         isCover: data?['isCover'] ?? false);
   }
 
@@ -71,7 +75,7 @@ class PostModel {
       "timestamp": _timestamp,
       "bookmarks": _bookmarks,
       "likes": _likes,
-      "post_photo": _postPhoto,
+      "post_photo": _postPhotoRaw,
       "isCover": _isCover
     };
   }
@@ -85,6 +89,11 @@ class PostModel {
         .doc(_userRaw.id)
         .get();
     _user = snapshot.data() as UserModel?;
+  }
+
+  Future<void> initPhotos() async {
+    List<String>? photoListString = _postPhotoRaw?.map((dynamic item) => item.toString()).toList();
+    _postPhoto = photoListString;
   }
 
   Future<void> getComment() async {
@@ -209,4 +218,6 @@ class PostModel {
   List<CommentModel>? get comments => _comments;
 
   bool get isCover => _isCover;
+
+  List<String>? get postPhoto => _postPhoto;
 }
