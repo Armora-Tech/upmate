@@ -8,7 +8,6 @@ import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/detail_profile_picture.dart';
 import '../global/line.dart';
-import 'dart:ui' as ui;
 
 class SideBar extends StatelessWidget {
   const SideBar({super.key});
@@ -111,7 +110,7 @@ class SideBar extends StatelessWidget {
                               fontWeight: FontWeight.w600, color: Colors.white),
                         ),
                         Text(
-                          controller.usernameWithAt,
+                          controller.username,
                           style: const TextStyle(color: Colors.grey),
                         ),
                       ],

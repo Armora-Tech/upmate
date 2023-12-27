@@ -46,9 +46,4 @@ class HomeController extends GetxController {
     }
   }
 
-  String usernameWithAt(int index) {
-    return posts![index].user!.username == ""
-        ? "@${posts![index].user!.displayName.replaceAll(" ", "").toLowerCase()}"
-        : "@${posts![index].user!.username.toLowerCase()}";
-  }
 }

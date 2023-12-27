@@ -107,7 +107,7 @@ class ProfileView extends StatelessWidget {
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                startController.usernameWithAt,
+                                startController.username,
                                 maxLines: 1,
                                 style: const TextStyle(color: Colors.grey),
                               ),

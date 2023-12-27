@@ -40,7 +40,8 @@ class UserModel {
         email: data?['email'] ?? '',
         interests: data?['interests'] ?? [],
         uid: data?['uid'] ?? '',
-        username: data?['username'] ?? '');
+        username: data?['username'] ?? "@${data?['display_name'].replaceAll(" ", "").toLowerCase()}"
+       );
   }
 
   Map<String, dynamic> toFirestore() {

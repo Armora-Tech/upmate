@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import "package:upmatev2/controllers/post_controller.dart";
 import "../../themes/app_font.dart";
 
 class DialogInterest {
