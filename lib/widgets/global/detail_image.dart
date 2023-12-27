@@ -34,30 +34,30 @@ class DetailImage extends StatelessWidget {
                   maxScale: controller.maxScale.value,
                   onInteractionEnd: (details) => controller.resetZoom(),
                   child: (image is AssetEntity)
-                      ? Container(
-                          constraints:
-                              BoxConstraints(maxHeight: Get.height * 0.7),
-                          width: Get.width,
-                          child: AssetEntityImage(
-                            image,
-                            fit: BoxFit.contain,
-                          ),
-                        )
-                      : (image is File)
                           ? Container(
                               constraints:
                                   BoxConstraints(maxHeight: Get.height * 0.7),
                               width: Get.width,
-                              child: Image.file(
+                              child: AssetEntityImage(
                                 image,
                                 fit: BoxFit.contain,
-                                scale: 4.5,
                               ),
                             )
-                          : Image.asset(
-                              image,
-                              fit: BoxFit.contain,
-                            ),
+                          : (image is File)
+                              ? Container(
+                                  constraints: BoxConstraints(
+                                      maxHeight: Get.height * 0.7),
+                                  width: Get.width,
+                                  child: Image.file(
+                                    image,
+                                    fit: BoxFit.contain,
+                                    scale: 4.5,
+                                  ),
+                                )
+                              : Image.network(
+                                  image,
+                                  fit: BoxFit.contain,
+                                ),
                 ),
               ),
             ),

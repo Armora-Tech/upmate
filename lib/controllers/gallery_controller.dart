@@ -74,6 +74,17 @@ class GalleryController extends GetxController {
     update();
   }
 
+  void removePostImage(AssetEntity image) {
+    if (selectedAssetList.contains(image)) {
+      selectedAssetList.remove(image);
+      if (selectedIndex.value > selectedAssetList.length - 1 &&
+          selectedAssetList.isNotEmpty) {
+        selectedIndex.value = selectedAssetList.length - 1;
+      }
+    }
+    update();
+  }
+
   void selectPhotoProfile(AssetEntity image) {
     selectedEntity = image;
     debugPrint("$selectedEntity");

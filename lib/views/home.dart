@@ -14,90 +14,99 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HomeController());
+    final controller = Get.find<HomeController>();
     final startController = Get.find<StartController>();
-    return Scaffold(
-      body: Stack(children: [
-        SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 100,
-              ),
-              const NewPost(),
-              const SizedBox(
-                height: 10,
-              ),
-              TitleSection(title: "popular".tr),
-              const SizedBox(
-                height: 20,
-              ),
-              const Popular(),
-              const SizedBox(
-                height: 20,
-              ),
-              TitleSection(title: "people_with_similar_interests".tr),
-              const SizedBox(
-                height: 20,
-              ),
-              const Popular(),
-              const SizedBox(
-                height: 100,
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          top: 0,
-          child: Container(
-            color: Colors.white,
-            width: Get.width,
-            child: SafeArea(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SizedBox(
-                      height: 60,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Obx(
+      () => controller.isLoading.value
+          ? const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            )
+          : Scaffold(
+              body: Stack(children: [
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 70,
+                      ),
+                      const NewPost(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TitleSection(title: "popular".tr),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Popular(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TitleSection(title: "people_with_similar_interests".tr),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Popular(),
+                      const SizedBox(
+                        height: 100,
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  child: Container(
+                    color: Colors.white,
+                    width: Get.width,
+                    child: SafeArea(
+                      child: Column(
                         children: [
-                          GestureDetector(
-                            onTap: () => Scaffold.of(context).openDrawer(),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: SizedBox(
-                                width: 28,
-                                child: Image.asset(
-                                  "assets/images/humberger_icon.png",
-                                  fit: BoxFit.cover,
-                                )),
+                              height: 60,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () =>
+                                        Scaffold.of(context).openDrawer(),
+                                    child: SizedBox(
+                                        width: 28,
+                                        child: Image.asset(
+                                          "assets/images/humberger_icon.png",
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
+                                  Text(
+                                    startController.displayName!,
+                                    style: AppFont.text20
+                                        .copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  GestureDetector(
+                                      onTap: () =>
+                                          Get.toNamed(RouteName.profile),
+                                      child: ProfilePicture(
+                                        imageURL: startController.photoURL,
+                                        size: 35,
+                                      ))
+                                ],
+                              ),
+                            ),
                           ),
-                          Text(
-                            startController.displayName!,
-                            style: AppFont.text20
-                                .copyWith(fontWeight: FontWeight.bold),
-                          ),
-                          GestureDetector(
-                              onTap: () => Get.toNamed(RouteName.profile),
-                              child: ProfilePicture(
-                                imageURL: startController.photoURL,
-                                size: 35,
-                              ))
+                          Container(
+                            height: 0.5,
+                            width: Get.width,
+                            color: Colors.grey,
+                          )
                         ],
                       ),
                     ),
                   ),
-                  Container(
-                    height: 0.5,
-                    width: Get.width,
-                    color: Colors.grey,
-                  )
-                ],
-              ),
+                ),
+              ]),
             ),
-          ),
-        ),
-      ]),
     );
   }
 }

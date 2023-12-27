@@ -85,6 +85,9 @@ class PostView extends StatelessWidget {
                                                             galleryController
                                                                 .selectedIndex
                                                                 .value = index;
+                                                            controller.update();
+                                                            galleryController
+                                                                .update();
                                                           },
                                                         ),
                                                         items: galleryController
@@ -112,9 +115,26 @@ class PostView extends StatelessWidget {
                                                               .selectedAssetList
                                                               .isEmpty
                                                           ? const SizedBox()
+                                                          : GetBuilder<
+                                                                  GalleryController>(
+                                                              builder: (_) => Positioned(
+                                                                  top: 10,
+                                                                  right: 10,
+                                                                  child: IconButton(
+                                                                      onPressed: () => galleryController.removePostImage(galleryController.selectedAssetList[galleryController.selectedIndex.value]),
+                                                                      icon: const Icon(
+                                                                        Icons
+                                                                            .delete,
+                                                                        color: Colors
+                                                                            .red,
+                                                                      )))),
+                                                      galleryController
+                                                              .selectedAssetList
+                                                              .isEmpty
+                                                          ? const SizedBox()
                                                           : Positioned(
-                                                              top: 10,
-                                                              right: 10,
+                                                              top: 15,
+                                                              left: 15,
                                                               child: Container(
                                                                 padding: const EdgeInsets
                                                                     .symmetric(
@@ -123,13 +143,21 @@ class PostView extends StatelessWidget {
                                                                     vertical:
                                                                         5),
                                                                 decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
+                                                                    color: const Color
+                                                                        .fromARGB(
+                                                                        153,
+                                                                        0,
+                                                                        0,
+                                                                        0),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             30)),
                                                                 child: Text(
-                                                                    "${galleryController.selectedIndex.value + 1}/${galleryController.selectedAssetList.length}"),
+                                                                  "${galleryController.selectedIndex.value + 1}/${galleryController.selectedAssetList.length}",
+                                                                  style: const TextStyle(
+                                                                      color: Colors
+                                                                          .white),
+                                                                ),
                                                               )),
                                                       Positioned(
                                                         bottom: 10,
@@ -153,7 +181,7 @@ class PostView extends StatelessWidget {
                                                               decoration: const BoxDecoration(
                                                                   color: Color
                                                                       .fromARGB(
-                                                                          134,
+                                                                          153,
                                                                           0,
                                                                           0,
                                                                           0),

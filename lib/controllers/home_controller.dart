@@ -4,12 +4,13 @@ import 'package:upmatev2/repositories/post_repository.dart';
 import '../models/post_model.dart';
 
 class HomeController extends GetxController {
-  late List<PostModel> posts;
+  List<PostModel>? posts;
   RxInt selectedIndex = 0.obs;
   RxString fullText =
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
           .obs;
   RxBool isFullText = false.obs;
+  RxBool isLoading = false.obs;
 
   final Map<String, dynamic> action = {
     "90": Icons.share_outlined,
@@ -28,13 +29,11 @@ class HomeController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    posts = await _getPosts();
-    debugPrint("HOMEPOST: ${posts[0].postPhoto}");
+    isLoading.value = true;
+    posts = await PostRepository().getPosts();
+    isLoading.value = false;
+    debugPrint("HOMEPOSE: $posts");
     super.onInit();
-  }
-
-  Future<List<PostModel>> _getPosts() async {
-    return await PostRepository().getPosts();
   }
 
   String handleText(String text) {
@@ -46,5 +45,28 @@ class HomeController extends GetxController {
       }
     }
     return text;
+  }
+
+  String postingTimePassed(int index) {
+    DateTime now = DateTime.timestamp();
+    DateTime postTime = posts![index].timestamp!;
+    Duration difference = now.difference(postTime);
+    String ago = "ago".tr;
+
+    if (difference.inSeconds < 60) {
+      return "${difference.inSeconds} ${"seconds".tr} $ago";
+    } else if (difference.inMinutes < 60) {
+      return "${difference.inMinutes} ${"minutes".tr} $ago";
+    } else if (difference.inHours < 24) {
+      return "${difference.inHours} ${"hours".tr} $ago";
+    } else {
+      return "${difference.inDays} ${"days".tr} $ago";
+    }
+  }
+
+  String usernameWithAt(int index) {
+    return posts![index].user!.username == ""
+        ? "@${posts![index].user!.displayName.replaceAll(" ", "").toLowerCase()}"
+        : "@${posts![index].user!.username.toLowerCase()}";
   }
 }
