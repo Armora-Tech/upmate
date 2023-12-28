@@ -16,12 +16,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
     final startController = Get.find<StartController>();
-    return Obx(
-      () => controller.isLoading.value
-          ? const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            )
-          : Scaffold(
+    return Scaffold(
               body: Stack(children: [
                 SingleChildScrollView(
                   child: Column(
@@ -106,7 +101,7 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
               ]),
-            ),
+            
     );
   }
 }

@@ -16,6 +16,7 @@ class HomeController extends GetxController {
     isLoading.value = false;
     debugPrint("HOMEPOSE: $posts");
     super.onInit();
+    update();
   }
 
   String handleText(String text) {
@@ -45,5 +46,4 @@ class HomeController extends GetxController {
       return "${difference.inDays} ${"days".tr} $ago";
     }
   }
-
 }

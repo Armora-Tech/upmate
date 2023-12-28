@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/widgets/global/skelton.dart';
 
 import '../../controllers/home_controller.dart';
 import '../../models/post_model.dart';
@@ -15,12 +16,19 @@ class PostContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
-              final PostModel post = controller.posts![index];
-          final UserModel userPost = controller.posts![index].user!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PostImage(controller: controller, index: index),
+        controller.isLoading.value
+            ? Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: ShimmerSkelton(
+                  height: Get.width,
+                  width: Get.width,
+                  borderRadius: 0,
+                ),
+              )
+            : PostImage(controller: controller, index: index),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
@@ -44,7 +52,7 @@ class PostContent extends StatelessWidget {
                                 height: 2,
                               ),
                               Text(
-                                "0",
+                                "${controller.isLoading.value ? 0 : 0}",
                                 style: AppFont.text10,
                               )
                             ],
@@ -66,7 +74,7 @@ class PostContent extends StatelessWidget {
                                 height: 2,
                               ),
                               Text(
-                                "${post.bookmarks.length}",
+                                "${controller.isLoading.value ? 0 : controller.posts![index].bookmarks.length}",
                                 style: AppFont.text10,
                               )
                             ],
@@ -74,12 +82,14 @@ class PostContent extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {
-                          controller.selectedIndex.value = index;
-                          Get.toNamed(
-                            RouteName.postDetail,
-                          );
-                        },
+                        onTap: controller.isLoading.value
+                            ? () {}
+                            : () {
+                                controller.selectedIndex.value = index;
+                                Get.toNamed(
+                                  RouteName.postDetail,
+                                );
+                              },
                         child: Container(
                           color: Colors.white,
                           child: Column(
@@ -93,7 +103,7 @@ class PostContent extends StatelessWidget {
                                 height: 2,
                               ),
                               Text(
-                                "${post.comments?.length}",
+                                "${controller.isLoading.value ? 0 : controller.posts![index].comments?.length}",
                                 style: AppFont.text10,
                               )
                             ],
@@ -115,7 +125,7 @@ class PostContent extends StatelessWidget {
                                 height: 2,
                               ),
                               Text(
-                                "${post.likes.length}",
+                                "${controller.isLoading.value ? 0 : controller.posts![index].likes.length}",
                                 style: AppFont.text10,
                               )
                             ],
@@ -126,138 +136,152 @@ class PostContent extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                post.postDescription.isEmpty
-                    ? const SizedBox()
-                    : Obx(() => RichText(
-                          text: TextSpan(style: AppFont.text14, children: [
-                            TextSpan(
-                                text:
-                                    "${userPost.displayName.replaceAll(" ", "").toLowerCase()}  ",
-                                style: AppFont.text14
-                                    .copyWith(fontWeight: FontWeight.bold)),
-                            TextSpan(
-                              text: controller.handleText(post.postDescription),
-                            ),
-                            post.postDescription.length > 80
-                                ? WidgetSpan(
-                                    alignment: PlaceholderAlignment.middle,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        controller.isFullText.toggle();
-                                      },
-                                      child: Text(
-                                        controller.isFullText.value
-                                            ? " ${"less".tr}"
-                                            : "more".tr,
-                                        style: AppFont.text12
-                                            .copyWith(color: Colors.grey),
-                                      ),
-                                    ),
-                                  )
-                                : const WidgetSpan(child: SizedBox()),
-                          ]),
-                        )),
+                controller.isLoading.value
+                    ? const ShimmerSkelton(height: 10, width: 80)
+                    : controller.posts![index].postDescription.isEmpty
+                        ? const SizedBox()
+                        : Obx(() => RichText(
+                              text: TextSpan(style: AppFont.text14, children: [
+                                TextSpan(
+                                    text:
+                                        "${controller.posts![index].user!.displayName.replaceAll(" ", "").toLowerCase()}  ",
+                                    style: AppFont.text14
+                                        .copyWith(fontWeight: FontWeight.bold)),
+                                TextSpan(
+                                  text: controller.handleText(
+                                      controller.posts![index].postDescription),
+                                ),
+                                controller.posts![index].postDescription
+                                            .length >
+                                        80
+                                    ? WidgetSpan(
+                                        alignment: PlaceholderAlignment.middle,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            controller.isFullText.toggle();
+                                          },
+                                          child: Text(
+                                            controller.isFullText.value
+                                                ? " ${"less".tr}"
+                                                : "more".tr,
+                                            style: AppFont.text12
+                                                .copyWith(color: Colors.grey),
+                                          ),
+                                        ),
+                                      )
+                                    : const WidgetSpan(child: SizedBox()),
+                              ]),
+                            )),
                 const SizedBox(
                   height: 5,
                 ),
-                post.comments!.isNotEmpty
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("${"see_all".tr} 32 ${"comment".tr}",
-                              style: const TextStyle(color: Colors.grey)),
-                          Row(
+                controller.isLoading.value
+                    ? const SizedBox()
+                    : controller.posts![index].comments!.isNotEmpty
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                width: 25,
-                                margin: const EdgeInsets.only(right: 10),
-                                clipBehavior: Clip.hardEdge,
-                                decoration:
-                                    const BoxDecoration(shape: BoxShape.circle),
-                                child: Image.network(
-                                  "https://i.pinimg.com/736x/e5/93/09/e593098f04ed9c1f5fa05749ff0aff26.jpg",
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    RichText(
-                                      text: TextSpan(
-                                          style: AppFont.text14,
-                                          children: const [
-                                            TextSpan(
-                                              text: "Flora Shafiqa ",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            TextSpan(
-                                              text:
-                                                  "Keren banget kak (emot api)",
-                                            ),
-                                          ]),
+                              Text("${"see_all".tr} 32 ${"comment".tr}",
+                                  style: const TextStyle(color: Colors.grey)),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 25,
+                                    margin: const EdgeInsets.only(right: 10),
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle),
+                                    child: Image.network(
+                                      "https://i.pinimg.com/736x/e5/93/09/e593098f04ed9c1f5fa05749ff0aff26.jpg",
+                                      fit: BoxFit.cover,
                                     ),
-                                    Text(
-                                      "2 ${"hours".tr}",
-                                      maxLines: 2,
-                                      style: AppFont.text10
-                                          .copyWith(color: Colors.grey),
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        RichText(
+                                          text: TextSpan(
+                                              style: AppFont.text14,
+                                              children: const [
+                                                TextSpan(
+                                                  text: "Flora Shafiqa ",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      "Keren banget kak (emot api)",
+                                                ),
+                                              ]),
+                                        ),
+                                        Text(
+                                          "2 ${"hours".tr}",
+                                          maxLines: 2,
+                                          style: AppFont.text10
+                                              .copyWith(color: Colors.grey),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 25,
+                                    margin: const EdgeInsets.only(right: 10),
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle),
+                                    child: Image.network(
+                                      "https://i.pinimg.com/736x/e5/93/09/e593098f04ed9c1f5fa05749ff0aff26.jpg",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        RichText(
+                                          text: TextSpan(
+                                              style: AppFont.text14,
+                                              children: const [
+                                                TextSpan(
+                                                  text: "Flora Shafiqa ",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      "Not bad...(emot keren)",
+                                                ),
+                                              ]),
+                                        ),
+                                        Text(
+                                          "2 ${"hours".tr}",
+                                          maxLines: 2,
+                                          style: AppFont.text10
+                                              .copyWith(color: Colors.grey),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                width: 25,
-                                margin: const EdgeInsets.only(right: 10),
-                                clipBehavior: Clip.hardEdge,
-                                decoration:
-                                    const BoxDecoration(shape: BoxShape.circle),
-                                child: Image.network(
-                                  "https://i.pinimg.com/736x/e5/93/09/e593098f04ed9c1f5fa05749ff0aff26.jpg",
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    RichText(
-                                      text: TextSpan(
-                                          style: AppFont.text14,
-                                          children: const [
-                                            TextSpan(
-                                              text: "Flora Shafiqa ",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            TextSpan(
-                                              text: "Not bad...(emot keren)",
-                                            ),
-                                          ]),
-                                    ),
-                                    Text(
-                                      "2 ${"hours".tr}",
-                                      maxLines: 2,
-                                      style: AppFont.text10
-                                          .copyWith(color: Colors.grey),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      )
-                    : const SizedBox(),
-                Text(
-                  controller.postingTimePassed(index),
-                  style: AppFont.text12.copyWith(color: Colors.grey),
-                ),
+                          )
+                        : const SizedBox(),
+                controller.isLoading.value
+                    ? const ShimmerSkelton(height: 10, width: 60)
+                    : Text(
+                        controller.postingTimePassed(index),
+                        style: AppFont.text12.copyWith(color: Colors.grey),
+                      ),
               ],
             )),
       ],
