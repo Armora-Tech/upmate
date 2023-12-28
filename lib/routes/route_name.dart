@@ -20,4 +20,5 @@ abstract class RouteName {
    static const galleryView = "/gallery-view" ;
    static const postInterest = "/post-interest" ;
    static const settings = "/settings" ;
+   static const addChat = "/add-chat" ;
 }

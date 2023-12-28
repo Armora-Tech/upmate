@@ -125,7 +125,9 @@ class Message extends Translations {
           // ============= VERIFY =============
           "verify_your_email": "Verify your email",
           "please_enter_the_4_digit_code_sent_to_youremail@example.com":
-              "Please enter the 4 digit code sent to youremail@example.com"
+              "Please enter the 4 digit code sent to youremail@example.com",
+          // =========== ADD NEW CHAT =============
+          "create_a_new_chat" : "Create a new chat"
         },
         "id": {
           // ========= LOGIN SIGNUP PAGE ========
@@ -248,7 +250,9 @@ class Message extends Translations {
           // ============= VERIFY =============
           "verify_your_email": "Verifikasi email Anda",
           "please_enter_the_4_digit_code_sent_to_youremail@example.com":
-              "Masukkan 4 digit kode yang dikirimkan ke emailanda@contoh.com"
+              "Masukkan 4 digit kode yang dikirimkan ke emailanda@contoh.com",
+              // =========== ADD NEW CHAT =============
+          "create_a_new_chat" : "Buat obrolan baru"
         }
       };
 }

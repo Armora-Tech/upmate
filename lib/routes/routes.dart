@@ -4,6 +4,7 @@ import 'package:upmatev2/bindings/login_binding.dart';
 import 'package:upmatev2/bindings/settings_binding.dart';
 import 'package:upmatev2/bindings/signup_binding.dart';
 import 'package:upmatev2/bindings/start_binding.dart';
+import 'package:upmatev2/views/add_chat.dart';
 import 'package:upmatev2/views/chat_room.dart';
 import 'package:upmatev2/views/confirm_send_image.dart';
 import 'package:upmatev2/views/gallery.dart';
@@ -117,5 +118,9 @@ class AppPage {
         page: () => const SettingsView(),
         binding: SettingsBinding(),
         transition: Transition.rightToLeft),
+        GetPage(
+        name: RouteName.addChat,
+        page: () => const AddChatView(),
+        transition: Transition.downToUp),
   ];
 }

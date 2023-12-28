@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/widgets/chat/chat_list.dart';
 import 'package:upmatev2/widgets/chat/shimmer.dart';
 import 'package:upmatev2/widgets/global/line.dart';
@@ -31,7 +32,7 @@ class ChatView extends StatelessWidget {
                 bottom: 80,
                 right: 20,
                 child: FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () => Get.toNamed(RouteName.addChat),
                   child: const Icon(
                     Icons.add,
                     color: Colors.white,
