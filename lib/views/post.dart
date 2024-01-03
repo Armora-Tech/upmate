@@ -305,15 +305,17 @@ class PostView extends StatelessWidget {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Icon(Icons.camera_alt_rounded,
-                                        size: 23, color: AppColor.black),
+                                    const Icon(
+                                      Icons.camera_alt_rounded,
+                                      size: 23,
+                                      color: AppColor.black,
+                                    ),
                                     const SizedBox(
                                       width: 10,
                                     ),
                                     Text(
                                       "take_a_picture".tr,
-                                      style: AppFont.text14
-                                          .copyWith(color: AppColor.black),
+                                      style: AppFont.text14,
                                     ),
                                   ],
                                 ),

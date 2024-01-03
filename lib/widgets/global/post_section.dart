@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 
 import '../../controllers/home_controller.dart';
-import '../../models/post_model.dart';
-import '../../models/user_model.dart';
 import '../../routes/route_name.dart';
 import '../../themes/app_font.dart';
 import 'post_image.dart';
@@ -44,37 +43,14 @@ class PostContent extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(
-                                Icons.share_outlined,
-                                size: 27,
-                              ),
+                              SvgPicture.asset(
+                                  "assets/svg/favorite_outlined.svg",
+                                  semanticsLabel: 'favorite'),
                               const SizedBox(
                                 height: 2,
                               ),
                               Text(
-                                "${controller.isLoading.value ? 0 : 0}",
-                                style: AppFont.text10,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () async {},
-                        child: Container(
-                          color: Colors.white,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.bookmark_outline_rounded,
-                                size: 27,
-                              ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              Text(
-                                "${controller.isLoading.value ? 0 : controller.posts![index].bookmarks.length}",
+                                "${controller.isLoading.value ? 0 : controller.posts![index].likes.length}",
                                 style: AppFont.text10,
                               )
                             ],
@@ -95,10 +71,8 @@ class PostContent extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(
-                                Icons.chat_bubble_outline_rounded,
-                                size: 27,
-                              ),
+                              SvgPicture.asset("assets/svg/comment.svg",
+                                  semanticsLabel: 'comment'),
                               const SizedBox(
                                 height: 2,
                               ),
@@ -117,15 +91,34 @@ class PostContent extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(
-                                Icons.favorite_border_rounded,
-                                size: 27,
-                              ),
+                              SvgPicture.asset(
+                                  "assets/svg/bookmark_outlined.svg",
+                                  semanticsLabel: 'bookmark'),
                               const SizedBox(
                                 height: 2,
                               ),
                               Text(
-                                "${controller.isLoading.value ? 0 : controller.posts![index].likes.length}",
+                                "${controller.isLoading.value ? 0 : controller.posts![index].bookmarks.length}",
+                                style: AppFont.text10,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () async {},
+                        child: Container(
+                          color: Colors.white,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset("assets/svg/share.svg",
+                                  semanticsLabel: 'share'),
+                              const SizedBox(
+                                height: 2,
+                              ),
+                              Text(
+                                "${controller.isLoading.value ? 0 : 0}",
                                 style: AppFont.text10,
                               )
                             ],

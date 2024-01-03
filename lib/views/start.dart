@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/bottom_nav_controller.dart';
-import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/global/line.dart';
 import '../widgets/home/side_bar.dart';
 
@@ -11,16 +11,33 @@ class StartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final botNavController = Get.find<BottomNavController>();
-    final Map<String, List<dynamic>> tabs = {
-      "home".tr: [Icons.home_outlined, Icons.home_rounded],
-      "explore".tr: [Icons.explore_outlined, Icons.explore_rounded],
-      "Post": [Icons.add_box_outlined, Icons.add_box_rounded],
-      "notification".tr: [
-        Icons.notifications_outlined,
-        Icons.notifications_rounded
-      ],
-      "chat".tr: [Icons.chat_outlined, Icons.chat_rounded],
-    };
+    final List<Map<String, dynamic>> tabs = [
+      {
+        "name": "home".tr,
+        "icon": "assets/svg/home_outlined.svg",
+        "active_icon": "assets/svg/home.svg"
+      },
+      {
+        "name": "explore".tr,
+        "icon": "assets/svg/explore_outlined.svg",
+        "active_icon": "assets/svg/explore.svg"
+      },
+      {
+        "name": "Post",
+        "icon": "assets/svg/post.svg",
+        "active_icon": "assets/svg/post.svg"
+      },
+      {
+        "name": "notification".tr,
+        "icon": "assets/svg/notification_outlined.svg",
+        "active_icon": "assets/svg/notification.svg"
+      },
+      {
+        "name": "chat".tr,
+        "icon": "assets/svg/chat_outlined.svg",
+        "active_icon": "assets/svg/chat.svg"
+      },
+    ];
     return Obx(() => Scaffold(
           resizeToAvoidBottomInset: false,
           drawer: const SideBar(),
@@ -71,23 +88,31 @@ class StartView extends StatelessWidget {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
-                                    item.values.elementAt(index)[
-                                        botNavController.selectedTab.value ==
-                                                index
-                                            ? 1
-                                            : 0],
-                                    size: botNavController.selectedTab.value ==
-                                            index
-                                        ? botNavController.iconSize.value
-                                        : botNavController
-                                            .initialIconSize.value,
-                                  ),
+                                  SvgPicture.asset(
+                                      botNavController.selectedTab.value ==
+                                              index
+                                          ? item.elementAt(index)["active_icon"]
+                                          : item
+                                              .elementAt(index)["icon"],
+                                      height:
+                                          botNavController.selectedTab.value ==
+                                                  index
+                                              ? botNavController.iconSize.value
+                                              : botNavController
+                                                  .initialIconSize.value,
+                                      width:
+                                          botNavController.selectedTab.value ==
+                                                  index
+                                              ? botNavController.iconSize.value
+                                              : botNavController
+                                                  .initialIconSize.value,
+                                      semanticsLabel:
+                                          item.elementAt(index)["name"]),
                                   const SizedBox(
                                     height: 2,
                                   ),
                                   Text(
-                                    item.keys.elementAt(index),
+                                    item.elementAt(index)["name"],
                                     style: TextStyle(
                                         fontSize: botNavController
                                                     .selectedTab.value ==
@@ -116,7 +141,7 @@ class StartView extends StatelessWidget {
                           height: 3.5,
                           width: botNavController.widthTab.value,
                           decoration: BoxDecoration(
-                            color: AppColor.black,
+                            color: Colors.black,
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),

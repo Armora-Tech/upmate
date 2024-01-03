@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/widgets/chat/chat_list.dart';
@@ -103,13 +104,17 @@ class ChatView extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(30),
                                             borderSide: BorderSide.none),
-                                        prefixIcon: const Icon(
-                                          Icons.search,
-                                          color: Colors.black,
-                                        ),
+                                         prefixIcon: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 15.0, right: 10),
+                                child: SvgPicture.asset("assets/svg/search.svg",
+                                    colorFilter: const ColorFilter.mode(
+                                        Colors.grey, BlendMode.srcIn),
+                                    semanticsLabel: 'Search'),
+                              ),
                                         hintText: "search".tr,
                                         hintStyle: AppFont.text14.copyWith(
-                                          color: AppColor.black,
+                                          color:Colors.black,
                                         ),
                                       ),
                                     ),

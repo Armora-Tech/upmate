@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/login_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
@@ -17,13 +18,13 @@ class SideBar extends StatelessWidget {
     final controller = Get.find<StartController>();
     final loginController = Get.find<LoginController>();
     Map<dynamic, dynamic> content = {
-      "account".tr: Icons.account_circle_outlined,
-      "settings".tr: Icons.settings_outlined,
-      "privacy".tr: Icons.lock_outlined,
-      "bookmarks".tr: Icons.bookmark_outline_outlined,
-      "help_center".tr: Icons.help_outline_outlined,
-      "FAQ": Icons.help_center_outlined,
-      "logout".tr: Icons.logout,
+      "account".tr: "assets/svg/profile_outlined.svg",
+      "settings".tr: "assets/svg/settings_outlined.svg",
+      "privacy".tr: "assets/svg/privacy.svg",
+      "bookmarks".tr: "assets/svg/bookmark_outlined.svg",
+      "help_center".tr: "assets/svg/help_center.svg",
+      "FAQ": "assets/svg/faq.svg",
+      "logout".tr: "assets/svg/logout.svg",
     };
     return Drawer(
       backgroundColor: Colors.white,
@@ -54,12 +55,12 @@ class SideBar extends StatelessWidget {
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Image.network(
-                          controller.photoURL!,
+                        Image.asset(
+                          "assets/images/wallpaper_flutter.jpg",
                           fit: BoxFit.cover,
                         ),
                         BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                            filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                             child: Container(
                               height: Get.height,
                               width: Get.width,
@@ -148,10 +149,10 @@ class SideBar extends StatelessWidget {
                               height: 50,
                               child: Row(
                                 children: [
-                                  Icon(
-                                    item.value,
-                                    size: 20,
-                                  ),
+                                  SvgPicture.asset(item.value,
+                                      height: 20,
+                                      width: 20,
+                                      semanticsLabel: item.key),
                                   const SizedBox(
                                     width: 10.0,
                                   ),

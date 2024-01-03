@@ -37,7 +37,7 @@ dependencies:
   get: ^4.6.6
   get_storage: ^2.1.1
   google_fonts: ^5.1.0
-  flutter_svg: ^2.0.7
+  flutter_svg: ^2.0.9
   carousel_slider: ^4.2.1
   flutter_native_splash: ^2.3.6
   emoji_picker_flutter: ^1.6.3
@@ -96,6 +96,7 @@ flutter:
     - assets/lottie_animations/
     - assets/rive_animations/
     - assets/pdfs/
+    - assets/svg/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

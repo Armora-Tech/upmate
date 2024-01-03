@@ -82,7 +82,8 @@ class LoginController extends GetxController {
 
   Future<void> signOut() async {
     try {
-      await _auth.signOut().then((value) => Get.offNamed(RouteName.login));
+      Get.offNamed(RouteName.login);
+      await _auth.signOut();
     } catch (e) {
       if (kDebugMode) {
         print('Error navigating to start page: $e');
