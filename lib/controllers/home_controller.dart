@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/repositories/post_repository.dart';
@@ -32,6 +33,9 @@ class HomeController extends GetxController {
 
   String postingTimePassed(int index) {
     DateTime now = DateTime.timestamp();
+    if (kDebugMode) {
+      print(posts![index].timestamp);
+    }
     DateTime postTime = posts![index].timestamp!;
     Duration difference = now.difference(postTime);
     String ago = "ago".tr;

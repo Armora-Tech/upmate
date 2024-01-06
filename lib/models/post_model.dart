@@ -220,4 +220,6 @@ class PostModel {
   bool get isCover => _isCover;
 
   List<String>? get postPhoto => _postPhoto;
+
+  String? get userPhoto => _user?.photoUrl;
 }

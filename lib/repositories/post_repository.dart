@@ -60,7 +60,9 @@ class PostRepository {
             print("Comment: ${post.comments?[0].text}");
           }
         }
-        data.add(post);
+        if(post.timestamp!=null) {
+          data.add(post);
+        }
       }
       return data;
     } catch (e) {

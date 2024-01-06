@@ -9,6 +9,7 @@ class UserModel {
   List<dynamic> _interests;
   String _uid;
   String _username;
+  String? _photo_url;
   List<PostModel>? _posts;
 
   UserModel._(
@@ -18,14 +19,16 @@ class UserModel {
       required String email,
       required List<dynamic> interests,
       required String uid,
-      required String username})
+      required String username,
+      String? photoUrl})
       : _ref = ref,
         _created_time = createdTime,
         _display_name = displayName,
         _email = email,
         _interests = interests,
         _uid = uid,
-        _username = username;
+        _username = username,
+        _photo_url = photoUrl;
 
   factory UserModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -84,4 +87,6 @@ class UserModel {
   String get username => _username;
 
   List<PostModel>? get posts => _posts;
+
+  String? get photoUrl => _photo_url;
 }
