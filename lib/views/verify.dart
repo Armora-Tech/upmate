@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/signup_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
-import 'package:upmatev2/repositories/auth.dart';
 
 class VerifyView extends StatelessWidget {
   const VerifyView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final authControl = Auth();
+    final controller = Get.find<SignupController>();
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -58,11 +58,13 @@ class VerifyView extends StatelessWidget {
                       height: 68,
                       width: 64,
                       child: TextFormField(
-                        onSaved: (pin1) {},
                         onChanged: (value) {
                           if (value.length == 1) {
                             FocusScope.of(context).nextFocus();
                           }
+                          debugPrint(value);
+                          controller.inputOTP.value =
+                              controller.inputOTP.value + value;
                         },
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
@@ -76,33 +78,15 @@ class VerifyView extends StatelessWidget {
                       height: 68,
                       width: 64,
                       child: TextFormField(
-                        onSaved: (pin2) {},
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          } else {
-                            FocusScope.of(context).previousFocus();
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 68,
-                      width: 64,
-                      child: TextFormField(
-                        onSaved: (pin3) {},
                         onChanged: (value) {
                           if (value.length == 1) {
                             FocusScope.of(context).nextFocus();
                           } else {
                             FocusScope.of(context).previousFocus();
                           }
+                          debugPrint(value);
+                          controller.inputOTP.value =
+                              controller.inputOTP.value + value;
                         },
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
@@ -116,11 +100,35 @@ class VerifyView extends StatelessWidget {
                       height: 68,
                       width: 64,
                       child: TextFormField(
-                        onSaved: (pin4) {},
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            FocusScope.of(context).nextFocus();
+                          } else {
+                            FocusScope.of(context).previousFocus();
+                          }
+                          debugPrint(value);
+                          controller.inputOTP.value =
+                              controller.inputOTP.value + value;
+                        },
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(1),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 68,
+                      width: 64,
+                      child: TextFormField(
                         onChanged: (value) {
                           if (value.isEmpty) {
                             FocusScope.of(context).previousFocus();
                           }
+                          debugPrint(value);
+                          controller.inputOTP.value =
+                              controller.inputOTP.value + value;
                         },
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
@@ -155,6 +163,8 @@ class VerifyView extends StatelessWidget {
                 ),
                 ElevatedButton(
                     onPressed: () async {
+                      debugPrint("${controller.inputOTP}");
+                      await controller.verifyOTP();
                       // final isOK = await authControl.checkOTP("123");
                       // print("CECK: $isOK");
 

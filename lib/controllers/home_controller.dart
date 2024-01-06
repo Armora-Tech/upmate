@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/repositories/post_repository.dart';
 import '../models/post_model.dart';
@@ -15,7 +14,11 @@ class HomeController extends GetxController {
     isLoading.value = true;
     posts = await PostRepository().getPosts();
     isLoading.value = false;
-    debugPrint("HOMEPOSE: $posts");
+    for (var i = 0; i < posts!.length; i++) {
+      debugPrint("tes: ${posts![i].user!.username}");
+      debugPrint("tes: ${posts![i].userPhoto}");
+      debugPrint("tes: ${posts![i].user!.photoUrl}");
+    }
     super.onInit();
     update();
   }

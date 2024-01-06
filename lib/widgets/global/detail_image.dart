@@ -34,30 +34,30 @@ class DetailImage extends StatelessWidget {
                   maxScale: controller.maxScale.value,
                   onInteractionEnd: (details) => controller.resetZoom(),
                   child: (image is AssetEntity)
-                          ? Container(
-                              constraints:
-                                  BoxConstraints(maxHeight: Get.height * 0.7),
+                      ? SizedBox(
+                          height: Get.height,
+                          width: Get.width,
+                          child: AssetEntityImage(
+                            image,
+                            fit: BoxFit.contain,
+                            alignment: Alignment.center,
+                          ),
+                        )
+                      : (image is File)
+                          ? SizedBox(
+                              height: Get.height,
                               width: Get.width,
-                              child: AssetEntityImage(
+                              child: Image.file(
                                 image,
                                 fit: BoxFit.contain,
+                                alignment: Alignment.center,
                               ),
                             )
-                          : (image is File)
-                              ? Container(
-                                  constraints: BoxConstraints(
-                                      maxHeight: Get.height * 0.7),
-                                  width: Get.width,
-                                  child: Image.file(
-                                    image,
-                                    fit: BoxFit.contain,
-                                    scale: 4.5,
-                                  ),
-                                )
-                              : Image.network(
-                                  image,
-                                  fit: BoxFit.contain,
-                                ),
+                          : Image.network(
+                              image,
+                              fit: BoxFit.contain,
+                              alignment: Alignment.center,
+                            ),
                 ),
               ),
             ),

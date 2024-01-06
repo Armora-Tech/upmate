@@ -33,7 +33,7 @@ class Message extends Translations {
           "less": "less",
           "see_all": "See all",
           "comment": "comment",
-          "ago" : "ago",
+          "ago": "ago",
           "days": "days",
           "hours": "hours",
           "minutes": "minutes",
@@ -123,11 +123,13 @@ class Message extends Translations {
           "no_posts": "No posts",
           "no_posts_saved": "No posts saved",
           // ============= VERIFY =============
+          "verify_otp": "Verify OTP",
+          "otp_verification_failed": "OTP verification failed",
           "verify_your_email": "Verify your email",
           "please_enter_the_4_digit_code_sent_to_youremail@example.com":
               "Please enter the 4 digit code sent to youremail@example.com",
           // =========== ADD NEW CHAT =============
-          "create_a_new_chat" : "Create a new chat"
+          "create_a_new_chat": "Create a new chat"
         },
         "id": {
           // ========= LOGIN SIGNUP PAGE ========
@@ -159,7 +161,7 @@ class Message extends Translations {
           "less": "sembunyikan",
           "see_all": "Lihat semua",
           "comment": "komentar",
-          "ago" : "yang lalu",
+          "ago": "yang lalu",
           "days": "hari",
           "hours": "jam",
           "minutes": "menit",
@@ -248,11 +250,13 @@ class Message extends Translations {
           "no_posts": "Tidak ada postingan",
           "no_posts_saved": "Tidak ada postingan yang disimpan",
           // ============= VERIFY =============
+          "verify_otp": "Verifikasi OTP",
+          "otp_verification_failed": "Verifikasi OTP gagal",
           "verify_your_email": "Verifikasi email Anda",
           "please_enter_the_4_digit_code_sent_to_youremail@example.com":
               "Masukkan 4 digit kode yang dikirimkan ke emailanda@contoh.com",
-              // =========== ADD NEW CHAT =============
-          "create_a_new_chat" : "Buat obrolan baru"
+          // =========== ADD NEW CHAT =============
+          "create_a_new_chat": "Buat obrolan baru"
         }
       };
 }

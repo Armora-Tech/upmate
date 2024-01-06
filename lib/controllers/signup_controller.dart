@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/utils/input_validator.dart';
+import 'package:upmatev2/widgets/global/snack_bar.dart';
 import '../routes/route_name.dart';
 import '../repositories/auth.dart';
 
@@ -19,6 +20,7 @@ class SignupController extends GetxController {
   RxString? errorEmailMessage;
   RxString? errorUsernameMessage;
   RxString? errorFullNameMessage;
+  RxString inputOTP = "".obs;
   RxBool isVisible = true.obs;
   RxBool isConfirmPassVisible = true.obs;
   RxBool isFocused = false.obs;
@@ -84,6 +86,16 @@ class SignupController extends GetxController {
     }
     isLoading.value = false;
     update();
+  }
+
+  Future<void> verifyOTP() async {
+    bool isVerified = await _auth.checkOTP(inputOTP.value);
+    if (isVerified) {
+      Get.toNamed(RouteName.tagInterest);
+    } else {
+      SnackBarWidget.showSnackBar(
+          "verify_otp".tr, "otp_verification_failed".tr, Colors.redAccent);
+    }
   }
 
   RxBool isInputValid() {

@@ -113,7 +113,7 @@ class PostContent extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SvgPicture.asset("assets/svg/share.svg",
-                                  semanticsLabel: 'share'),
+                                  height: 26, semanticsLabel: 'share'),
                               const SizedBox(
                                 height: 2,
                               ),
