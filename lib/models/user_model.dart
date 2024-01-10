@@ -98,6 +98,7 @@ class UserModel {
             .update(data)
             .whenComplete(() => print("data updated"))
             .catchError((e) => print(e));
+        _banner_url = data["banner_url"];
       } else {
         //error
         return;
@@ -119,6 +120,7 @@ class UserModel {
             .update(data)
             .whenComplete(() => print("data updated"))
             .catchError((e) => print(e));
+        _photo_url = data["photo_url"];
       } else {
         //error
         return;
