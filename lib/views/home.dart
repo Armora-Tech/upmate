@@ -48,7 +48,7 @@ class HomeView extends StatelessWidget {
                 ),
                 Positioned(
                   top: 0,
-                  child: Container(
+                  child:  Container(
                     color: Colors.white,
                     width: Get.width,
                     child: SafeArea(
@@ -58,7 +58,7 @@ class HomeView extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: SizedBox(
                               height: 60,
-                              child: Row(
+                              child: GetBuilder<StartController>(builder:(_)=> Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -73,7 +73,7 @@ class HomeView extends StatelessWidget {
                                         )),
                                   ),
                                   Text(
-                                    startController.displayName!,
+                                    startController.user?.displayName ?? "" ,
                                     style: AppFont.text20
                                         .copyWith(fontWeight: FontWeight.bold),
                                   ),
@@ -81,13 +81,13 @@ class HomeView extends StatelessWidget {
                                       onTap: () =>
                                           Get.toNamed(RouteName.profile),
                                       child: ProfilePicture(
-                                        imageURL: startController.photoURL,
+                                        imageURL: startController.user?.photoUrl,
                                         size: 35,
                                       ))
                                 ],
                               ),
                             ),
-                          ),
+                          )),
                           Container(
                             height: 0.5,
                             width: Get.width,

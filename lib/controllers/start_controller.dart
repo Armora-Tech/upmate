@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/repositories/auth.dart';
 
@@ -16,13 +15,6 @@ class StartController extends GetxController {
 
   Future<void> _getUser() async {
     user = await _auth.getUserModel();
+    update();
   }
-
-  String get username => user!.username;
-  String? get displayName =>
-      FirebaseAuth.instance.currentUser?.displayName ?? "";
-  String? get email => FirebaseAuth.instance.currentUser?.email ?? "";
-  String? get photoURL =>
-      FirebaseAuth.instance.currentUser?.photoURL ??
-     "https://www.mmm.ucar.edu/sites/default/files/img/default-avatar.jpg";
 }

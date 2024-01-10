@@ -85,7 +85,7 @@ class ProfileView extends StatelessWidget {
                                     child: Hero(
                                       tag: "profile",
                                       child: ProfilePicture(
-                                          imageURL: startController.photoURL,
+                                          imageURL: startController.user!.photoUrl,
                                           size: 75),
                                     ),
                                   ),
@@ -101,13 +101,13 @@ class ProfileView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                startController.displayName!,
+                                startController.user!.displayName,
                                 maxLines: 1,
                                 style: AppFont.text16
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                startController.username,
+                               startController.user!.username,
                                 maxLines: 1,
                                 style: const TextStyle(color: Colors.grey),
                               ),

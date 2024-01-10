@@ -49,9 +49,7 @@ class PostDetailView extends StatelessWidget {
                         clipBehavior: Clip.hardEdge,
                         decoration: const BoxDecoration(shape: BoxShape.circle),
                         child: Image.network(
-                          homeController.posts![index].userPhoto == ""
-                              ? "https://www.mmm.ucar.edu/sites/default/files/img/default-avatar.jpg"
-                              : homeController.posts![index].userPhoto!,
+                          homeController.posts![index].userPhoto!,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -174,7 +172,7 @@ class PostDetailView extends StatelessWidget {
                                         color: AppColor.primaryColor),
                                     child: ProfilePicture(
                                       size: 30,
-                                      imageURL: startController.photoURL,
+                                      imageURL: startController.user!.photoUrl,
                                     ),
                                   ),
                                   const SizedBox(width: 5),

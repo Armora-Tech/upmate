@@ -6,6 +6,7 @@ import '../models/post_model.dart';
 class HomeController extends GetxController {
   List<PostModel>? posts;
   RxInt selectedIndex = 0.obs;
+  RxInt selectedImage = 0.obs;
   RxBool isFullText = false.obs;
   RxBool isLoading = false.obs;
 
@@ -36,9 +37,6 @@ class HomeController extends GetxController {
 
   String postingTimePassed(int index) {
     DateTime now = DateTime.timestamp();
-    if (kDebugMode) {
-      print(posts![index].timestamp);
-    }
     DateTime postTime = posts![index].timestamp!;
     Duration difference = now.difference(postTime);
     String ago = "ago".tr;

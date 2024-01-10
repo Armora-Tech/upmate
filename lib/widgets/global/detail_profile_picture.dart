@@ -25,7 +25,7 @@ class DetailProfilePicture extends StatelessWidget {
                 decoration: const BoxDecoration(
                     color: Colors.grey, shape: BoxShape.circle),
                 child: Image.network(
-                  controller.photoURL!,
+                  controller.user!.photoUrl!,
                   fit: BoxFit.cover,
                 ),
               ),

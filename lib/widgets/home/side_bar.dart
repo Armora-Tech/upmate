@@ -95,7 +95,7 @@ class SideBar extends StatelessWidget {
                                   shape: BoxShape.circle),
                               child: ClipOval(
                                 child: Image.network(
-                                  controller.photoURL!,
+                                  controller.user!.photoUrl!,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -106,12 +106,12 @@ class SideBar extends StatelessWidget {
                           height: 15.0,
                         ),
                         Text(
-                          controller.displayName!,
+                          controller.user!.displayName,
                           style: AppFont.text20.copyWith(
                               fontWeight: FontWeight.w600, color: Colors.white),
                         ),
                         Text(
-                          controller.username,
+                          controller.user!.username,
                           style: const TextStyle(color: Colors.grey),
                         ),
                       ],

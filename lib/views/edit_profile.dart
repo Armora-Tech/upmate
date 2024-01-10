@@ -49,7 +49,7 @@ class EditProfileView extends StatelessWidget {
                                           ),
                                         )
                                       : ProfilePicture(
-                                          imageURL: startController.photoURL,
+                                          imageURL: startController.user!.photoUrl,
                                           size: 120,
                                         ))),
                           const SizedBox(

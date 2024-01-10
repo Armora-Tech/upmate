@@ -51,11 +51,11 @@ class EditProfileController extends GetxController {
     inputText = TextEditingController();
     data = {
       "username".tr: startController.user!.username == ""
-          ? startController.displayName!
+          ? startController.user!.displayName
           : startController.user!.username,
-      "full_name".tr: startController.displayName,
+      "full_name".tr: startController.user!.displayName,
       "Bio": "",
-      "Email": startController.email,
+      "Email": startController.user!.email,
       "password".tr: "*****"
     };
     super.onInit();

@@ -27,7 +27,7 @@ class PostContent extends StatelessWidget {
                   borderRadius: 0,
                 ),
               )
-            : PostImage(controller: controller, index: index),
+            : PostImage(index: index),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(

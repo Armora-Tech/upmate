@@ -5,7 +5,6 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:upmatev2/models/user_model.dart';
 import 'package:upmatev2/repositories/auth.dart';
 
 import '../routes/route_name.dart';
