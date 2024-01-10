@@ -5,6 +5,8 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:upmatev2/models/user_model.dart';
+import 'package:upmatev2/repositories/auth.dart';
 
 import '../routes/route_name.dart';
 import '../utils/pick_image.dart';
@@ -100,6 +102,8 @@ class GalleryController extends GetxController {
           await imagePicker.crop(file: image!, cropStyle: CropStyle.circle);
       if (croppedImage != null) {
         image = File(croppedImage.path);
+        final user = await Auth().getUserModel();
+        await user!.updateProfile(image!);
         Get.until((route) => Get.previousRoute == RouteName.editProfile);
       }
     }

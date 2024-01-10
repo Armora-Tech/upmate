@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/controllers/post_detail_controller.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/emoji_section.dart';
 import 'package:upmatev2/widgets/global/post_section.dart';
@@ -16,6 +16,7 @@ class PostDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<HomeController>();
+    final startController = Get.find<StartController>();
     final controller = Get.find<PostDetailController>();
     controller.selectedIndex = homeController.selectedIndex;
     int index = controller.selectedIndex.value;
@@ -48,7 +49,9 @@ class PostDetailView extends StatelessWidget {
                         clipBehavior: Clip.hardEdge,
                         decoration: const BoxDecoration(shape: BoxShape.circle),
                         child: Image.network(
-                          FirebaseAuth.instance.currentUser!.photoURL!,
+                          homeController.posts![index].userPhoto == ""
+                              ? "https://www.mmm.ucar.edu/sites/default/files/img/default-avatar.jpg"
+                              : homeController.posts![index].userPhoto!,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -169,7 +172,10 @@ class PostDetailView extends StatelessWidget {
                                             bottomLeft: Radius.circular(40),
                                             bottomRight: Radius.circular(8)),
                                         color: AppColor.primaryColor),
-                                    child: const ProfilePicture(size: 30),
+                                    child: ProfilePicture(
+                                      size: 30,
+                                      imageURL: startController.photoURL,
+                                    ),
                                   ),
                                   const SizedBox(width: 5),
                                   Expanded(

@@ -122,8 +122,7 @@ class GalleryView extends StatelessWidget {
                                       ),
                                       Text(
                                         "Gallery",
-                                        style:
-                                            AppFont.text20.copyWith(
+                                        style: AppFont.text20.copyWith(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -132,9 +131,9 @@ class GalleryView extends StatelessWidget {
                                   GestureDetector(
                                       onTap: () async =>
                                           await controller.updatePhotoProfile(),
-                                      child: const Text(
-                                        "Simpan",
-                                        style: TextStyle(
+                                      child: Text(
+                                        "save".tr,
+                                        style: const TextStyle(
                                           fontSize: 15,
                                           color: Colors.blueAccent,
                                         ),

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/routes/route_name.dart';
@@ -18,7 +17,6 @@ class NewPost extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: controller.posts?.length ?? 3,
-            reverse: true,
             separatorBuilder: (context, index) => const SizedBox(
                   height: 10,
                 ),
@@ -53,8 +51,9 @@ class NewPost extends StatelessWidget {
                                   decoration: const BoxDecoration(
                                       shape: BoxShape.circle),
                                   child: Image.network(
-                                    FirebaseAuth
-                                        .instance.currentUser!.photoURL!,
+                                    controller.posts![index].userPhoto == ""
+                                        ? "https://www.mmm.ucar.edu/sites/default/files/img/default-avatar.jpg"
+                                        : controller.posts![index].userPhoto!,
                                     fit: BoxFit.cover,
                                   ),
                                 ),

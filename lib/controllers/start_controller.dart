@@ -24,5 +24,5 @@ class StartController extends GetxController {
   String? get email => FirebaseAuth.instance.currentUser?.email ?? "";
   String? get photoURL =>
       FirebaseAuth.instance.currentUser?.photoURL ??
-      "https://i.imgflip.com/6yvpkj.jpg";
+     "https://www.mmm.ucar.edu/sites/default/files/img/default-avatar.jpg";
 }

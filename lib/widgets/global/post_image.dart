@@ -16,37 +16,38 @@ class PostImage extends StatelessWidget {
       children: [
         Container(
           color: const Color.fromARGB(255, 18, 18, 18),
-          clipBehavior: Clip.none,
           width: Get.width,
           constraints: BoxConstraints(maxHeight: Get.width),
-          child: CarouselSlider(
-            options: CarouselOptions(
-              viewportFraction: 1,
-              aspectRatio: controller.posts![index].isCover ? 1 : 16 / 9,
-              enlargeCenterPage: false,
-              enableInfiniteScroll: false,
-              onPageChanged: (index, reason) {
-                controller.selectedIndex.value = index;
-              },
+          child: IntrinsicHeight(
+            child: CarouselSlider(
+              options: CarouselOptions(
+                viewportFraction: 1,
+                aspectRatio: controller.posts![index].isCover ? 1 : 16 / 9,
+                enlargeCenterPage: false,
+                enableInfiniteScroll: false,
+                onPageChanged: (index, reason) {
+                  controller.selectedIndex.value = index;
+                },
+              ),
+              items: controller.posts![index].postPhoto!.map<Widget>((image) {
+                return GestureDetector(
+                  onTap: () => Get.to(() => DetailImage(image: image),
+                      opaque: false,
+                      fullscreenDialog: true,
+                      transition: Transition.noTransition),
+                  child: SizedBox(
+                    width: Get.width,
+                    child: Hero(
+                        tag: image,
+                        child: Image.network(
+                          image,
+                          fit: BoxFit.cover,
+                        )),
+                  ),
+                );
+              }).toList(),
             ),
-            items: controller.posts![index].postPhoto!.map<Widget>((image) {
-              return GestureDetector(
-                onTap: () => Get.to(() => DetailImage(image: image),
-                    opaque: false,
-                    fullscreenDialog: true,
-                    transition: Transition.noTransition),
-                child: SizedBox(
-                  width: Get.width,
-                  child: Hero(
-                      tag: image,
-                      child: Image.network(image, fit: BoxFit.cover)),
-                ),
-              );
-            }).toList(),
           ),
-        ),
-        const SizedBox(
-          height: 15,
         ),
         controller.posts![index].postPhoto!.length > 1
             ? Row(
@@ -55,7 +56,8 @@ class PostImage extends StatelessWidget {
                     controller.posts![index].postPhoto!.length,
                     (index) => Obx(
                           () => Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 3),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 3, vertical: 15),
                             child: Container(
                               height: 5,
                               width: 5,
@@ -68,7 +70,9 @@ class PostImage extends StatelessWidget {
                           ),
                         )),
               )
-            : const SizedBox(),
+            : const SizedBox(
+                height: 15,
+              ),
       ],
     );
   }

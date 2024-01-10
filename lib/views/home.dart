@@ -6,7 +6,6 @@ import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/title_section.dart';
 import 'package:upmatev2/widgets/home/new_post.dart';
 import 'package:upmatev2/widgets/home/popular.dart';
-import '../controllers/home_controller.dart';
 import '../widgets/global/profile_picture.dart';
 
 class HomeView extends StatelessWidget {
@@ -14,7 +13,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<HomeController>();
     final startController = Get.find<StartController>();
     return Scaffold(
               body: Stack(children: [

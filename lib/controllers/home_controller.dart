@@ -13,11 +13,11 @@ class HomeController extends GetxController {
   Future<void> onInit() async {
     isLoading.value = true;
     posts = await PostRepository().getPosts();
+    posts!.sort((a, b) => b.timestamp!.compareTo(a.timestamp!));
     isLoading.value = false;
     for (var i = 0; i < posts!.length; i++) {
       debugPrint("tes: ${posts![i].user!.username}");
       debugPrint("userPhoto: ${posts![i].userPhoto}");
-      debugPrint("tes: ${posts![i].user!.photoUrl}");
     }
     super.onInit();
     update();
@@ -52,5 +52,12 @@ class HomeController extends GetxController {
     } else {
       return "${difference.inDays} ${"days".tr} $ago";
     }
+  }
+
+  Future<void> refreshPosts() async {
+    isLoading.value = true;
+    posts = await PostRepository().getPosts();
+    isLoading.value = false;
+    update();
   }
 }

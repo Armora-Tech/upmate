@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -107,7 +108,7 @@ class UserModel {
     }
   }
 
-  Future<void> updateProfile(AssetEntity asset) async {
+  Future<void> updateProfile(File asset) async {
     Map<String, dynamic> data = <String, dynamic>{};
     try {
       final response = await Upload().uploadImage(asset);

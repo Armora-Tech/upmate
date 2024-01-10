@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:photo_manager/photo_manager.dart';
@@ -10,11 +11,11 @@ class Upload {
     'Content-Type': 'application/x-www-form-urlencoded',
   };
 
-  Future<http.Response> uploadImage(AssetEntity asset) async {
-    final img = await asset.file;
+  Future<http.Response> uploadImage(dynamic asset) async {
+    final img = asset is AssetEntity? await asset.file :await asset;
     final Map<String, String> body = {
       'ref': "IMG-${Auth().getCurrentUserReference().id}${DateTime.now()}",
-      'img': base64.encode(await img!.readAsBytes())
+      'img': base64.encode(await img.readAsBytes())
     };
     return await http.post(url, headers: headers, body: body);
   }

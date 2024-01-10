@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/controllers/post_controller.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/global/dialog_interest.dart';
@@ -13,6 +14,7 @@ class PostInterestView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<PostController>();
+    final homeController = Get.find<HomeController>();
     return WillPopScope(
         onWillPop: () async {
           controller.selectedTags.clear();
@@ -230,7 +232,10 @@ class PostInterestView extends StatelessWidget {
                                 GestureDetector(
                                     onTap: controller.isLoading.value
                                         ? () {}
-                                        : () => controller.addPost(),
+                                        : () async {
+                                            await controller.addPost();
+                                            await homeController.refreshPosts();
+                                          },
                                     child: Obx(
                                       () => controller.isLoading.value
                                           ? const SizedBox(
