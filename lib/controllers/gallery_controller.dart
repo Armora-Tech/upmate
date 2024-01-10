@@ -5,14 +5,20 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:upmatev2/controllers/home_controller.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/repositories/auth.dart';
 
 import '../routes/route_name.dart';
 import '../utils/pick_image.dart';
+import '../widgets/global/snack_bar.dart';
 
 class GalleryController extends GetxController {
-  late ScrollController scrollController;
+  late final ScrollController scrollController;
+  late final StartController _startController;
+  late final HomeController _homeController;
   RxBool isBtnShown = false.obs;
+  RxBool isLoading = false.obs;
   RxInt selectedIndex = 0.obs;
   RxInt oldSelectedIndex = 0.obs;
 
@@ -24,6 +30,8 @@ class GalleryController extends GetxController {
   @override
   Future<void> onInit() async {
     scrollController = ScrollController();
+    _startController = Get.find<StartController>();
+    _homeController = Get.find<HomeController>();
     scrollController.addListener(() {
       if (scrollController.position.userScrollDirection ==
               ScrollDirection.forward ||
@@ -101,9 +109,15 @@ class GalleryController extends GetxController {
           await imagePicker.crop(file: image!, cropStyle: CropStyle.circle);
       if (croppedImage != null) {
         image = File(croppedImage.path);
+        isLoading.value = true;
+        Get.until((route) => Get.previousRoute == RouteName.editProfile);
         final user = await Auth().getUserModel();
         await user!.updateProfile(image!);
-        Get.until((route) => Get.previousRoute == RouteName.editProfile);
+        await _startController.refreshStart();
+        await _homeController.refreshPosts();
+        isLoading.value = false;
+        SnackBarWidget.showSnackBar(
+            "success".tr, "update_photo_profile".tr, Colors.green);
       }
     }
     Get.forceAppUpdate();

@@ -117,6 +117,8 @@ class Message extends Translations {
           "change_picture": "Change Picture",
           "save": "Save",
           "confrim": "Confirm",
+          "update_photo_profile": "Update Photo Profile",
+          "success": "Success",
           // ========= PROFILE ============
           "following": "Following",
           "followers": "Followers",
@@ -244,6 +246,8 @@ class Message extends Translations {
           "change_picture": "Ubah Gambar",
           "save": "Simpan",
           "confrim": "Konfirmasi",
+          "update_photo_profile": "Memperbarui foto profil",
+          "success": "Sukses",
           // ========= PROFILE ============
           "following": "Mengikuti",
           "followers": "Pengikut",

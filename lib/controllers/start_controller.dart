@@ -6,6 +6,7 @@ import '../models/user_model.dart';
 class StartController extends GetxController {
   final Auth _auth = Auth();
   UserModel? user;
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() async {
@@ -15,6 +16,13 @@ class StartController extends GetxController {
 
   Future<void> _getUser() async {
     user = await _auth.getUserModel();
+    update();
+  }
+
+  Future<void> refreshStart() async {
+    isLoading.value = true;
+    await _getUser();
+    isLoading.value = false;
     update();
   }
 }
