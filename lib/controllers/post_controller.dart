@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:upmatev2/models/post_model.dart';
 
 import '../repositories/auth.dart';
@@ -12,6 +12,7 @@ import '../repositories/post_repository.dart';
 import '../routes/route_name.dart';
 import 'gallery_controller.dart';
 import 'start_controller.dart';
+import '../utils/upload.dart';
 
 class PostController extends GetxController {
   late TextEditingController description;
@@ -59,20 +60,10 @@ class PostController extends GetxController {
 
   Future<void> addPost() async {
     isLoading.value = true;
-    final url = Uri.parse('https://armoratech.my.id/upmateimg/upload');
     List<String> imgUrl = [];
     for (var asset in galleryController.selectedAssetList) {
-      final img = await asset.file;
-      final Map<String, String> headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      };
-      final Map<String, String> body = {
-        'ref': startController.user!.username + DateTime.now().toString(),
-        'img': base64.encode(await img!.readAsBytes())
-      };
-
       try {
-        final response = await http.post(url, headers: headers, body: body);
+        final response = await Upload().uploadImage(asset);
         if (response.statusCode == 200) {
           final responseData = response.body;
           final jsonResponse = jsonDecode(responseData);
@@ -85,6 +76,7 @@ class PostController extends GetxController {
         return;
       }
     }
+
     PostModel postModel = PostModel(
         ref: FirebaseFirestore.instance.collection("posts").doc(),
         interests: selectedTags,

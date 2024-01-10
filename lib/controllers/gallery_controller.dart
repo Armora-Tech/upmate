@@ -50,6 +50,7 @@ class GalleryController extends GetxController {
     } else {
       selectedAssetList.add(image);
     }
+    print(selectedAssetList);
     update();
   }
 

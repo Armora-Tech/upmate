@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:photo_manager/photo_manager.dart';
 import 'package:upmatev2/models/post_model.dart';
+
+import '../utils/upload.dart';
 
 class UserModel {
   DocumentReference _ref;
@@ -11,6 +16,7 @@ class UserModel {
   String _username;
   String? _photo_url;
   List<PostModel>? _posts;
+  String? _banner_url;
 
   UserModel._(
       {required DocumentReference ref,
@@ -20,7 +26,8 @@ class UserModel {
       required List<dynamic> interests,
       required String uid,
       required String username,
-      String? photoUrl})
+      String? photoUrl,
+      String? bannerUrl})
       : _ref = ref,
         _created_time = createdTime,
         _display_name = displayName,
@@ -28,7 +35,8 @@ class UserModel {
         _interests = interests,
         _uid = uid,
         _username = username,
-        _photo_url = photoUrl;
+        _photo_url = photoUrl,
+        _banner_url = bannerUrl;
 
   factory UserModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -43,8 +51,10 @@ class UserModel {
         email: data?['email'] ?? '',
         interests: data?['interests'] ?? [],
         uid: data?['uid'] ?? '',
-        username: data?['username'] ?? "@${data?['display_name'].replaceAll(" ", "").toLowerCase()}"
-       );
+        username: data?['username'] ??
+            "@${data?['display_name'].replaceAll(" ", "").toLowerCase()}",
+        photoUrl: data?['photo_url'],
+        bannerUrl: data?['banner_url']);
   }
 
   Map<String, dynamic> toFirestore() {
@@ -54,7 +64,9 @@ class UserModel {
       "email": _email,
       "interests": _interests,
       "uid": _uid,
-      "username": _username
+      "username": _username,
+      "photo_url": _photo_url,
+      "banner_url": _banner_url
     };
   }
 
@@ -74,6 +86,48 @@ class UserModel {
     _posts = posts;
   }
 
+  Future<void> updateBanner(AssetEntity asset) async {
+    Map<String, dynamic> data = <String, dynamic>{};
+    try {
+      final response = await Upload().uploadImage(asset);
+      if (response.statusCode == 200) {
+        final responseData = response.body;
+        final jsonResponse = jsonDecode(responseData);
+        data["banner_url"] = (jsonResponse['url']);
+        await _ref
+            .update(data)
+            .whenComplete(() => print("data updated"))
+            .catchError((e) => print(e));
+      } else {
+        //error
+        return;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  Future<void> updateProfile(AssetEntity asset) async {
+    Map<String, dynamic> data = <String, dynamic>{};
+    try {
+      final response = await Upload().uploadImage(asset);
+      if (response.statusCode == 200) {
+        final responseData = response.body;
+        final jsonResponse = jsonDecode(responseData);
+        data["photo_url"] = (jsonResponse['url']);
+        await _ref
+            .update(data)
+            .whenComplete(() => print("data updated"))
+            .catchError((e) => print(e));
+      } else {
+        //error
+        return;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
   DocumentReference get ref => _ref;
 
   String get uid => _uid;
@@ -89,4 +143,6 @@ class UserModel {
   List<PostModel>? get posts => _posts;
 
   String? get photoUrl => _photo_url;
+
+  String? get bannerUrl => _banner_url;
 }

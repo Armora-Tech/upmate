@@ -75,7 +75,7 @@ class PostModel {
       "timestamp": _timestamp,
       "bookmarks": _bookmarks,
       "likes": _likes,
-      "post_photo": _postPhotoRaw,
+      "post_photo": _postPhoto,
       "isCover": _isCover
     };
   }
