@@ -4,9 +4,9 @@ import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/controllers/post_controller.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/global/dialog_interest.dart';
-import '../themes/app_font.dart';
-import '../widgets/global/line.dart';
-import '../widgets/global/loading.dart';
+import '../../themes/app_font.dart';
+import '../../widgets/global/blur_loading.dart';
+import '../../widgets/global/line.dart';
 
 class PostInterestView extends StatelessWidget {
   const PostInterestView({super.key});
@@ -230,29 +230,19 @@ class PostInterestView extends StatelessWidget {
                                   ),
                                 ),
                                 GestureDetector(
-                                    onTap: controller.isLoading.value
-                                        ? () {}
-                                        : () async {
-                                            await controller.addPost();
-                                            await homeController.refreshPosts();
-                                          },
-                                    child: Obx(
-                                      () => controller.isLoading.value
-                                          ? const SizedBox(
-                                              width: 50,
-                                              child: Center(
-                                                  child: Loading(
-                                                      size: 25,
-                                                      color:
-                                                          Colors.blueAccent)),
-                                            )
-                                          : Text(
-                                              "Post",
-                                              style: AppFont.text16.copyWith(
-                                                  color: Colors.blueAccent,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                    )),
+                                  onTap: controller.isLoading.value
+                                      ? () {}
+                                      : () async {
+                                          await controller.addPost();
+                                          await homeController.refreshPosts();
+                                        },
+                                  child: Text(
+                                    "Post",
+                                    style: AppFont.text16.copyWith(
+                                        color: Colors.blueAccent,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -261,6 +251,9 @@ class PostInterestView extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Obx(() => controller.isLoading.value
+                      ? const BlurLoading()
+                      : const SizedBox())
                 ],
               ),
             ),

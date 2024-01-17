@@ -94,7 +94,7 @@ class SignupController extends GetxController {
       Get.toNamed(RouteName.tagInterest);
     } else {
       SnackBarWidget.showSnackBar(
-          "verify_otp".tr, "otp_verification_failed".tr, Colors.redAccent);
+          false, "${"verify_otp".tr} ${"otp_verification_failed".tr}");
     }
   }
 

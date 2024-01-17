@@ -71,19 +71,18 @@ class ChatView extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () =>
                                         controller.isShowSearch.toggle(),
-                                    child: const Icon(
-                                      Icons.search,
-                                      size: 26,
-                                      color: Colors.black,
+                                    child: SvgPicture.asset(
+                                      "assets/svg/search.svg",
+                                      colorFilter: const ColorFilter.mode(
+                                          AppColor.black, BlendMode.srcIn),
                                     ),
                                   ),
                                   const SizedBox(
                                     width: 20,
                                   ),
-                                  const Icon(
-                                    Icons.more_vert_rounded,
-                                    size: 28,
-                                    color: Colors.black,
+                                  SvgPicture.asset(
+                                    "assets/svg/more_vert.svg",
+                                    height: 22,
                                   ),
                                 ])
                               ],
@@ -104,17 +103,20 @@ class ChatView extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(30),
                                             borderSide: BorderSide.none),
-                                         prefixIcon: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 15.0, right: 10),
-                                child: SvgPicture.asset("assets/svg/search.svg",
-                                    colorFilter: const ColorFilter.mode(
-                                        Colors.grey, BlendMode.srcIn),
-                                    semanticsLabel: 'Search'),
-                              ),
+                                        prefixIcon: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 15.0, right: 10),
+                                          child: SvgPicture.asset(
+                                              "assets/svg/search.svg",
+                                              colorFilter:
+                                                  const ColorFilter.mode(
+                                                      Colors.grey,
+                                                      BlendMode.srcIn),
+                                              semanticsLabel: 'Search'),
+                                        ),
                                         hintText: "search".tr,
                                         hintStyle: AppFont.text14.copyWith(
-                                          color:Colors.black,
+                                          color: Colors.black,
                                         ),
                                       ),
                                     ),

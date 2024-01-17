@@ -6,9 +6,9 @@ import 'package:upmatev2/controllers/gallery_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/scroll_up.dart';
 
-import '../themes/app_color.dart';
-import '../widgets/global/line.dart';
-import '../widgets/global/skelton.dart';
+import '../../themes/app_color.dart';
+import '../../widgets/global/line.dart';
+import '../../widgets/global/skelton.dart';
 
 class GalleryView extends StatelessWidget {
   const GalleryView({super.key});

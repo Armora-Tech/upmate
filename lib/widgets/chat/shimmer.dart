@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 
+import '../../themes/app_color.dart';
 import '../../themes/app_font.dart';
 
 class ChatShimmer extends StatelessWidget {
@@ -87,19 +89,18 @@ class ChatShimmer extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const Row(children: [
-                          Icon(
-                            Icons.search,
-                            size: 26,
-                            color: Colors.black,
+                        Row(children: [
+                          SvgPicture.asset(
+                            "assets/svg/search.svg",
+                            colorFilter: const ColorFilter.mode(
+                                AppColor.black, BlendMode.srcIn),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
-                          Icon(
-                            Icons.more_vert_rounded,
-                            size: 28,
-                            color: Colors.black,
+                          SvgPicture.asset(
+                            "assets/svg/more_vert.svg",
+                            height: 22,
                           ),
                         ])
                       ],

@@ -59,7 +59,6 @@ class GalleryController extends GetxController {
     } else {
       selectedAssetList.add(image);
     }
-    print(selectedAssetList);
     update();
   }
 
@@ -97,7 +96,6 @@ class GalleryController extends GetxController {
 
   void selectPhotoProfile(AssetEntity image) {
     selectedEntity = image;
-    debugPrint("$selectedEntity");
     update();
   }
 
@@ -115,11 +113,11 @@ class GalleryController extends GetxController {
         await user!.updateProfile(image!);
         await _startController.refreshStart();
         await _homeController.refreshPosts();
+        Get.forceAppUpdate();
         isLoading.value = false;
-        SnackBarWidget.showSnackBar(
-            "success".tr, "update_photo_profile".tr, Colors.green);
+        SnackBarWidget.showSnackBar(true,
+            "${"success".tr} ${"update_photo_profile".tr}");
       }
     }
-    Get.forceAppUpdate();
   }
 }

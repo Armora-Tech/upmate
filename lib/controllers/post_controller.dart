@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-
 import 'package:upmatev2/models/post_model.dart';
 
 import '../repositories/auth.dart';
@@ -92,10 +91,6 @@ class PostController extends GetxController {
     await PostRepository().addPost(postModel);
     isLoading.value = false;
     Get.offNamed(RouteName.start);
-  }
-
-  Future<void> deletePost(String docRefID) async {
-    await PostRepository().deletePost(docRefID);
   }
 
   void toggleInterest(int index) {

@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/repositories/post_repository.dart';
 import '../models/post_model.dart';
@@ -9,18 +9,36 @@ class HomeController extends GetxController {
   RxInt selectedImage = 0.obs;
   RxBool isFullText = false.obs;
   RxBool isLoading = false.obs;
+  RxBool isDeleting = false.obs;
 
   @override
   Future<void> onInit() async {
     isLoading.value = true;
+    await _getPosts();
+    isLoading.value = false;
+    super.onInit();
+    update();
+  }
+
+  Future<void> _getPosts() async {
     posts = await PostRepository().getPosts();
     posts!.sort((a, b) => b.timestamp!.compareTo(a.timestamp!));
-    isLoading.value = false;
-    for (var i = 0; i < posts!.length; i++) {
-      debugPrint("tes: ${posts![i].user!.username}");
-      debugPrint("userPhoto: ${posts![i].userPhoto}");
+  }
+
+  Future<void> deletePost(PostModel post, int index) async {
+    isDeleting.value = true;
+    debugPrint(" post id : ${post.ref.id}");
+    try {
+      await PostRepository().deletePost(post.ref.id);
+
+      if (post.ref.id.contains(posts![index].ref.id)) {
+        posts!.removeAt(index);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
     }
-    super.onInit();
+    isDeleting.value = false;
+
     update();
   }
 
@@ -54,7 +72,7 @@ class HomeController extends GetxController {
 
   Future<void> refreshPosts() async {
     isLoading.value = true;
-    posts = await PostRepository().getPosts();
+    _getPosts();
     isLoading.value = false;
     update();
   }

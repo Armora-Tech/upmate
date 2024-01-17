@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/utils/input_validator.dart';
-import '../controllers/post_controller.dart';
-import '../routes/route_name.dart';
-import '../widgets/global/line.dart';
+import '../../controllers/post_controller.dart';
+import '../../routes/route_name.dart';
+import '../../widgets/global/line.dart';
 
 class PostDescriptionView extends StatelessWidget {
   const PostDescriptionView({super.key});

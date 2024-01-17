@@ -11,7 +11,7 @@ import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/views/camera_view.dart';
 import 'package:upmatev2/widgets/global/scroll_up.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
-import '../widgets/global/line.dart';
+import '../../widgets/global/line.dart';
 
 class PostView extends StatelessWidget {
   const PostView({super.key});

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
@@ -10,7 +11,12 @@ class ExploreView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> tags = ["Machine Learning", "calculus".tr, "algebra".tr, "economy".tr];
+    List<String> tags = [
+      "Machine Learning",
+      "calculus".tr,
+      "algebra".tr,
+      "economy".tr
+    ];
     return Stack(children: [
       SingleChildScrollView(
         child: Padding(
@@ -25,8 +31,7 @@ class ExploreView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 child: Text(
                   "your_interest_tag".tr,
-                  style: AppFont.text16
-                      .copyWith(fontWeight: FontWeight.bold),
+                  style: AppFont.text16.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
               const InterestBox(),
@@ -34,8 +39,7 @@ class ExploreView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 child: Text(
                   "other_interest_tags".tr,
-                  style: AppFont.text16
-                      .copyWith(fontWeight: FontWeight.bold),
+                  style: AppFont.text16.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
               Column(
@@ -88,10 +92,10 @@ class ExploreView extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    const Icon(
-                                      Icons.search,
-                                      color: Colors.black,
-                                      size: 23,
+                                    SvgPicture.asset(
+                                      "assets/svg/search.svg",
+                                      colorFilter: const ColorFilter.mode(
+                                          AppColor.black, BlendMode.srcIn),
                                     ),
                                     const SizedBox(
                                       width: 10,

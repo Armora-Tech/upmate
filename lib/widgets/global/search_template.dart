@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../themes/app_color.dart';
@@ -57,7 +58,7 @@ class SearchTemplate extends StatelessWidget {
                                 width: 10,
                               ),
                               Text(
-                               title,
+                                title,
                                 style: AppFont.text18.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -78,9 +79,13 @@ class SearchTemplate extends StatelessWidget {
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   borderSide: BorderSide.none),
-                              prefixIcon: const Icon(
-                                Icons.search,
-                                color: Colors.black,
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.all(13),
+                                child: SvgPicture.asset(
+                                  "assets/svg/search.svg",
+                                  colorFilter: const ColorFilter.mode(
+                                      AppColor.black, BlendMode.srcIn),
+                                ),
                               ),
                               hintText: "search".tr,
                               hintStyle: AppFont.text14.copyWith(

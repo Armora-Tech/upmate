@@ -27,12 +27,11 @@ class Auth {
       if (userCredential.user != null) {
         await Get.offAllNamed(RouteName.start);
       } else {
-        SnackBarWidget.showSnackBar("sign_in_failed".tr,
-            "your_email_or_password_is_wrong".tr, Colors.red);
+        SnackBarWidget.showSnackBar(
+            false, "your_email_or_password_is_wrong".tr);
       }
     } catch (e) {
-      SnackBarWidget.showSnackBar("sign_in_failed".tr,
-          "your_email_or_password_is_wrong".tr, Colors.red);
+      SnackBarWidget.showSnackBar(false, "your_email_or_password_is_wrong".tr);
       if (kDebugMode) {
         print('Error signing in: $e');
       }

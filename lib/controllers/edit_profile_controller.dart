@@ -80,10 +80,9 @@ class EditProfileController extends GetxController {
       inputText.clear();
       Get.back();
       if (Get.locale!.languageCode == "id") {
-        SnackBarWidget.showSnackBar(
-            "Memperbarui $input", "Berhasil", Colors.black);
+        SnackBarWidget.showSnackBar(true, "Memperbarui $input Berhasil");
       } else {
-        SnackBarWidget.showSnackBar("Update $input", "Success", Colors.black);
+        SnackBarWidget.showSnackBar(true, "Update $input Success");
       }
     }
     isLoading.value = false;

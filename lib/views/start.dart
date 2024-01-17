@@ -92,8 +92,7 @@ class StartView extends StatelessWidget {
                                       botNavController.selectedTab.value ==
                                               index
                                           ? item.elementAt(index)["active_icon"]
-                                          : item
-                                              .elementAt(index)["icon"],
+                                          : item.elementAt(index)["icon"],
                                       height:
                                           botNavController.selectedTab.value ==
                                                   index

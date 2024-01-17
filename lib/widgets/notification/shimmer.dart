@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
@@ -93,11 +94,10 @@ class NotificationShimmer extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const Icon(
-                          Icons.more_vert_rounded,
-                          size: 28,
-                          color: Colors.black,
-                        )
+                        SvgPicture.asset(
+                          "assets/svg/more_vert.svg",
+                          height: 22,
+                        ),
                       ],
                     ),
                   ),

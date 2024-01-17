@@ -4,7 +4,7 @@ import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/views/chat.dart';
 import 'package:upmatev2/views/home.dart';
 import 'package:upmatev2/views/notification.dart';
-import 'package:upmatev2/views/post.dart';
+import 'package:upmatev2/views/post/post.dart';
 import 'package:upmatev2/views/explore.dart';
 
 class BottomNavController extends GetxController

@@ -48,6 +48,9 @@ class Message extends Translations {
           "bookmarks": "Bookmarks",
           "help_center": "Help Center",
           "logout": "Logout",
+          "are_you_sure_you_want_to_delete_this_post":
+              "Are you sure you want to delete this post?",
+          "delete": "Delete",
           // ======= Settings =========
           "select_language": "Select Language",
           // ======== BOTTOM NAVBAR =========
@@ -179,6 +182,9 @@ class Message extends Translations {
           "bookmarks": "Simpan",
           "help_center": "Pusat Bantuan",
           "logout": "Keluar",
+          "are_you_sure_you_want_to_delete_this_post":
+              "Apakah Anda yakin ingin menghapus postingan ini?",
+          "delete": "Hapus",
           // ======= Settings =========
           "select_language": "Pilih Bahasa",
           // ======== BOTTOM NAVBAR =========

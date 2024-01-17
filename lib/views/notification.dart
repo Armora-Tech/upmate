@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/notification_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
@@ -73,10 +74,10 @@ class NotificationView extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const Icon(
-                              Icons.more_vert_rounded,
-                              color: Colors.black,
-                            )
+                            SvgPicture.asset(
+                              "assets/svg/more_vert.svg",
+                              height: 22,
+                            ),
                           ],
                         ),
                       ),
