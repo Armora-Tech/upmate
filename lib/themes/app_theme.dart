@@ -30,13 +30,25 @@ class AppTheme {
       highlightColor: const Color.fromARGB(88, 0, 0, 0),
       splashColor: const Color.fromARGB(88, 0, 0, 0),
       textSelectionTheme: const TextSelectionThemeData(
-          cursorColor: AppColor.primaryColor,
-          selectionColor: Colors.grey,
-          selectionHandleColor: AppColor.primaryColor),
+        cursorColor: AppColor.primaryColor,
+        selectionColor: Colors.grey,
+        selectionHandleColor: AppColor.primaryColor,
+      ),
       inputDecorationTheme: InputDecorationTheme(
+          labelStyle: AppFont.text10.copyWith(color: Colors.greenAccent),
           counterStyle: AppFont.text10,
           helperStyle: AppFont.text10
               .copyWith(color: Colors.red, overflow: TextOverflow.visible),
+          focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(width: 1, color: Colors.black)),
+          errorStyle: AppFont.text10.copyWith(
+            color: Colors.redAccent,
+            overflow: TextOverflow.visible,
+          ),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(width: 0.5, color: Colors.grey)),
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           enabledBorder: OutlineInputBorder(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/repositories/post_repository.dart';
 import '../models/post_model.dart';
+import '../widgets/global/snack_bar.dart';
 
 class HomeController extends GetxController {
   List<PostModel>? posts;
@@ -29,16 +30,17 @@ class HomeController extends GetxController {
     isDeleting.value = true;
     debugPrint(" post id : ${post.ref.id}");
     try {
-      await PostRepository().deletePost(post.ref.id);
+      await PostRepository().deletePost(post.ref.path);
 
       if (post.ref.id.contains(posts![index].ref.id)) {
         posts!.removeAt(index);
       }
+      SnackBarWidget.showSnackBar(true, "successfully_deleted_the_post".tr);
     } catch (e) {
+      SnackBarWidget.showSnackBar(false, "failed_to_delete_post".tr);
       debugPrint(e.toString());
     }
     isDeleting.value = false;
-
     update();
   }
 

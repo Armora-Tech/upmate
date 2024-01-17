@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/utils/input_validator.dart';
 import 'package:upmatev2/widgets/global/snack_bar.dart';
 import '../routes/route_name.dart';
 import '../repositories/auth.dart';
@@ -15,11 +14,6 @@ class SignupController extends GetxController {
   late TextEditingController edtTagInterest;
   late FocusNode focusNode;
   late FocusNode confirmPassfocusNode;
-  RxString? errorPassMessage;
-  RxString? errorConfPassMessage;
-  RxString? errorEmailMessage;
-  RxString? errorUsernameMessage;
-  RxString? errorFullNameMessage;
   RxString inputOTP = "".obs;
   RxBool isVisible = true.obs;
   RxBool isConfirmPassVisible = true.obs;
@@ -27,6 +21,12 @@ class SignupController extends GetxController {
   RxBool isConfirmPassFocused = false.obs;
   RxBool isLoading = false.obs;
   RxBool isEmptyText = true.obs;
+  RxBool isFullNameInvalid = false.obs;
+  RxBool isUsernameInvalid = false.obs;
+  RxBool isEmailInvalid = false.obs;
+  RxBool isPassInvalid = false.obs;
+  RxBool isConfPassInvalid = false.obs;
+
 
   List<String> selectedTags = [];
   Map<String, String> tags = {
@@ -77,13 +77,10 @@ class SignupController extends GetxController {
   }
 
   Future<void> signup() async {
-    inputValidation();
     isLoading.value = true;
     await Future.delayed(const Duration(milliseconds: 1000));
-    if (isInputValid().value) {
-      await _auth.sendOTP(email.text);
-      Get.toNamed(RouteName.verify);
-    }
+    await _auth.sendOTP(email.text);
+    Get.toNamed(RouteName.verify);
     isLoading.value = false;
     update();
   }
@@ -96,26 +93,6 @@ class SignupController extends GetxController {
       SnackBarWidget.showSnackBar(
           false, "${"verify_otp".tr} ${"otp_verification_failed".tr}");
     }
-  }
-
-  RxBool isInputValid() {
-    return (InputValidator.isFullNameValid(fullName) &&
-            InputValidator.isUsernameLengthValid(username) &&
-            InputValidator.isUsernameFormatValid(username) &&
-            email.text.isEmail &&
-            InputValidator.isPassValid(pass) &&
-            InputValidator.isPassValid(confPass) &&
-            (pass.text == confPass.text))
-        .obs;
-  }
-
-  void inputValidation() {
-    errorFullNameMessage = InputValidator.fullNameValidationMessage(fullName);
-    errorUsernameMessage = InputValidator.usernameValidationMessage(username);
-    errorEmailMessage = InputValidator.emailValidationMessage(email);
-    errorPassMessage = InputValidator.passValidationMessage(pass);
-    errorConfPassMessage =
-        InputValidator.confPassValidationMessage(confPass, pass);
   }
 
   void toggleInterest(int index) {

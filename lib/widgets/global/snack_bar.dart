@@ -11,27 +11,27 @@ class SnackBarWidget {
         colorText: Colors.white,
         messageText: const SizedBox(),
         titleText: Center(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            child: RichText(
+          text: TextSpan(
             children: [
-              Icon(
-                isSuccess ? Icons.check : Icons.close,
-                color: isSuccess ? Colors.greenAccent : Colors.redAccent,
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-              Expanded(
-                child: Text(
-                  message,
-                  style: AppFont.text14.copyWith(color: Colors.white),
-                  overflow: TextOverflow.visible,
+              WidgetSpan(
+                child: Icon(
+                  isSuccess ? Icons.check : Icons.close,
+                  color: isSuccess ? Colors.greenAccent : Colors.redAccent,
+                  size: 20,
                 ),
-              )
+              ),
+              const WidgetSpan(
+                  child: SizedBox(
+                width: 5,
+              )),
+              TextSpan(
+                text: message,
+                style: AppFont.text14.copyWith(color: Colors.white),
+              ),
             ],
           ),
-        ),
-        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10));
+        )),
+        margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10));
   }
 }

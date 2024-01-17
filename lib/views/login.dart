@@ -4,7 +4,7 @@ import 'package:upmatev2/controllers/login_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/themes/app_font.dart';
-import 'package:upmatev2/widgets/global/loading.dart';
+import 'package:upmatev2/widgets/login/login_form.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -42,67 +42,7 @@ class LoginView extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                GetBuilder<LoginController>(
-                    builder: (_) => Form(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextField(
-                                keyboardType: TextInputType.emailAddress,
-                                controller: controller.email,
-                                style: AppFont.text14,
-                                decoration: InputDecoration(
-                                  helperText: controller.errorEmailMessage,
-                                  hintText: "Email",
-                                )),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextField(
-                                focusNode: controller.focusNode,
-                                controller: controller.pass,
-                                style: AppFont.text14,
-                                obscureText: controller.isVisible.value,
-                                decoration: InputDecoration(
-                                  helperText: controller.errorPassMessage,
-                                  hintText: "password".tr,
-                                  suffixIcon: GestureDetector(
-                                    onTap: () {
-                                      controller.isVisible.toggle();
-                                      controller.update();
-                                    },
-                                    child: Icon(
-                                        controller.isVisible.value
-                                            ? Icons.visibility_off_outlined
-                                            : Icons.visibility_outlined,
-                                        size: 22,
-                                        color: controller.isFocused.value
-                                            ? AppColor.primaryColor
-                                            : const Color(0xFF828282)),
-                                  ),
-                                )),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            ElevatedButton(
-                                onPressed: controller.isLoading.value
-                                    ? () => {}
-                                    : () async => await controller
-                                        .login(LoginProvider.email),
-                                child: Center(
-                                    child: Obx(
-                                  () => controller.isLoading.value
-                                      ? const Loading(
-                                          size: 23, color: Colors.white)
-                                      : Text(
-                                          "sign_in".tr,
-                                          style: AppFont.text16.copyWith(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                )))
-                          ],
-                        ))),
+                const LoginForm(),
                 const SizedBox(
                   height: 5,
                 ),

@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/signup_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
-import 'package:upmatev2/widgets/global/loading.dart';
+import 'package:upmatev2/widgets/signup/signup_form.dart';
 import '../routes/route_name.dart';
-import '../themes/app_color.dart';
 
 class SignupView extends StatelessWidget {
   const SignupView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<SignupController>();
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -42,127 +39,7 @@ class SignupView extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                GetBuilder<SignupController>(
-                    builder: (_) => Form(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextField(
-                                controller: controller.fullName,
-                                style: AppFont.text14,
-                                decoration: InputDecoration(
-                                  hintText: "full_name".tr,
-                                  helperMaxLines: 3,
-                                  helperText:
-                                      controller.errorFullNameMessage?.value,
-                                )),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            TextField(
-                                controller: controller.username,
-                                style: AppFont.text14,
-                                decoration: InputDecoration(
-                                  helperMaxLines: 3,
-                                  helperText:
-                                      controller.errorUsernameMessage?.value,
-                                  hintText: "username".tr,
-                                )),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            TextField(
-                                controller: controller.email,
-                                style: AppFont.text14,
-                                keyboardType: TextInputType.emailAddress,
-                                decoration: InputDecoration(
-                                  helperMaxLines: 3,
-                                  helperText:
-                                      controller.errorEmailMessage?.value,
-                                  hintText: "Email",
-                                )),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            TextField(
-                                focusNode: controller.focusNode,
-                                controller: controller.pass,
-                                maxLength: 32,
-                                style: AppFont.text14,
-                                obscureText: controller.isVisible.value,
-                                decoration: InputDecoration(
-                                  counterText: "",
-                                  helperMaxLines: 3,
-                                  helperText:
-                                      controller.errorPassMessage?.value,
-                                  hintText: "password".tr,
-                                  suffixIcon: GestureDetector(
-                                    onTap: () {
-                                      controller.isVisible.toggle();
-                                      controller.update();
-                                    },
-                                    child: Icon(
-                                        controller.isVisible.value
-                                            ? Icons.visibility_off_outlined
-                                            : Icons.visibility_outlined,
-                                        size: 22,
-                                        color: controller.isFocused.value
-                                            ? AppColor.primaryColor
-                                            : const Color(0xFF828282)),
-                                  ),
-                                )),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            TextField(
-                                focusNode: controller.confirmPassfocusNode,
-                                controller: controller.confPass,
-                                maxLength: 32,
-                                style: AppFont.text14,
-                                obscureText:
-                                    controller.isConfirmPassVisible.value,
-                                decoration: InputDecoration(
-                                  counterText: "",
-                                  helperMaxLines: 3,
-                                  helperText:
-                                      controller.errorConfPassMessage?.value,
-                                  hintText: "confirm_password".tr,
-                                  suffixIcon: GestureDetector(
-                                    onTap: () {
-                                      controller.isConfirmPassVisible.toggle();
-                                      controller.update();
-                                    },
-                                    child: Icon(
-                                        controller.isConfirmPassVisible.value
-                                            ? Icons.visibility_off_outlined
-                                            : Icons.visibility_outlined,
-                                        size: 22,
-                                        color: controller
-                                                .isConfirmPassFocused.value
-                                            ? AppColor.primaryColor
-                                            : const Color(0xFF828282)),
-                                  ),
-                                )),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            ElevatedButton(
-                                onPressed: controller.isLoading.value
-                                    ? () {}
-                                    : () => controller.signup(),
-                                child: Center(
-                                  child: Obx(() => controller.isLoading.value
-                                      ? const Loading(
-                                          size: 23, color: Colors.white)
-                                      : Text(
-                                          "sign_up".tr,
-                                          style: AppFont.text16.copyWith(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                ))
-                          ],
-                        ))),
+                const SignupForm(),
                 const SizedBox(
                   height: 20,
                 ),

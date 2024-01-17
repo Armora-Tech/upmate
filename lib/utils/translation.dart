@@ -51,6 +51,8 @@ class Message extends Translations {
           "are_you_sure_you_want_to_delete_this_post":
               "Are you sure you want to delete this post?",
           "delete": "Delete",
+          "successfully_deleted_the_post": "Successfully deleted the post",
+          "failed_to_delete_post": "Failed to delete post",
           // ======= Settings =========
           "select_language": "Select Language",
           // ======== BOTTOM NAVBAR =========
@@ -121,7 +123,7 @@ class Message extends Translations {
           "save": "Save",
           "confrim": "Confirm",
           "update_photo_profile": "Update Photo Profile",
-          "success": "Success",
+          "success": "Successfully",
           // ========= PROFILE ============
           "following": "Following",
           "followers": "Followers",
@@ -185,6 +187,8 @@ class Message extends Translations {
           "are_you_sure_you_want_to_delete_this_post":
               "Apakah Anda yakin ingin menghapus postingan ini?",
           "delete": "Hapus",
+          "successfully_deleted_the_post": "Berhasil menghapus postingan",
+          "failed_to_delete_post": "Gagal menghapus postingan",
           // ======= Settings =========
           "select_language": "Pilih Bahasa",
           // ======== BOTTOM NAVBAR =========
@@ -253,7 +257,7 @@ class Message extends Translations {
           "save": "Simpan",
           "confrim": "Konfirmasi",
           "update_photo_profile": "Memperbarui foto profil",
-          "success": "Sukses",
+          "success": "Berhasil",
           // ========= PROFILE ============
           "following": "Mengikuti",
           "followers": "Pengikut",

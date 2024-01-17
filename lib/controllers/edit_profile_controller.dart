@@ -13,15 +13,14 @@ class EditProfileController extends GetxController {
   late TextEditingController confPass;
   late TextEditingController bio;
   late TextEditingController inputText;
-  RxString? errorMessage;
-  RxString? errorPassMessage;
-  RxString? errorConfPassMessage;
-  RxString? errorEmailMessage;
-  RxString? errorUsernameMessage;
-  RxString? errorFullNameMessage;
   final startController = Get.find<StartController>();
   RxBool isEmptyText = true.obs;
   RxBool isLoading = false.obs;
+  RxBool isFullNameInvalid = false.obs;
+  RxBool isUsernameInvalid = false.obs;
+  RxBool isEmailInvalid = false.obs;
+  RxBool isPassInvalid = false.obs;
+  RxBool isConfPassInvalid = false.obs;
   File? image;
   Map<String, dynamic>? data;
 
@@ -73,58 +72,33 @@ class EditProfileController extends GetxController {
   }
 
   Future<void> save(String input) async {
-    inputValidation(input);
     isLoading.value = true;
     await Future.delayed(const Duration(milliseconds: 2000));
-    if (isValid(input).value) {
-      inputText.clear();
-      Get.back();
-      if (Get.locale!.languageCode == "id") {
-        SnackBarWidget.showSnackBar(true, "Memperbarui $input Berhasil");
-      } else {
-        SnackBarWidget.showSnackBar(true, "Update $input Success");
-      }
+    inputText.clear();
+    Get.back();
+    if (Get.locale!.languageCode == "id") {
+      SnackBarWidget.showSnackBar(
+          true, "Berhasil memperbarui ${input.toLowerCase()}");
+    } else {
+      SnackBarWidget.showSnackBar(
+          true, "Successfully update ${input.toLowerCase()}");
     }
     isLoading.value = false;
     update();
   }
 
-  RxBool isValid(String input) {
+  String? inputValidation(String? value, String input) {
+    final controller = Get.find<EditProfileController>();
     if (input == "username".tr) {
-      return (InputValidator.isUsernameLengthValid(username) &&
-              InputValidator.isUsernameFormatValid(username))
-          .obs;
+      return InputValidator.usernameMessageValidation(value, controller);
     } else if (input == "full_name".tr) {
-      return (InputValidator.isFullNameValid(fullName)).obs;
+      return InputValidator.fullNameMessageValidation(value, controller);
     } else if (input == "Email") {
-      return (email.text.isEmail).obs;
-    } else if (input == "Bio") {
-      return true.obs;
+      return InputValidator.emailMessageValidation(value, controller);
     } else if (input == "password".tr) {
-      return ((InputValidator.isPassValid(pass)) &&
-              (InputValidator.isPassValid(confPass)) &&
-              pass.text == confPass.text)
-          .obs;
+      return InputValidator.passMessageValidation(value, controller);
     }
-    return false.obs;
-  }
-
-  void inputValidation(String input) {
-    if (input == "username".tr) {
-      errorUsernameMessage = InputValidator.usernameValidationMessage(username);
-      errorMessage = errorUsernameMessage;
-    } else if (input == "full_name".tr) {
-      errorFullNameMessage = InputValidator.fullNameValidationMessage(fullName);
-      errorMessage = errorFullNameMessage;
-    } else if (input == "Email") {
-      errorEmailMessage = InputValidator.emailValidationMessage(email);
-      errorMessage = errorEmailMessage;
-    } else if (input == "password".tr) {
-      errorPassMessage = InputValidator.passValidationMessage(pass);
-      errorConfPassMessage =
-          InputValidator.confPassValidationMessage(confPass, pass);
-      errorMessage = errorPassMessage;
-    }
+    return null;
   }
 
   void chooseInput(String input) {

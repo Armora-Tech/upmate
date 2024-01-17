@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class InputValidator {
@@ -12,86 +11,104 @@ class InputValidator {
   static const int maxBioLength = 200;
   static const int minDescLength = 0;
   static const int maxDescLength = 200;
+  static final String fullNameInput = "full_name".tr;
+  static final String usernameInput = "username".tr;
+  static const String emailInput = "email";
+  static final String passInput = "password".tr;
+  static final String confPassInput = "confirm_password".tr;
 
-  static RxString minMessage(String input, int length) {
+  static String minMessage(String input, int length) {
     String firstCharUpperCase =
         input[0].toUpperCase() + input.substring(1).toLowerCase();
     if (Get.locale!.languageCode == 'id') {
-      return "$firstCharUpperCase minimal $length karakter".obs;
+      return "$firstCharUpperCase minimal $length karakter";
     } else {
-      return "$firstCharUpperCase at least $length characters".obs;
+      return "$firstCharUpperCase at least $length characters";
     }
   }
 
-  static bool isPassValid(TextEditingController pass) {
-    return pass.text.trim().length >= minPassLength &&
-        pass.text.trim().length <= maxPassLength;
-  }
-
-  static bool isUsernameLengthValid(TextEditingController username) {
-    return username.text.trim().length >= minUsernameLength &&
-        username.text.trim().length <= maxUsernameLength;
-  }
-
-  static bool isUsernameFormatValid(TextEditingController username) {
-    bool isLowerCase = username.text == username.text.trim().toLowerCase();
-    bool hasNoSpaces = !username.text.trim().contains(' ');
-
-    return isLowerCase && hasNoSpaces;
-  }
-
-  static bool isFullNameValid(TextEditingController fullName) {
-    return fullName.text.trim().length >= minFullNameLength &&
-        fullName.text.trim().length <= maxFullNameLength;
-  }
-
-  static RxString? passValidationMessage(TextEditingController pass) {
-    if (!isPassValid(pass)) {
-      return minMessage("password".tr, minPassLength);
+  static String emptyInputMessage(String input) {
+    String firstCharUpperCase =
+        input[0].toUpperCase() + input.substring(1).toLowerCase();
+    if (Get.locale!.languageCode == 'id') {
+      return "$firstCharUpperCase tidak boleh kosong";
     } else {
-      return null;
+      return "$firstCharUpperCase must not be empty";
     }
   }
 
-  static RxString? confPassValidationMessage(
-      TextEditingController confPass, TextEditingController pass) {
-    if (!isPassValid(confPass)) {
-      return minMessage("confirm_password".tr, minPassLength);
-    } else if ((confPass.text.trim().trim() != pass.text.trim().trim()) &&
-        isPassValid(confPass) &&
-        isPassValid(pass)) {
-      return "password_and_conf_pass_must_be_the_same".tr.obs;
-    } else {
-      return null;
+  static String? usernameMessageValidation(String? value, dynamic controller) {
+    if (value!.isEmpty) {
+      controller.isUsernameInvalid.value = true;
+      controller.update();
+      return emptyInputMessage(usernameInput);
+    } else if (value.length < minUsernameLength) {
+      controller.isUsernameInvalid.value = true;
+      controller.update();
+      return minMessage(usernameInput, minUsernameLength);
     }
+    controller.isUsernameInvalid.value = false;
+    controller.update();
+    return null;
   }
 
-  static RxString? emailValidationMessage(TextEditingController email) {
-    if (!email.text.trim().isEmail) {
-      return "invalid_email_format".tr.obs;
-    } else {
-      return null;
+  static String? fullNameMessageValidation(String? value, dynamic controller) {
+    if (value!.isEmpty) {
+      controller.isFullNameInvalid.value = true;
+      controller.update();
+      return emptyInputMessage(fullNameInput);
+    } else if (value.length < minFullNameLength) {
+      controller.isFullNameInvalid.value = true;
+      controller.update();
+      return minMessage(fullNameInput, minFullNameLength);
     }
+    controller.isFullNameInvalid.value = false;
+    controller.update();
+    return null;
   }
 
-  static RxString? usernameValidationMessage(TextEditingController username) {
-    if (!isUsernameLengthValid(username)) {
-      return minMessage("username".tr, minUsernameLength);
-    } else {
-      if (!isUsernameFormatValid(username)) {
-        return "username_must_consist_of_lowercase_letters_without_spaces"
-            .tr
-            .obs;
-      }
-      return null;
+  static String? emailMessageValidation(String? value, dynamic controller) {
+    if (value!.isEmpty) {
+      controller.isEmailInvalid.value = true;
+      controller.update();
+      return emptyInputMessage(emailInput);
+    } else if (!value.isEmail) {
+      return "invalid_email_format".tr;
     }
+    controller.isEmailInvalid.value = false;
+    controller.update();
+    return null;
   }
 
-  static RxString? fullNameValidationMessage(TextEditingController fullName) {
-    if (!isFullNameValid(fullName)) {
-      return minMessage("full_name".tr, minFullNameLength);
-    } else {
-      return null;
+  static String? passMessageValidation(String? value, dynamic controller) {
+    if (value!.isEmpty) {
+      controller.isPassInvalid.value = true;
+      controller.update();
+      return emptyInputMessage(passInput);
+    } else if (value.length < minPassLength) {
+      controller.isPassInvalid.value = true;
+      controller.update();
+      return minMessage(passInput, minPassLength);
     }
+    controller.isPassInvalid.value = false;
+    controller.update();
+    return null;
+  }
+
+  static String? confPassMessageValidation(String? value, dynamic controller) {
+    if (value!.isEmpty) {
+      controller.isConfPassInvalid.value = true;
+      controller.update();
+      return emptyInputMessage(confPassInput);
+    } else if (value.length < minPassLength) {
+      controller.isConfPassInvalid.value = true;
+      controller.update();
+      return minMessage(confPassInput, minPassLength);
+    } else if (controller.pass.text.trim() != controller.confPass.text.trim()) {
+      return "password_and_conf_pass_must_be_the_same".tr;
+    }
+    controller.isConfPassInvalid.value = false;
+    controller.update();
+    return null;
   }
 }
