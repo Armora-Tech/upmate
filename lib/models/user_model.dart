@@ -54,7 +54,8 @@ class UserModel {
         uid: data?['uid'] ?? '',
         username: data?['username'] ??
             "@${data?['display_name'].replaceAll(" ", "").toLowerCase()}",
-        photoUrl: data?['photo_url'] ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&usqp=CAU",
+        photoUrl: data?['photo_url'] ??
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&usqp=CAU",
         bannerUrl: data?['banner_url']);
   }
 
@@ -73,7 +74,7 @@ class UserModel {
 
   Future<void> getPosts() async {
     List<PostModel> posts = [];
-    QuerySnapshot querySnapshots = await _ref
+    QuerySnapshot querySnapshots = await FirebaseFirestore.instance
         .collection("posts")
         .where("post_user", isEqualTo: _ref)
         .withConverter(

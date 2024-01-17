@@ -18,7 +18,9 @@ class PostInterestView extends StatelessWidget {
     return WillPopScope(
         onWillPop: () async {
           controller.selectedTags.clear();
-          Get.back();
+          if (!controller.isLoading.value) {
+            Get.back();
+          }
           return Future.value(false);
         },
         child: Scaffold(

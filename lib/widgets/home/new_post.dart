@@ -31,10 +31,8 @@ class NewPost extends StatelessWidget {
                     onTap: controller.isLoading.value
                         ? () {}
                         : () {
-                            controller.selectedIndex.value = index;
-                            Get.toNamed(
-                              RouteName.postDetail,
-                            );
+                            Get.toNamed(RouteName.postDetail,
+                                arguments: controller.posts![index]);
                           },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -136,7 +134,10 @@ class NewPost extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  PostContent(index: index),
+                  PostContent(
+                      post: controller.isLoading.value
+                          ? null
+                          : controller.posts![index]),
                   const SizedBox(
                     height: 10,
                   ),

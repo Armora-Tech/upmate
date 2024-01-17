@@ -55,9 +55,9 @@ class HomeController extends GetxController {
     return text;
   }
 
-  String postingTimePassed(int index) {
+  String postingTimePassed(PostModel post) {
     DateTime now = DateTime.timestamp();
-    DateTime postTime = posts![index].timestamp!;
+    DateTime postTime = post.timestamp!;
     Duration difference = now.difference(postTime);
     String ago = "ago".tr;
 
@@ -74,7 +74,7 @@ class HomeController extends GetxController {
 
   Future<void> refreshPosts() async {
     isLoading.value = true;
-    _getPosts();
+    await _getPosts();
     isLoading.value = false;
     update();
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/controllers/post_detail_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
@@ -8,18 +8,18 @@ import 'package:upmatev2/widgets/global/emoji_section.dart';
 import 'package:upmatev2/widgets/global/post_section.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
 import '../themes/app_color.dart';
+import '../widgets/global/blur_loading.dart';
 import '../widgets/global/line.dart';
+import '../widgets/home/pop_up_delete_post.dart';
 
 class PostDetailView extends StatelessWidget {
   const PostDetailView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final homeController = Get.find<HomeController>();
     final startController = Get.find<StartController>();
     final controller = Get.find<PostDetailController>();
-    controller.selectedIndex = homeController.selectedIndex;
-    int index = controller.selectedIndex.value;
+    final post = controller.post;
     return Scaffold(
       body: WillPopScope(
         onWillPop: () {
@@ -42,45 +42,63 @@ class PostDetailView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     children: [
-                      Container(
-                        height: 35,
-                        width: 35,
-                        margin: const EdgeInsets.only(right: 10),
-                        clipBehavior: Clip.hardEdge,
-                        decoration: const BoxDecoration(shape: BoxShape.circle),
-                        child: Image.network(
-                          homeController.posts![index].userPhoto!,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
                       Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
                           children: [
-                            Text(
-                              homeController.posts![index].user!.displayName,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
+                            Container(
+                              height: 35,
+                              width: 35,
+                              margin: const EdgeInsets.only(right: 10),
+                              clipBehavior: Clip.hardEdge,
+                              decoration:
+                                  const BoxDecoration(shape: BoxShape.circle),
+                              child: Image.network(
+                                post.userPhoto!,
+                                fit: BoxFit.cover,
                               ),
                             ),
-                            Text(
-                              homeController.posts![index].user!.username,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(color: Colors.grey),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    post.user!.displayName,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    post.user!.username,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              ),
                             )
                           ],
                         ),
-                      )
+                      ),
+                      post.user!.uid == startController.user!.uid
+                          ? GestureDetector(
+                              onTap: () {
+                                PopUpDeletePost.showDialogFromPostDetail(post);
+                              },
+                              child: SvgPicture.asset(
+                                "assets/svg/more_vert.svg",
+                                height: 22,
+                              ),
+                            )
+                          : const SizedBox()
                     ],
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                PostContent(index: index),
+                PostContent(post: post),
                 const SizedBox(
                   height: 10,
                 ),
@@ -241,7 +259,10 @@ class PostDetailView extends StatelessWidget {
                         : const SizedBox.shrink()
                   ],
                 ),
-              ))
+              )),
+          Obx(() => controller.isDeleting.value
+              ? const BlurLoading()
+              : const SizedBox())
         ]),
       ),
     );

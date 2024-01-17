@@ -50,6 +50,7 @@ class GalleryController extends GetxController {
   @override
   void onClose() {
     scrollController.dispose();
+    scrollController.removeListener(() {});
     super.onClose();
   }
 
@@ -115,8 +116,8 @@ class GalleryController extends GetxController {
         await _homeController.refreshPosts();
         Get.forceAppUpdate();
         isLoading.value = false;
-        SnackBarWidget.showSnackBar(true,
-            "${"success".tr} ${"update_photo_profile".tr}");
+        SnackBarWidget.showSnackBar(
+            true, "${"success".tr} ${"update_photo_profile".tr}");
       }
     }
   }

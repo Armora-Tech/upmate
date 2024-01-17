@@ -10,6 +10,7 @@ import '../repositories/auth.dart';
 import '../repositories/post_repository.dart';
 import '../routes/route_name.dart';
 import 'gallery_controller.dart';
+import 'home_controller.dart';
 import 'start_controller.dart';
 import '../utils/upload.dart';
 
@@ -19,6 +20,7 @@ class PostController extends GetxController {
   late FocusNode focusNode;
   final galleryController = Get.find<GalleryController>();
   final startController = Get.find<StartController>();
+  final homeController = Get.find<HomeController>();
   RxBool isCover = false.obs;
   RxBool isLoading = false.obs;
   RxBool isEmptyText = true.obs;
@@ -90,7 +92,8 @@ class PostController extends GetxController {
     await postModel.initUsers();
     await PostRepository().addPost(postModel);
     isLoading.value = false;
-    Get.offNamed(RouteName.start);
+    Get.offAllNamed(RouteName.start);
+    Get.forceAppUpdate();
   }
 
   void toggleInterest(int index) {

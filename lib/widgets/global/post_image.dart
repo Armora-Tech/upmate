@@ -2,12 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
+import 'package:upmatev2/models/post_model.dart';
 import '../../themes/app_color.dart';
 import 'detail_image.dart';
 
 class PostImage extends StatelessWidget {
-  final int index;
-  const PostImage({super.key, required this.index});
+  final PostModel post;
+  const PostImage({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +22,14 @@ class PostImage extends StatelessWidget {
           child: CarouselSlider(
             options: CarouselOptions(
               viewportFraction: 1,
-              aspectRatio: controller.posts![index].isCover ? 1 : 16 / 9,
+              aspectRatio: post.isCover ? 1 : 16 / 9,
               enlargeCenterPage: false,
               enableInfiniteScroll: false,
               onPageChanged: (index, reason) {
                 controller.selectedImage.value = index;
               },
             ),
-            items: controller.posts![index].postPhoto!.map<Widget>((image) {
+            items: post.postPhoto!.map<Widget>((image) {
               return GestureDetector(
                 onTap: () => Get.to(() => DetailImage(image: image),
                     opaque: false,
@@ -47,11 +48,11 @@ class PostImage extends StatelessWidget {
             }).toList(),
           ),
         ),
-        controller.posts![index].postPhoto!.length > 1
+        post.postPhoto!.length > 1
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
-                    controller.posts![index].postPhoto!.length,
+                    post.postPhoto!.length,
                     (index) => Obx(
                           () => Padding(
                             padding: const EdgeInsets.symmetric(

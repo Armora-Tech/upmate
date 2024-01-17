@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 
 import '../../controllers/home_controller.dart';
+import '../../models/post_model.dart';
 import '../../routes/route_name.dart';
 import '../../themes/app_font.dart';
 import 'post_image.dart';
 
 class PostContent extends StatelessWidget {
-  final int index;
-  const PostContent({super.key, required this.index});
+  final PostModel? post;
+  const PostContent({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class PostContent extends StatelessWidget {
                   borderRadius: 0,
                 ),
               )
-            : PostImage(index: index),
+            : PostImage(post: post!),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
@@ -50,7 +51,7 @@ class PostContent extends StatelessWidget {
                                 height: 2,
                               ),
                               Text(
-                                "${controller.isLoading.value ? 0 : controller.posts![index].likes.length}",
+                                "${controller.isLoading.value ? 0 : post!.likes.length}",
                                 style: AppFont.text10,
                               )
                             ],
@@ -61,7 +62,6 @@ class PostContent extends StatelessWidget {
                         onTap: controller.isLoading.value
                             ? () {}
                             : () {
-                                controller.selectedIndex.value = index;
                                 Get.toNamed(
                                   RouteName.postDetail,
                                 );
@@ -77,7 +77,7 @@ class PostContent extends StatelessWidget {
                                 height: 2,
                               ),
                               Text(
-                                "${controller.isLoading.value ? 0 : controller.posts![index].comments?.length}",
+                                "${controller.isLoading.value ? 0 : post!.comments?.length}",
                                 style: AppFont.text10,
                               )
                             ],
@@ -98,7 +98,7 @@ class PostContent extends StatelessWidget {
                                 height: 2,
                               ),
                               Text(
-                                "${controller.isLoading.value ? 0 : controller.posts![index].bookmarks.length}",
+                                "${controller.isLoading.value ? 0 : post!.bookmarks.length}",
                                 style: AppFont.text10,
                               )
                             ],
@@ -131,20 +131,20 @@ class PostContent extends StatelessWidget {
                 ),
                 controller.isLoading.value
                     ? const ShimmerSkelton(height: 10, width: 80)
-                    : controller.posts![index].postDescription.isEmpty
+                    : post!.postDescription.isEmpty
                         ? const SizedBox()
                         : Obx(() => RichText(
                               text: TextSpan(style: AppFont.text14, children: [
                                 TextSpan(
                                     text:
-                                        "${controller.posts![index].user!.displayName.replaceAll(" ", "").toLowerCase()}  ",
+                                        "${post!.user!.displayName.replaceAll(" ", "").toLowerCase()}  ",
                                     style: AppFont.text14
                                         .copyWith(fontWeight: FontWeight.bold)),
                                 TextSpan(
                                   text: controller.handleText(
-                                      controller.posts![index].postDescription),
+                                      post!.postDescription),
                                 ),
-                                controller.posts![index].postDescription
+                                post!.postDescription
                                             .length >
                                         80
                                     ? WidgetSpan(
@@ -170,7 +170,7 @@ class PostContent extends StatelessWidget {
                 ),
                 controller.isLoading.value
                     ? const SizedBox()
-                    : controller.posts![index].comments!.isNotEmpty
+                    : post!.comments!.isNotEmpty
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -272,7 +272,7 @@ class PostContent extends StatelessWidget {
                 controller.isLoading.value
                     ? const ShimmerSkelton(height: 10, width: 60)
                     : Text(
-                        controller.postingTimePassed(index),
+                        controller.postingTimePassed(post!),
                         style: AppFont.text12.copyWith(color: Colors.grey),
                       ),
               ],

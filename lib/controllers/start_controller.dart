@@ -7,10 +7,16 @@ class StartController extends GetxController {
   final Auth _auth = Auth();
   UserModel? user;
   RxBool isLoading = false.obs;
+  // List<PostModel>? myPosts = [];
 
   @override
   void onInit() async {
     await _getUser();
+    await user!.getPosts();
+    // myPosts = user!.posts;
+    // for (int i = 0; i < myPosts!.length; i++) {
+    // debugPrint("waah $i : ${myPosts![i].postDescription}");
+    // }
     super.onInit();
   }
 
