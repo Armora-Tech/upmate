@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:upmatev2/controllers/edit_profile_controller.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/repositories/auth.dart';
@@ -17,8 +18,8 @@ class GalleryController extends GetxController {
   late final ScrollController scrollController;
   late final StartController _startController;
   late final HomeController _homeController;
+  late final EditProfileController _editProfileController;
   RxBool isBtnShown = false.obs;
-  RxBool isLoading = false.obs;
   RxInt selectedIndex = 0.obs;
   RxInt oldSelectedIndex = 0.obs;
 
@@ -32,6 +33,7 @@ class GalleryController extends GetxController {
     scrollController = ScrollController();
     _startController = Get.find<StartController>();
     _homeController = Get.find<HomeController>();
+    _editProfileController = Get.find<EditProfileController>();
     scrollController.addListener(() {
       if (scrollController.position.userScrollDirection ==
               ScrollDirection.forward ||
@@ -108,16 +110,37 @@ class GalleryController extends GetxController {
           await imagePicker.crop(file: image!, cropStyle: CropStyle.circle);
       if (croppedImage != null) {
         image = File(croppedImage.path);
-        isLoading.value = true;
+        _editProfileController.isLoading.value = true;
         Get.until((route) => Get.previousRoute == RouteName.editProfile);
         final user = await Auth().getUserModel();
         await user!.updateProfile(image!);
         await _startController.refreshStart();
         await _homeController.refreshPosts();
         Get.forceAppUpdate();
-        isLoading.value = false;
+        _editProfileController.isLoading.value = false;
         SnackBarWidget.showSnackBar(
             true, "${"success".tr} ${"update_photo_profile".tr}");
+      }
+    }
+  }
+
+  Future<void> updateBanner() async {
+    if (selectedEntity != null) {
+      image = await selectedEntity!.file;
+      final imagePicker = PickImage();
+      final croppedImage = await imagePicker.crop(
+          file: image!, cropStyle: CropStyle.rectangle, isBanner: true);
+      if (croppedImage != null) {
+        image = File(croppedImage.path);
+        _editProfileController.isLoading.value = true;
+        Get.until((route) => Get.previousRoute == RouteName.editProfile);
+        final user = await Auth().getUserModel();
+        await user!.updateBanner(image!);
+        await _startController.refreshStart();
+        Get.forceAppUpdate();
+        _editProfileController.isLoading.value = false;
+        SnackBarWidget.showSnackBar(
+            true, "${"success".tr} ${"update_banner".tr}");
       }
     }
   }

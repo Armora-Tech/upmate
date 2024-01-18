@@ -17,6 +17,7 @@ class SideBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<StartController>();
     final loginController = Get.find<LoginController>();
+    final startController = Get.find<StartController>();
     Map<dynamic, dynamic> content = {
       "account".tr: "assets/svg/profile_outlined.svg",
       "settings".tr: "assets/svg/settings_outlined.svg",
@@ -55,8 +56,8 @@ class SideBar extends StatelessWidget {
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Image.asset(
-                          "assets/images/wallpaper_flutter.jpg",
+                        Image.network(
+                          startController.user!.bannerUrl!,
                           fit: BoxFit.cover,
                         ),
                         BackdropFilter(

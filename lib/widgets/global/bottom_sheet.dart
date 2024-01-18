@@ -196,7 +196,8 @@ class BottomSheetWidget {
         ));
   }
 
-  static void showChooseImage(EditProfileController controller) {
+  static void showChooseImage(
+      EditProfileController controller, bool isEditBanner) {
     Get.bottomSheet(IntrinsicHeight(
       child: Container(
           width: Get.width,
@@ -210,9 +211,12 @@ class BottomSheetWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: () => Get.to(() => const CameraView(
-                      isCrop: true,
-                    )),
+                onTap: () {
+                  controller.isEditBanner.value = isEditBanner;
+                  Get.to(() => const CameraView(
+                        isCrop: true,
+                      ));
+                },
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 5),
                   color: Colors.white,
@@ -228,7 +232,10 @@ class BottomSheetWidget {
               ),
               const Line(),
               GestureDetector(
-                onTap: () => Get.toNamed(RouteName.galleryView),
+                onTap: () {
+                  controller.isEditBanner.value = isEditBanner;
+                  Get.toNamed(RouteName.galleryView);
+                },
                 child: Container(
                   margin: const EdgeInsets.only(top: 5),
                   color: Colors.white,

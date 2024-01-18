@@ -64,6 +64,7 @@ class PostContent extends StatelessWidget {
                             : () {
                                 Get.toNamed(
                                   RouteName.postDetail,
+                                  arguments: post
                                 );
                               },
                         child: Container(

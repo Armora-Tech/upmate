@@ -3,12 +3,11 @@ import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_font.dart';
-import 'package:upmatev2/widgets/global/profile_picture.dart';
+import 'package:upmatev2/widgets/profile/header.dart';
 import 'package:upmatev2/widgets/profile/main_content.dart';
 
 import '../controllers/profile_controller.dart';
 import '../themes/app_color.dart';
-import '../widgets/global/detail_profile_picture.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -34,67 +33,8 @@ class ProfileView extends StatelessWidget {
                     background: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 150,
-                          width: Get.width,
-                          child: Stack(
-                            fit: StackFit.expand,
-                            clipBehavior: Clip.none,
-                            children: [
-                              Image.asset(
-                                "assets/images/wallpaper_flutter.jpg",
-                                fit: BoxFit.cover,
-                              ),
-                              Positioned(
-                                top: 15,
-                                left: 15,
-                                child: GestureDetector(
-                                  onTap: () => Get.back(),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(5),
-                                    decoration: const BoxDecoration(
-                                      color: Color.fromARGB(123, 255, 255, 255),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: const Center(
-                                      child: Icon(
-                                        Icons.arrow_back,
-                                        color: Colors.black,
-                                        size: 30,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: -45,
-                                left: 15,
-                                child: GestureDetector(
-                                  onTap: () => Get.to(
-                                    () => const DetailProfilePicture(),
-                                    opaque: false,
-                                    fullscreenDialog: true,
-                                    transition: Transition.circularReveal,
-                                  ),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                          width: 3, color: Colors.white),
-                                    ),
-                                    child: Hero(
-                                      tag: "profile",
-                                      child: ProfilePicture(
-                                          imageURL: startController.user!.photoUrl,
-                                          size: 75),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 50),
+                        const HeaderProfile(),
+                        const SizedBox(height: 5),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Column(
@@ -107,7 +47,7 @@ class ProfileView extends StatelessWidget {
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
                               Text(
-                               startController.user!.username,
+                                startController.user!.username,
                                 maxLines: 1,
                                 style: const TextStyle(color: Colors.grey),
                               ),

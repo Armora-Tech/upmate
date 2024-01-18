@@ -110,13 +110,13 @@ class ChatView extends StatelessWidget {
                                               "assets/svg/search.svg",
                                               colorFilter:
                                                   const ColorFilter.mode(
-                                                      Colors.grey,
+                                                      AppColor.black,
                                                       BlendMode.srcIn),
                                               semanticsLabel: 'Search'),
                                         ),
                                         hintText: "search".tr,
                                         hintStyle: AppFont.text14.copyWith(
-                                          color: Colors.black,
+                                          color: AppColor.black,
                                         ),
                                       ),
                                     ),

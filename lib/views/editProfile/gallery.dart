@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
+import 'package:upmatev2/controllers/edit_profile_controller.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/scroll_up.dart';
@@ -16,6 +17,7 @@ class GalleryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<GalleryController>();
+    final editProfileController = Get.find<EditProfileController>();
     return GetBuilder<GalleryController>(
         builder: (_) => Scaffold(
               body: Stack(
@@ -112,10 +114,13 @@ class GalleryView extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      const Icon(
-                                        Icons.arrow_back,
-                                        size: 26,
-                                        color: Colors.black,
+                                      GestureDetector(
+                                        onTap: () => Get.back(),
+                                        child: const Icon(
+                                          Icons.arrow_back,
+                                          size: 26,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                       const SizedBox(
                                         width: 15,
@@ -129,8 +134,11 @@ class GalleryView extends StatelessWidget {
                                     ],
                                   ),
                                   GestureDetector(
-                                      onTap: () async =>
-                                          await controller.updatePhotoProfile(),
+                                      onTap: () async => editProfileController
+                                              .isEditBanner.value
+                                          ? await controller.updateBanner()
+                                          : await controller
+                                              .updatePhotoProfile(),
                                       child: Text(
                                         "save".tr,
                                         style: const TextStyle(

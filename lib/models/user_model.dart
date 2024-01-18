@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:photo_manager/photo_manager.dart';
 import 'package:upmatev2/models/post_model.dart';
 
 import '../utils/upload.dart';
@@ -56,7 +55,7 @@ class UserModel {
             "@${data?['display_name'].replaceAll(" ", "").toLowerCase()}",
         photoUrl: data?['photo_url'] ??
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&usqp=CAU",
-        bannerUrl: data?['banner_url']);
+        bannerUrl: data?['banner_url']?? "https://miro.medium.com/v2/resize:fit:1400/0*vowtRZE_wvyVA7CB");
   }
 
   Map<String, dynamic> toFirestore() {
@@ -88,7 +87,7 @@ class UserModel {
     _posts = posts;
   }
 
-  Future<void> updateBanner(AssetEntity asset) async {
+  Future<void> updateBanner(File asset) async {
     Map<String, dynamic> data = <String, dynamic>{};
     try {
       final response = await Upload().uploadImage(asset);

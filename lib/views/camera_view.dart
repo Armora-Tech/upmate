@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/edit_profile_controller.dart';
 import '../controllers/camera_controller.dart';
 
 class CameraView extends StatelessWidget {
@@ -11,6 +12,7 @@ class CameraView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<CameraViewController>();
+    final editProfileController = Get.find<EditProfileController>();
     return GetBuilder<CameraViewController>(
         builder: (_) => WillPopScope(
             onWillPop: () async {
@@ -85,7 +87,9 @@ class CameraView extends StatelessWidget {
                                       ? () {}
                                       : isCrop
                                           ? () async => await controller
-                                              .takePictureWithCrop()
+                                              .takePictureWithCrop(
+                                                  editProfileController
+                                                      .isEditBanner.value)
                                           : () async => await controller
                                               .takePicture(routeName!),
                                   child: Container(

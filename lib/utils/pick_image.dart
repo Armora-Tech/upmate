@@ -11,19 +11,25 @@ class PickImage {
   final ImageCropper _imageCropper;
 
   Future<CroppedFile?> crop(
-      {required File file, CropStyle cropStyle = CropStyle.circle}) async {
+      {required File file,
+      CropStyle cropStyle = CropStyle.circle,
+      bool isBanner = false}) async {
     return await _imageCropper.cropImage(
       sourcePath: file.path,
       cropStyle: cropStyle,
       compressQuality: 100,
       uiSettings: [
         AndroidUiSettings(
-            toolbarTitle: 'Cropper',
-            toolbarColor: const Color.fromARGB(255, 10, 25, 37),
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.original,
-            activeControlsWidgetColor: AppColor.primaryColor,
-            lockAspectRatio: false),
+          toolbarTitle: 'Cropper',
+          toolbarColor: const Color.fromARGB(255, 10, 25, 37),
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: isBanner
+              ? CropAspectRatioPreset.ratio16x9
+              : CropAspectRatioPreset.original,
+          activeControlsWidgetColor: AppColor.primaryColor,
+          lockAspectRatio: isBanner ? true : false,
+          hideBottomControls: isBanner ? true : false,
+        ),
         IOSUiSettings(
           title: 'Cropper',
         ),

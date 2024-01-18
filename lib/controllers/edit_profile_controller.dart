@@ -21,6 +21,7 @@ class EditProfileController extends GetxController {
   RxBool isEmailInvalid = false.obs;
   RxBool isPassInvalid = false.obs;
   RxBool isConfPassInvalid = false.obs;
+  RxBool isEditBanner = false.obs;
   File? image;
   Map<String, dynamic>? data;
 

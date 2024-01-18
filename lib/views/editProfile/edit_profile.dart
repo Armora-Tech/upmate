@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/edit_profile_controller.dart';
-import 'package:upmatev2/controllers/gallery_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
-import 'package:upmatev2/themes/app_font.dart';
+import 'package:upmatev2/widgets/editProfile/app_bar.dart';
 import 'package:upmatev2/widgets/global/blur_loading.dart';
 import 'package:upmatev2/widgets/global/bottom_sheet.dart';
 import 'package:upmatev2/widgets/editProfile/edit_page.dart';
-import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
 
 import '../../widgets/global/detail_profile_picture.dart';
@@ -18,7 +17,6 @@ class EditProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EditProfileController>();
-    final galleryController = Get.find<GalleryController>();
     final startController = Get.find<StartController>();
     return Scaffold(
       body: SingleChildScrollView(
@@ -26,53 +24,100 @@ class EditProfileView extends StatelessWidget {
         child: Stack(
           children: [
             GetBuilder<EditProfileController>(
-                builder: (_) => Padding(
-                      padding:
-                          const EdgeInsets.only(right: 20, left: 20, top: 120),
-                      child: Column(
-                        children: [
-                          GestureDetector(
-                              onTap: () => Get.to(
-                                  () => const DetailProfilePicture(),
-                                  opaque: false,
-                                  fullscreenDialog: true,
-                                  transition: Transition.circularReveal),
-                              child: Hero(
-                                  tag: "pp_edit_profile",
-                                  child: controller.image != null
-                                      ? Container(
-                                          width: 120,
-                                          height: 120,
-                                          clipBehavior: Clip.hardEdge,
-                                          decoration: const BoxDecoration(
-                                              shape: BoxShape.circle),
-                                          child: Image.file(
-                                            controller.image!,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        )
-                                      : ProfilePicture(
-                                          imageURL:
-                                              startController.user!.photoUrl,
-                                          size: 120,
-                                        ))),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          GestureDetector(
-                            onTap: () =>
-                                BottomSheetWidget.showChooseImage(controller),
-                            child: Text(
-                              "change_picture".tr,
-                              style: const TextStyle(
-                                color: Colors.blueAccent,
+                builder: (_) => Column(
+                      children: [
+                        const SizedBox(
+                          height: 93,
+                        ),
+                        SizedBox(
+                          height: 260,
+                          width: Get.width,
+                          child: Stack(
+                            fit: StackFit.expand,
+                            alignment: Alignment.center,
+                            children: [
+                              Positioned(
+                                top: 0,
+                                child: SizedBox(
+                                    height: 150,
+                                    width: Get.width,
+                                    child: Image.network(
+                                      startController.user!.bannerUrl!,
+                                      fit: BoxFit.cover,
+                                    )),
                               ),
-                            ),
+                              Positioned(
+                                bottom: 0,
+                                child: Column(
+                                  children: [
+                                    GestureDetector(
+                                        onTap: () => Get.to(
+                                            () => const DetailProfilePicture(),
+                                            opaque: false,
+                                            fullscreenDialog: true,
+                                            transition:
+                                                Transition.circularReveal),
+                                        child: Hero(
+                                            tag: "pp_edit_profile",
+                                            child: Container(
+                                              height: 130,
+                                              width: 130,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                      width: 4,
+                                                      color: Colors.white)),
+                                              child: ProfilePicture(
+                                                imageURL: startController
+                                                    .user!.photoUrl,
+                                                size: 120,
+                                              ),
+                                            ))),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () =>
+                                          BottomSheetWidget.showChooseImage(
+                                              controller, false),
+                                      child: Text(
+                                        "change_picture".tr,
+                                        style: const TextStyle(
+                                          color: Colors.blueAccent,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                  top: 10,
+                                  right: 10,
+                                  child: GestureDetector(
+                                    onTap: () =>
+                                        BottomSheetWidget.showChooseImage(
+                                            controller, true),
+                                    child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color:
+                                                Colors.black.withOpacity(0.3)),
+                                        child: SvgPicture.asset(
+                                          "assets/svg/edit.svg",
+                                          colorFilter: const ColorFilter.mode(
+                                              Colors.white, BlendMode.srcIn),
+                                        )),
+                                  ))
+                            ],
                           ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          Column(
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Column(
                             children:
                                 List.generate(controller.data!.length, (index) {
                               final Map<String, dynamic> data =
@@ -132,53 +177,12 @@ class EditProfileView extends StatelessWidget {
                                 ),
                               );
                             }),
-                          )
-                        ],
-                      ),
-                    )),
-            Positioned(
-              top: 0,
-              child: Container(
-                color: Colors.white,
-                width: Get.width,
-                child: SafeArea(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: SizedBox(
-                          height: 60,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () => Get.back(),
-                                child: const SizedBox(
-                                    width: 28,
-                                    child: Icon(
-                                      Icons.arrow_back,
-                                      size: 28,
-                                    )),
-                              ),
-                              Text(
-                                "edit_profile".tr,
-                                style: AppFont.text20
-                                    .copyWith(fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                width: 30,
-                              )
-                            ],
                           ),
-                        ),
-                      ),
-                      const Line(),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Obx(() => galleryController.isLoading.value
+                        )
+                      ],
+                    )),
+            const AppBarEditProfile(),
+            Obx(() => controller.isLoading.value
                 ? const BlurLoading()
                 : const SizedBox())
           ],

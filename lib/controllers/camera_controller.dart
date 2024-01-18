@@ -5,12 +5,20 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_cropper/image_cropper.dart';
+import 'package:upmatev2/controllers/edit_profile_controller.dart';
 import '../main.dart';
+import '../repositories/auth.dart';
 import '../routes/route_name.dart';
 import '../utils/pick_image.dart';
+import '../widgets/global/snack_bar.dart';
+import 'home_controller.dart';
+import 'start_controller.dart';
 
 class CameraViewController extends GetxController with WidgetsBindingObserver {
   late CameraController cameraController;
+  late final StartController _startController;
+  late final HomeController _homeController;
+  late final EditProfileController _editProfileController;
   late void cameraValue;
   late FlashMode mode;
   File? image;
@@ -27,6 +35,9 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
         systemNavigationBarColor: Color.fromARGB(255, 15, 22, 25),
       ),
     );
+    _startController = Get.find<StartController>();
+    _homeController = Get.find<HomeController>();
+    _editProfileController = Get.find<EditProfileController>();
     mode = FlashMode.off;
     cameraController = CameraController(cameras[0], ResolutionPreset.max);
     cameraValue = await cameraController.initialize();
@@ -90,7 +101,7 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
     update();
   }
 
-  Future<void> takePictureWithCrop() async {
+  Future<void> takePictureWithCrop(bool isEditBanner) async {
     try {
       isTakingPicture.value = true;
       await cameraController.setFlashMode(mode);
@@ -108,16 +119,32 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
       }
       if (image != null) {
         final imagePicker = PickImage();
-        final croppedImage =
-            await imagePicker.crop(file: image!, cropStyle: CropStyle.circle);
+        final croppedImage = await imagePicker.crop(
+            file: image!,
+            cropStyle: isEditBanner ? CropStyle.rectangle : CropStyle.circle,
+            isBanner: isEditBanner);
         if (croppedImage != null) {
           image = File(croppedImage.path);
           isFlashOn.value = false;
           await cameraController.setFlashMode(FlashMode.off);
-          isTakingPicture.value = false;
+          _editProfileController.isLoading.value = true;
           Get.until(
             (route) => Get.previousRoute == RouteName.editProfile,
           );
+          final user = await Auth().getUserModel();
+          isEditBanner
+              ? await user!.updateBanner(image!)
+              : await user!.updateProfile(image!);
+          await _startController.refreshStart();
+          await _homeController.refreshPosts();
+          isTakingPicture.value = false;
+          Get.forceAppUpdate();
+          _editProfileController.isLoading.value = false;
+          SnackBarWidget.showSnackBar(
+              true,
+              isEditBanner
+                  ? "${"success".tr} ${"update_banner".tr}"
+                  : "${"success".tr} ${"update_photo_profile".tr}");
         }
       }
     } catch (e) {
