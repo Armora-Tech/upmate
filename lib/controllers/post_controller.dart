@@ -82,7 +82,7 @@ class PostController extends GetxController {
         ref: FirebaseFirestore.instance.collection("posts").doc(),
         interests: selectedTags,
         postDescription: description.text,
-        userRaw: Auth().getCurrentUserReference(),
+        userRaw: Auth().getCurrentUserReference().id,
         timestamp: DateTime.now(),
         bookmarks: [],
         likes: [],

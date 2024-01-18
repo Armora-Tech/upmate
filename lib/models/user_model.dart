@@ -75,7 +75,7 @@ class UserModel {
     List<PostModel> posts = [];
     QuerySnapshot querySnapshots = await FirebaseFirestore.instance
         .collection("posts")
-        .where("post_user", isEqualTo: _ref)
+        .where("post_user", isEqualTo: _ref.id)
         .withConverter(
             fromFirestore: PostModel.fromFirestore,
             toFirestore: (PostModel post, _) => post.toFirestore())

@@ -11,7 +11,7 @@ class PostModel {
   String _postDescription;
   List<dynamic>? _postPhotoRaw;
   List<String>? _postPhoto;
-  DocumentReference<Map<String, dynamic>> _userRaw;
+  String _userRaw;
   UserModel? _user;
   DateTime? _timestamp;
   List<dynamic> _bookmarks;
@@ -24,7 +24,7 @@ class PostModel {
     DocumentReference? forumRef,
     required List<dynamic> interests,
     required String postDescription,
-    required DocumentReference<Map<String, dynamic>> userRaw,
+    required String userRaw,
     required DateTime? timestamp,
     required List<dynamic> bookmarks,
     required List<dynamic> likes,
@@ -71,7 +71,7 @@ class PostModel {
       "forumRef": _forumRef,
       "interests": _interests,
       "post_description": _postDescription,
-      "post_user": _user?.ref,
+      "post_user": _user?.uid,
       "timestamp": _timestamp,
       "bookmarks": _bookmarks,
       "likes": _likes,
@@ -86,7 +86,7 @@ class PostModel {
         .withConverter(
             fromFirestore: UserModel.fromFirestore,
             toFirestore: (UserModel user, _) => user.toFirestore())
-        .doc(_userRaw.id)
+        .doc(_userRaw)
         .get();
     _user = snapshot.data() as UserModel?;
   }
