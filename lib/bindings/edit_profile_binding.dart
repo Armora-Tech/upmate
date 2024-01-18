@@ -6,7 +6,7 @@ import '../controllers/edit_profile_controller.dart';
 class EditProfileBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<EditProfileController>(() => EditProfileController());
+    Get.lazyPut<EditProfileController>(() => EditProfileController(), fenix: true);
     Get.lazyPut<CameraViewController>(() => CameraViewController(),
         fenix: true);
     Get.lazyPut<GalleryController>(() => GalleryController(), fenix: true);

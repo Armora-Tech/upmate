@@ -11,8 +11,8 @@ class CameraView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late final EditProfileController editProfileController;
     final controller = Get.find<CameraViewController>();
-    final editProfileController = Get.find<EditProfileController>();
     return GetBuilder<CameraViewController>(
         builder: (_) => WillPopScope(
             onWillPop: () async {
@@ -86,10 +86,14 @@ class CameraView extends StatelessWidget {
                                   onTap: controller.isTakingPicture.value
                                       ? () {}
                                       : isCrop
-                                          ? () async => await controller
-                                              .takePictureWithCrop(
-                                                  editProfileController
-                                                      .isEditBanner.value)
+                                          ? () async {
+                                              editProfileController = Get.find<
+                                                  EditProfileController>();
+                                              await controller
+                                                  .takePictureWithCrop(
+                                                      editProfileController
+                                                          .isEditBanner.value);
+                                            }
                                           : () async => await controller
                                               .takePicture(routeName!),
                                   child: Container(

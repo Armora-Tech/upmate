@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 
-class DetailProfilePicture extends StatelessWidget {
-  const DetailProfilePicture({super.key});
+class DetailBanner extends StatelessWidget {
+  const DetailBanner({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +15,15 @@ class DetailProfilePicture extends StatelessWidget {
         backgroundColor: Colors.black.withOpacity(0.3),
         body: Center(
           child: Hero(
-            tag: "detail_profile_picture",
+            tag: "detail_banner",
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
               child: Container(
-                height: 250,
-                width: 250,
+                width: Get.width,
                 clipBehavior: Clip.hardEdge,
-                decoration: const BoxDecoration(
-                    color: Colors.grey, shape: BoxShape.circle),
+                decoration: const BoxDecoration(color: Colors.grey),
                 child: Image.network(
-                  controller.user!.photoUrl!,
+                  controller.user!.bannerUrl!,
                   fit: BoxFit.cover,
                 ),
               ),

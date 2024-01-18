@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:upmatev2/controllers/login_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
+import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/detail_profile_picture.dart';
 import '../global/line.dart';
@@ -50,23 +51,28 @@ class SideBar extends StatelessWidget {
               margin: EdgeInsets.zero,
               child: Stack(
                 children: [
-                  SizedBox(
+                  Container(
+                    color: AppColor.primaryColor,
                     height: Get.height,
                     width: Get.width,
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Image.network(
-                          startController.user!.bannerUrl!,
-                          fit: BoxFit.cover,
-                        ),
-                        BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                            child: Container(
-                              height: Get.height,
-                              width: Get.width,
-                              color: const Color.fromARGB(106, 0, 0, 0),
-                            ))
+                        startController.user!.bannerUrl == null
+                            ? const SizedBox()
+                            : Image.network(
+                                startController.user!.bannerUrl!,
+                                fit: BoxFit.cover,
+                              ),
+                        startController.user!.bannerUrl == null
+                            ? const SizedBox()
+                            : BackdropFilter(
+                                filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                                child: Container(
+                                  height: Get.height,
+                                  width: Get.width,
+                                  color: const Color.fromARGB(106, 0, 0, 0),
+                                ))
                       ],
                     ),
                   ),
@@ -82,7 +88,7 @@ class SideBar extends StatelessWidget {
                               () => const DetailProfilePicture(),
                               opaque: false,
                               fullscreenDialog: true,
-                              transition: Transition.circularReveal),
+                              transition: Transition.noTransition),
                           child: Hero(
                             tag: "pp_side_bar",
                             child: Container(
