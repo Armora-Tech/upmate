@@ -6,6 +6,7 @@ import 'package:upmatev2/widgets/global/snack_bar.dart';
 import '../utils/input_validator.dart';
 
 class EditProfileController extends GetxController {
+  late final StartController _startController;
   late TextEditingController username;
   late TextEditingController fullName;
   late TextEditingController email;
@@ -13,7 +14,6 @@ class EditProfileController extends GetxController {
   late TextEditingController confPass;
   late TextEditingController bio;
   late TextEditingController inputText;
-  final startController = Get.find<StartController>();
   RxBool isEmptyText = true.obs;
   RxBool isLoading = false.obs;
   RxBool isFullNameInvalid = false.obs;
@@ -49,13 +49,14 @@ class EditProfileController extends GetxController {
     confPass = TextEditingController();
     bio = TextEditingController();
     inputText = TextEditingController();
+    _startController = Get.find<StartController>();
     data = {
-      "username".tr: startController.user!.username == ""
-          ? startController.user!.displayName
-          : startController.user!.username,
-      "full_name".tr: startController.user!.displayName,
+      "username".tr: _startController.user!.username == ""
+          ? _startController.user!.displayName
+          : _startController.user!.username,
+      "full_name".tr: _startController.user!.displayName,
       "Bio": "",
-      "Email": startController.user!.email,
+      "Email": _startController.user!.email,
       "password".tr: "*****"
     };
     super.onInit();

@@ -55,7 +55,7 @@ class UserModel {
             "@${data?['display_name'].replaceAll(" ", "").toLowerCase()}",
         photoUrl: data?['photo_url'] ??
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&usqp=CAU",
-        bannerUrl: data?['banner_url']?? "https://miro.medium.com/v2/resize:fit:1400/0*vowtRZE_wvyVA7CB");
+        bannerUrl: data?['banner_url']);
   }
 
   Map<String, dynamic> toFirestore() {

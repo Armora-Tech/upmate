@@ -17,6 +17,7 @@ class AppBarEditProfile extends StatelessWidget {
         height: 93,
         child: SafeArea(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),

@@ -65,26 +65,34 @@ class HomeView extends StatelessWidget {
                           builder: (_) => Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              GestureDetector(
-                                onTap: () => Scaffold.of(context).openDrawer(),
-                                child: SizedBox(
-                                    width: 28,
-                                    child: Image.asset(
-                                      "assets/images/humberger_icon.png",
-                                      fit: BoxFit.cover,
-                                    )),
+                              Obx(
+                                () => GestureDetector(
+                                  onTap: controller.isLoading.value
+                                      ? () {}
+                                      : () => Scaffold.of(context).openDrawer(),
+                                  child: SizedBox(
+                                      width: 28,
+                                      child: Image.asset(
+                                        "assets/images/humberger_icon.png",
+                                        fit: BoxFit.cover,
+                                      )),
+                                ),
                               ),
                               Text(
                                 startController.user?.displayName ?? "",
                                 style: AppFont.text20
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
-                              GestureDetector(
-                                  onTap: () => Get.toNamed(RouteName.profile),
-                                  child: ProfilePicture(
-                                    imageURL: startController.user?.photoUrl,
-                                    size: 35,
-                                  ))
+                              Obx(
+                                () => GestureDetector(
+                                    onTap: controller.isLoading.value
+                                        ? () {}
+                                        : () => Get.toNamed(RouteName.profile),
+                                    child: ProfilePicture(
+                                      imageURL: startController.user?.photoUrl,
+                                      size: 35,
+                                    )),
+                              )
                             ],
                           ),
                         ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
+import 'package:upmatev2/widgets/global/banner.dart';
 
+import '../global/detail_banner.dart';
 import '../global/detail_profile_picture.dart';
 import '../global/profile_picture.dart';
 
@@ -12,7 +14,7 @@ class HeaderProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final startController = Get.find<StartController>();
     return SizedBox(
-      height: 200,
+      height: 250,
       width: Get.width,
       child: Stack(
         fit: StackFit.expand,
@@ -20,13 +22,12 @@ class HeaderProfile extends StatelessWidget {
         children: [
           Positioned(
             top: 0,
-            child: SizedBox(
-                height: 150,
-                width: Get.width,
-                child: Image.network(
-                  startController.user!.bannerUrl!,
-                  fit: BoxFit.cover,
-                )),
+            child: GestureDetector(
+                onTap: () => Get.to(() => const DetailBanner(),
+                    opaque: false,
+                    fullscreenDialog: true,
+                    transition: Transition.noTransition),
+                child: const Hero(tag: "banner_profile", child: MyBanner())),
           ),
           Positioned(
             top: 15,
@@ -57,7 +58,7 @@ class HeaderProfile extends StatelessWidget {
                 () => const DetailProfilePicture(),
                 opaque: false,
                 fullscreenDialog: true,
-                transition: Transition.circularReveal,
+                transition: Transition.noTransition,
               ),
               child: Container(
                 decoration: BoxDecoration(

@@ -12,9 +12,11 @@ class ProfileController extends GetxController
   final homeController = Get.find<HomeController>();
   final startController = Get.find<StartController>();
   RxInt selectedTab = 0.obs;
+  RxBool isFullText = false.obs;
   List<PostModel> myPosts = [];
-
   List pages = [const MyPost(), const MyBookmark()];
+  String text =
+      "Ada yang mau ikut aku???, ayo ikut ke dunia Flora simsalabim akan ku buat harimu menjadi penuh cinta. Hai Semuanya aku Flora fjshafjhdjhsdakjhfkdjshafkhkdashfkhjshafkhdkhsahdkhkshasjsdhfhjdhfjddjfhfjf";
 
   @override
   void onInit() {
@@ -47,5 +49,16 @@ class ProfileController extends GetxController
     tabController.animateTo(selectedTab.value,
         duration: const Duration(milliseconds: 300), curve: Curves.ease);
     update();
+  }
+
+  String handleText(String text) {
+    if (isFullText.value) {
+      return text;
+    } else {
+      if (text.length > 80) {
+        return "${text.substring(0, 80)}...";
+      }
+    }
+    return text;
   }
 }
