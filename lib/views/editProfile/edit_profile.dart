@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/edit_profile_controller.dart';
+import 'package:upmatev2/controllers/gallery_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/widgets/editProfile/app_bar.dart';
 import 'package:upmatev2/widgets/global/blur_loading.dart';
@@ -17,6 +18,7 @@ class EditProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<EditProfileController>();
+    final galleryController = Get.find<GalleryController>();
     final startController = Get.find<StartController>();
     return Scaffold(
       body: SingleChildScrollView(
@@ -182,7 +184,7 @@ class EditProfileView extends StatelessWidget {
                       ],
                     )),
             const AppBarEditProfile(),
-            Obx(() => controller.isLoading.value
+            Obx(() => galleryController.isLoading.value
                 ? const BlurLoading()
                 : const SizedBox())
           ],

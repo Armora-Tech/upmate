@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_cropper/image_cropper.dart';
-import 'package:upmatev2/controllers/edit_profile_controller.dart';
+import 'package:upmatev2/controllers/gallery_controller.dart';
 import '../main.dart';
 import '../repositories/auth.dart';
 import '../routes/route_name.dart';
@@ -18,7 +18,7 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
   late CameraController cameraController;
   late final StartController _startController;
   late final HomeController _homeController;
-  late final EditProfileController _editProfileController;
+  late final GalleryController _galleryController;
   late void cameraValue;
   late FlashMode mode;
   File? image;
@@ -37,7 +37,7 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
     );
     _startController = Get.find<StartController>();
     _homeController = Get.find<HomeController>();
-    _editProfileController = Get.find<EditProfileController>();
+    _galleryController = Get.find<GalleryController>();
     mode = FlashMode.off;
     cameraController = CameraController(cameras[0], ResolutionPreset.max);
     cameraValue = await cameraController.initialize();
@@ -127,7 +127,7 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
           image = File(croppedImage.path);
           isFlashOn.value = false;
           await cameraController.setFlashMode(FlashMode.off);
-          _editProfileController.isLoading.value = true;
+          _galleryController.isLoading.value = true;
           Get.until(
             (route) => Get.previousRoute == RouteName.editProfile,
           );
@@ -139,7 +139,7 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
           await _homeController.refreshPosts();
           isTakingPicture.value = false;
           Get.forceAppUpdate();
-          _editProfileController.isLoading.value = false;
+          _galleryController.isLoading.value = false;
           SnackBarWidget.showSnackBar(
               true,
               isEditBanner
