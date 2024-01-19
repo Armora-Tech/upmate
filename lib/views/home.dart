@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
+import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/themes/app_font.dart';
-import 'package:upmatev2/widgets/global/title_section.dart';
+import 'package:upmatev2/widgets/global/skelton.dart';
 import 'package:upmatev2/widgets/home/new_post.dart';
-import 'package:upmatev2/widgets/home/popular.dart';
 import '../widgets/global/blur_loading.dart';
 import '../widgets/global/profile_picture.dart';
 
@@ -19,32 +19,16 @@ class HomeView extends StatelessWidget {
     final controller = Get.find<HomeController>();
     return Scaffold(
       body: Stack(children: [
-        SingleChildScrollView(
+        const SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
+              SizedBox(
                 height: 75,
               ),
-              const NewPost(),
-              const SizedBox(
-                height: 10,
-              ),
-              TitleSection(title: "popular".tr),
-              const SizedBox(
-                height: 20,
-              ),
-              const Popular(),
-              const SizedBox(
-                height: 20,
-              ),
-              TitleSection(title: "people_with_similar_interests".tr),
-              const SizedBox(
-                height: 20,
-              ),
-              const Popular(),
-              const SizedBox(
-                height: 100,
+              NewPost(),
+              SizedBox(
+                height: 60,
               ),
             ],
           ),
@@ -84,14 +68,29 @@ class HomeView extends StatelessWidget {
                                     .copyWith(fontWeight: FontWeight.bold),
                               ),
                               Obx(
-                                () => GestureDetector(
-                                    onTap: controller.isLoading.value
-                                        ? () {}
-                                        : () => Get.toNamed(RouteName.profile),
-                                    child: ProfilePicture(
-                                      imageURL: startController.user?.photoUrl,
-                                      size: 35,
-                                    )),
+                                () => startController.isLoading.value
+                                    ? const ShimmerSkelton(
+                                        height: 35,
+                                        width: 35,
+                                        isCircle: true,
+                                      )
+                                    : GestureDetector(
+                                        onTap: controller.isLoading.value
+                                            ? () {}
+                                            : () =>
+                                                Get.toNamed(RouteName.profile),
+                                        child: Container(
+                                          height: 35,
+                                          width: 35,
+                                          decoration: const BoxDecoration(
+                                              color: AppColor.lightGrey,
+                                              shape: BoxShape.circle),
+                                          child: ProfilePicture(
+                                            imageURL:
+                                                startController.user?.photoUrl,
+                                            size: 35,
+                                          ),
+                                        )),
                               )
                             ],
                           ),

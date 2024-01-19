@@ -86,6 +86,7 @@ class PostController extends GetxController {
         timestamp: DateTime.now(),
         bookmarks: [],
         likes: [],
+        comments: [],
         postPhoto: imgUrl,
         isCover: isCover.value);
 

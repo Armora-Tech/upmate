@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,7 @@ import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/post_section.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 import 'package:upmatev2/widgets/home/pop_up_delete_post.dart';
+import 'package:upmatev2/widgets/home/popular.dart';
 import '../../controllers/home_controller.dart';
 
 class NewPost extends StatelessWidget {
@@ -16,14 +19,25 @@ class NewPost extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
     final startController = Get.find<StartController>();
+    final lengthListView =
+        controller.isLoading.value ? 3 : controller.posts!.length;
+    final Random random = Random();
+    final popularIndex = random.nextInt(lengthListView - 2);
     return GetBuilder<HomeController>(
         builder: (_) => ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: controller.posts?.length ?? 3,
-            separatorBuilder: (context, index) => const SizedBox(
-                  height: 10,
-                ),
+            itemCount: lengthListView,
+            separatorBuilder: (context, index) {
+              return index == popularIndex
+                  ? const Padding(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: Popular(),
+                    )
+                  : const SizedBox(
+                      height: 10,
+                    );
+            },
             itemBuilder: (context, index) {
               return Column(
                 children: [

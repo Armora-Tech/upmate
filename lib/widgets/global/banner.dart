@@ -12,6 +12,7 @@ class MyBanner extends StatelessWidget {
     final startController = Get.find<StartController>();
     return Container(
         height: Get.width * 9 / 16,
+        width: Get.width,
         decoration: const BoxDecoration(color: AppColor.primaryColor),
         child: startController.user!.bannerUrl == null
             ? const SizedBox()

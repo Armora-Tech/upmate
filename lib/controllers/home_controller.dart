@@ -8,30 +8,29 @@ class HomeController extends GetxController {
   List<PostModel>? posts;
   RxInt selectedIndex = 0.obs;
   RxInt selectedImage = 0.obs;
+  RxInt perPage = 3.obs;
   RxBool isFullText = false.obs;
   RxBool isLoading = false.obs;
   RxBool isDeleting = false.obs;
 
   @override
   Future<void> onInit() async {
-    isLoading.value = true;
     await _getPosts();
-    isLoading.value = false;
     super.onInit();
-    update();
   }
 
   Future<void> _getPosts() async {
+    isLoading.value = true;
     posts = await PostRepository().getPosts();
     posts!.sort((a, b) => b.timestamp!.compareTo(a.timestamp!));
+    isLoading.value = false;
+    update();
   }
 
   Future<void> deletePost(PostModel post, int index) async {
     isDeleting.value = true;
-    debugPrint(" post id : ${post.ref.id}");
     try {
       await PostRepository().deletePost(post.ref.path);
-
       if (post.ref.id.contains(posts![index].ref.id)) {
         posts!.removeAt(index);
       }
