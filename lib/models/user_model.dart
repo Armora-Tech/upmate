@@ -82,7 +82,9 @@ class UserModel {
         .get();
 
     for (var e in querySnapshots.docs) {
-      posts.add(e.data() as PostModel);
+      var td=e.data() as PostModel;
+      await td.initPhotos();
+      posts.add(td);
     }
     _posts = posts;
   }
