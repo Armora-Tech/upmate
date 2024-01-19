@@ -85,6 +85,7 @@ class UserModel {
       var td=e.data() as PostModel;
       await td.initPhotos();
       await td.initUsers();
+      await td.getComment();
       posts.add(td);
     }
     _posts = posts;

@@ -28,6 +28,7 @@ class PostModel {
     required DateTime? timestamp,
     required List<dynamic> bookmarks,
     required List<dynamic> likes,
+    required List<CommentModel> comments,
     List<dynamic>? postPhotoRaw,
     List<String>? postPhoto,
     bool isCover = false,
@@ -41,7 +42,8 @@ class PostModel {
         _likes = likes,
         _postPhotoRaw = postPhotoRaw,
         _postPhoto = postPhoto,
-        _isCover = isCover;
+        _isCover = isCover,
+        _comments = comments;
 
   factory PostModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -49,21 +51,23 @@ class PostModel {
   ) {
     final data = snapshot.data();
     debugPrint("snasopt post: $data");
-    List<dynamic> dataListPhoto =  (data?['post_photo'] is String)
+    List<dynamic> dataListPhoto = (data?['post_photo'] is String)
         ? [data?['post_photo']]
         : data?['post_photo'] ?? [];
 
     return PostModel(
-        ref: snapshot.reference,
-        forumRef: data?['forumRef'],
-        interests: data?['interests'] ?? [],
-        postDescription: data?['post_description'] ?? '',
-        userRaw: data?['post_user'],
-        timestamp: (data?['timestamp'] as Timestamp?)?.toDate(),
-        bookmarks: data?['bookmarks'] ?? [],
-        likes: data?['likes'] ?? [],
-        postPhotoRaw: dataListPhoto,
-        isCover: data?['isCover'] ?? false);
+      ref: snapshot.reference,
+      forumRef: data?['forumRef'],
+      interests: data?['interests'] ?? [],
+      postDescription: data?['post_description'] ?? '',
+      userRaw: data?['post_user'],
+      timestamp: (data?['timestamp'] as Timestamp?)?.toDate(),
+      bookmarks: data?['bookmarks'] ?? [],
+      likes: data?['likes'] ?? [],
+      postPhotoRaw: dataListPhoto,
+      isCover: data?['isCover'] ?? false,
+      comments: []
+    );
   }
 
   Map<String, dynamic> toFirestore() {
@@ -92,7 +96,8 @@ class PostModel {
   }
 
   Future<void> initPhotos() async {
-    List<String>? photoListString = _postPhotoRaw?.map((dynamic item) => item.toString()).toList();
+    List<String>? photoListString =
+        _postPhotoRaw?.map((dynamic item) => item.toString()).toList();
     _postPhoto = photoListString;
   }
 
