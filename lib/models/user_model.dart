@@ -84,6 +84,7 @@ class UserModel {
     for (var e in querySnapshots.docs) {
       var td=e.data() as PostModel;
       await td.initPhotos();
+      await td.initUsers();
       posts.add(td);
     }
     _posts = posts;
