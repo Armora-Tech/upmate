@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/repositories/post_repository.dart';
@@ -5,9 +6,11 @@ import '../models/post_model.dart';
 import '../widgets/global/snack_bar.dart';
 
 class HomeController extends GetxController {
+  late final CarouselController carouselController;
   List<PostModel>? posts;
   RxInt selectedIndex = 0.obs;
   RxInt selectedImage = 0.obs;
+  RxInt oldSelectedImage = 0.obs;
   RxInt perPage = 3.obs;
   RxBool isFullText = false.obs;
   RxBool isLoading = false.obs;
@@ -15,6 +18,7 @@ class HomeController extends GetxController {
 
   @override
   Future<void> onInit() async {
+    carouselController = CarouselController();
     await _getPosts();
     super.onInit();
   }

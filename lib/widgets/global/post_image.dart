@@ -16,10 +16,10 @@ class PostImage extends StatelessWidget {
     return Column(
       children: [
         Container(
-          color: const Color.fromARGB(255, 18, 18, 18),
           width: Get.width,
           constraints: BoxConstraints(maxHeight: Get.width),
           child: CarouselSlider(
+            carouselController: controller.carouselController,
             options: CarouselOptions(
               viewportFraction: 1,
               aspectRatio: post.isCover ? 1 : 16 / 9,
@@ -27,6 +27,7 @@ class PostImage extends StatelessWidget {
               enableInfiniteScroll: false,
               onPageChanged: (index, reason) {
                 controller.selectedImage.value = index;
+                controller.update();
               },
             ),
             items: post.postPhoto!.map<Widget>((image) {
@@ -49,26 +50,28 @@ class PostImage extends StatelessWidget {
           ),
         ),
         post.postPhoto!.length > 1
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                    post.postPhoto!.length,
-                    (index) => Obx(
-                          () => Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 3, vertical: 15),
-                            child: Container(
-                              height: 5,
-                              width: 5,
-                              decoration: BoxDecoration(
-                                  color: controller.selectedImage.value == index
-                                      ? Colors.grey
-                                      : AppColor.lightGrey,
-                                  shape: BoxShape.circle),
-                            ),
-                          ),
-                        )),
-              )
+            ? GetBuilder<HomeController>(
+                builder: (_) => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                          post.postPhoto!.length,
+                          (index) => Obx(
+                                () => Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 3, vertical: 15),
+                                  child: Container(
+                                    height: 5,
+                                    width: 5,
+                                    decoration: BoxDecoration(
+                                        color: controller.selectedImage.value ==
+                                                index
+                                            ? Colors.grey
+                                            : AppColor.lightGrey,
+                                        shape: BoxShape.circle),
+                                  ),
+                                ),
+                              )),
+                    ))
             : const SizedBox(
                 height: 15,
               ),

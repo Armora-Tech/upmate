@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
@@ -40,9 +41,22 @@ class MyPost extends StatelessWidget {
                   height: Get.width / 3,
                   width: Get.width / 3,
                   color: Colors.grey,
-                  child: Image.network(
-                    startController.myPosts![index].postPhoto![0],
-                    fit: BoxFit.cover,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.network(
+                        startController.myPosts![index].postPhoto![0],
+                        fit: BoxFit.cover,
+                      ),
+                      startController.myPosts![index].postPhoto!.length > 1
+                          ? Positioned(
+                              top: 5,
+                              right: 5,
+                              child: SvgPicture.asset(
+                                "assets/svg/multiple_post.svg",
+                              ))
+                          : const SizedBox()
+                    ],
                   ),
                 ),
               );

@@ -7,7 +7,6 @@ import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 import 'package:upmatev2/widgets/home/new_post.dart';
-import '../widgets/global/blur_loading.dart';
 import '../widgets/global/profile_picture.dart';
 
 class HomeView extends StatelessWidget {
@@ -106,9 +105,6 @@ class HomeView extends StatelessWidget {
             ),
           ),
         ),
-        Obx(() => controller.isDeleting.value
-            ? const BlurLoading()
-            : const SizedBox())
       ]),
     );
   }

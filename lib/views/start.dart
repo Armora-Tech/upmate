@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/bottom_nav_controller.dart';
+import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/widgets/global/line.dart';
+import '../widgets/global/blur_loading.dart';
 import '../widgets/home/side_bar.dart';
 
 class StartView extends StatelessWidget {
@@ -11,6 +13,7 @@ class StartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final botNavController = Get.find<BottomNavController>();
+    final homeController = Get.find<HomeController>();
     final List<Map<String, dynamic>> tabs = [
       {
         "name": "home".tr,
@@ -148,7 +151,10 @@ class StartView extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
+              ),
+              Obx(() => homeController.isDeleting.value
+                  ? const BlurLoading()
+                  : const SizedBox())
             ],
           ),
         ));

@@ -9,8 +9,8 @@ import '../repositories/post_repository.dart';
 class PostDetailController extends GetxController {
   late TextEditingController textEditingController;
   late FocusNode focusNode;
-  final homeController = Get.find<HomeController>();
-  final profileController = Get.find<ProfileController>();
+  late final HomeController _homeController;
+  late final ProfileController _profileController;
   RxInt selectedIndex = 0.obs;
   RxBool isTextFieldEmpty = true.obs;
   RxBool isShowEmoji = false.obs;
@@ -19,6 +19,8 @@ class PostDetailController extends GetxController {
 
   @override
   void onInit() {
+    _homeController = Get.find<HomeController>();
+    _profileController = Get.find<ProfileController>();
     textEditingController = TextEditingController();
     focusNode = FocusNode();
     focusNode.addListener(() {
@@ -26,12 +28,14 @@ class PostDetailController extends GetxController {
         isShowEmoji.value = false;
       }
     });
+    _homeController.selectedImage = 0.obs;
     post = Get.arguments;
     super.onInit();
   }
 
   @override
   void onClose() {
+    _homeController.selectedImage.value = _homeController.oldSelectedImage.value;
     textEditingController.dispose();
     focusNode.dispose();
     super.onClose();
@@ -42,8 +46,8 @@ class PostDetailController extends GetxController {
     debugPrint(" post id : ${post.ref.id}");
     try {
       await PostRepository().deletePost(post.ref.path);
-      await homeController.refreshPosts();
-      profileController.refreshMyPosts();
+      await _homeController.refreshPosts();
+      _profileController.refreshMyPosts();
       Get.back();
       SnackBarWidget.showSnackBar(true, "successfully_deleted_the_post".tr);
     } catch (e) {
