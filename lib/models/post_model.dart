@@ -18,21 +18,23 @@ class PostModel {
   List<dynamic> _likes;
   List<CommentModel>? _comments;
   bool _isCover;
+  int _selectedDotsIndicator;
 
-  PostModel({
-    required DocumentReference ref,
-    DocumentReference? forumRef,
-    required List<dynamic> interests,
-    required String postDescription,
-    required String userRaw,
-    required DateTime? timestamp,
-    required List<dynamic> bookmarks,
-    required List<dynamic> likes,
-    required List<CommentModel> comments,
-    List<dynamic>? postPhotoRaw,
-    List<String>? postPhoto,
-    bool isCover = false,
-  })  : _ref = ref,
+  PostModel(
+      {required DocumentReference ref,
+      DocumentReference? forumRef,
+      required List<dynamic> interests,
+      required String postDescription,
+      required String userRaw,
+      required DateTime? timestamp,
+      required List<dynamic> bookmarks,
+      required List<dynamic> likes,
+      required List<CommentModel> comments,
+      List<dynamic>? postPhotoRaw,
+      List<String>? postPhoto,
+      bool isCover = false,
+      int selectedDotsIndicator = 0})
+      : _ref = ref,
         _forumRef = forumRef,
         _interests = interests,
         _postDescription = postDescription,
@@ -43,7 +45,8 @@ class PostModel {
         _postPhotoRaw = postPhotoRaw,
         _postPhoto = postPhoto,
         _isCover = isCover,
-        _comments = comments;
+        _comments = comments,
+        _selectedDotsIndicator = selectedDotsIndicator;
 
   factory PostModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -56,18 +59,18 @@ class PostModel {
         : data?['post_photo'] ?? [];
 
     return PostModel(
-      ref: snapshot.reference,
-      forumRef: data?['forumRef'],
-      interests: data?['interests'] ?? [],
-      postDescription: data?['post_description'] ?? '',
-      userRaw: data?['post_user'],
-      timestamp: (data?['timestamp'] as Timestamp?)?.toDate(),
-      bookmarks: data?['bookmarks'] ?? [],
-      likes: data?['likes'] ?? [],
-      postPhotoRaw: dataListPhoto,
-      isCover: data?['isCover'] ?? false,
-      comments: []
-    );
+        ref: snapshot.reference,
+        forumRef: data?['forumRef'],
+        interests: data?['interests'] ?? [],
+        postDescription: data?['post_description'] ?? '',
+        userRaw: data?['post_user'],
+        timestamp: (data?['timestamp'] as Timestamp?)?.toDate(),
+        bookmarks: data?['bookmarks'] ?? [],
+        likes: data?['likes'] ?? [],
+        postPhotoRaw: dataListPhoto,
+        isCover: data?['isCover'] ?? false,
+        comments: [],
+        );
   }
 
   Map<String, dynamic> toFirestore() {
@@ -178,6 +181,10 @@ class PostModel {
     }
   }
 
+  set selectedDotsIndicator(int value) {
+    _selectedDotsIndicator = value;
+  }
+
   void _updateLocalFields(Map<String, dynamic> updatedData) {
     if (updatedData.containsKey('forumRef')) {
       _forumRef = updatedData['forumRef'];
@@ -223,6 +230,8 @@ class PostModel {
   List<CommentModel>? get comments => _comments;
 
   bool get isCover => _isCover;
+
+  int get selectedDotsIndicator => _selectedDotsIndicator;
 
   List<String>? get postPhoto => _postPhoto;
 

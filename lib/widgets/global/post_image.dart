@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/home_controller.dart';
+import 'package:upmatev2/controllers/dots_indicator_controller.dart';
 import 'package:upmatev2/models/post_model.dart';
 import '../../themes/app_color.dart';
 import 'detail_image.dart';
@@ -12,7 +12,7 @@ class PostImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<HomeController>();
+    final dotsController = Get.find<DostIndicatorController>();
     return Column(
       children: [
         Container(
@@ -25,8 +25,8 @@ class PostImage extends StatelessWidget {
               enlargeCenterPage: false,
               enableInfiniteScroll: false,
               onPageChanged: (index, reason) {
-                controller.selectedImage.value = index;
-                controller.update();
+                post.selectedDotsIndicator = index;
+                dotsController.update();
               },
             ),
             items: post.postPhoto!.map<Widget>((image) {
@@ -49,27 +49,27 @@ class PostImage extends StatelessWidget {
           ),
         ),
         post.postPhoto!.length > 1
-            ? GetBuilder<HomeController>(
+            ? GetBuilder<DostIndicatorController>(
                 builder: (_) => Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
-                          post.postPhoto!.length,
-                          (index) => Obx(
-                                () => Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 3, vertical: 15),
-                                  child: Container(
-                                    height: 5,
-                                    width: 5,
-                                    decoration: BoxDecoration(
-                                        color: controller.selectedImage.value ==
-                                                index
-                                            ? Colors.grey
-                                            : AppColor.lightGrey,
-                                        shape: BoxShape.circle),
-                                  ),
-                                ),
-                              )),
+                        post.postPhoto!.length,
+                        (index) => Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 3, vertical: 15),
+                          child: Container(
+                            height: 5,
+                            width: 5,
+                            decoration: BoxDecoration(
+                                color: post.selectedDotsIndicator ==
+                                        post.postPhoto!
+                                            .indexOf(post.postPhoto![index])
+                                    ? Colors.grey
+                                    : AppColor.lightGrey,
+                                shape: BoxShape.circle),
+                          ),
+                        ),
+                      ),
                     ))
             : const SizedBox(
                 height: 15,

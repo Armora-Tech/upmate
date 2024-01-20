@@ -10,6 +10,7 @@ import 'start_controller.dart';
 class PostDetailController extends GetxController {
   late TextEditingController textEditingController;
   late FocusNode focusNode;
+  late final PostModel post;
   late final HomeController _homeController;
   late final ProfileController _profileController;
   late final StartController _startController;
@@ -17,7 +18,6 @@ class PostDetailController extends GetxController {
   RxBool isTextFieldEmpty = true.obs;
   RxBool isShowEmoji = false.obs;
   RxBool isDeleting = false.obs;
-  late final PostModel post;
 
   @override
   void onInit() {
@@ -31,15 +31,15 @@ class PostDetailController extends GetxController {
         isShowEmoji.value = false;
       }
     });
-    _homeController.selectedImage = 0.obs;
     post = Get.arguments;
+    post.selectedDotsIndicator = 0;
     super.onInit();
   }
 
   @override
   void onClose() {
-    _homeController.selectedImage.value =
-        _homeController.oldSelectedImage.value;
+    post.selectedDotsIndicator = _homeController.oldSelectedImage.value;
+    _homeController.update();
     textEditingController.dispose();
     focusNode.dispose();
     super.onClose();

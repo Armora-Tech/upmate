@@ -18,25 +18,24 @@ class NewPost extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
     final startController = Get.find<StartController>();
-
-    return ListView.separated(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: controller.isLoading.value ? 3 : controller.posts!.length,
-        separatorBuilder: (context, index) {
-          return !controller.isLoading.value &&
-                  controller.posts!.length > 2 &&
-                  index == 2
-              ? const Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  child: Popular(),
-                )
-              : const SizedBox(
-                  height: 10,
-                );
-        },
-        itemBuilder: (context, index) {
-          return GetBuilder<HomeController>(builder: (_) {
+    return GetBuilder<HomeController>(builder: (_) {
+      return ListView.separated(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: controller.isLoading.value ? 3 : controller.posts!.length,
+          separatorBuilder: (context, index) {
+            return !controller.isLoading.value &&
+                    controller.posts!.length > 2 &&
+                    index == 2
+                ? const Padding(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child: Popular(),
+                  )
+                : const SizedBox(
+                    height: 10,
+                  );
+          },
+          itemBuilder: (context, index) {
             return Column(
               children: [
                 GestureDetector(
@@ -44,7 +43,7 @@ class NewPost extends StatelessWidget {
                       ? () {}
                       : () {
                           controller.oldSelectedImage.value =
-                              controller.selectedImage.value;
+                              controller.posts![index].selectedDotsIndicator;
                           Get.toNamed(RouteName.postDetail,
                               arguments: controller.posts![index]);
                           controller.update();
@@ -155,6 +154,6 @@ class NewPost extends StatelessWidget {
               ],
             );
           });
-        });
+    });
   }
 }

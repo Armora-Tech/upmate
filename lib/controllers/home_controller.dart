@@ -9,7 +9,6 @@ class HomeController extends GetxController {
   late final StartController _startController;
   List<PostModel>? posts;
   RxInt selectedIndex = 0.obs;
-  RxInt selectedImage = 0.obs;
   RxInt oldSelectedImage = 0.obs;
   RxInt perPage = 3.obs;
   RxBool isFullText = false.obs;
