@@ -59,18 +59,18 @@ class PostModel {
         : data?['post_photo'] ?? [];
 
     return PostModel(
-        ref: snapshot.reference,
-        forumRef: data?['forumRef'],
-        interests: data?['interests'] ?? [],
-        postDescription: data?['post_description'] ?? '',
-        userRaw: data?['post_user'],
-        timestamp: (data?['timestamp'] as Timestamp?)?.toDate(),
-        bookmarks: data?['bookmarks'] ?? [],
-        likes: data?['likes'] ?? [],
-        postPhotoRaw: dataListPhoto,
-        isCover: data?['isCover'] ?? false,
-        comments: [],
-        );
+      ref: snapshot.reference,
+      forumRef: data?['forumRef'],
+      interests: data?['interests'] ?? [],
+      postDescription: data?['post_description'] ?? '',
+      userRaw: data?['post_user'],
+      timestamp: (data?['timestamp'] as Timestamp?)?.toDate(),
+      bookmarks: data?['bookmarks'] ?? [],
+      likes: data?['likes'] ?? [],
+      postPhotoRaw: dataListPhoto,
+      isCover: data?['isCover'] ?? false,
+      comments: [],
+    );
   }
 
   Map<String, dynamic> toFirestore() {
@@ -119,33 +119,36 @@ class PostModel {
     _comments = comments;
   }
 
-  void toggleLike() {
-    var thisUser = FirebaseAuth.instance.currentUser;
+  Future<void> toggleLike() async {
+    var thisUser = FirebaseAuth.instance.currentUser?.uid;
 
-    _ref.update({
+    if (likes.contains(thisUser)) {
+      _likes.remove(thisUser);
+    } else {
+      _likes.add(thisUser);
+    }
+
+    await _ref.update({
       "likes": (likes.contains(thisUser))
           ? FieldValue.arrayUnion([thisUser])
           : FieldValue.arrayRemove([thisUser])
     });
-    if (likes.contains(thisUser)) {
-      likes.remove(thisUser);
-    } else {
-      likes.add(thisUser);
-    }
   }
 
-  void toggleBookmark() {
-    var thisUser = FirebaseAuth.instance.currentUser;
-    _ref.update({
+  Future<void> toggleBookmark() async {
+    var thisUser = FirebaseAuth.instance.currentUser?.uid;
+
+    if (bookmarks.contains(thisUser)) {
+      _bookmarks.remove(thisUser);
+    } else {
+      _bookmarks.add(thisUser);
+    }
+
+    await _ref.update({
       "bookmarks": (bookmarks.contains(thisUser))
           ? FieldValue.arrayUnion([thisUser])
           : FieldValue.arrayRemove([thisUser])
     });
-    if (bookmarks.contains(thisUser)) {
-      bookmarks.remove(thisUser);
-    } else {
-      bookmarks.add(thisUser);
-    }
   }
 
   Future<void> update({

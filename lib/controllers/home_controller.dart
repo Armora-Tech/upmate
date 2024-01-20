@@ -29,6 +29,14 @@ class HomeController extends GetxController {
     update();
   }
 
+  Future<void> toggleLike(PostModel post) async {
+    await post.toggleLike();
+  }
+
+  Future<void> toggleBookmark(PostModel post) async {
+    await post.toggleBookmark();
+  }
+
   Future<void> deletePost(PostModel post, int index) async {
     isDeleting.value = true;
     try {
@@ -62,15 +70,19 @@ class HomeController extends GetxController {
     DateTime postTime = post.timestamp!;
     Duration difference = now.difference(postTime);
     String ago = "ago".tr;
+    String second = difference.inSeconds == 1 ? "second".tr : "seconds".tr;
+    String minute = difference.inMinutes == 1 ? "minute".tr : "minutes".tr;
+    String hour = difference.inHours == 1 ? "hour".tr : "hours".tr;
+    String day = difference.inDays == 1 ? "day".tr : "days".tr;
 
     if (difference.inSeconds < 60) {
-      return "${difference.inSeconds} ${"seconds".tr} $ago";
+      return "${difference.inSeconds} $second $ago";
     } else if (difference.inMinutes < 60) {
-      return "${difference.inMinutes} ${"minutes".tr} $ago";
+      return "${difference.inMinutes} $minute $ago";
     } else if (difference.inHours < 24) {
-      return "${difference.inHours} ${"hours".tr} $ago";
+      return "${difference.inHours} $hour $ago";
     } else {
-      return "${difference.inDays} ${"days".tr} $ago";
+      return "${difference.inDays} $day $ago";
     }
   }
 

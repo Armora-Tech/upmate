@@ -56,7 +56,7 @@ class PostRepository {
         if (kDebugMode) {
           print(post);
           print("PostModel: ${post.interests}");
-          print("Likes: ${post.likes}");
+          debugPrint("Likes: ${post.likes}");
           if (post.comments!.isNotEmpty) {
             print("Comment: ${post.comments?[0].text}");
           }

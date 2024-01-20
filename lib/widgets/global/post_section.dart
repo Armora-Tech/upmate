@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/action_post_controller.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 
 import '../../controllers/home_controller.dart';
@@ -16,6 +18,8 @@ class PostContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
+    final startController = Get.find<StartController>();
+    final actionPostController = Get.find<ActionPostController>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -38,34 +42,43 @@ class PostContent extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       GestureDetector(
-                        onTap: () async {},
+                        onTap: () async {
+                          await controller.toggleLike(post!);
+                          actionPostController.update();
+                        },
                         child: Container(
-                          color: Colors.white,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                  "assets/svg/favorite_outlined.svg",
-                                  semanticsLabel: 'favorite'),
-                              const SizedBox(
-                                height: 2,
+                            color: Colors.white,
+                            child: GetBuilder<ActionPostController>(
+                              builder: (_) => Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                    !controller.isLoading.value &&
+                                            post!.likes.contains(
+                                                startController.user!.uid)
+                                        ? "assets/svg/favorite.svg"
+                                        : "assets/svg/favorite_outlined.svg",
+                                    semanticsLabel: 'favorite',
+                                    height: 27,
+                                    width: 27,
+                                  ),
+                                  const SizedBox(
+                                    height: 2,
+                                  ),
+                                  Text(
+                                    "${controller.isLoading.value ? 0 : post!.likes.length}",
+                                    style: AppFont.text10,
+                                  )
+                                ],
                               ),
-                              Text(
-                                "${controller.isLoading.value ? 0 : post!.likes.length}",
-                                style: AppFont.text10,
-                              )
-                            ],
-                          ),
-                        ),
+                            )),
                       ),
                       GestureDetector(
                         onTap: controller.isLoading.value
                             ? () {}
                             : () {
-                                Get.toNamed(
-                                  RouteName.postDetail,
-                                  arguments: post
-                                );
+                                Get.toNamed(RouteName.postDetail,
+                                    arguments: post);
                               },
                         child: Container(
                           color: Colors.white,
@@ -73,6 +86,8 @@ class PostContent extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SvgPicture.asset("assets/svg/comment.svg",
+                                  height: 27,
+                                  width: 27,
                                   semanticsLabel: 'comment'),
                               const SizedBox(
                                 height: 2,
@@ -86,26 +101,36 @@ class PostContent extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () async {},
-                        child: Container(
-                          color: Colors.white,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                  "assets/svg/bookmark_outlined.svg",
-                                  semanticsLabel: 'bookmark'),
-                              const SizedBox(
-                                height: 2,
+                          onTap: () async {
+                            await controller.toggleBookmark(post!);
+                            actionPostController.update();
+                          },
+                          child: Container(
+                            color: Colors.white,
+                            child: GetBuilder<ActionPostController>(
+                              builder: (_) => Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                      !controller.isLoading.value &&
+                                              post!.bookmarks.contains(
+                                                  startController.user!.uid)
+                                          ? "assets/svg/bookmark.svg"
+                                          : "assets/svg/bookmark_outlined.svg",
+                                      height: 27,
+                                      width: 27,
+                                      semanticsLabel: 'bookmark'),
+                                  const SizedBox(
+                                    height: 2,
+                                  ),
+                                  Text(
+                                    "${controller.isLoading.value ? 0 : post!.bookmarks.length}",
+                                    style: AppFont.text10,
+                                  )
+                                ],
                               ),
-                              Text(
-                                "${controller.isLoading.value ? 0 : post!.bookmarks.length}",
-                                style: AppFont.text10,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
+                            ),
+                          )),
                       GestureDetector(
                         onTap: () async {},
                         child: Container(
@@ -114,7 +139,9 @@ class PostContent extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SvgPicture.asset("assets/svg/share.svg",
-                                  height: 26, semanticsLabel: 'share'),
+                                  height: 27,
+                                  width: 27,
+                                  semanticsLabel: 'share'),
                               const SizedBox(
                                 height: 2,
                               ),
@@ -142,12 +169,10 @@ class PostContent extends StatelessWidget {
                                     style: AppFont.text14
                                         .copyWith(fontWeight: FontWeight.bold)),
                                 TextSpan(
-                                  text: controller.handleText(
-                                      post!.postDescription),
+                                  text: controller
+                                      .handleText(post!.postDescription),
                                 ),
-                                post!.postDescription
-                                            .length >
-                                        80
+                                post!.postDescription.length > 80
                                     ? WidgetSpan(
                                         alignment: PlaceholderAlignment.middle,
                                         child: GestureDetector(
