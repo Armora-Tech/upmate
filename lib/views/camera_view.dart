@@ -89,6 +89,7 @@ class CameraView extends StatelessWidget {
                                           ? () async {
                                               editProfileController = Get.find<
                                                   EditProfileController>();
+
                                               await controller
                                                   .takePictureWithCrop(
                                                       editProfileController

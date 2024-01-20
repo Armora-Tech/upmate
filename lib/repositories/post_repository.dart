@@ -41,6 +41,7 @@ class PostRepository {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('posts')
           .where('interests', arrayContainsAny: currentUser?.interests)
+          .orderBy("timestamp", descending: true)
           .withConverter(
               fromFirestore: PostModel.fromFirestore,
               toFirestore: (PostModel post, _) => post.toFirestore())
@@ -60,7 +61,7 @@ class PostRepository {
             print("Comment: ${post.comments?[0].text}");
           }
         }
-        if(post.timestamp!=null) {
+        if (post.timestamp != null) {
           data.add(post);
         }
       }

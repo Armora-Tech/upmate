@@ -150,7 +150,6 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
     } catch (e) {
       debugPrint(e.toString());
     }
-    Get.forceAppUpdate();
   }
 
   Future<void> takePicture(String routeName) async {
@@ -169,13 +168,24 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
           ..writeAsBytesSync(img.encodeJpg(flippedImage));
         image = flippedFile;
       }
-      isFlashOn.value = false;
-      await cameraController.setFlashMode(FlashMode.off);
-      Get.toNamed(routeName);
-      isTakingPicture.value = false;
+      if (image != null) {
+        final imagePicker = PickImage();
+        final croppedImage = await imagePicker.cropFromCameraPost(
+          file: image!,
+        );
+        if (croppedImage != null) {
+          image = File(croppedImage.path);
+          isFlashOn.value = false;
+          await cameraController.setFlashMode(FlashMode.off);
+          isTakingPicture.value = false;
+          Get.toNamed(routeName);
+        }
+      }
     } catch (e) {
+      SnackBarWidget.showSnackBar(false, "Failed to take picture");
       debugPrint(e.toString());
     }
+    isTakingPicture.value = false;
     update();
   }
 

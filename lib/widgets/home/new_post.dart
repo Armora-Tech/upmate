@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -21,25 +19,24 @@ class NewPost extends StatelessWidget {
     final controller = Get.find<HomeController>();
     final startController = Get.find<StartController>();
 
-    return GetBuilder<HomeController>(builder: (_) {
-      final lengthListView =
-          controller.isLoading.value ? 3 : controller.posts!.length;
-      final Random random = Random();
-      return ListView.separated(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: lengthListView,
-          separatorBuilder: (context, index) {
-            return lengthListView > 2 && index == random.nextInt(lengthListView - 2)
-                ? const Padding(
-                    padding: EdgeInsets.only(bottom: 10.0),
-                    child: Popular(),
-                  )
-                : const SizedBox(
-                    height: 10,
-                  );
-          },
-          itemBuilder: (context, index) {
+    return ListView.separated(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: controller.isLoading.value ? 3 : controller.posts!.length,
+        separatorBuilder: (context, index) {
+          return !controller.isLoading.value &&
+                  controller.posts!.length > 2 &&
+                  index == 2
+              ? const Padding(
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: Popular(),
+                )
+              : const SizedBox(
+                  height: 10,
+                );
+        },
+        itemBuilder: (context, index) {
+          return GetBuilder<HomeController>(builder: (_) {
             return Column(
               children: [
                 GestureDetector(
@@ -158,6 +155,6 @@ class NewPost extends StatelessWidget {
               ],
             );
           });
-    });
+        });
   }
 }

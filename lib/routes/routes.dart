@@ -17,7 +17,7 @@ import '../bindings/post_binding.dart';
 import '../bindings/post_detail_binding.dart';
 import '../bindings/profile_binding.dart';
 import '../bindings/search_binding.dart';
-import '../views/confirm_post_image.dart';
+import '../views/post/confirm_post_image.dart';
 import '../views/editProfile/edit_profile.dart';
 import '../views/login.dart';
 import '../views/post/post.dart';

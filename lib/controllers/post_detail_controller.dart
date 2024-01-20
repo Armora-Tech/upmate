@@ -5,12 +5,14 @@ import 'package:upmatev2/controllers/profile_controller.dart';
 import 'package:upmatev2/models/post_model.dart';
 import 'package:upmatev2/widgets/global/snack_bar.dart';
 import '../repositories/post_repository.dart';
+import 'start_controller.dart';
 
 class PostDetailController extends GetxController {
   late TextEditingController textEditingController;
   late FocusNode focusNode;
   late final HomeController _homeController;
   late final ProfileController _profileController;
+  late final StartController _startController;
   RxInt selectedIndex = 0.obs;
   RxBool isTextFieldEmpty = true.obs;
   RxBool isShowEmoji = false.obs;
@@ -21,6 +23,7 @@ class PostDetailController extends GetxController {
   void onInit() {
     _homeController = Get.find<HomeController>();
     _profileController = Get.find<ProfileController>();
+    _startController = Get.find<StartController>();
     textEditingController = TextEditingController();
     focusNode = FocusNode();
     focusNode.addListener(() {
@@ -35,7 +38,8 @@ class PostDetailController extends GetxController {
 
   @override
   void onClose() {
-    _homeController.selectedImage.value = _homeController.oldSelectedImage.value;
+    _homeController.selectedImage.value =
+        _homeController.oldSelectedImage.value;
     textEditingController.dispose();
     focusNode.dispose();
     super.onClose();
@@ -47,6 +51,7 @@ class PostDetailController extends GetxController {
     try {
       await PostRepository().deletePost(post.ref.path);
       await _homeController.refreshPosts();
+      await _startController.refreshStart();
       _profileController.refreshMyPosts();
       Get.back();
       SnackBarWidget.showSnackBar(true, "successfully_deleted_the_post".tr);

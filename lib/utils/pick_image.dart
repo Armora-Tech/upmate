@@ -18,6 +18,15 @@ class PickImage {
       sourcePath: file.path,
       cropStyle: cropStyle,
       compressQuality: 100,
+      aspectRatioPresets: isBanner
+          ? [CropAspectRatioPreset.ratio16x9]
+          : [
+              CropAspectRatioPreset.square,
+              CropAspectRatioPreset.ratio3x2,
+              CropAspectRatioPreset.original,
+              CropAspectRatioPreset.ratio4x3,
+              CropAspectRatioPreset.ratio16x9
+            ],
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Cropper',
@@ -28,7 +37,31 @@ class PickImage {
               : CropAspectRatioPreset.original,
           activeControlsWidgetColor: AppColor.primaryColor,
           lockAspectRatio: isBanner ? true : false,
-          hideBottomControls: isBanner ? true : false,
+        ),
+        IOSUiSettings(
+          title: 'Cropper',
+        ),
+      ],
+    );
+  }
+
+  Future<CroppedFile?> cropFromCameraPost(
+      {required File file, isCover = true}) async {
+    return await _imageCropper.cropImage(
+      sourcePath: file.path,
+      cropStyle: CropStyle.rectangle,
+      compressQuality: 100,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+      ],
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Cropper',
+          toolbarColor: const Color.fromARGB(255, 10, 25, 37),
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          activeControlsWidgetColor: AppColor.primaryColor,
+          lockAspectRatio: true,
         ),
         IOSUiSettings(
           title: 'Cropper',

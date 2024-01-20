@@ -1,12 +1,12 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/repositories/post_repository.dart';
 import '../models/post_model.dart';
 import '../widgets/global/snack_bar.dart';
 
 class HomeController extends GetxController {
-  late final CarouselController carouselController;
+  late final StartController _startController;
   List<PostModel>? posts;
   RxInt selectedIndex = 0.obs;
   RxInt selectedImage = 0.obs;
@@ -18,7 +18,7 @@ class HomeController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    carouselController = CarouselController();
+    _startController = Get.find<StartController>();
     await _getPosts();
     super.onInit();
   }
@@ -26,7 +26,6 @@ class HomeController extends GetxController {
   Future<void> _getPosts() async {
     isLoading.value = true;
     posts = await PostRepository().getPosts();
-    posts!.sort((a, b) => b.timestamp!.compareTo(a.timestamp!));
     isLoading.value = false;
     update();
   }
@@ -38,6 +37,7 @@ class HomeController extends GetxController {
       if (post.ref.id.contains(posts![index].ref.id)) {
         posts!.removeAt(index);
       }
+      await _startController.refreshStart();
       SnackBarWidget.showSnackBar(true, "successfully_deleted_the_post".tr);
     } catch (e) {
       SnackBarWidget.showSnackBar(false, "failed_to_delete_post".tr);

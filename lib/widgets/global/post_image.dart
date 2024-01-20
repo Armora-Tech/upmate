@@ -19,7 +19,6 @@ class PostImage extends StatelessWidget {
           width: Get.width,
           constraints: BoxConstraints(maxHeight: Get.width),
           child: CarouselSlider(
-            carouselController: controller.carouselController,
             options: CarouselOptions(
               viewportFraction: 1,
               aspectRatio: post.isCover ? 1 : 16 / 9,

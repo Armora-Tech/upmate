@@ -76,13 +76,14 @@ class UserModel {
     QuerySnapshot querySnapshots = await FirebaseFirestore.instance
         .collection("posts")
         .where("post_user", isEqualTo: _ref.id)
+        .orderBy("timestamp", descending: true)
         .withConverter(
             fromFirestore: PostModel.fromFirestore,
             toFirestore: (PostModel post, _) => post.toFirestore())
         .get();
 
     for (var e in querySnapshots.docs) {
-      var td=e.data() as PostModel;
+      var td = e.data() as PostModel;
       await td.initPhotos();
       await td.initUsers();
       await td.getComment();
