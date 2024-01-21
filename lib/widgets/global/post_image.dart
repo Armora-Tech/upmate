@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/dots_indicator_controller.dart';
+import 'package:upmatev2/controllers/observer/dots_indicator_controller.dart';
 import 'package:upmatev2/models/post_model.dart';
 import '../../themes/app_color.dart';
 import 'detail_image.dart';

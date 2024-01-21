@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/action_post_controller.dart';
+import 'package:upmatev2/controllers/observer/action_post_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 
