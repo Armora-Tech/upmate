@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
+import 'package:upmatev2/controllers/camera_controller.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
 import 'package:upmatev2/controllers/edit_profile_controller.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
@@ -139,7 +140,8 @@ class BottomSheetWidget {
                         Get.back();
                         Get.to(
                             () => const CameraView(
-                                routeName: RouteName.confirmSendImage),
+                                  page: CameraPage.chat,
+                                ),
                             transition: Transition.rightToLeft);
                       },
                       child: IntrinsicWidth(
@@ -214,7 +216,7 @@ class BottomSheetWidget {
                 onTap: () {
                   controller.isEditBanner.value = isEditBanner;
                   Get.to(() => const CameraView(
-                        isCrop: true,
+                        page: CameraPage.profile,
                       ));
                 },
                 child: Container(

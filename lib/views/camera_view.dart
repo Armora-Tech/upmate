@@ -5,9 +5,8 @@ import 'package:upmatev2/controllers/edit_profile_controller.dart';
 import '../controllers/camera_controller.dart';
 
 class CameraView extends StatelessWidget {
-  final String? routeName;
-  final bool isCrop;
-  const CameraView({super.key, this.routeName, this.isCrop = false});
+  final CameraPage page;
+  const CameraView({super.key, required this.page});
 
   @override
   Widget build(BuildContext context) {
@@ -85,18 +84,26 @@ class CameraView extends StatelessWidget {
                                 GestureDetector(
                                   onTap: controller.isTakingPicture.value
                                       ? () {}
-                                      : isCrop
+                                      : page == CameraPage.profile
                                           ? () async {
                                               editProfileController = Get.find<
                                                   EditProfileController>();
 
                                               await controller
-                                                  .takePictureWithCrop(
+                                                  .takePictureProfileUser(
                                                       editProfileController
                                                           .isEditBanner.value);
                                             }
-                                          : () async => await controller
-                                              .takePicture(routeName!),
+                                          : () async {
+                                              if (page == CameraPage.post) {
+                                                await controller
+                                                    .takePictureOfPost();
+                                              } else if (page ==
+                                                  CameraPage.chat) {
+                                                await controller
+                                                    .takePictureChat();
+                                              }
+                                            },
                                   child: Container(
                                     height: 60,
                                     width: 60,

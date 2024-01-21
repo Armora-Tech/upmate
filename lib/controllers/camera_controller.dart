@@ -14,6 +14,12 @@ import '../widgets/global/snack_bar.dart';
 import 'home_controller.dart';
 import 'start_controller.dart';
 
+enum CameraPage {
+  post,
+  profile,
+  chat,
+}
+
 class CameraViewController extends GetxController with WidgetsBindingObserver {
   late CameraController cameraController;
   late final StartController _startController;
@@ -101,7 +107,7 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
     update();
   }
 
-  Future<void> takePictureWithCrop(bool isEditBanner) async {
+  Future<void> takePictureProfileUser(bool isEditBanner) async {
     try {
       isTakingPicture.value = true;
       await cameraController.setFlashMode(mode);
@@ -152,7 +158,33 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
     }
   }
 
-  Future<void> takePicture(String routeName) async {
+  Future<void> takePictureChat() async {
+    try {
+      isTakingPicture.value = true;
+      await cameraController.setFlashMode(mode);
+      XFile file = await cameraController.takePicture();
+      image = File(file.path);
+      if (cameras[cameraPositioned.value].lensDirection ==
+          CameraLensDirection.front) {
+        img.Image imageFile = img.decodeImage(image!.readAsBytesSync())!;
+        img.Image flippedImage =
+            img.flip(imageFile, direction: img.FlipDirection.horizontal);
+
+        File flippedFile = File(file.path)
+          ..writeAsBytesSync(img.encodeJpg(flippedImage));
+        image = flippedFile;
+      }
+      isFlashOn.value = false;
+      await cameraController.setFlashMode(FlashMode.off);
+      Get.toNamed(RouteName.confirmSendImage);
+      isTakingPicture.value = false;
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    update();
+  }
+
+  Future<void> takePictureOfPost() async {
     try {
       isTakingPicture.value = true;
       await cameraController.setFlashMode(mode);
@@ -178,7 +210,7 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
           isFlashOn.value = false;
           await cameraController.setFlashMode(FlashMode.off);
           isTakingPicture.value = false;
-          Get.toNamed(routeName);
+          Get.toNamed(RouteName.confirmPostImage);
         }
       }
     } catch (e) {
