@@ -54,15 +54,16 @@ class HomeController extends GetxController {
     update();
   }
 
-  String handleText(String text) {
-    if (isFullText.value) {
-      return text;
+  String handleText(PostModel post) {
+    final String desc = post.postDescription;
+    if (post.isFullDesc) {
+      return desc;
     } else {
-      if (text.length > 80) {
-        return "${text.substring(0, 80)}...";
+      if (desc.length > 80) {
+        return "${desc.substring(0, 80)}...";
       }
     }
-    return text;
+    return desc;
   }
 
   String postingTimePassed(PostModel post) {

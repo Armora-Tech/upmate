@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
-import 'package:upmatev2/controllers/profile_controller.dart';
 import 'package:upmatev2/models/post_model.dart';
 import 'package:upmatev2/widgets/global/snack_bar.dart';
 import '../repositories/post_repository.dart';
@@ -12,7 +11,6 @@ class PostDetailController extends GetxController {
   late FocusNode focusNode;
   late final PostModel post;
   late final HomeController _homeController;
-  late final ProfileController _profileController;
   late final StartController _startController;
   RxInt selectedIndex = 0.obs;
   RxBool isTextFieldEmpty = true.obs;
@@ -22,7 +20,6 @@ class PostDetailController extends GetxController {
   @override
   void onInit() {
     _homeController = Get.find<HomeController>();
-    _profileController = Get.find<ProfileController>();
     _startController = Get.find<StartController>();
     textEditingController = TextEditingController();
     focusNode = FocusNode();
@@ -52,7 +49,6 @@ class PostDetailController extends GetxController {
       await PostRepository().deletePost(post.ref.path);
       await _homeController.refreshPosts();
       await _startController.refreshStart();
-      _profileController.refreshMyPosts();
       Get.back();
       SnackBarWidget.showSnackBar(true, "successfully_deleted_the_post".tr);
     } catch (e) {

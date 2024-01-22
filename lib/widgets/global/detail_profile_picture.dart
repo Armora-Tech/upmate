@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 
 class DetailProfilePicture extends StatelessWidget {
-  const DetailProfilePicture({super.key});
+  final String? otherUserPhoto;
+  const DetailProfilePicture({super.key, this.otherUserPhoto});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class DetailProfilePicture extends StatelessWidget {
                 decoration: const BoxDecoration(
                     color: Colors.grey, shape: BoxShape.circle),
                 child: Image.network(
-                  controller.user!.photoUrl!,
+                  otherUserPhoto ?? controller.user!.photoUrl!,
                   fit: BoxFit.cover,
                 ),
               ),

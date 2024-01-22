@@ -76,8 +76,9 @@ class HomeView extends StatelessWidget {
                                     : GestureDetector(
                                         onTap: controller.isLoading.value
                                             ? () {}
-                                            : () =>
-                                                Get.toNamed(RouteName.profile),
+                                            : () => Get.toNamed(
+                                                RouteName.profile,
+                                                arguments: {"isUser": true}),
                                         child: Container(
                                           height: 35,
                                           width: 35,

@@ -14,7 +14,7 @@ class StartBinding implements Bindings {
     Get.lazyPut<BottomNavController>(() => BottomNavController(), fenix: true);
     Get.lazyPut<LoginController>(() => LoginController());
     Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
-    Get.lazyPut<DostIndicatorController>(() => DostIndicatorController(), fenix: true);
-    Get.lazyPut<ActionPostController>(() => ActionPostController(), fenix: true);
+    Get.lazyPut<DostIndicatorController>(() => DostIndicatorController());
+    Get.lazyPut<ActionPostController>(() => ActionPostController());
   }
 }

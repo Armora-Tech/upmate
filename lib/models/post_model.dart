@@ -19,22 +19,24 @@ class PostModel {
   List<CommentModel>? _comments;
   bool _isCover;
   int _selectedDotsIndicator;
+  bool _isFullDesc;
 
-  PostModel(
-      {required DocumentReference ref,
-      DocumentReference? forumRef,
-      required List<dynamic> interests,
-      required String postDescription,
-      required String userRaw,
-      required DateTime? timestamp,
-      required List<dynamic> bookmarks,
-      required List<dynamic> likes,
-      required List<CommentModel> comments,
-      List<dynamic>? postPhotoRaw,
-      List<String>? postPhoto,
-      bool isCover = false,
-      int selectedDotsIndicator = 0})
-      : _ref = ref,
+  PostModel({
+    required DocumentReference ref,
+    DocumentReference? forumRef,
+    required List<dynamic> interests,
+    required String postDescription,
+    required String userRaw,
+    required DateTime? timestamp,
+    required List<dynamic> bookmarks,
+    required List<dynamic> likes,
+    required List<CommentModel> comments,
+    List<dynamic>? postPhotoRaw,
+    List<String>? postPhoto,
+    bool isCover = false,
+    int selectedDotsIndicator = 0,
+    bool isFullDesc = false,
+  })  : _ref = ref,
         _forumRef = forumRef,
         _interests = interests,
         _postDescription = postDescription,
@@ -46,7 +48,8 @@ class PostModel {
         _postPhoto = postPhoto,
         _isCover = isCover,
         _comments = comments,
-        _selectedDotsIndicator = selectedDotsIndicator;
+        _selectedDotsIndicator = selectedDotsIndicator,
+        _isFullDesc = isFullDesc;
 
   factory PostModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -188,6 +191,10 @@ class PostModel {
     _selectedDotsIndicator = value;
   }
 
+  set isFullDesc(bool value) {
+    _isFullDesc = value;
+  }
+
   void _updateLocalFields(Map<String, dynamic> updatedData) {
     if (updatedData.containsKey('forumRef')) {
       _forumRef = updatedData['forumRef'];
@@ -235,6 +242,8 @@ class PostModel {
   bool get isCover => _isCover;
 
   int get selectedDotsIndicator => _selectedDotsIndicator;
+
+  bool get isFullDesc => _isFullDesc;
 
   List<String>? get postPhoto => _postPhoto;
 
