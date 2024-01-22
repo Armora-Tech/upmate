@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/models/user_model.dart';
 import 'package:upmatev2/widgets/profile/my_bookmark.dart';
@@ -10,8 +9,7 @@ class ProfileController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late final TabController tabController;
   late final UserModel otherUser;
-  final homeController = Get.find<HomeController>();
-  final startController = Get.find<StartController>();
+  late final StartController _startController;
   RxInt selectedTab = 0.obs;
   RxBool isFullText = false.obs;
   RxBool isLoading = false.obs;
@@ -21,9 +19,9 @@ class ProfileController extends GetxController
 
   @override
   Future<void> onInit() async {
+    _startController = Get.find<StartController>();
     tabController = TabController(length: pages.length, vsync: this);
-        final Map<String, dynamic> arguments = Get.arguments;
-    otherUser = arguments["otherUser"];
+
     await getOtherUserData();
     super.onInit();
   }
@@ -35,9 +33,14 @@ class ProfileController extends GetxController
   }
 
   Future<void> getOtherUserData() async {
-
     isLoading.value = true;
-    await otherUser.getPosts();
+    if (Get.arguments == null) {
+      otherUser = _startController.user!;
+    } else {
+      final Map<String, dynamic> arguments = Get.arguments;
+      otherUser = arguments["otherUser"];
+      await otherUser.getPosts();
+    }
     isLoading.value = false;
     update();
   }
