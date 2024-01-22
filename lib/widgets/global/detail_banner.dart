@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 
 class DetailBanner extends StatelessWidget {
-  const DetailBanner({super.key});
+  final String? otherUserPhoto;
+  const DetailBanner({super.key, this.otherUserPhoto});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class DetailBanner extends StatelessWidget {
                 clipBehavior: Clip.hardEdge,
                 decoration: const BoxDecoration(color: Colors.grey),
                 child: Image.network(
-                  controller.user!.bannerUrl!,
+                  otherUserPhoto ?? controller.user!.bannerUrl!,
                   fit: BoxFit.cover,
                 ),
               ),

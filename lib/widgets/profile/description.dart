@@ -27,12 +27,12 @@ class DescriptionProfile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    startController.user!.displayName,
+                    controller.otherUser.displayName,
                     maxLines: 1,
                     style: AppFont.text16.copyWith(fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    startController.user!.username,
+                    controller.otherUser.username,
                     maxLines: 1,
                     style: const TextStyle(color: Colors.grey),
                   ),
@@ -135,14 +135,20 @@ class DescriptionProfile extends StatelessWidget {
                   SizedBox(
                       height: 35,
                       child: ElevatedButton(
-                          onPressed: () => Get.toNamed(RouteName.editProfile),
+                          onPressed: controller.otherUser.uid ==
+                                  startController.user!.uid
+                              ? () => Get.toNamed(RouteName.editProfile)
+                              : () {},
                           style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.zero,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5))),
                           child: Center(
                             child: Text(
-                              "edit_profile".tr,
+                              controller.otherUser.uid ==
+                                      startController.user!.uid
+                                  ? "edit_profile".tr
+                                  : "follow".tr,
                               style: AppFont.text14.copyWith(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,

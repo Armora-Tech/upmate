@@ -42,11 +42,8 @@ class NewPost extends StatelessWidget {
                   onTap: controller.isLoading.value
                       ? () {}
                       : () {
-                          controller.oldSelectedImage.value =
-                              controller.posts![index].selectedDotsIndicator;
-                          Get.toNamed(RouteName.postDetail,
-                              arguments: controller.posts![index]);
-                          controller.update();
+                          Get.toNamed(RouteName.profile,
+                              arguments: {"otherUser": controller.posts![index].user});
                         },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),

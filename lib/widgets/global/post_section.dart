@@ -77,8 +77,11 @@ class PostContent extends StatelessWidget {
                         onTap: controller.isLoading.value
                             ? () {}
                             : () {
+                                controller.oldSelectedImage.value =
+                                    post!.selectedDotsIndicator;
                                 Get.toNamed(RouteName.postDetail,
                                     arguments: post);
+                                controller.update();
                               },
                         child: Container(
                           color: Colors.white,

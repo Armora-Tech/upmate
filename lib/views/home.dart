@@ -78,7 +78,7 @@ class HomeView extends StatelessWidget {
                                             ? () {}
                                             : () => Get.toNamed(
                                                 RouteName.profile,
-                                                arguments: {"isUser": true}),
+                                                arguments: {"otherUser": startController.user}),
                                         child: Container(
                                           height: 35,
                                           width: 35,
