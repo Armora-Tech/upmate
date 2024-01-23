@@ -13,30 +13,5 @@ class ChatController extends GetxController {
     isLoading.value = false;
   }
 
-  Future<List<ChatModel>> getChats() async {
-    try {
-      DocumentReference docRef = _auth.getCurrentUserReference();
-      List<ChatModel> datas = [];
 
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('chats')
-          .where('users', arrayContains: docRef)
-          .withConverter(
-              fromFirestore: ChatModel.fromFirestore,
-              toFirestore: (ChatModel chat, _) => chat.toFirestore())
-          .get();
-
-      for (var data in querySnapshot.docs) {
-        var dataChat = data.data() as ChatModel;
-        await dataChat.initUsers();
-        datas.add(dataChat);
-      }
-
-      return datas;
-    } catch (e) {
-      print("Error completing: $e");
-      // Handle the error or return an empty list, depending on your requirements.
-      return [];
-    }
-  }
 }
