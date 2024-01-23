@@ -26,4 +26,7 @@ samples, guidance on mobile development, and a full API reference.
 - [x]  SignIn
 - [x]  OTP
 - [x]  GetUtils (ini nanti datanya buat bantu pertanyaan pas signup)
+- [x]  GetChatMessages
+- [x]  addChat
+- [x]  createChat
 - []   Update aja listnya klo butuh apa lagi

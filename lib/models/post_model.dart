@@ -109,8 +109,9 @@ class PostModel {
 
   Future<void> getComment() async {
     List<CommentModel> comments = [];
-    QuerySnapshot querySnapshots = await _ref
+    QuerySnapshot querySnapshots = await FirebaseFirestore.instance
         .collection("comments")
+        .where("post_ref", isEqualTo: _ref)
         .withConverter(
             fromFirestore: CommentModel.fromFirestore,
             toFirestore: (CommentModel comment, _) => comment.toFirestore())

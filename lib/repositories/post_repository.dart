@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:upmatev2/models/comment_model.dart';
 
 import '../models/post_model.dart';
 import '../models/user_model.dart';
@@ -28,6 +29,20 @@ class PostRepository {
             (doc) => debugPrint("Document deleted"),
             onError: (e) => debugPrint("Error updating document $e"),
           );
+    } catch (e) {
+      debugPrint("ERROR : $e");
+    }
+  }
+
+  Future<void> addComment(CommentModel commentModel) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection("comments")
+          .add(commentModel.toFirestore())
+          .then((DocumentReference doc) => {
+                if (kDebugMode)
+                  {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
+              });
     } catch (e) {
       debugPrint("ERROR : $e");
     }
