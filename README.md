@@ -29,4 +29,5 @@ samples, guidance on mobile development, and a full API reference.
 - [x]  GetChatMessages
 - [x]  addChat
 - [x]  createChat
+- [x]  addComment
 - []   Update aja listnya klo butuh apa lagi
