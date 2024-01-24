@@ -19,7 +19,7 @@ class PostContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
     final startController = Get.find<StartController>();
-    final actionPostController = Get.find<ActionPostController>();
+    final actionPostController = Get.find<ActionPostController>();    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -81,6 +81,7 @@ class PostContent extends StatelessWidget {
                                     post!.selectedDotsIndicator;
                                 Get.toNamed(RouteName.postDetail,
                                     arguments: post);
+                               
                                 controller.update();
                               },
                         child: Container(

@@ -54,24 +54,30 @@ class PostView extends StatelessWidget {
                                           color: Colors.black,
                                         ),
                                       ),
-                                      GestureDetector(
-                                        onTap: galleryController
-                                                    .assetList.isEmpty ||
-                                                galleryController
-                                                    .selectedAssetList.isEmpty
-                                            ? () {}
-                                            : () => Get.toNamed(
-                                                RouteName.postDescription),
-                                        child: Text(
-                                          "next".tr,
-                                          style: AppFont.text16.copyWith(
-                                              color: galleryController
-                                                      .selectedAssetList.isEmpty
-                                                  ? Colors.grey
-                                                  : Colors.blueAccent,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                      ),
+                                      GetBuilder<GalleryController>(
+                                          builder: (_) => GestureDetector(
+                                                onTap: galleryController
+                                                            .assetList
+                                                            .isEmpty ||
+                                                        galleryController
+                                                            .selectedAssetList
+                                                            .isEmpty
+                                                    ? () {}
+                                                    : () => Get.toNamed(
+                                                        RouteName
+                                                            .postDescription),
+                                                child: Text(
+                                                  "next".tr,
+                                                  style: AppFont.text16.copyWith(
+                                                      color: galleryController
+                                                              .selectedAssetList
+                                                              .isEmpty
+                                                          ? Colors.grey
+                                                          : Colors.blueAccent,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                              )),
                                     ],
                                   ),
                                 ),

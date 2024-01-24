@@ -7,7 +7,7 @@ class CommentModel {
   String _text;
   DocumentReference _userRef;
 
-  CommentModel._(
+  CommentModel(
       {required DocumentReference ref,
       required DateTime date,
       required DocumentReference postRef,
@@ -25,7 +25,7 @@ class CommentModel {
       ) {
     final data = snapshot.data();
 
-    return CommentModel._(
+    return CommentModel(
         ref: snapshot.reference,
         date: (data?['date'] as Timestamp?)!.toDate(),
         postRef: data?['post_ref'] ?? '',

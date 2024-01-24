@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
+import 'package:upmatev2/models/comment_model.dart';
 import 'package:upmatev2/repositories/post_repository.dart';
 import '../models/post_model.dart';
+import '../repositories/auth.dart';
 import '../widgets/global/snack_bar.dart';
 
 class HomeController extends GetxController {
