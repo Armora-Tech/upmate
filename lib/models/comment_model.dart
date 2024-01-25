@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:upmatev2/models/user_model.dart';
 
 class CommentModel {
   DocumentReference _ref;
@@ -6,6 +7,7 @@ class CommentModel {
   DocumentReference _postRef;
   String _text;
   DocumentReference _userRef;
+  UserModel? _user;
 
   CommentModel._(
       {required DocumentReference ref,
@@ -24,14 +26,14 @@ class CommentModel {
       SnapshotOptions? options,
       ) {
     final data = snapshot.data();
-
-    return CommentModel._(
+    CommentModel tmodel = CommentModel._(
         ref: snapshot.reference,
         date: (data?['date'] as Timestamp?)!.toDate(),
         postRef: data?['post_ref'] ?? '',
         text: data?['text'] ?? '',
         userRef: data?['user_ref'] ?? []
     );
+    return tmodel;
   }
 
   Map<String, dynamic> toFirestore() {
@@ -43,9 +45,20 @@ class CommentModel {
     };
   }
 
+  Future<void> initUsers() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("users")
+        .withConverter(
+        fromFirestore: UserModel.fromFirestore,
+        toFirestore: (UserModel user, _) => user.toFirestore())
+        .doc(_userRef.id)
+        .get();
+    _user = snapshot.data() as UserModel?;
+  }
+
   DocumentReference get ref => _ref;
   DateTime get date => _date;
   DocumentReference get postRef => _postRef;
   String get text => _text;
-  DocumentReference get userRef => _userRef;
+  UserModel? get user => _user;
 }
