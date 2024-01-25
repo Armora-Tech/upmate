@@ -29,20 +29,14 @@ class AppBarEditProfile extends StatelessWidget {
                       GestureDetector(
                         onTap: () => Get.back(),
                         child: const SizedBox(
-                            width: 28,
-                            child: Icon(
-                              Icons.arrow_back,
-                              size: 28,
-                            )),
+                          width: 28,
+                          child: Icon(Icons.arrow_back, size: 28),
+                        ),
                       ),
-                      Text(
-                        "edit_profile".tr,
-                        style: AppFont.text20
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        width: 30,
-                      )
+                      Text("edit_profile".tr,
+                          style: AppFont.text20
+                              .copyWith(fontWeight: FontWeight.bold)),
+                      const SizedBox(width: 30)
                     ],
                   ),
                 ),

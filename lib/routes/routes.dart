@@ -4,37 +4,37 @@ import 'package:upmatev2/bindings/login_binding.dart';
 import 'package:upmatev2/bindings/settings_binding.dart';
 import 'package:upmatev2/bindings/signup_binding.dart';
 import 'package:upmatev2/bindings/start_binding.dart';
-import 'package:upmatev2/views/add_chat.dart';
-import 'package:upmatev2/views/chatRoom/chat_room.dart';
-import 'package:upmatev2/views/chatRoom/confirm_send_image.dart';
-import 'package:upmatev2/views/editProfile/gallery.dart';
-import 'package:upmatev2/views/post/post_description.dart';
-import 'package:upmatev2/views/post/post_interest.dart';
-import 'package:upmatev2/views/profile.dart';
-import 'package:upmatev2/views/settings.dart';
+import 'package:upmatev2/pages/add_chat_page.dart';
+import 'package:upmatev2/pages/chatRoom/chat_room.dart';
+import 'package:upmatev2/pages/chatRoom/confirm_send_image_page.dart';
+import 'package:upmatev2/pages/editProfile/gallery.dart';
+import 'package:upmatev2/pages/createPost/create_post_description_page.dart';
+import 'package:upmatev2/pages/createPost/create_post_interest_page.dart';
+import 'package:upmatev2/pages/profile.dart';
+import 'package:upmatev2/pages/settings.dart';
 import '../bindings/chat_room_binding.dart';
 import '../bindings/post_binding.dart';
 import '../bindings/post_detail_binding.dart';
 import '../bindings/profile_binding.dart';
 import '../bindings/search_binding.dart';
-import '../views/post/confirm_post_image.dart';
-import '../views/editProfile/edit_profile.dart';
-import '../views/login.dart';
-import '../views/post/post.dart';
-import '../views/post_detail.dart';
-import '../views/search.dart';
-import '../views/signup.dart';
-import '../views/start.dart';
-import '../views/tag_interest.dart';
-import '../views/take_survey.dart';
-import '../views/verify.dart';
+import '../pages/createPost/confirm_post_image_page.dart';
+import '../pages/editProfile/edit_profile.dart';
+import '../pages/login.dart';
+import '../pages/createPost/create_post_page.dart';
+import '../pages/post_detail.dart';
+import '../pages/search.dart';
+import '../pages/signup.dart';
+import '../pages/start.dart';
+import '../pages/tag_interest_page.dart';
+import '../pages/take_survey.dart';
+import '../pages/verify_page.dart';
 import 'route_name.dart';
 
 class AppPage {
   static final pages = [
     GetPage(
         name: RouteName.login,
-        page: () => LoginView(),
+        page: () => const LoginView(),
         binding: LoginBinding()),
     GetPage(
         name: RouteName.signup,
@@ -84,7 +84,7 @@ class AppPage {
     ),
     GetPage(
       name: RouteName.post,
-      page: () => const PostView(),
+      page: () => const CreatePostView(),
       binding: PostBinding(),
       transition: Transition.downToUp,
     ),
@@ -111,7 +111,7 @@ class AppPage {
         transition: Transition.rightToLeft),
     GetPage(
         name: RouteName.postInterest,
-        page: () => const PostInterestView(),
+        page: () => const CreatePostInterestView(),
         transition: Transition.rightToLeft),
     GetPage(
         name: RouteName.settings,

@@ -13,25 +13,15 @@ class Popular extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         TitleSection(title: "popular".tr),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         const ListViewPopular(),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         TitleSection(title: "people_with_similar_interests".tr),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         const ListViewPopular(),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         const Line(),
       ],
     );

@@ -20,29 +20,29 @@ class Follow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const ProfilePicture(size: 40),
-                const SizedBox(
-                  width: 5,
-                ),
+                const SizedBox(width: 5),
                 Expanded(
                   child: RichText(
-                    text: TextSpan(style: AppFont.text14, children: [
-                      const TextSpan(
-                        text: "Muhammad Rafli Silehu",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: " ${"has_followed_you".tr}",
-                        style: AppFont.text12,
-                      ),
-                      const WidgetSpan(
-                          child: SizedBox(
-                        width: 5,
-                      )),
-                      TextSpan(
-                        text: "1 ${"minute".tr}",
-                        style: AppFont.text12.copyWith(color: Colors.grey),
-                      ),
-                    ]),
+                    text: TextSpan(
+                      style: AppFont.text14,
+                      children: [
+                        const TextSpan(
+                          text: "Muhammad Rafli Silehu",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text: " ${"has_followed_you".tr}",
+                          style: AppFont.text12,
+                        ),
+                        const WidgetSpan(
+                          child: SizedBox(width: 5),
+                        ),
+                        TextSpan(
+                          text: "1 ${"minute".tr}",
+                          style: AppFont.text12.copyWith(color: Colors.grey),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],
@@ -52,19 +52,18 @@ class Follow extends StatelessWidget {
             margin: const EdgeInsets.only(left: 20),
             height: 30,
             child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                    )),
-                child: Center(
-                  child: Text(
-                    "follow_back".tr,
-                    style: AppFont.text12.copyWith(color: Colors.white),
-                  ),
-                )),
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)),
+                  padding: const EdgeInsets.symmetric(horizontal: 15)),
+              child: Center(
+                child: Text(
+                  "follow_back".tr,
+                  style: AppFont.text12.copyWith(color: Colors.white),
+                ),
+              ),
+            ),
           )
         ],
       ),

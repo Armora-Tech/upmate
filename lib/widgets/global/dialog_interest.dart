@@ -30,12 +30,11 @@ class DialogInterest {
               controller: controller.edtTagInterest,
               style: AppFont.text14,
               decoration: InputDecoration(
-                  hintText: "# ${"type_your_interest".tr}",
-                  hintStyle: AppFont.text14.copyWith(color: Colors.grey)),
+                hintText: "# ${"type_your_interest".tr}",
+                hintStyle: AppFont.text14.copyWith(color: Colors.grey),
+              ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(

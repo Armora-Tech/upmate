@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,12 +50,8 @@ class LoginController extends GetxController {
       } else if (loginProvider == LoginProvider.facebook) {
         await _auth.signInWithFacebook();
       } else if (loginProvider == LoginProvider.email) {
-        await _auth.signInWithEmailAndPassword(
-          email.text,
-          pass.text,
-        );
+        await _auth.signInWithEmailAndPassword(email.text, pass.text);
       }
-
     } catch (e) {
       if (kDebugMode) {
         print("Error: $e");

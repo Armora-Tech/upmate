@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/pages/createPost/create_post_page.dart';
 import 'package:upmatev2/routes/route_name.dart';
-import 'package:upmatev2/views/chat.dart';
-import 'package:upmatev2/views/home.dart';
-import 'package:upmatev2/views/notification.dart';
-import 'package:upmatev2/views/post/post.dart';
-import 'package:upmatev2/views/explore.dart';
+import 'package:upmatev2/pages/chat.dart';
+import 'package:upmatev2/pages/home.dart';
+import 'package:upmatev2/pages/notification_page.dart';
+
+import '../pages/explore.dart';
 
 class BottomNavController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -21,7 +22,7 @@ class BottomNavController extends GetxController
   final List<Widget> pages = [
     const HomeView(),
     const ExploreView(),
-    const PostView(),
+    const CreatePostView(),
     const NotificationView(),
     const ChatView()
   ];

@@ -16,16 +16,17 @@ class ShimmerSkelton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-        baseColor: Colors.grey.shade300,
-        highlightColor: Colors.grey.shade100,
-        child: Container(
-          height: height,
-          width: width,
-          decoration: BoxDecoration(
-              shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
-              color: Colors.white,
-              borderRadius:
-                  isCircle ? null : BorderRadius.circular(borderRadius)),
-        ));
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+            shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius:
+                isCircle ? null : BorderRadius.circular(borderRadius)),
+      ),
+    );
   }
 }

@@ -15,10 +15,8 @@ class MyPost extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Padding(
               padding: const EdgeInsets.only(top: 30),
-              child: Text(
-                "no_posts".tr,
-                style: const TextStyle(color: Colors.grey),
-              ),
+              child: Text("no_posts".tr,
+                  style: const TextStyle(color: Colors.grey)),
             ),
           )
         : GridView.builder(
@@ -53,8 +51,8 @@ class MyPost extends StatelessWidget {
                               top: 5,
                               right: 5,
                               child: SvgPicture.asset(
-                                "assets/svg/multiple_post.svg",
-                              ))
+                                  "assets/svg/multiple_post.svg"),
+                            )
                           : const SizedBox()
                     ],
                   ),

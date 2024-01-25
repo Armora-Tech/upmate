@@ -7,55 +7,55 @@ class InterestBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-        runSpacing: 10,
-        spacing: 10,
-        direction: Axis.horizontal,
-        children: List.generate(
-          4,
-          (index) => SizedBox(
-            height: 180,
-            width: Get.width / 2 - 25,
-            child: Material(
-              clipBehavior: Clip.hardEdge,
-              borderRadius: BorderRadius.circular(20),
-              child: InkWell(
-                onTap: () {},
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Ink.image(
+      runSpacing: 10,
+      spacing: 10,
+      direction: Axis.horizontal,
+      children: List.generate(
+        4,
+        (index) => SizedBox(
+          height: 180,
+          width: Get.width / 2 - 25,
+          child: Material(
+            clipBehavior: Clip.hardEdge,
+            borderRadius: BorderRadius.circular(20),
+            child: InkWell(
+              onTap: () {},
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Ink.image(
                       image: const AssetImage(
                         "assets/images/interest.jpg",
                       ),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.cover),
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 25),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: const LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              Colors.transparent,
+                              Color.fromARGB(127, 0, 0, 0),
+                              Color.fromARGB(230, 0, 0, 0)
+                            ])),
+                    child: Text(
+                      "#${"math".tr}",
+                      maxLines: 3,
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
                     ),
-                    Container(
-                      alignment: Alignment.bottomCenter,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 25),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          gradient: const LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Colors.transparent,
-                                Colors.transparent,
-                                Color.fromARGB(127, 0, 0, 0),
-                                Color.fromARGB(230, 0, 0, 0)
-                              ])),
-                      child: Text(
-                        "#${"math".tr}",
-                        maxLines: 3,
-                        style: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

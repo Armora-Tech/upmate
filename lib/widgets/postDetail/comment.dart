@@ -26,47 +26,30 @@ class Comment extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 RichText(
-                  text: TextSpan(style: AppFont.text14, children: const [
-                    TextSpan(
-                      text: "Flora Shafiqa ",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    TextSpan(
-                      text: "Keren banget kak (emot api)",
-                    ),
-                  ]),
+                  text: TextSpan(
+                    style: AppFont.text14,
+                    children: const [
+                      TextSpan(
+                        text: "Flora Shafiqa ",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(text: "Keren banget kak (emot api)"),
+                    ],
+                  ),
                 ),
                 Row(
                   children: [
-                    Text(
-                      "2 ${"hours".tr}",
-                      style:
-                          AppFont.text12.copyWith(color: Colors.grey),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "1 ${"like".tr}",
-                      style:
-                          AppFont.text12.copyWith(color: Colors.grey),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "reply".tr,
-                      style:
-                          AppFont.text12.copyWith(color: Colors.grey),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "send".tr,
-                      style:
-                          AppFont.text12.copyWith(color: Colors.grey),
-                    ),
+                    Text("2 ${"hours".tr}",
+                        style: AppFont.text12.copyWith(color: Colors.grey)),
+                    const SizedBox(width: 10),
+                    Text("1 ${"like".tr}",
+                        style: AppFont.text12.copyWith(color: Colors.grey)),
+                    const SizedBox(width: 10),
+                    Text("reply".tr,
+                        style: AppFont.text12.copyWith(color: Colors.grey)),
+                    const SizedBox(width: 10),
+                    Text("send".tr,
+                        style: AppFont.text12.copyWith(color: Colors.grey)),
                   ],
                 )
               ],

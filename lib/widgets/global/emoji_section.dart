@@ -6,7 +6,7 @@ import 'package:upmatev2/themes/app_font.dart';
 import '../../themes/app_color.dart';
 
 class EmojiSection extends StatelessWidget {
-  final controller;
+  final dynamic controller;
   const EmojiSection({
     super.key,
     required this.controller,
@@ -47,8 +47,8 @@ class EmojiSection extends StatelessWidget {
             'no_recents'.tr,
             style: AppFont.text14.copyWith(color: Colors.black26),
             textAlign: TextAlign.center,
-          ), // Needs to be const Widget
-          loadingIndicator: const SizedBox.shrink(), // Needs to be const Widget
+          ),
+          loadingIndicator: const SizedBox.shrink(),
           tabIndicatorAnimDuration: kTabScrollDuration,
           categoryIcons: const CategoryIcons(),
           buttonMode: ButtonMode.MATERIAL,

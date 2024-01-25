@@ -23,20 +23,22 @@ class HeaderProfile extends StatelessWidget {
           Positioned(
             top: 0,
             child: GestureDetector(
-                onTap: controller.otherUser.bannerUrl == null
-                    ? () {}
-                    : () => Get.to(
-                        () => DetailBanner(
-                              otherUserPhoto: controller.otherUser.bannerUrl,
-                            ),
-                        opaque: false,
-                        fullscreenDialog: true,
-                        transition: Transition.noTransition),
-                child: Hero(
-                    tag: "banner_profile",
-                    child: MyBanner(
-                      otherUserPhoto: controller.otherUser.bannerUrl,
-                    ))),
+              onTap: controller.otherUser.bannerUrl == null
+                  ? () {}
+                  : () => Get.to(
+                      () => DetailBanner(
+                            otherUserPhoto: controller.otherUser.bannerUrl,
+                          ),
+                      opaque: false,
+                      fullscreenDialog: true,
+                      transition: Transition.noTransition),
+              child: Hero(
+                tag: "banner_profile",
+                child: MyBanner(
+                  otherUserPhoto: controller.otherUser.bannerUrl,
+                ),
+              ),
+            ),
           ),
           Positioned(
             top: 15,
@@ -50,11 +52,7 @@ class HeaderProfile extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: const Center(
-                  child: Icon(
-                    Icons.arrow_back,
-                    color: Colors.black,
-                    size: 30,
-                  ),
+                  child: Icon(Icons.arrow_back, color: Colors.black, size: 30),
                 ),
               ),
             ),

@@ -94,6 +94,7 @@ class Message extends Translations {
           "likes": "Likes",
           "reply": "Reply",
           "replies": "Replies",
+          "type_a_comment": "Type a comment",
           // ========= CHAT ROOM ============
           "type_a_message": "Type a message",
           "online": "Online",
@@ -233,6 +234,7 @@ class Message extends Translations {
           // ========= POST DETAIL ============
           "like": "Suka",
           "reply": "Balas",
+          "type_a_comment": "Tulis komentar",
           // ========= CHAT ROOM ============
           "type_a_message": "Ketikkan pesan",
           "online": "Aktif",

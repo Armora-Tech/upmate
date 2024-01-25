@@ -10,8 +10,8 @@ import 'package:upmatev2/bindings/login_binding.dart';
 import 'package:upmatev2/bindings/start_binding.dart';
 import 'package:upmatev2/themes/app_theme.dart';
 import 'package:upmatev2/utils/translation.dart';
-import 'package:upmatev2/views/login.dart';
-import 'package:upmatev2/views/start.dart';
+import 'package:upmatev2/pages/login.dart';
+import 'package:upmatev2/pages/start.dart';
 
 import 'routes/routes.dart';
 
@@ -20,9 +20,8 @@ late List<CameraDescription> cameras;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseFirestore.instance.settings = const Settings(
-    persistenceEnabled: true,
-  );
+  FirebaseFirestore.instance.settings =
+      const Settings(persistenceEnabled: true);
   FirebaseAuth.instance.authStateChanges().listen((User? user) {
     isLogin = user == null;
   });
@@ -30,9 +29,7 @@ Future<void> main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   PhotoManager.clearFileCache();
   cameras = await availableCameras();
-  runApp(
-    const MyApp(),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

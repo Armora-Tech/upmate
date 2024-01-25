@@ -15,36 +15,34 @@ class OtherUserPost extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Padding(
               padding: const EdgeInsets.only(top: 30),
-              child: Text(
-                "no_posts".tr,
-                style: const TextStyle(color: Colors.grey),
-              ),
+              child: Text("no_posts".tr,
+                  style: const TextStyle(color: Colors.grey)),
             ),
           )
-        : GetBuilder<ProfileController>(builder: (_) {
-            return controller.isLoading.value
-                ? const Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 30),
-                      child: CircularProgressIndicator(
-                        color: Colors.grey,
-                        strokeWidth: 2,
+        : GetBuilder<ProfileController>(
+            builder: (_) {
+              return controller.isLoading.value
+                  ? const Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 30),
+                        child: CircularProgressIndicator(
+                            color: Colors.grey, strokeWidth: 2),
                       ),
-                    ))
-                : GridView.builder(
-                    padding: const EdgeInsets.only(top: 2),
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: controller.otherUser.posts?.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 2,
-                      mainAxisSpacing: 2,
-                    ),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
+                    )
+                  : GridView.builder(
+                      padding: const EdgeInsets.only(top: 2),
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: controller.otherUser.posts?.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 2,
+                        mainAxisSpacing: 2,
+                      ),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
                           onTap: () {
                             Get.toNamed(RouteName.postDetail,
                                 arguments: controller.otherUser.posts![index]);
@@ -69,12 +67,16 @@ class OtherUserPost extends StatelessWidget {
                                         right: 5,
                                         child: SvgPicture.asset(
                                           "assets/svg/multiple_post.svg",
-                                        ))
+                                        ),
+                                      )
                                     : const SizedBox()
                               ],
                             ),
-                          ));
-                    });
-          });
+                          ),
+                        );
+                      },
+                    );
+            },
+          );
   }
 }

@@ -34,30 +34,26 @@ class MainContent extends StatelessWidget {
               GestureDetector(
                 onTap: () => controller.selectTab(1),
                 child: Container(
-                    color: Colors.white,
-                    width: Get.width / 2,
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Icon(
-                        Icons.bookmark_outline_outlined,
-                        size: 28,
-                      ),
-                    )),
+                  color: Colors.white,
+                  width: Get.width / 2,
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Icon(Icons.bookmark_outline_outlined, size: 28),
+                  ),
+                ),
               )
             ],
           ),
           const Positioned(bottom: 0, child: Line()),
           GetBuilder<ProfileController>(
-              builder: (_) => AnimatedPositioned(
-                    duration: const Duration(milliseconds: 200),
-                    left: controller.selectedTab.value == 0 ? 0 : Get.width / 2,
-                    bottom: 0,
-                    child: Container(
-                      height: 1.5,
-                      width: Get.width / 2,
-                      color: Colors.black,
-                    ),
-                  )),
+            builder: (_) => AnimatedPositioned(
+              duration: const Duration(milliseconds: 200),
+              left: controller.selectedTab.value == 0 ? 0 : Get.width / 2,
+              bottom: 0,
+              child: Container(
+                  height: 1.5, width: Get.width / 2, color: Colors.black),
+            ),
+          ),
         ],
       ),
     );

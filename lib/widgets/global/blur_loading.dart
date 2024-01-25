@@ -31,13 +31,9 @@ class BlurLoading extends StatelessWidget {
                 children: [
                   LoadingAnimationWidget.stretchedDots(
                       size: 70, color: Colors.white),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Text(
-                    "Loading",
-                    style: AppFont.text16.copyWith(color: Colors.white),
-                  )
+                  const SizedBox(height: 40),
+                  Text("Loading",
+                      style: AppFont.text16.copyWith(color: Colors.white))
                 ],
               ),
             ),

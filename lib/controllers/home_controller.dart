@@ -1,11 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/models/comment_model.dart';
 import 'package:upmatev2/repositories/post_repository.dart';
 import '../models/post_model.dart';
-import '../repositories/auth.dart';
 import '../widgets/global/snack_bar.dart';
 
 class HomeController extends GetxController {
@@ -95,5 +93,26 @@ class HomeController extends GetxController {
     await _getPosts();
     isLoading.value = false;
     update();
+  }
+
+  String commentTimePassed(CommentModel comment) {
+    DateTime now = DateTime.timestamp();
+    DateTime postTime = comment.date;
+    Duration difference = now.difference(postTime);
+    String ago = "ago".tr;
+    String second = difference.inSeconds == 1 ? "second".tr : "seconds".tr;
+    String minute = difference.inMinutes == 1 ? "minute".tr : "minutes".tr;
+    String hour = difference.inHours == 1 ? "hour".tr : "hours".tr;
+    String day = difference.inDays == 1 ? "day".tr : "days".tr;
+
+    if (difference.inSeconds < 60) {
+      return "${difference.inSeconds} $second $ago";
+    } else if (difference.inMinutes < 60) {
+      return "${difference.inMinutes} $minute $ago";
+    } else if (difference.inHours < 24) {
+      return "${difference.inHours} $hour $ago";
+    } else {
+      return "${difference.inDays} $day $ago";
+    }
   }
 }

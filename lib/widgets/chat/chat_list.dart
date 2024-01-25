@@ -23,9 +23,7 @@ class ChatList extends StatelessWidget {
       scrollDirection: Axis.vertical,
       itemCount: 15,
       separatorBuilder: (context, index) {
-        return const SizedBox(
-          height: 20,
-        );
+        return const SizedBox(height: 20);
       },
       itemBuilder: (context, index) {
         return GestureDetector(
@@ -77,13 +75,9 @@ class ChatList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      "3:16 pm",
-                      style: AppFont.text12.copyWith(color: Colors.grey),
-                    ),
-                    const SizedBox(
-                      height: 3,
-                    ),
+                    Text("3:16 pm",
+                        style: AppFont.text12.copyWith(color: Colors.grey)),
+                    const SizedBox(height: 3),
                     Container(
                       height: 16,
                       width: 16,

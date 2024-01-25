@@ -27,7 +27,6 @@ class PostDetailController extends GetxController {
     _startController = Get.find<StartController>();
     comment = TextEditingController();
     focusNode = FocusNode();
-    focusNode.requestFocus();
     focusNode.addListener(() {
       if (focusNode.hasFocus) {
         isShowEmoji.value = false;
@@ -36,7 +35,6 @@ class PostDetailController extends GetxController {
     post = Get.arguments;
     post.selectedDotsIndicator = 0;
     await post.getComment();
-    debugPrint("Get comment : ${post.comments}");
     isLoading.value = false;
 
     super.onInit();
@@ -52,7 +50,6 @@ class PostDetailController extends GetxController {
   }
 
   Future<void> addComment(PostModel post) async {
-    comment.clear();
     final commentModel = CommentModel(
       ref: FirebaseFirestore.instance.collection("comments").doc(),
       date: DateTime.now(),
@@ -61,7 +58,9 @@ class PostDetailController extends GetxController {
       userRef: post.user!.ref,
     );
     await PostRepository().addComment(commentModel);
-    update();
+    comment.clear();
+    await post.getComment();
+    Get.forceAppUpdate();
   }
 
   Future<void> deletePost(PostModel post) async {

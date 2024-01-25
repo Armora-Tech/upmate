@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/profile_picture.dart';
 
@@ -21,28 +20,28 @@ class Post extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const ProfilePicture(size: 40),
-                const SizedBox(
-                  width: 5,
-                ),
+                const SizedBox(width: 5),
                 Expanded(
                   child: RichText(
-                    text: TextSpan(style: AppFont.text14, children: [
-                      const TextSpan(
-                        text: "Muhammad Rafli Silehu",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                          text: " ${"liked_your_post".tr}",
-                          style: AppFont.text12),
-                      const WidgetSpan(
-                          child: SizedBox(
-                        width: 5,
-                      )),
-                      TextSpan(
+                    text: TextSpan(
+                      style: AppFont.text14,
+                      children: [
+                        const TextSpan(
+                          text: "Muhammad Rafli Silehu",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                            text: " ${"liked_your_post".tr}",
+                            style: AppFont.text12),
+                        const WidgetSpan(
+                          child: SizedBox(width: 5),
+                        ),
+                        TextSpan(
                           text: "3 ${"hours".tr} ",
-                          style: AppFont.text12
-                              .copyWith(color: Colors.grey)),
-                    ]),
+                          style: AppFont.text12.copyWith(color: Colors.grey),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],
@@ -50,10 +49,7 @@ class Post extends StatelessWidget {
           ),
           SizedBox(
             width: 50,
-            child: Image.asset(
-              "assets/images/quran.png",
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset("assets/images/quran.png", fit: BoxFit.cover),
           )
         ],
       ),

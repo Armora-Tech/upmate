@@ -10,10 +10,8 @@ class MyBookmark extends StatelessWidget {
       padding: const EdgeInsets.only(top: 30),
       width: Get.width,
       alignment: Alignment.topCenter,
-      child: Text(
-        "no_posts_saved".tr,
-        style: const TextStyle(color: Colors.grey),
-      ),
+      child:
+          Text("no_posts_saved".tr, style: const TextStyle(color: Colors.grey)),
     );
   }
 }
