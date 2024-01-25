@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -55,6 +56,7 @@ class LoginController extends GetxController {
           pass.text,
         );
       }
+
     } catch (e) {
       if (kDebugMode) {
         print("Error: $e");
@@ -68,7 +70,7 @@ class LoginController extends GetxController {
 
   Future<void> signOut() async {
     try {
-      Get.offNamed(RouteName.login);
+      Get.offAllNamed(RouteName.login);
       await _auth.signOut();
     } catch (e) {
       if (kDebugMode) {

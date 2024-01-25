@@ -199,8 +199,7 @@ class PostDetailView extends StatelessWidget {
                                       child: TextField(
                                         focusNode: controller.focusNode,
                                         style: AppFont.text16,
-                                        controller:
-                                            controller.textEditingController,
+                                        controller: controller.comment,
                                         maxLines: null,
                                         onChanged: (text) {
                                           text.isNotEmpty
@@ -244,10 +243,13 @@ class PostDetailView extends StatelessWidget {
                                         Icons.camera_alt_outlined,
                                         size: 28,
                                       )
-                                    : const Icon(
-                                        Icons.send_rounded,
-                                        size: 28,
-                                      ),
+                                    : GestureDetector(
+                                      onTap: ()async => await controller.addComment(post),
+                                      child: const Icon(
+                                          Icons.send_rounded,
+                                          size: 28,
+                                        ),
+                                    ),
                               ],
                             )
                           ],

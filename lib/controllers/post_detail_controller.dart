@@ -1,14 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/models/post_model.dart';
 import 'package:upmatev2/widgets/global/snack_bar.dart';
+import '../models/comment_model.dart';
 import '../repositories/post_repository.dart';
 import 'start_controller.dart';
 
 class PostDetailController extends GetxController {
-  late TextEditingController textEditingController;
   late FocusNode focusNode;
+  late final TextEditingController comment;
   late final PostModel post;
   late final HomeController _homeController;
   late final StartController _startController;
@@ -16,13 +18,16 @@ class PostDetailController extends GetxController {
   RxBool isTextFieldEmpty = true.obs;
   RxBool isShowEmoji = false.obs;
   RxBool isDeleting = false.obs;
+  RxBool isLoading = false.obs;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    isLoading.value = true;
     _homeController = Get.find<HomeController>();
     _startController = Get.find<StartController>();
-    textEditingController = TextEditingController();
+    comment = TextEditingController();
     focusNode = FocusNode();
+    focusNode.requestFocus();
     focusNode.addListener(() {
       if (focusNode.hasFocus) {
         isShowEmoji.value = false;
@@ -30,6 +35,10 @@ class PostDetailController extends GetxController {
     });
     post = Get.arguments;
     post.selectedDotsIndicator = 0;
+    await post.getComment();
+    debugPrint("Get comment : ${post.comments}");
+    isLoading.value = false;
+
     super.onInit();
   }
 
@@ -37,9 +46,22 @@ class PostDetailController extends GetxController {
   void onClose() {
     post.selectedDotsIndicator = _homeController.oldSelectedImage.value;
     _homeController.update();
-    textEditingController.dispose();
+    comment.dispose();
     focusNode.dispose();
     super.onClose();
+  }
+
+  Future<void> addComment(PostModel post) async {
+    comment.clear();
+    final commentModel = CommentModel(
+      ref: FirebaseFirestore.instance.collection("comments").doc(),
+      date: DateTime.now(),
+      postRef: post.ref,
+      text: comment.text.trim(),
+      userRef: post.user!.ref,
+    );
+    await PostRepository().addComment(commentModel);
+    update();
   }
 
   Future<void> deletePost(PostModel post) async {

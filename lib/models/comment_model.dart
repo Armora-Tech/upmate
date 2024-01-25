@@ -26,14 +26,14 @@ class CommentModel {
       SnapshotOptions? options,
       ) {
     final data = snapshot.data();
-    CommentModel tmodel = CommentModel._(
+
+    return CommentModel._(
         ref: snapshot.reference,
         date: (data?['date'] as Timestamp?)!.toDate(),
         postRef: data?['post_ref'] ?? '',
         text: data?['text'] ?? '',
         userRef: data?['user_ref'] ?? []
     );
-    return tmodel;
   }
 
   Map<String, dynamic> toFirestore() {
