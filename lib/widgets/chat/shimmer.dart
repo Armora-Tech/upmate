@@ -41,10 +41,10 @@ class ChatShimmer extends StatelessWidget {
                                 ShimmerSkelton(
                                   height: 50,
                                   width: 50,
-                                  isCircle: true,
+                                  isCircle: true
                                 ),
                                 SizedBox(
-                                  width: 8,
+                                  width: 8
                                 ),
                                 Expanded(
                                   child: Column(
@@ -54,7 +54,7 @@ class ChatShimmer extends StatelessWidget {
                                     children: [
                                       ShimmerSkelton(height: 15, width: 150),
                                       SizedBox(
-                                        height: 5,
+                                        height: 5
                                       ),
                                       ShimmerSkelton(height: 8, width: 70),
                                     ],
@@ -88,7 +88,7 @@ class ChatShimmer extends StatelessWidget {
                           Text(
                             "chat".tr,
                             style: AppFont.text23
-                                .copyWith(fontWeight: FontWeight.bold),
+                                .copyWith(fontWeight: FontWeight.bold)
                           ),
                           Row(
                             children: [

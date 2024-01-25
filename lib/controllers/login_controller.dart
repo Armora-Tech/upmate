@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/routes/route_name.dart';
 import '../repositories/auth.dart';
 import '../utils/cancellation.dart';
 
@@ -64,8 +63,8 @@ class LoginController extends GetxController {
   }
 
   Future<void> signOut() async {
+    isLoading.value = true;
     try {
-      Get.offAllNamed(RouteName.login);
       await _auth.signOut();
     } catch (e) {
       if (kDebugMode) {

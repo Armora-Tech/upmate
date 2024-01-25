@@ -12,7 +12,7 @@ class ChatModel {
   List<DocumentReference<Map<String, dynamic>>> _users_raw;
   List<UserModel>? _users;
 
-  ChatModel._({
+  ChatModel({
     required DocumentReference ref,
     bool isGroup = false,
     String title = '',
@@ -39,7 +39,7 @@ class ChatModel {
         .map((userRef) => userRef as DocumentReference<Map<String, dynamic>>)
         .toList();
 
-    return ChatModel._(
+    return ChatModel(
       ref: snapshot.reference,
       isGroup: data?['isGroup'] ?? false,
       title: data?['title'] ?? '',

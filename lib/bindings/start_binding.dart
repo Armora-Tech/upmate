@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/bottom_nav_controller.dart';
+import 'package:upmatev2/controllers/chat_controller.dart';
 import 'package:upmatev2/controllers/observer/dots_indicator_controller.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/controllers/login_controller.dart';
@@ -13,8 +14,9 @@ class StartBinding implements Bindings {
     Get.lazyPut<StartController>(() => StartController());
     Get.lazyPut<BottomNavController>(() => BottomNavController(), fenix: true);
     Get.lazyPut<LoginController>(() => LoginController());
-    Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
+    Get.lazyPut<HomeController>(() => HomeController());
+    Get.lazyPut<ChatController>(() => ChatController());
     Get.lazyPut<DostIndicatorController>(() => DostIndicatorController());
-    Get.put(ActionPostController(),permanent: true);
+    Get.put(ActionPostController(), permanent: true);
   }
 }

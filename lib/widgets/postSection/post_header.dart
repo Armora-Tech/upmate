@@ -38,8 +38,7 @@ class PostHeader extends StatelessWidget {
                           height: 35,
                           width: 35,
                           isCircle: true,
-                          borderRadius: 0,
-                        )
+                          borderRadius: 0)
                       : Container(
                           height: 35,
                           width: 35,
@@ -85,17 +84,12 @@ class PostHeader extends StatelessWidget {
               ),
             ),
             controller.isLoading.value
-                ? SvgPicture.asset(
-                    "assets/svg/more_vert.svg",
-                    height: 22,
-                  )
+                ? SvgPicture.asset("assets/svg/more_vert.svg", height: 22)
                 : controller.posts![index].user!.uid ==
                         startController.user!.uid
                     ? GestureDetector(
-                        onTap: () {
-                          PopUpDeletePost.showDialog(
-                              controller.posts![index], index);
-                        },
+                        onTap: () => PopUpDeletePost.showDialog(
+                            controller.posts![index], index),
                         child: SvgPicture.asset("assets/svg/more_vert.svg",
                             height: 22),
                       )

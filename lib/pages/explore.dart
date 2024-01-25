@@ -26,18 +26,16 @@ class ExploreView extends StatelessWidget {
                 const SizedBox(height: 100),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
-                  child: Text(
-                    "your_interest_tag".tr,
-                    style: AppFont.text16.copyWith(fontWeight: FontWeight.bold),
-                  ),
+                  child: Text("your_interest_tag".tr,
+                      style:
+                          AppFont.text16.copyWith(fontWeight: FontWeight.bold)),
                 ),
                 const InterestBox(),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
-                  child: Text(
-                    "other_interest_tags".tr,
-                    style: AppFont.text16.copyWith(fontWeight: FontWeight.bold),
-                  ),
+                  child: Text("other_interest_tags".tr,
+                      style:
+                          AppFont.text16.copyWith(fontWeight: FontWeight.bold)),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,10 +43,8 @@ class ExploreView extends StatelessWidget {
                     tags.length,
                     (index) => Column(
                       children: [
-                        Text(
-                          "#${tags[index]}",
-                          style: const TextStyle(color: Colors.grey),
-                        ),
+                        Text("#${tags[index]}",
+                            style: const TextStyle(color: Colors.grey)),
                         const SizedBox(height: 5)
                       ],
                     ),

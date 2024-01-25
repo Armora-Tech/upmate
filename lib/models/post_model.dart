@@ -118,7 +118,7 @@ class PostModel {
         .get();
 
     for (var e in querySnapshots.docs) {
-      CommentModel tData=e.data() as CommentModel;
+      CommentModel tData = e.data() as CommentModel;
       await tData.initUsers();
       comments.add(tData);
     }

@@ -44,6 +44,7 @@ class StartView extends StatelessWidget {
     return Obx(
       () => Scaffold(
         resizeToAvoidBottomInset: false,
+        drawerEnableOpenDragGesture: false,
         drawer: const SideBar(),
         body: Stack(
           fit: StackFit.expand,
@@ -154,9 +155,10 @@ class StartView extends StatelessWidget {
                 ),
               ),
             ),
-            Obx(() => homeController.isDeleting.value
-                ? const BlurLoading()
-                : const SizedBox())
+            GetBuilder<HomeController>(
+                builder: (_) => homeController.isDeleting.value
+                    ? const BlurLoading()
+                    : const SizedBox())
           ],
         ),
       ),

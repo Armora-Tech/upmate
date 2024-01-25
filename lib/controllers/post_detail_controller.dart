@@ -10,7 +10,8 @@ import 'start_controller.dart';
 
 class PostDetailController extends GetxController {
   late FocusNode focusNode;
-  late final TextEditingController comment;
+  // the name should be textEditingController for the needs of the emoji section
+  late final TextEditingController textEditingController;
   late final PostModel post;
   late final HomeController _homeController;
   late final StartController _startController;
@@ -22,10 +23,9 @@ class PostDetailController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    isLoading.value = true;
+    textEditingController = TextEditingController();
     _homeController = Get.find<HomeController>();
     _startController = Get.find<StartController>();
-    comment = TextEditingController();
     focusNode = FocusNode();
     focusNode.addListener(() {
       if (focusNode.hasFocus) {
@@ -34,6 +34,7 @@ class PostDetailController extends GetxController {
     });
     post = Get.arguments;
     post.selectedDotsIndicator = 0;
+    isLoading.value = true;
     await post.getComment();
     isLoading.value = false;
 
@@ -44,7 +45,7 @@ class PostDetailController extends GetxController {
   void onClose() {
     post.selectedDotsIndicator = _homeController.oldSelectedImage.value;
     _homeController.update();
-    comment.dispose();
+    textEditingController.dispose();
     focusNode.dispose();
     super.onClose();
   }
@@ -54,11 +55,11 @@ class PostDetailController extends GetxController {
       ref: FirebaseFirestore.instance.collection("comments").doc(),
       date: DateTime.now(),
       postRef: post.ref,
-      text: comment.text.trim(),
-      userRef: post.user!.ref,
+      text: textEditingController.text.trim(),
+      userRef: _startController.user!.ref,
     );
     await PostRepository().addComment(commentModel);
-    comment.clear();
+    textEditingController.clear();
     await post.getComment();
     Get.forceAppUpdate();
   }

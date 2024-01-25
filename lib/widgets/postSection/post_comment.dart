@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/models/post_model.dart';
+import 'package:upmatev2/routes/route_name.dart';
 
 import '../../themes/app_font.dart';
 
@@ -13,18 +15,27 @@ class PostCommentSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
+    final comments = post.comments!.length > 2
+        ? post.comments!.sublist(0, 2)
+        : post.comments!;
     return post.comments!.isNotEmpty
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              post.comments!.length > 2
+                  ? GestureDetector(
+                      onTap: () =>
+                          Get.toNamed(RouteName.postDetail, arguments: post),
+                      child: Text(
+                          "${"see_all".tr} ${post.comments!.length} ${"comment".tr}",
+                          style: const TextStyle(color: Colors.grey)),
+                    )
+                  : const SizedBox(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: post.comments!
+                children: comments
                     .map<Widget>(
-                      (comment) =>
-                          // Text("${"see_all".tr} 32 ${"comment".tr}",
-                          //     style: const TextStyle(color: Colors.grey)),
-                          Padding(
+                      (comment) => Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Row(
                           children: [
@@ -34,10 +45,8 @@ class PostCommentSection extends StatelessWidget {
                               clipBehavior: Clip.hardEdge,
                               decoration:
                                   const BoxDecoration(shape: BoxShape.circle),
-                              child: Image.network(
-                                comment.user!.photoUrl!,
-                                fit: BoxFit.cover,
-                              ),
+                              child: Image.network(comment.user!.photoUrl!,
+                                  fit: BoxFit.cover),
                             ),
                             Expanded(
                               child: Column(

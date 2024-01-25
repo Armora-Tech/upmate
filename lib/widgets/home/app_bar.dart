@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/bottom_nav_controller.dart';
 
 import '../../controllers/home_controller.dart';
 import '../../controllers/start_controller.dart';
@@ -16,6 +17,7 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final startController = Get.find<StartController>();
     final controller = Get.find<HomeController>();
+    final bottNavController = Get.find<BottomNavController>();
     return Positioned(
       top: 0,
       child: Container(
@@ -32,15 +34,20 @@ class HomeAppBar extends StatelessWidget {
                     builder: (_) => Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
-                          onTap: controller.isLoading.value
-                              ? () {}
-                              : () => Scaffold.of(context).openDrawer(),
-                          child: SizedBox(
-                            width: 28,
-                            child: Image.asset(
-                                "assets/images/humberger_icon.png",
-                                fit: BoxFit.cover),
+                        GetBuilder<HomeController>(
+                          builder: (_) => GestureDetector(
+                            onTap: controller.isLoading.value
+                                ? () {}
+                                : () {
+                                    Scaffold.of(context).openDrawer();
+                                    bottNavController.update();
+                                  },
+                            child: SizedBox(
+                              width: 28,
+                              child: Image.asset(
+                                  "assets/images/humberger_icon.png",
+                                  fit: BoxFit.cover),
+                            ),
                           ),
                         ),
                         Text(
@@ -54,19 +61,22 @@ class HomeAppBar extends StatelessWidget {
                                 width: 35,
                                 isCircle: true,
                               )
-                            : GestureDetector(
-                                onTap: controller.isLoading.value
-                                    ? () {}
-                                    : () => Get.toNamed(RouteName.profile),
-                                child: Container(
-                                  height: 35,
-                                  width: 35,
-                                  decoration: const BoxDecoration(
-                                      color: AppColor.lightGrey,
-                                      shape: BoxShape.circle),
-                                  child: ProfilePicture(
-                                      imageURL: startController.user?.photoUrl,
-                                      size: 35),
+                            : GetBuilder<HomeController>(
+                                builder: (_) => GestureDetector(
+                                  onTap: controller.isLoading.value
+                                      ? () {}
+                                      : () => Get.toNamed(RouteName.profile),
+                                  child: Container(
+                                    height: 35,
+                                    width: 35,
+                                    decoration: const BoxDecoration(
+                                        color: AppColor.lightGrey,
+                                        shape: BoxShape.circle),
+                                    child: ProfilePicture(
+                                        imageURL:
+                                            startController.user?.photoUrl,
+                                        size: 35),
+                                  ),
                                 ),
                               ),
                       ],

@@ -11,18 +11,14 @@ class PopUpDeletePost {
   static void showDialog(PostModel post, int index) {
     Get.defaultDialog(
       title: "are_you_sure_you_want_to_delete_this_post".tr,
-      titleStyle: AppFont.text14.copyWith(
-        color: Colors.white,
-        overflow: TextOverflow.visible,
-      ),
+      titleStyle: AppFont.text14
+          .copyWith(color: Colors.white, overflow: TextOverflow.visible),
       titlePadding: const EdgeInsets.only(top: 20, right: 20, left: 20),
       backgroundColor: Colors.black,
       contentPadding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
       actions: [
         GestureDetector(
-          onTap: () {
-            Get.back();
-          },
+          onTap: () => Get.back(),
           child: Text('cancel'.tr,
               style: AppFont.text14.copyWith(color: Colors.blueAccent)),
         ),
@@ -30,6 +26,7 @@ class PopUpDeletePost {
         GestureDetector(
           onTap: () {
             controller.deletePost(post, index);
+            controller.update();
             Get.back();
           },
           child: Text('delete'.tr,
@@ -49,9 +46,7 @@ class PopUpDeletePost {
       contentPadding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
       actions: [
         GestureDetector(
-          onTap: () {
-            Get.back();
-          },
+          onTap: () => Get.back(),
           child: Text('cancel'.tr,
               style: AppFont.text14.copyWith(color: Colors.blueAccent)),
         ),

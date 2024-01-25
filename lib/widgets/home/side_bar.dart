@@ -26,7 +26,7 @@ class SideBar extends StatelessWidget {
       "bookmarks".tr: "assets/svg/bookmark_outlined.svg",
       "help_center".tr: "assets/svg/help_center.svg",
       "FAQ": "assets/svg/faq.svg",
-      "logout".tr: "assets/svg/logout.svg",
+      "logout".tr: "assets/svg/logout.svg"
     };
     return Drawer(
       backgroundColor: Colors.white,
@@ -41,9 +41,8 @@ class SideBar extends StatelessWidget {
               color: const Color.fromARGB(255, 24, 36, 41),
               border:
                   Border.all(width: 0, strokeAlign: 10, color: Colors.white),
-              borderRadius: const BorderRadius.only(
-                bottomRight: Radius.circular(20),
-              ),
+              borderRadius:
+                  const BorderRadius.only(bottomRight: Radius.circular(20)),
             ),
             padding: EdgeInsets.zero,
             margin: EdgeInsets.zero,
@@ -99,10 +98,8 @@ class SideBar extends StatelessWidget {
                                     Border.all(width: 1.5, color: Colors.white),
                                 shape: BoxShape.circle),
                             child: ClipOval(
-                              child: Image.network(
-                                controller.user!.photoUrl!,
-                                fit: BoxFit.cover,
-                              ),
+                              child: Image.network(controller.user!.photoUrl!,
+                                  fit: BoxFit.cover),
                             ),
                           ),
                         ),
@@ -135,6 +132,7 @@ class SideBar extends StatelessWidget {
                         } else if (key == "settings".tr) {
                           Get.toNamed(RouteName.settings);
                         } else if (key == "logout".tr) {
+                          Get.offAllNamed(RouteName.login);
                           await loginController.signOut();
                         }
                       },
@@ -142,7 +140,7 @@ class SideBar extends StatelessWidget {
                         children: [
                           item.key == "logout".tr
                               ? const Line()
-                              : const SizedBox.shrink(),
+                              : const SizedBox(),
                           Container(
                             width: Get.size.width,
                             color: Colors.transparent,
@@ -151,18 +149,14 @@ class SideBar extends StatelessWidget {
                             height: 50,
                             child: Row(
                               children: [
-                                SvgPicture.asset(
-                                  item.value,
-                                  height: 20,
-                                  width: 20,
-                                  semanticsLabel: item.key,
-                                ),
+                                SvgPicture.asset(item.value,
+                                    height: 20,
+                                    width: 20,
+                                    semanticsLabel: item.key),
                                 const SizedBox(width: 10.0),
-                                Text(
-                                  item.key,
-                                  style: AppFont.text12
-                                      .copyWith(fontWeight: FontWeight.w600),
-                                )
+                                Text(item.key,
+                                    style: AppFont.text12
+                                        .copyWith(fontWeight: FontWeight.w600))
                               ],
                             ),
                           ),

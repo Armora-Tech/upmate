@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/global/title_section.dart';
 import '../controllers/settings_controller.dart';
-import '../widgets/settingsPage/app_bar.dart';
+import '../widgets/settings/app_bar.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});

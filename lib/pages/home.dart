@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:upmatev2/widgets/home/side_bar.dart';
 import 'package:upmatev2/widgets/postSection/index.dart';
 import '../widgets/home/app_bar.dart';
 
@@ -8,23 +7,20 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      drawer: SideBar(),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 75),
-                HomePostSection(),
-                SizedBox(height: 60),
-              ],
-            ),
+    return const Stack(
+      children: [
+        SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 75),
+              HomePostSection(),
+              SizedBox(height: 60),
+            ],
           ),
-          HomeAppBar(),
-        ],
-      ),
+        ),
+        HomeAppBar(),
+      ],
     );
   }
 }

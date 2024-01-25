@@ -32,10 +32,9 @@ class ChatRoomTypeMessage extends StatelessWidget {
                 color: Colors.white,
                 boxShadow: const [
                   BoxShadow(
-                    spreadRadius: 2,
-                    blurRadius: 3,
-                    color: AppColor.shadowColor,
-                  )
+                      spreadRadius: 2,
+                      blurRadius: 3,
+                      color: AppColor.shadowColor)
                 ],
               ),
               child: Row(

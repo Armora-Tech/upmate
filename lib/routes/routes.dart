@@ -24,7 +24,7 @@ import '../pages/createPost/create_post_page.dart';
 import '../pages/post_detail.dart';
 import '../pages/search.dart';
 import '../pages/signup.dart';
-import '../pages/start.dart';
+import '../pages/start_page.dart';
 import '../pages/tag_interest_page.dart';
 import '../pages/take_survey.dart';
 import '../pages/verify_page.dart';

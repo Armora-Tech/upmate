@@ -14,10 +14,12 @@ class PostRepository {
       await FirebaseFirestore.instance
           .collection("posts")
           .add(postModel.toFirestore())
-          .then((DocumentReference doc) => {
-                if (kDebugMode)
-                  {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
-              });
+          .then(
+            (DocumentReference doc) => {
+              if (kDebugMode)
+                {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
+            },
+          );
     } catch (e) {
       debugPrint("ERROR POsTing : $e");
     }
@@ -39,10 +41,12 @@ class PostRepository {
       await FirebaseFirestore.instance
           .collection("comments")
           .add(commentModel.toFirestore())
-          .then((DocumentReference doc) => {
-                if (kDebugMode)
-                  {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
-              });
+          .then(
+            (DocumentReference doc) => {
+              if (kDebugMode)
+                {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
+            },
+          );
     } catch (e) {
       debugPrint("ERROR : $e");
     }
@@ -83,8 +87,6 @@ class PostRepository {
       return data;
     } catch (e) {
       rethrow;
-      print("ERROR, postrepo: $e");
-      return [];
     }
   }
 }

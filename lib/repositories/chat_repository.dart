@@ -3,8 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:upmatev2/models/chat_message_model.dart';
 import 'package:upmatev2/models/chat_model.dart';
 
-import '../models/post_model.dart';
-import '../models/user_model.dart';
 import 'auth.dart';
 
 class ChatRepository {

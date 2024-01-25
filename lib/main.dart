@@ -11,7 +11,7 @@ import 'package:upmatev2/bindings/start_binding.dart';
 import 'package:upmatev2/themes/app_theme.dart';
 import 'package:upmatev2/utils/translation.dart';
 import 'package:upmatev2/pages/login.dart';
-import 'package:upmatev2/pages/start.dart';
+import 'package:upmatev2/pages/start_page.dart';
 
 import 'routes/routes.dart';
 
@@ -22,9 +22,11 @@ Future<void> main() async {
   await Firebase.initializeApp();
   FirebaseFirestore.instance.settings =
       const Settings(persistenceEnabled: true);
-  FirebaseAuth.instance.authStateChanges().listen((User? user) {
-    isLogin = user == null;
-  });
+  FirebaseAuth.instance.authStateChanges().listen(
+    (User? user) {
+      isLogin = user == null;
+    },
+  );
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   PhotoManager.clearFileCache();

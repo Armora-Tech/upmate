@@ -20,8 +20,8 @@ class PostDetailTypeComment extends StatelessWidget {
     return Positioned(
       bottom: 0,
       width: Get.width,
-      child: Obx(
-        () => Column(
+      child: GetBuilder<PostDetailController>(
+        builder: (_) => Column(
           children: [
             Container(
               constraints: const BoxConstraints(maxHeight: 140),
@@ -65,7 +65,7 @@ class PostDetailTypeComment extends StatelessWidget {
                               child: TextField(
                                 focusNode: controller.focusNode,
                                 style: AppFont.text16,
-                                controller: controller.comment,
+                                controller: controller.textEditingController,
                                 maxLines: null,
                                 onChanged: (text) {
                                   text.isNotEmpty
@@ -73,6 +73,7 @@ class PostDetailTypeComment extends StatelessWidget {
                                           false
                                       : controller.isTextFieldEmpty.value =
                                           true;
+                                  controller.update();
                                 },
                                 decoration: InputDecoration(
                                   enabledBorder: InputBorder.none,
@@ -95,6 +96,7 @@ class PostDetailTypeComment extends StatelessWidget {
                           onTap: () {
                             controller.isShowEmoji.toggle();
                             controller.focusNode.unfocus();
+                            controller.update();
                           },
                           child: Icon(
                               controller.isShowEmoji.value

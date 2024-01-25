@@ -48,9 +48,8 @@ class ChatRoomChatSection extends StatelessWidget {
                         GestureDetector(
                           onTap: () => Get.to(
                               () => DetailImage(
-                                    image: controller
-                                        .chats[reversedIndex].values.first,
-                                  ),
+                                  image: controller
+                                      .chats[reversedIndex].values.first),
                               opaque: false,
                               fullscreenDialog: true,
                               transition: Transition.noTransition),
@@ -93,14 +92,14 @@ class ChatRoomChatSection extends StatelessWidget {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15)),
                             child: Hero(
-                                tag: controller
-                                        .chats[reversedIndex].values.first
-                                        .toString() +
-                                    DateTime.now().toString(),
-                                child: AssetEntityImage(
-                                  controller.chats[reversedIndex].values.first,
-                                  fit: BoxFit.cover,
-                                )),
+                              tag: controller.chats[reversedIndex].values.first
+                                      .toString() +
+                                  DateTime.now().toString(),
+                              child: AssetEntityImage(
+                                controller.chats[reversedIndex].values.first,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         )
                       else
