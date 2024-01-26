@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:upmatev2/models/chat_message_model.dart';
 import 'package:upmatev2/models/chat_model.dart';
+import 'package:upmatev2/models/user_model.dart';
 
 import 'auth.dart';
 
@@ -14,9 +15,9 @@ class ChatRepository {
           .collection("chats")
           .add(chatModel.toFirestore())
           .then((DocumentReference doc) => {
-        if (kDebugMode)
-          {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
-      });
+                if (kDebugMode)
+                  {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
+              });
     } catch (e) {
       debugPrint("ERROR : $e");
     }
@@ -45,8 +46,8 @@ class ChatRepository {
           .collection('chats')
           .where('users', arrayContains: docRef)
           .withConverter(
-          fromFirestore: ChatModel.fromFirestore,
-          toFirestore: (ChatModel chat, _) => chat.toFirestore())
+              fromFirestore: ChatModel.fromFirestore,
+              toFirestore: (ChatModel chat, _) => chat.toFirestore())
           .get();
 
       for (var data in querySnapshot.docs) {
@@ -63,7 +64,8 @@ class ChatRepository {
     }
   }
 
-  Future<List<ChatMessageModel>> getChatMessages(DocumentReference docRef) async {
+  Future<List<ChatMessageModel>> getChatMessages(
+      DocumentReference docRef) async {
     try {
       List<ChatMessageModel> datas = [];
 
@@ -71,8 +73,9 @@ class ChatRepository {
           .collection('chat_messages')
           .where('chat', isEqualTo: docRef)
           .withConverter(
-          fromFirestore: ChatMessageModel.fromFirestore,
-          toFirestore: (ChatMessageModel chatMessageModel, _) => chatMessageModel.toFirestore())
+              fromFirestore: ChatMessageModel.fromFirestore,
+              toFirestore: (ChatMessageModel chatMessageModel, _) =>
+                  chatMessageModel.toFirestore())
           .get();
 
       for (var data in querySnapshot.docs) {
@@ -86,5 +89,25 @@ class ChatRepository {
       // Handle the error or return an empty list, depending on your requirements.
       return [];
     }
+  }
+
+  Future<List<UserModel>> getContact() async {
+    final user = await _auth.getUserModel();
+    List<UserModel> datas = [];
+
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection("users")
+        .where('interests', arrayContainsAny: user?.interests)
+        .withConverter(
+            fromFirestore: UserModel.fromFirestore,
+            toFirestore: (UserModel user, _) => user.toFirestore())
+        .get();
+
+    for (var data in querySnapshot.docs) {
+      var dataUser = data.data() as UserModel;
+      datas.add(dataUser);
+    }
+
+    return datas;
   }
 }
