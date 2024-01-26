@@ -8,7 +8,8 @@ import 'line.dart';
 
 class SearchTemplate extends StatelessWidget {
   final String title;
-  const SearchTemplate({super.key, required this.title});
+  final Widget child;
+  const SearchTemplate({super.key, required this.title, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +19,12 @@ class SearchTemplate extends StatelessWidget {
         width: Get.width,
         child: Stack(
           children: [
-            const SingleChildScrollView(
+            SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 100),
-                  ],
+                  children: [const SizedBox(height: 120), child],
                 ),
               ),
             ),

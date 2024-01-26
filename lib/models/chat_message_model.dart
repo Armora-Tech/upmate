@@ -7,7 +7,7 @@ class ChatMessageModel {
   DateTime _timestamp;
   DocumentReference _user;
 
-  ChatMessageModel._({
+  ChatMessageModel({
     required DocumentReference ref,
     required DocumentReference chat,
     required String text,
@@ -25,7 +25,7 @@ class ChatMessageModel {
       ) {
     final data = snapshot.data();
 
-    return ChatMessageModel._(
+    return ChatMessageModel(
       ref: snapshot.reference,
       chat: data?['chat'],
       text: data?['text'],

@@ -13,19 +13,21 @@ class ChatList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ChatController>();
-    return controller.chats.isEmpty
+    return controller.contacts.isEmpty
         ? const Center(
-            child: Text("No chats", style: TextStyle(color: Colors.grey)),
-          )
+            child: Text("No chats", style: TextStyle(color: Colors.grey)))
         : ListView.separated(
             scrollDirection: Axis.vertical,
             itemCount: controller.chats.length,
-            separatorBuilder: (context, index) {
-              return const SizedBox(height: 20);
-            },
+            separatorBuilder: (context, index) => const SizedBox(height: 20),
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () => Get.toNamed(RouteName.chatRoom),
+                onTap: () {
+                  controller.selectedContactChat =
+                      controller.chats[index].users![1];
+                  controller.selectedChat = controller.chats[index];
+                  Get.toNamed(RouteName.chatRoom);
+                },
                 child: Container(
                   color: Colors.white,
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -38,21 +40,26 @@ class ChatList extends StatelessWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            const ProfilePicture(size: 50),
+                            ProfilePicture(
+                                size: 50,
+                                imageURL:
+                                    controller.chats[index].users![1].photoUrl),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("Muhammad Rafli Silehu",
+                                  Text(
+                                      controller
+                                          .chats[index].users![1].displayName,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: AppFont.text16.copyWith(
                                           fontWeight: FontWeight.bold)),
                                   Expanded(
                                     child: Text(
-                                        "Hallo kak perkenalkan nama saya perkenalkan lorem ipsum manual 123 tes tes 321 12345 processMotionEvent MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=785.0, y[0]=2145.0, toolType[0]=TOOL_TYPE_FINGER.",
+                                        controller.chats[index].lastMessage,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: AppFont.text12
@@ -68,7 +75,7 @@ class ChatList extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text("3:16 pm",
+                          Text(controller.chats[index].lastMessageTime!,
                               style:
                                   AppFont.text12.copyWith(color: Colors.grey)),
                           const SizedBox(height: 3),

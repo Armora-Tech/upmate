@@ -1,16 +1,21 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_cropper/image_cropper.dart';
+import 'package:upmatev2/controllers/chat_controller.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
 import '../main.dart';
+import '../models/chat_message_model.dart';
 import '../repositories/auth.dart';
+import '../repositories/chat_repository.dart';
 import '../routes/route_name.dart';
 import '../utils/pick_image.dart';
 import '../widgets/global/snack_bar.dart';
+import 'chat_room_controller.dart';
 import 'home_controller.dart';
 import 'start_controller.dart';
 
@@ -254,8 +259,20 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
     Get.forceAppUpdate();
   }
 
-  void sendImageCamera(List<Map<String, dynamic>> chats) {
-    chats.add({"user": image});
+  Future<void> sendImageCamera(
+      ChatRoomController controller, ChatController chatController) async {
+    controller.textEditingController.text = image!.path;
+    //  controller.chatMessage = ChatMessageModel(
+    //     ref: FirebaseFirestore.instance.collection("chat_messages").doc(),
+    //     chat: chatController.connectedUserChat!.ref,
+    //     text: controller.textEditingController.text,
+    //     timestamp: DateTime.now(),
+    //     user: _startController.user!.ref);
+    // await ChatRepository().addMessage(controller.chatMessage!);
+    // controller.chats = await ChatRepository()
+    //     .getChatMessages(chatController.connectedUserChat!.ref);
+    // controller.textEditingController.clear();
+    // controller.isTextFieldEmpty.value = true;
     Get.until((route) => Get.previousRoute == RouteName.chatRoom);
     Get.forceAppUpdate();
   }

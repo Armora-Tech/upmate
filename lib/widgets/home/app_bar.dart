@@ -50,17 +50,12 @@ class HomeAppBar extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Text(
-                          startController.user?.displayName ?? "",
-                          style: AppFont.text20
-                              .copyWith(fontWeight: FontWeight.bold),
-                        ),
+                        Text(startController.user?.displayName ?? "",
+                            style: AppFont.text20
+                                .copyWith(fontWeight: FontWeight.bold)),
                         startController.isLoading.value
                             ? const ShimmerSkelton(
-                                height: 35,
-                                width: 35,
-                                isCircle: true,
-                              )
+                                height: 35, width: 35, isCircle: true)
                             : GetBuilder<HomeController>(
                                 builder: (_) => GestureDetector(
                                   onTap: controller.isLoading.value

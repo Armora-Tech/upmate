@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/camera_controller.dart';
+import 'package:upmatev2/controllers/chat_controller.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
 
@@ -11,6 +12,7 @@ class ConfirmSendImageView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<CameraViewController>();
     final chatRoomController = Get.find<ChatRoomController>();
+    final chatController = Get.find<ChatController>();
     return WillPopScope(
       onWillPop: () async {
         controller.image!.deleteSync();
@@ -58,8 +60,8 @@ class ConfirmSendImageView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30))),
-                  onPressed: () =>
-                      controller.sendImageCamera(chatRoomController.chats),
+                  onPressed: () => controller.sendImageCamera(
+                      chatRoomController, chatController),
                   child: Row(
                     children: [
                       Text(

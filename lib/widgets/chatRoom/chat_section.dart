@@ -23,16 +23,13 @@ class ChatRoomChatSection extends StatelessWidget {
       scrollDirection: Axis.vertical,
       reverse: true,
       itemCount: controller.chats.length,
-      separatorBuilder: (context, index) {
-        return const SizedBox(height: 2);
-      },
+      separatorBuilder: (context, index) => const SizedBox(height: 2),
       itemBuilder: (context, index) {
-        final reversedIndex = controller.chats.length - 1 - index;
-        controller.setMargin(reversedIndex);
+        controller.setMargin(index);
         return SizedBox(
           width: Get.width,
           child: Column(
-            crossAxisAlignment: controller.isUser(reversedIndex)
+            crossAxisAlignment: controller.isUser(index)
                 ? CrossAxisAlignment.end
                 : CrossAxisAlignment.start,
             children: [
@@ -44,12 +41,11 @@ class ChatRoomChatSection extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (controller.chats[reversedIndex].values.first is File)
+                      if (controller.chats[index].text is File)
                         GestureDetector(
                           onTap: () => Get.to(
                               () => DetailImage(
-                                  image: controller
-                                      .chats[reversedIndex].values.first),
+                                  image: controller.chats[index].text),
                               opaque: false,
                               fullscreenDialog: true,
                               transition: Transition.noTransition),
@@ -62,81 +58,81 @@ class ChatRoomChatSection extends StatelessWidget {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15)),
                             child: Hero(
-                              tag: controller.chats[reversedIndex].values.first
-                                      .toString() +
+                              tag: controller.chats[index].text.toString() +
                                   DateTime.now().toString(),
                               child: Image.file(
-                                controller.chats[reversedIndex].values.first,
+                                File(controller.chats[index].text),
                                 gaplessPlayback: true,
                               ),
                             ),
                           ),
                         )
-                      else if (controller.chats[reversedIndex].values.first
-                          is AssetEntity)
-                        GestureDetector(
-                          onTap: () => Get.to(
-                              () => DetailImage(
-                                    image: controller
-                                        .chats[reversedIndex].values.first,
-                                  ),
-                              opaque: false,
-                              fullscreenDialog: true,
-                              transition: Transition.noTransition),
-                          child: Container(
-                            clipBehavior: Clip.hardEdge,
-                            constraints: BoxConstraints(
-                                maxWidth: Get.width * 0.8,
-                                minHeight: 180,
-                                maxHeight: 350),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Hero(
-                              tag: controller.chats[reversedIndex].values.first
-                                      .toString() +
-                                  DateTime.now().toString(),
-                              child: AssetEntityImage(
-                                controller.chats[reversedIndex].values.first,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        )
+                      // else if (controller.chats[index].text
+                      //     is AssetEntity)
+                      //   GestureDetector(
+                      //     onTap: () => Get.to(
+                      //         () => DetailImage(
+                      //               image: controller
+                      //                   .chats[index].text,
+                      //             ),
+                      //         opaque: false,
+                      //         fullscreenDialog: true,
+                      //         transition: Transition.noTransition),
+                      //     child: Container(
+                      //       clipBehavior: Clip.hardEdge,
+                      //       constraints: BoxConstraints(
+                      //           maxWidth: Get.width * 0.8,
+                      //           minHeight: 180,
+                      //           maxHeight: 350),
+                      //       decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.circular(15)),
+                      //       child: Hero(
+                      //         tag: controller.chats[index].text
+                      //                 .toString() +
+                      //             DateTime.now().toString(),
+                      //         child: AssetEntityImage(
+
+                      //           fit: BoxFit.cover,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   )
                       else
                         Container(
                           constraints:
                               BoxConstraints(maxWidth: Get.width * 0.7),
-                          alignment: controller.isUser(reversedIndex)
+                          alignment: controller.isUser(index)
                               ? Alignment.centerRight
                               : Alignment.centerLeft,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 15, vertical: 7),
                           decoration: BoxDecoration(
-                              color: controller.isUser(reversedIndex)
+                              color: controller.isUser(index)
                                   ? Colors.white
                                   : AppColor.primaryColor,
-                              border: controller.isUser(reversedIndex)
+                              border: controller.isUser(index)
                                   ? Border.all(
                                       width: 1,
                                       color: const Color.fromARGB(
                                           255, 144, 172, 183))
                                   : Border.all(width: 0),
-                              borderRadius: controller
-                                  .checkPositionedUserChat(reversedIndex)),
+                              borderRadius:
+                                  controller.checkPositionedUserChat(index)),
                           child: Column(
                             children: [
                               Text(
-                                controller.chats[reversedIndex].values.first,
+                                controller.chats[index].text,
                                 overflow: TextOverflow.clip,
                                 style: TextStyle(
-                                    color: controller.isUser(reversedIndex)
+                                    color: controller.isUser(index)
                                         ? Colors.black
                                         : Colors.white),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text("09.00",
+                                  Text(
+                                      "${controller.chats[index].timestamp.hour}:${controller.chats[index].timestamp.minute.toString().padLeft(2, '0')}",
                                       style: AppFont.text10
                                           .copyWith(color: Colors.grey)),
                                   const SizedBox(width: 3),

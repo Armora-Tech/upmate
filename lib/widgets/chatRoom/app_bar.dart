@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/chat_controller.dart';
 
 import '../../themes/app_color.dart';
 import '../../themes/app_font.dart';
@@ -11,6 +12,7 @@ class ChatRoomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final chatController = Get.find<ChatController>();
     return Positioned(
       top: 0,
       child: Container(
@@ -34,17 +36,22 @@ class ChatRoomAppBar extends StatelessWidget {
                                 color: Colors.white, size: 25),
                           ),
                           const SizedBox(width: 15),
-                          const ProfilePicture(size: 40),
+                          ProfilePicture(
+                            size: 40,
+                            imageURL:
+                                chatController.selectedContactChat!.photoUrl,
+                          ),
                           const SizedBox(width: 10),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  "Muhammad Rafli Silehu",
+                                Text(
+                                  chatController
+                                      .selectedContactChat!.displayName,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),

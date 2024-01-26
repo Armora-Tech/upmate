@@ -7,6 +7,6 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SearchTemplate(title: "search".tr);
+    return SearchTemplate(title: "search".tr, child: const SizedBox());
   }
 }

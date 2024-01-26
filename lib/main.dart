@@ -22,11 +22,9 @@ Future<void> main() async {
   await Firebase.initializeApp();
   FirebaseFirestore.instance.settings =
       const Settings(persistenceEnabled: true);
-  FirebaseAuth.instance.authStateChanges().listen(
-    (User? user) {
-      isLogin = user == null;
-    },
-  );
+  FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    isLogin = user == null;
+  });
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   PhotoManager.clearFileCache();

@@ -72,6 +72,7 @@ class ChatRepository {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('chat_messages')
           .where('chat', isEqualTo: docRef)
+          .orderBy("timestamp", descending: true)
           .withConverter(
               fromFirestore: ChatMessageModel.fromFirestore,
               toFirestore: (ChatMessageModel chatMessageModel, _) =>

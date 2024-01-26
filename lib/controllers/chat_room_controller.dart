@@ -1,9 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
+import 'package:upmatev2/models/chat_message_model.dart';
+import 'package:upmatev2/repositories/chat_repository.dart';
+
+import 'chat_controller.dart';
 
 class ChatRoomController extends GetxController with WidgetsBindingObserver {
+  late final StartController _startController;
+  late final ChatController _chatController;
   late TextEditingController textEditingController;
   late FocusNode focusNode;
   RxDouble defaultRadius = 20.0.obs;
@@ -16,27 +22,14 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   RxBool isLoading = true.obs;
 
   late QuerySnapshot querySnapshot;
-  List<Map<String, dynamic>> chats = [
-    {"user": "P"},
-    {"user": "Hallo bang"},
-    {"user": "Apa kabar?"},
-    {"other": "Alhamdulillah baik bang. Ada apa bang?"},
-    {"other": "Ada apa bang?"},
-    {"user": "ga jadi"},
-    {
-      "other":
-          "Ok bang semoga hari anda senin terus, Ok bang semoga hari anda senin terus"
-    },
-    {
-      "other":
-          "Ok bang semoga hari anda senin terus, Ok bang semoga hari anda senin terus, Ok bang semoga hari anda senin terus"
-    },
-    {"other": "Ok bang semoga hari anda senin terus"},
-  ];
+  List<ChatMessageModel> chats = [];
+  ChatMessageModel? chatMessage;
 
   @override
   void onInit() async {
     WidgetsBinding.instance.addObserver(this);
+    _startController = Get.find<StartController>();
+    _chatController = Get.find<ChatController>();
     textEditingController = TextEditingController();
     focusNode = FocusNode();
     focusNode.addListener(() {
@@ -44,7 +37,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
         isShowEmoji.value = false;
       }
     });
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await _getChatMessages();
     isLoading.value = false;
     update();
     super.onInit();
@@ -58,9 +51,28 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     super.onClose();
   }
 
-  void sendChat() {
-    chats.add({"user": textEditingController.text.trim()});
+  Future<void> _getChatMessages() async {
+    chats = await ChatRepository()
+        .getChatMessages(_chatController.selectedChat!.ref);
+    debugPrint(
+        "wadaw contactdesti: ${_chatController.selectedContactChat!.displayName}");
+    debugPrint(
+        "wadaw user: ${_chatController.selectedChat!.users![0].displayName}");
+    debugPrint(
+        "wadaw other: ${_chatController.selectedChat!.users![1].displayName}");
+    debugPrint("wadaw=======================\n");
+  }
 
+  Future<void> sendChat() async {
+    chatMessage = ChatMessageModel(
+        ref: FirebaseFirestore.instance.collection("chat_messages").doc(),
+        chat: _chatController.selectedChat!.ref,
+        text: textEditingController.text,
+        timestamp: DateTime.now(),
+        user: _startController.user!.ref);
+    await ChatRepository().addMessage(chatMessage!);
+    chats = await ChatRepository()
+        .getChatMessages(_chatController.selectedChat!.ref);
     textEditingController.clear();
     isTextFieldEmpty.value = true;
     Get.forceAppUpdate();
@@ -68,7 +80,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
 
 // cek apakah user yang mengirimkan chat?
   bool isUser(int index) {
-    return chats[index].keys.first == "user";
+    return chats[index].owner.id == _startController.user!.ref.id;
   }
 
 // function yang mengembalikan border radius yang
@@ -76,9 +88,9 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   BorderRadius initialUserChatBorder() {
     return BorderRadius.only(
         topLeft: Radius.circular(defaultRadius.value),
-        topRight: Radius.circular(defaultRadius.value),
+        topRight: Radius.circular(taperRadius.value),
         bottomLeft: Radius.circular(defaultRadius.value),
-        bottomRight: Radius.circular(taperRadius.value));
+        bottomRight: Radius.circular(defaultRadius.value));
   }
 
 // function yang mengembalikan border radius yang
@@ -87,18 +99,18 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     return BorderRadius.only(
         topLeft: Radius.circular(defaultRadius.value),
         bottomLeft: Radius.circular(defaultRadius.value),
-        bottomRight: Radius.circular(defaultRadius.value),
-        topRight: Radius.circular(taperRadius.value));
+        bottomRight: Radius.circular(taperRadius.value),
+        topRight: Radius.circular(defaultRadius.value));
   }
 
 // function yang mengembalikan border radius yang
 // lancip pada bagian kiri bawah pada chat lawannya
   BorderRadius initialOtherChatBorder() {
     return BorderRadius.only(
-        topLeft: Radius.circular(defaultRadius.value),
+        topLeft: Radius.circular(taperRadius.value),
         topRight: Radius.circular(defaultRadius.value),
         bottomRight: Radius.circular(defaultRadius.value),
-        bottomLeft: Radius.circular(taperRadius.value));
+        bottomLeft: Radius.circular(defaultRadius.value));
   }
 
 // function yang mengembalikan border radius yang
@@ -106,9 +118,9 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   BorderRadius finalOtherChatBorder() {
     return BorderRadius.only(
         topRight: Radius.circular(defaultRadius.value),
-        bottomLeft: Radius.circular(defaultRadius.value),
+        bottomLeft: Radius.circular(taperRadius.value),
         bottomRight: Radius.circular(defaultRadius.value),
-        topLeft: Radius.circular(taperRadius.value));
+        topLeft: Radius.circular(defaultRadius.value));
   }
 
 // function untuk mengatur margin antara chat user dan lawannya
@@ -197,4 +209,22 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
       }
     }
   }
+
+  // List<Map<String, dynamic>> chats = [
+  //   {"user": "P"},
+  //   {"user": "Hallo bang"},
+  //   {"user": "Apa kabar?"},
+  //   {"other": "Alhamdulillah baik bang. Ada apa bang?"},
+  //   {"other": "Ada apa bang?"},
+  //   {"user": "ga jadi"},
+  //   {
+  //     "other":
+  //         "Ok bang semoga hari anda senin terus, Ok bang semoga hari anda senin terus"
+  //   },
+  //   {
+  //     "other":
+  //         "Ok bang semoga hari anda senin terus, Ok bang semoga hari anda senin terus, Ok bang semoga hari anda senin terus"
+  //   },
+  //   {"other": "Ok bang semoga hari anda senin terus"},
+  // ];
 }
