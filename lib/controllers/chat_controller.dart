@@ -13,7 +13,7 @@ class ChatController extends GetxController {
   UserModel? selectedContactChat;
   RxBool isLoading = false.obs;
   RxBool isShowSearch = false.obs;
-   late final Stream<QuerySnapshot<Object?>> chatStream;
+   late final Stream<List<ChatModel>> chatStream;
 
   @override
   Future<void> onInit() async {
