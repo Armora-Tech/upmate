@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/chat_controller.dart';
@@ -22,10 +21,10 @@ class ChatList extends StatelessWidget {
             child: Text("No chats", style: TextStyle(color: Colors.grey)))
         : SizedBox(
             width: Get.width,
-            child: StreamBuilder<QuerySnapshot>(
+            child: StreamBuilder<List<ChatModel>>(
               stream: ChatRepository().getChatsStream(),
               builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                  AsyncSnapshot<List<ChatModel>> snapshot) {
                 if (snapshot.hasError) {
                   return const Center(
                     child:
@@ -89,19 +88,17 @@ class ChatList extends StatelessWidget {
                 // }
                 return ListView.separated(
                   scrollDirection: Axis.vertical,
-                  itemCount: snapshot.data!.docs.length,
+                  itemCount: snapshot.data!.length,
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 20),
                   itemBuilder: (context, index) {
-                    ChatModel data =
-                        snapshot.data!.docs[index].data()! as ChatModel;
+                    ChatModel data = snapshot.data![index];
 
                     return GestureDetector(
                       onTap: () {
                         controller.selectedContactChat =
                             controller.chats[index].users![1];
-                        controller.selectedChat =
-                            snapshot.data!.docs[index].data() as ChatModel;
+                        controller.selectedChat = snapshot.data![index];
                         Get.toNamed(RouteName.chatRoom);
                       },
                       child: Container(

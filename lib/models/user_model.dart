@@ -51,7 +51,8 @@ class UserModel {
         email: data?['email'] ?? '',
         interests: data?['interests'] ?? [],
         uid: data?['uid'] ?? '',
-        username: data?['username'] ??
+        username:
+            data?['display_name']==null? "" :
             "@${data?['display_name'].replaceAll(" ", "").toLowerCase()}",
         photoUrl: data?['photo_url'] ??
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&usqp=CAU",
