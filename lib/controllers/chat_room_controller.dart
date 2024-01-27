@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,10 +7,15 @@ import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/models/chat_message_model.dart';
 import 'package:upmatev2/repositories/chat_repository.dart';
 
+import '../utils/upload.dart';
+import 'camera_controller.dart';
 import 'chat_controller.dart';
+import 'gallery_controller.dart';
 
 class ChatRoomController extends GetxController with WidgetsBindingObserver {
+  late final GalleryController _galleryController;
   late final StartController _startController;
+  late final CameraViewController _cameraViewController;
   late final ChatController _chatController;
   late TextEditingController textEditingController;
   late FocusNode focusNode;
@@ -28,7 +35,9 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   @override
   void onInit() async {
     WidgetsBinding.instance.addObserver(this);
+    _galleryController = Get.find<GalleryController>();
     _startController = Get.find<StartController>();
+    _cameraViewController = Get.find<CameraViewController>();
     _chatController = Get.find<ChatController>();
     textEditingController = TextEditingController();
     focusNode = FocusNode();
@@ -64,12 +73,47 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   }
 
   Future<void> sendChat() async {
+    String? imgUrl;
+    if (_cameraViewController.image == null) {
+      for (var asset in _galleryController.selectedAssetList) {
+        try {
+          final response = await Upload().uploadImage(asset);
+          if (response.statusCode == 200) {
+            final responseData = response.body;
+            final jsonResponse = jsonDecode(responseData);
+            imgUrl = (jsonResponse['url']);
+          } else {
+            //error
+            return;
+          }
+        } catch (error) {
+          return;
+        }
+      }
+    } else if(_galleryController.image!=null){
+      try {
+        final response =
+        await Upload().uploadImage(_cameraViewController.image);
+        if (response.statusCode == 200) {
+          final responseData = response.body;
+          final jsonResponse = jsonDecode(responseData);
+          imgUrl = (jsonResponse['url']);
+        } else {
+          //error
+          return;
+        }
+      } catch (error) {
+        return;
+      }
+    }
+
     chatMessage = ChatMessageModel(
         ref: FirebaseFirestore.instance.collection("chat_messages").doc(),
         chat: _chatController.selectedChat!.ref,
         text: textEditingController.text,
         timestamp: DateTime.now(),
-        user: _startController.user!.ref);
+        user: _startController.user!.ref,
+        image: imgUrl);
     await ChatRepository().addMessage(chatMessage!);
     chats = await ChatRepository()
         .getChatMessages(_chatController.selectedChat!.ref);

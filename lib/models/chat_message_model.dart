@@ -6,6 +6,7 @@ class ChatMessageModel {
   String _text;
   DateTime _timestamp;
   DocumentReference _user;
+  String? _image;
 
   ChatMessageModel({
     required DocumentReference ref,
@@ -13,25 +14,27 @@ class ChatMessageModel {
     required String text,
     required DateTime timestamp,
     required DocumentReference user,
+    String? image,
   })  : _ref = ref,
         _chat = chat,
         _text = text,
         _timestamp = timestamp,
-        _user = user;
+        _user = user,
+        _image = image;
 
   factory ChatMessageModel.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options,
-      ) {
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
     final data = snapshot.data();
 
     return ChatMessageModel(
-      ref: snapshot.reference,
-      chat: data?['chat'],
-      text: data?['text'],
-      timestamp: (data?['timestamp'] as Timestamp?)!.toDate(),
-      user: data?['user']
-    );
+        ref: snapshot.reference,
+        chat: data?['chat'],
+        text: data?['text'],
+        timestamp: (data?['timestamp'] as Timestamp?)!.toDate(),
+        user: data?['user'],
+        image: data?['image']);
   }
 
   Map<String, dynamic> toFirestore() {
@@ -39,13 +42,20 @@ class ChatMessageModel {
       "chat": _chat,
       "text": _text,
       "timestamp": _timestamp,
-      "user": _user
+      "user": _user,
+      "image": _image
     };
   }
 
   DocumentReference get ref => _ref;
+
   DocumentReference get chatRef => _chat;
+
   String get text => _text;
+
   DateTime get timestamp => _timestamp;
+
   DocumentReference get owner => _user;
+
+  String? get image => _image;
 }
