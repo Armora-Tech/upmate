@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
-
-import '../../themes/app_color.dart';
-import '../../themes/app_font.dart';
 
 class ChatShimmer extends StatelessWidget {
   const ChatShimmer({super.key});
@@ -20,7 +15,7 @@ class ChatShimmer extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 110),
+              const SizedBox(height: 25),
               Expanded(
                 child: Column(
                   children: List.generate(
@@ -63,44 +58,6 @@ class ChatShimmer extends StatelessWidget {
                 ),
               )
             ],
-          ),
-          Positioned(
-            top: 0,
-            child: Container(
-              color: Colors.white,
-              width: Get.width,
-              child: SafeArea(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 13),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("chat".tr,
-                              style: AppFont.text23
-                                  .copyWith(fontWeight: FontWeight.bold)),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                "assets/svg/search.svg",
-                                colorFilter: const ColorFilter.mode(
-                                    AppColor.black, BlendMode.srcIn),
-                              ),
-                              const SizedBox(width: 20),
-                              SvgPicture.asset("assets/svg/more_vert.svg",
-                                  height: 22),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    const Line()
-                  ],
-                ),
-              ),
-            ),
           ),
         ],
       ),

@@ -24,6 +24,7 @@ class ChatRoomChatSection extends StatelessWidget {
         stream: ChatRepository()
             .getChatMessagesStream(chatController.selectedChat!.ref),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          debugPrint("REBUILD");
           if (snapshot.hasError) {
             return const Text('Something went wrong');
           }
@@ -31,7 +32,7 @@ class ChatRoomChatSection extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Text("Loading");
           }
-
+          controller.snapshot = snapshot;
           return ListView.separated(
             padding: const EdgeInsets.only(
                 left: 10, right: 10, top: 120, bottom: 100),
@@ -127,18 +128,12 @@ class ChatRoomChatSection extends StatelessWidget {
                                                   ? Colors.black
                                                   : Colors.white),
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                                "${controller.chats[index].timestamp.hour}:${controller.chats[index].timestamp.minute.toString().padLeft(2, '0')}",
-                                                style: AppFont.text10.copyWith(
-                                                    color: Colors.grey)),
-                                            const SizedBox(width: 3),
-                                            const Icon(Icons.check_rounded,
-                                                color: Colors.grey, size: 16)
-                                          ],
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                              "${data.timestamp.hour}:${data.timestamp.minute.toString().padLeft(2, '0')}",
+                                              style: AppFont.text10.copyWith(
+                                                  color: Colors.grey)),
                                         ),
                                       ],
                                     ),

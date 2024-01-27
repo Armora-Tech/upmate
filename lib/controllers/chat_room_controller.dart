@@ -34,6 +34,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   RxBool isLoading = true.obs;
   RxBool isSendingPicture = false.obs;
   String? imgUrl;
+  AsyncSnapshot<QuerySnapshot>? snapshot;
 
   late QuerySnapshot querySnapshot;
   List<ChatMessageModel> chats = [];
@@ -141,7 +142,8 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
 
 // cek apakah user yang mengirimkan chat?
   bool isUser(int index) {
-    return chats[index].owner.id == _startController.user!.ref.id;
+    final data = snapshot!.data!.docs[index].data() as ChatMessageModel;
+    return data.owner.id == _startController.user!.ref.id;
   }
 
 // function yang mengembalikan border radius yang
@@ -186,6 +188,8 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
 
 // function untuk mengatur margin antara chat user dan lawannya
   void setMargin(int index) {
+    final data = snapshot!.data!.docs;
+
     // chatnya user
     if (isUser(index)) {
       if (index == 0) {
@@ -198,7 +202,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
         marginBottom.value = 0;
       }
       // kalau setelahnya chat lawan
-      else if (index != chats.length - 1 && !isUser(index + 1)) {
+      else if (index != data.length - 1 && !isUser(index + 1)) {
         marginBottom.value = 10;
         marginTop.value = 0;
       }
@@ -221,7 +225,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
         marginBottom.value = 0;
       }
       // bawah beda
-      else if (index != chats.length - 1 && isUser(index + 1)) {
+      else if (index != data.length - 1 && isUser(index + 1)) {
         marginBottom.value = 10;
         marginTop.value = 0;
       }
@@ -235,15 +239,16 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
 
 // function untuk mengatur border radius border chatnya
   BorderRadius checkPositionedUserChat(int index) {
+    final data = snapshot!.data!.docs;
     // konsepnya sama seperti yang diatas bedanya dia ngereturn borderRadius
     if (isUser(index)) {
       if (index == 0) {
         return initialUserChatBorder();
-      } else if (index == chats.length - 1) {
+      } else if (index == data.length - 1) {
         return finalUserChatBorder();
       } else if (index != 0 && !isUser(index - 1)) {
         return initialUserChatBorder();
-      } else if (index != chats.length - 1 && !isUser(index + 1)) {
+      } else if (index != data.length - 1 && !isUser(index + 1)) {
         return finalUserChatBorder();
       } else {
         return BorderRadius.only(
@@ -255,11 +260,11 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     } else {
       if (index == 0) {
         return initialOtherChatBorder();
-      } else if (index == chats.length - 1) {
+      } else if (index == data.length - 1) {
         return finalOtherChatBorder();
       } else if (index != 0 && isUser(index - 1)) {
         return initialOtherChatBorder();
-      } else if (index != chats.length - 1 && isUser(index + 1)) {
+      } else if (index != data.length - 1 && isUser(index + 1)) {
         return finalOtherChatBorder();
       } else {
         return BorderRadius.only(
@@ -270,22 +275,4 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
       }
     }
   }
-
-  // List<Map<String, dynamic>> chats = [
-  //   {"user": "P"},
-  //   {"user": "Hallo bang"},
-  //   {"user": "Apa kabar?"},
-  //   {"other": "Alhamdulillah baik bang. Ada apa bang?"},
-  //   {"other": "Ada apa bang?"},
-  //   {"user": "ga jadi"},
-  //   {
-  //     "other":
-  //         "Ok bang semoga hari anda senin terus, Ok bang semoga hari anda senin terus"
-  //   },
-  //   {
-  //     "other":
-  //         "Ok bang semoga hari anda senin terus, Ok bang semoga hari anda senin terus, Ok bang semoga hari anda senin terus"
-  //   },
-  //   {"other": "Ok bang semoga hari anda senin terus"},
-  // ];
 }
