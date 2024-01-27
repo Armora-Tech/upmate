@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -66,36 +65,12 @@ class PostController extends GetxController {
     isLoading.value = true;
     List<String> imgUrl = [];
     if (_cameraViewController.image == null) {
-      for (var asset in _galleryController.selectedAssetList) {
-        try {
-          final response = await Upload().uploadImage(asset);
-          if (response.statusCode == 200) {
-            final responseData = response.body;
-            final jsonResponse = jsonDecode(responseData);
-            imgUrl.add(jsonResponse['url']);
-          } else {
-            //error
-            return;
-          }
-        } catch (error) {
-          return;
-        }
-      }
+      final imgUploaded = await Upload().uploadFromGallery(_galleryController);
+      imgUrl.add(imgUploaded);
     } else {
-      try {
-        final response =
-            await Upload().uploadImage(_cameraViewController.image);
-        if (response.statusCode == 200) {
-          final responseData = response.body;
-          final jsonResponse = jsonDecode(responseData);
-          imgUrl.add(jsonResponse['url']);
-        } else {
-          //error
-          return;
-        }
-      } catch (error) {
-        return;
-      }
+      final imgUploaded =
+          await Upload().uploadFromCamera(_cameraViewController);
+      imgUrl.add(imgUploaded);
     }
 
     PostModel postModel = PostModel(

@@ -7,7 +7,6 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
-import 'package:upmatev2/models/chat_message_model.dart';
 import 'package:upmatev2/repositories/auth.dart';
 
 import '../routes/route_name.dart';
@@ -62,14 +61,6 @@ class GalleryController extends GetxController {
       selectedAssetList.add(image);
     }
     update();
-  }
-
-  void sendImageGallery(List<ChatMessageModel> chats) {
-    for (AssetEntity i in selectedAssetList) {
-      // chats.add({"user": i});
-    }
-    Get.forceAppUpdate();
-    Get.back();
   }
 
   void addPostImage(AssetEntity image) {

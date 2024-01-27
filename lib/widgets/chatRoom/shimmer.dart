@@ -33,12 +33,13 @@ class ChatRoomShimmer extends StatelessWidget {
                       height: 50,
                       width: 120,
                       decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(defaultRadius),
-                              topRight: Radius.circular(defaultRadius),
-                              bottomLeft: Radius.circular(defaultRadius),
-                              bottomRight: Radius.circular(taperRadius))),
+                        color: Colors.black,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(defaultRadius),
+                            topRight: Radius.circular(defaultRadius),
+                            bottomLeft: Radius.circular(defaultRadius),
+                            bottomRight: Radius.circular(taperRadius)),
+                      ),
                     ),
                   ),
                 ),
@@ -68,10 +69,7 @@ class ChatRoomShimmer extends StatelessWidget {
                     baseColor: Colors.grey.shade300,
                     highlightColor: Colors.grey.shade100,
                     child: Container(
-                      margin: const EdgeInsets.only(
-                        right: 10,
-                        bottom: 3,
-                      ),
+                      margin: const EdgeInsets.only(right: 10, bottom: 3),
                       height: 50,
                       width: 200,
                       decoration: BoxDecoration(
@@ -227,10 +225,8 @@ class ChatRoomShimmer extends StatelessWidget {
                         children: [
                           const Icon(Icons.emoji_emotions_outlined),
                           const SizedBox(width: 17),
-                          Text(
-                            "type_a_message".tr,
-                            style: const TextStyle(color: Colors.grey),
-                          )
+                          Text("type_a_message".tr,
+                              style: const TextStyle(color: Colors.grey))
                         ],
                       ),
                     ),

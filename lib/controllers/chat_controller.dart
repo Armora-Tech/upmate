@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/models/chat_model.dart';
@@ -14,11 +13,13 @@ class ChatController extends GetxController {
   UserModel? selectedContactChat;
   RxBool isLoading = false.obs;
   RxBool isShowSearch = false.obs;
+   late final Stream<QuerySnapshot<Object?>> chatStream;
 
   @override
   Future<void> onInit() async {
     _startController = Get.find<StartController>();
     await _getChats();
+    chatStream =  ChatRepository().getChatsStream();
     super.onInit();
   }
 

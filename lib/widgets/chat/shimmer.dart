@@ -39,13 +39,8 @@ class ChatShimmer extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 ShimmerSkelton(
-                                  height: 50,
-                                  width: 50,
-                                  isCircle: true
-                                ),
-                                SizedBox(
-                                  width: 8
-                                ),
+                                    height: 50, width: 50, isCircle: true),
+                                SizedBox(width: 8),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -53,9 +48,7 @@ class ChatShimmer extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       ShimmerSkelton(height: 15, width: 150),
-                                      SizedBox(
-                                        height: 5
-                                      ),
+                                      SizedBox(height: 5),
                                       ShimmerSkelton(height: 8, width: 70),
                                     ],
                                   ),
@@ -85,11 +78,9 @@ class ChatShimmer extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "chat".tr,
-                            style: AppFont.text23
-                                .copyWith(fontWeight: FontWeight.bold)
-                          ),
+                          Text("chat".tr,
+                              style: AppFont.text23
+                                  .copyWith(fontWeight: FontWeight.bold)),
                           Row(
                             children: [
                               SvgPicture.asset(

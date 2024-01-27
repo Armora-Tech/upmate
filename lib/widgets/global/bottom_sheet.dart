@@ -16,7 +16,7 @@ import 'package:upmatev2/widgets/global/skelton.dart';
 
 class BottomSheetWidget {
   static void showGalleryChat(
-      GalleryController controller, ChatRoomController chatController) {
+      GalleryController controller, ChatRoomController chatRoomController) {
     Get.bottomSheet(
       isScrollControlled: true,
       GetBuilder<GalleryController>(
@@ -66,10 +66,7 @@ class BottomSheetWidget {
                           final double size = Get.width / 3;
                           return controller.assetList.isEmpty
                               ? ShimmerSkelton(
-                                  height: size,
-                                  width: size,
-                                  borderRadius: 0,
-                                )
+                                  height: size, width: size, borderRadius: 0)
                               : GestureDetector(
                                   onTap: () => controller
                                       .addImage(controller.assetList[index]),
@@ -131,10 +128,7 @@ class BottomSheetWidget {
                   ),
                   onPressed: () {
                     Get.back();
-                    Get.to(
-                        () => const CameraView(
-                              page: CameraPage.chat,
-                            ),
+                    Get.to(() => const CameraView(page: CameraPage.chat),
                         transition: Transition.rightToLeft);
                   },
                   child: IntrinsicWidth(
@@ -166,13 +160,12 @@ class BottomSheetWidget {
                       backgroundColor: AppColor.primaryColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30))),
-                  onPressed: () =>
-                      controller.sendImageGallery(chatController.chats),
+                  onPressed: () => chatRoomController.sendImageFromGallery(),
                   child: IntrinsicWidth(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "${"send".tr}"
+                        "${"send".tr} "
                         "(${controller.selectedAssetList.length})",
                         style: AppFont.text16.copyWith(color: Colors.white),
                       ),

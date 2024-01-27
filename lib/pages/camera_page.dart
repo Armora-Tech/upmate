@@ -98,6 +98,8 @@ class CameraView extends StatelessWidget {
                                             await controller
                                                 .takePictureOfPost();
                                           } else if (page == CameraPage.chat) {
+                                            debugPrint("widiw dijjjjjjjhsfsd");
+
                                             await controller.takePictureChat();
                                           }
                                         },

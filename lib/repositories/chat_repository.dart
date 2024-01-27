@@ -25,6 +25,10 @@ class ChatRepository {
 
   Future<void> addMessage(ChatMessageModel chatMessageModel) async {
     try {
+      await chatMessageModel.chatRef.update({
+        "last_message": chatMessageModel.text,
+        "last_message_time": chatMessageModel.timestamp
+      });
       await FirebaseFirestore.instance
           .collection("chat_messages")
           .add(chatMessageModel.toFirestore())
@@ -110,5 +114,29 @@ class ChatRepository {
     }
 
     return datas;
+  }
+
+  Stream<QuerySnapshot> getChatsStream() {
+    DocumentReference docRef = _auth.getCurrentUserReference();
+
+    return FirebaseFirestore.instance
+        .collection('chats')
+        .where('users', arrayContains: docRef)
+        .withConverter(
+            fromFirestore: ChatModel.fromFirestore,
+            toFirestore: (ChatModel chat, _) => chat.toFirestore())
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot> getChatMessagesStream(DocumentReference docRef) {
+    return FirebaseFirestore.instance
+        .collection('chat_messages')
+        .where('chat', isEqualTo: docRef)
+        .orderBy("timestamp", descending: true)
+        .withConverter(
+            fromFirestore: ChatMessageModel.fromFirestore,
+            toFirestore: (ChatMessageModel chatMessageModel, _) =>
+                chatMessageModel.toFirestore())
+        .snapshots();
   }
 }

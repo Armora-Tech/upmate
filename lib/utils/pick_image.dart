@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:upmatev2/themes/app_color.dart';
@@ -17,7 +19,7 @@ class PickImage {
     return await _imageCropper.cropImage(
       sourcePath: file.path,
       cropStyle: cropStyle,
-      compressQuality: 100,
+      compressQuality: 50,
       aspectRatioPresets: isBanner
           ? [CropAspectRatioPreset.ratio16x9]
           : [
@@ -50,7 +52,7 @@ class PickImage {
     return await _imageCropper.cropImage(
       sourcePath: file.path,
       cropStyle: CropStyle.rectangle,
-      compressQuality: 100,
+      compressQuality: 50,
       aspectRatioPresets: [
         CropAspectRatioPreset.square,
       ],
@@ -97,5 +99,19 @@ class PickImage {
       PhotoManager.openSetting();
     }
     return assets;
+  }
+
+    Future<Uint8List?> compressImage(Uint8List file) async {
+    try {
+      final Uint8List compressedFile =
+          await FlutterImageCompress.compressWithList(
+        file,
+        quality: 25,
+      );
+      return compressedFile;
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
   }
 }
