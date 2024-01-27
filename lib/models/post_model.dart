@@ -112,6 +112,7 @@ class PostModel {
     QuerySnapshot querySnapshots = await FirebaseFirestore.instance
         .collection("comments")
         .where("post_ref", isEqualTo: _ref)
+        .orderBy("date", descending: true)
         .withConverter(
             fromFirestore: CommentModel.fromFirestore,
             toFirestore: (CommentModel comment, _) => comment.toFirestore())

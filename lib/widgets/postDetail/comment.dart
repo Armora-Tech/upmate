@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/models/post_model.dart';
+import 'package:upmatev2/widgets/global/cached_network_image.dart';
 
 import '../../themes/app_font.dart';
 
@@ -30,7 +31,12 @@ class PostDetailCommentSection extends StatelessWidget {
                               clipBehavior: Clip.hardEdge,
                               decoration:
                                   const BoxDecoration(shape: BoxShape.circle),
-                              child: Image.network(comment.user!.photoUrl!,
+                              child: CachedNetworkImageWidget(
+                                  imageUrl: comment.user!.photoUrl!,
+                                  circularProgressSize: 20,
+                                  heightPlaceHolder: 25,
+                                  widthPlaceHolder: 25,
+                                  radiusPlaceHolder: 25,
                                   fit: BoxFit.cover),
                             ),
                             Expanded(

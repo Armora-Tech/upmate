@@ -79,7 +79,14 @@ class ChatList extends StatelessWidget {
                     ),
                   );
                 }
-
+                // if (snapshot.hasData) {
+                //   for (var i in snapshot.data!.docs) {
+                //     debugPrint("hallo");
+                //     final data = i.data() as ChatModel;
+                //     data.initUsers();
+                //     debugPrint("hallo ${data.users?[1].displayName}");
+                //   }
+                // }
                 return ListView.separated(
                   scrollDirection: Axis.vertical,
                   itemCount: snapshot.data!.docs.length,
@@ -111,7 +118,8 @@ class ChatList extends StatelessWidget {
                                 children: [
                                   ProfilePicture(
                                       size: 50,
-                                      imageURL: data.users![1].photoUrl),
+                                      imageURL: controller
+                                          .chats[index].users![1].photoUrl),
                                   const SizedBox(width: 8),
                                   Expanded(
                                     child: Column(
@@ -120,7 +128,9 @@ class ChatList extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text(data.users![1].displayName,
+                                        Text(
+                                            controller.chats[index].users![1]
+                                                .displayName,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: AppFont.text16.copyWith(

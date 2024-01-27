@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../controllers/start_controller.dart';
 import '../../models/post_model.dart';
+import '../global/cached_network_image.dart';
 import '../home/pop_up_delete_post.dart';
 
 class PostDetailHeader extends StatelessWidget {
@@ -26,7 +27,13 @@ class PostDetailHeader extends StatelessWidget {
                   margin: const EdgeInsets.only(right: 10),
                   clipBehavior: Clip.hardEdge,
                   decoration: const BoxDecoration(shape: BoxShape.circle),
-                  child: Image.network(post.userPhoto!, fit: BoxFit.cover),
+                  child: CachedNetworkImageWidget(
+                      imageUrl: post.userPhoto!,
+                      circularProgressSize: 20,
+                      heightPlaceHolder: 35,
+                      widthPlaceHolder: 35,
+                      radiusPlaceHolder: 35,
+                      fit: BoxFit.cover),
                 ),
                 Expanded(
                   child: Column(

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
+import 'package:upmatev2/themes/app_color.dart';
 
 class MyPost extends StatelessWidget {
   const MyPost({super.key});
@@ -31,21 +32,18 @@ class MyPost extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () {
-                  Get.toNamed(RouteName.postDetail,
-                      arguments: startController.myPosts![index]);
-                },
+                onTap: () => Get.toNamed(RouteName.postDetail,
+                    arguments: startController.myPosts![index]),
                 child: Container(
                   height: Get.width / 3,
                   width: Get.width / 3,
-                  color: Colors.grey,
+                  color: AppColor.greyShimmer,
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
                       Image.network(
-                        startController.myPosts![index].postPhoto![0],
-                        fit: BoxFit.cover,
-                      ),
+                          startController.myPosts![index].postPhoto![0],
+                          fit: BoxFit.cover),
                       startController.myPosts![index].postPhoto!.length > 1
                           ? Positioned(
                               top: 5,

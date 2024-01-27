@@ -1,11 +1,6 @@
-// ignore_for_file: must_be_immutable
-
-import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:photo_manager/photo_manager.dart';
-import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/zoom_image_controller.dart';
 
 class DetailImage extends StatelessWidget {
@@ -33,31 +28,8 @@ class DetailImage extends StatelessWidget {
                   minScale: controller.minScale.value,
                   maxScale: controller.maxScale.value,
                   onInteractionEnd: (details) => controller.resetZoom(),
-                  child: (image is AssetEntity)
-                      ? SizedBox(
-                          height: Get.height,
-                          width: Get.width,
-                          child: AssetEntityImage(
-                            image,
-                            fit: BoxFit.contain,
-                            alignment: Alignment.center,
-                          ),
-                        )
-                      : (image is File)
-                          ? SizedBox(
-                              height: Get.height,
-                              width: Get.width,
-                              child: Image.file(
-                                image,
-                                fit: BoxFit.contain,
-                                alignment: Alignment.center,
-                              ),
-                            )
-                          : Image.network(
-                              image,
-                              fit: BoxFit.contain,
-                              alignment: Alignment.center,
-                            ),
+                  child: Image.network(image,
+                      fit: BoxFit.contain, alignment: Alignment.center),
                 ),
               ),
             ),

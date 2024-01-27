@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -78,9 +79,21 @@ class ChatRoomChatSection extends StatelessWidget {
                                       child: Hero(
                                         tag: data.image.toString() +
                                             DateTime.now().toString(),
-                                        child: Image.network(data.image!,
-                                            gaplessPlayback: true,
-                                            fit: BoxFit.cover),
+                                        child: CachedNetworkImage(
+                                          imageUrl: data.image!,
+                                          fit: BoxFit.cover,
+                                          placeholder: (context, url) =>
+                                              Container(
+                                            clipBehavior: Clip.hardEdge,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                            child: Image.network(url,
+                                                fit: BoxFit.cover),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                        ),
                                       ),
                                     ),
                                   )

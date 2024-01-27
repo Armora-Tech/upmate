@@ -24,9 +24,8 @@ class DetailBanner extends StatelessWidget {
                 clipBehavior: Clip.hardEdge,
                 decoration: const BoxDecoration(color: Colors.grey),
                 child: Image.network(
-                  otherUserPhoto ?? controller.user!.bannerUrl!,
-                  fit: BoxFit.cover,
-                ),
+                    otherUserPhoto ?? controller.user!.bannerUrl!,
+                    fit: BoxFit.cover),
               ),
             ),
           ),

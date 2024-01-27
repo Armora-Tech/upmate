@@ -9,6 +9,7 @@ import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/detail_profile_picture.dart';
+import '../global/cached_network_image.dart';
 import '../global/line.dart';
 
 class SideBar extends StatelessWidget {
@@ -57,10 +58,13 @@ class SideBar extends StatelessWidget {
                     children: [
                       startController.user!.bannerUrl == null
                           ? const SizedBox()
-                          : Image.network(
-                              startController.user!.bannerUrl!,
-                              fit: BoxFit.cover,
-                            ),
+                          : CachedNetworkImageWidget(
+                              imageUrl: startController.user!.bannerUrl!,
+                              circularProgressSize: 20,
+                              heightPlaceHolder: Get.height,
+                              widthPlaceHolder: Get.width,
+                              radiusPlaceHolder: 0,
+                              fit: BoxFit.cover),
                       startController.user!.bannerUrl == null
                           ? const SizedBox()
                           : BackdropFilter(
@@ -98,7 +102,12 @@ class SideBar extends StatelessWidget {
                                     Border.all(width: 1.5, color: Colors.white),
                                 shape: BoxShape.circle),
                             child: ClipOval(
-                              child: Image.network(controller.user!.photoUrl!,
+                              child: CachedNetworkImageWidget(
+                                  imageUrl: controller.user!.photoUrl!,
+                                  circularProgressSize: 20,
+                                  heightPlaceHolder: 75,
+                                  widthPlaceHolder: 75,
+                                  radiusPlaceHolder: 75,
                                   fit: BoxFit.cover),
                             ),
                           ),

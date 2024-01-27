@@ -55,10 +55,9 @@ class OtherUserPost extends StatelessWidget {
                               fit: StackFit.expand,
                               children: [
                                 Image.network(
-                                  controller
-                                      .otherUser.posts![index].postPhoto![0],
-                                  fit: BoxFit.cover,
-                                ),
+                                    controller
+                                        .otherUser.posts![index].postPhoto![0],
+                                    fit: BoxFit.cover),
                                 controller.otherUser.posts![index].postPhoto!
                                             .length >
                                         1

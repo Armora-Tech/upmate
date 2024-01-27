@@ -7,6 +7,7 @@ import 'package:upmatev2/models/post_model.dart';
 import 'package:upmatev2/routes/route_name.dart';
 
 import '../../themes/app_font.dart';
+import '../global/cached_network_image.dart';
 
 class PostCommentSection extends StatelessWidget {
   final PostModel post;
@@ -45,7 +46,12 @@ class PostCommentSection extends StatelessWidget {
                               clipBehavior: Clip.hardEdge,
                               decoration:
                                   const BoxDecoration(shape: BoxShape.circle),
-                              child: Image.network(comment.user!.photoUrl!,
+                              child: CachedNetworkImageWidget(
+                                  imageUrl: comment.user!.photoUrl!,
+                                  circularProgressSize: 20,
+                                  heightPlaceHolder: 25,
+                                  widthPlaceHolder: 25,
+                                  radiusPlaceHolder: 25,
                                   fit: BoxFit.cover),
                             ),
                             Expanded(

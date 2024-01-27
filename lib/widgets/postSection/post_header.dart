@@ -7,6 +7,7 @@ import '../../controllers/home_controller.dart';
 import '../../controllers/start_controller.dart';
 import '../../routes/route_name.dart';
 import '../../themes/app_color.dart';
+import '../global/cached_network_image.dart';
 import '../global/skelton.dart';
 
 class PostHeader extends StatelessWidget {
@@ -47,10 +48,13 @@ class PostHeader extends StatelessWidget {
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               color: AppColor.lightGrey),
-                          child: Image.network(
-                            controller.posts![index].userPhoto!,
-                            fit: BoxFit.cover,
-                          ),
+                          child: CachedNetworkImageWidget(
+                              imageUrl: controller.posts![index].userPhoto!,
+                              circularProgressSize: 15,
+                              heightPlaceHolder: 35,
+                              widthPlaceHolder: 35,
+                              radiusPlaceHolder: 35,
+                              fit: BoxFit.cover),
                         ),
                   controller.isLoading.value
                       ? const SizedBox(width: 10)

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:upmatev2/controllers/observer/dots_indicator_controller.dart';
 import 'package:upmatev2/models/post_model.dart';
 import '../../themes/app_color.dart';
+import '../global/cached_network_image.dart';
 import '../global/detail_image.dart';
 
 class PostImage extends StatelessWidget {
@@ -40,7 +41,13 @@ class PostImage extends StatelessWidget {
                     width: Get.width,
                     child: Hero(
                       tag: image,
-                      child: Image.network(image, fit: BoxFit.cover),
+                      child: CachedNetworkImageWidget(
+                          imageUrl: image,
+                          circularProgressSize: 30,
+                          heightPlaceHolder: Get.width,
+                          widthPlaceHolder: Get.width,
+                          radiusPlaceHolder: 0,
+                          fit: BoxFit.cover),
                     ),
                   ),
                 );
