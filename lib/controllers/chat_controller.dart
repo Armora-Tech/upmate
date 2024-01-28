@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/models/chat_model.dart';
@@ -7,20 +8,31 @@ import 'package:upmatev2/repositories/chat_repository.dart';
 
 class ChatController extends GetxController {
   late final StartController _startController;
+  late final Stream<List<ChatModel>> chatStream;
+  late List<UserModel> listSearchResult;
+  late final TextEditingController searchText;
   List<ChatModel> chats = [];
   List<UserModel> contacts = [];
   ChatModel? selectedChat;
-  UserModel? selectedContactChat;
+  UserModel? selectedContact;
   RxBool isLoading = false.obs;
   RxBool isShowSearch = false.obs;
-   late final Stream<List<ChatModel>> chatStream;
+  RxBool isSearchTextEmpty = true.obs;
 
   @override
   Future<void> onInit() async {
     _startController = Get.find<StartController>();
+    searchText = TextEditingController();
     await _getChats();
-    chatStream =  ChatRepository().getChatsStream();
+    chatStream = ChatRepository().getChatsStream();
+    listSearchResult = List.from(contacts);
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    searchText.dispose();
+    super.onClose();
   }
 
   Future<void> createChat() async {
@@ -31,7 +43,7 @@ class ChatController extends GetxController {
         lastMessageTime: DateTime.now(),
         usersRaw: [
           _startController.user!.ref as DocumentReference<Map<String, dynamic>>,
-          selectedContactChat!.ref as DocumentReference<Map<String, dynamic>>
+          selectedContact!.ref as DocumentReference<Map<String, dynamic>>
         ]);
     await ChatRepository().createChat(chatModel);
     chats = await ChatRepository().getChats();
@@ -45,5 +57,24 @@ class ChatController extends GetxController {
     contacts = await ChatRepository().getContact();
     isLoading.value = false;
     update();
+  }
+
+  void handleSearch(String text) {
+    if (text.isNotEmpty) {
+      isSearchTextEmpty.value = false;
+    } else {
+      isSearchTextEmpty.value = true;
+    }
+    listSearchResult = contacts
+        .where((element) =>
+            element.displayName.toLowerCase().contains(text.toLowerCase()))
+        .toList();
+    update();
+  }
+
+  void back() {
+    searchText.clear();
+    isSearchTextEmpty.value = true;
+    listSearchResult = List.from(contacts);
   }
 }

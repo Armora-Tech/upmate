@@ -39,7 +39,7 @@ class ChatRoomAppBar extends StatelessWidget {
                           ProfilePicture(
                             size: 40,
                             imageURL:
-                                chatController.selectedContactChat!.photoUrl,
+                                chatController.selectedContact!.photoUrl,
                           ),
                           const SizedBox(width: 10),
                           Expanded(
@@ -48,7 +48,7 @@ class ChatRoomAppBar extends StatelessWidget {
                               children: [
                                 Text(
                                   chatController
-                                      .selectedContactChat!.displayName,
+                                      .selectedContact!.displayName,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(

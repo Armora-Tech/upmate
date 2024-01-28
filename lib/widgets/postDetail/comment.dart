@@ -22,12 +22,14 @@ class PostDetailCommentSection extends StatelessWidget {
                 children: post.comments!
                     .map<Widget>(
                       (comment) => Padding(
-                        padding: const EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.only(top: 15),
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               width: 25,
-                              margin: const EdgeInsets.only(right: 10),
+                              margin:
+                                  const EdgeInsets.only(right: 10, top: 1.5),
                               clipBehavior: Clip.hardEdge,
                               decoration:
                                   const BoxDecoration(shape: BoxShape.circle),

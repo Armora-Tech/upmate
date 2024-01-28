@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/models/user_model.dart';
 
 import '../../themes/app_color.dart';
 import '../../themes/app_font.dart';
@@ -9,7 +10,12 @@ import 'line.dart';
 class SearchTemplate extends StatelessWidget {
   final String title;
   final Widget child;
-  const SearchTemplate({super.key, required this.title, required this.child});
+  final dynamic controller;
+  const SearchTemplate(
+      {super.key,
+      required this.title,
+      required this.child,
+      required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +30,7 @@ class SearchTemplate extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [const SizedBox(height: 120), child],
+                  children: [const SizedBox(height: 128), child],
                 ),
               ),
             ),
@@ -45,7 +51,10 @@ class SearchTemplate extends StatelessWidget {
                             Row(
                               children: [
                                 GestureDetector(
-                                  onTap: () => Get.back(),
+                                  onTap: () {
+                                    controller.back();
+                                    Get.back();
+                                  },
                                   child: const Icon(Icons.arrow_back_rounded,
                                       size: 28, color: Colors.black),
                                 ),
@@ -60,6 +69,8 @@ class SearchTemplate extends StatelessWidget {
                             const SizedBox(height: 10),
                             TextField(
                               style: AppFont.text14,
+                              controller: controller.searchText,
+                              onChanged: controller.handleSearch,
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: AppColor.bgSearch,
@@ -77,6 +88,24 @@ class SearchTemplate extends StatelessWidget {
                                         AppColor.black, BlendMode.srcIn),
                                   ),
                                 ),
+                                suffixIcon: controller.isSearchTextEmpty.value
+                                    ? const SizedBox()
+                                    : GestureDetector(
+                                        onTap: () {
+                                          controller.isSearchTextEmpty.value =
+                                              true;
+                                          controller.searchText.clear();
+                                          controller.listSearchResult =
+                                              List<UserModel>.from(
+                                                  controller.contacts);
+                                          controller.update();
+                                        },
+                                        child: const Padding(
+                                          padding: EdgeInsets.only(right: 8.0),
+                                          child: Icon(Icons.close,
+                                              color: AppColor.black, size: 20),
+                                        ),
+                                      ),
                                 hintText: "search".tr,
                                 hintStyle: AppFont.text14.copyWith(
                                   color: AppColor.black,

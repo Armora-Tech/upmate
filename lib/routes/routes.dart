@@ -4,7 +4,7 @@ import 'package:upmatev2/bindings/login_binding.dart';
 import 'package:upmatev2/bindings/settings_binding.dart';
 import 'package:upmatev2/bindings/signup_binding.dart';
 import 'package:upmatev2/bindings/start_binding.dart';
-import 'package:upmatev2/pages/add_chat_page.dart';
+import 'package:upmatev2/pages/create_chat_page.dart';
 import 'package:upmatev2/pages/chatRoom/chat_room.dart';
 import 'package:upmatev2/pages/chatRoom/confirm_send_image_page.dart';
 import 'package:upmatev2/pages/editProfile/gallery.dart';
@@ -23,6 +23,7 @@ import '../pages/login.dart';
 import '../pages/createPost/create_post_page.dart';
 import '../pages/post_detail.dart';
 import '../pages/search.dart';
+import '../pages/search_chat_page.dart';
 import '../pages/signup.dart';
 import '../pages/start_page.dart';
 import '../pages/tag_interest_page.dart';
@@ -54,7 +55,7 @@ class AppPage {
         transition: Transition.rightToLeft),
     GetPage(
       name: RouteName.start,
-      page: () =>  const StartView(),
+      page: () => const StartView(),
       binding: StartBinding(),
       transition: Transition.rightToLeft,
     ),
@@ -80,6 +81,16 @@ class AppPage {
       name: RouteName.search,
       page: () => const SearchView(),
       binding: SearchBinding(),
+      transition: Transition.downToUp,
+    ),
+    GetPage(
+      name: RouteName.createChat,
+      page: () => const CreateChatView(),
+      transition: Transition.downToUp,
+    ),
+    GetPage(
+      name: RouteName.searchChat,
+      page: () => const SearchChatView(),
       transition: Transition.downToUp,
     ),
     GetPage(
@@ -118,9 +129,5 @@ class AppPage {
         page: () => const SettingsView(),
         binding: SettingsBinding(),
         transition: Transition.rightToLeft),
-        GetPage(
-        name: RouteName.addChat,
-        page: () => const AddChatView(),
-        transition: Transition.downToUp),
   ];
 }

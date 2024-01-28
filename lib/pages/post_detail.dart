@@ -48,7 +48,6 @@ class PostDetailView extends StatelessWidget {
                           PostAction(post: post),
                           const SizedBox(height: 15),
                           PostDescription(post: post),
-                          const SizedBox(height: 5),
                           PostDetailCommentSection(post: post)
                         ],
                       ),

@@ -11,9 +11,9 @@ class ExploreView extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> tags = [
       "Machine Learning",
-      "calculus".tr,
-      "algebra".tr,
-      "economy".tr
+      "physics".tr,
+      "robotic".tr,
+      "statistics".tr
     ];
     return Stack(
       children: [

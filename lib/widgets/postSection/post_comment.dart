@@ -39,10 +39,13 @@ class PostCommentSection extends StatelessWidget {
                       (comment) => Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
                               width: 25,
-                              margin: const EdgeInsets.only(right: 10),
+                              margin:
+                                  const EdgeInsets.only(right: 10, top: 1.5),
                               clipBehavior: Clip.hardEdge,
                               decoration:
                                   const BoxDecoration(shape: BoxShape.circle),

@@ -14,21 +14,20 @@ class ChatView extends StatelessWidget {
     final controller = Get.find<ChatController>();
     return Stack(
       children: [
-        GetBuilder<ChatController>(
-          builder: (_) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: controller.isShowSearch.value ? 140 : 80),
-              const Expanded(child: ChatList())
-            ],
-          ),
+        const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [SizedBox(height: 80), Expanded(child: ChatList())],
         ),
         Positioned(
           bottom: 80,
           right: 20,
-          child: FloatingActionButton(
-            onPressed: () => Get.toNamed(RouteName.addChat),
-            child: const Icon(Icons.add, color: Colors.white),
+          child: GetBuilder<ChatController>(
+            builder: (_) => FloatingActionButton(
+              onPressed: controller.isLoading.value
+                  ? () {}
+                  : () => Get.toNamed(RouteName.createChat),
+              child: const Icon(Icons.add, color: Colors.white),
+            ),
           ),
         ),
         const ChatViewAppBar()

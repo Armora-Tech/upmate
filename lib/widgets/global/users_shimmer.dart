@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 
-class ChatShimmer extends StatelessWidget {
-  const ChatShimmer({super.key});
+class UsersShimmer extends StatelessWidget {
+  const UsersShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {

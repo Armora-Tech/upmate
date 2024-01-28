@@ -4,7 +4,7 @@ import 'package:upmatev2/controllers/chat_controller.dart';
 import 'package:upmatev2/models/chat_model.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_font.dart';
-import 'package:upmatev2/widgets/chat/shimmer.dart';
+import 'package:upmatev2/widgets/global/users_shimmer.dart';
 
 import '../../repositories/chat_repository.dart';
 import '../global/line.dart';
@@ -29,7 +29,7 @@ class ChatList extends StatelessWidget {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const ChatShimmer();
+            return const UsersShimmer();
           }
 
           return ListView.separated(
@@ -40,8 +40,8 @@ class ChatList extends StatelessWidget {
               ChatModel data = snapshot.data![index];
               return GestureDetector(
                 onTap: () {
-                  controller.selectedContactChat =
-                      controller.chats[index].users![1];
+                  controller.selectedContact =
+                      data.users![1];
                   controller.selectedChat = snapshot.data![index];
                   Get.toNamed(RouteName.chatRoom);
                 },

@@ -57,6 +57,7 @@ class Message extends Translations {
           "delete": "Delete",
           "successfully_deleted_the_post": "Successfully deleted the post",
           "failed_to_delete_post": "Failed to delete post",
+          "recommended_for_you": "Recommended for you",
           // ======= Settings =========
           "select_language": "Select Language",
           // ======== BOTTOM NAVBAR =========
@@ -199,6 +200,7 @@ class Message extends Translations {
           "delete": "Hapus",
           "successfully_deleted_the_post": "Berhasil menghapus postingan",
           "failed_to_delete_post": "Gagal menghapus postingan",
+          "recommended_for_you": "Disarankan untuk anda",
           // ======= Settings =========
           "select_language": "Pilih Bahasa",
           // ======== BOTTOM NAVBAR =========

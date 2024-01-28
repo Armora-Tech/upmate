@@ -20,6 +20,7 @@ class PostAction extends StatelessWidget {
     final startController = Get.find<StartController>();
     final actionPostController = Get.find<ActionPostController>();
     late final PostDetailController postDetailController;
+    int i = 0;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -58,7 +59,10 @@ class PostAction extends StatelessWidget {
               ? () {}
               : () {
                   if (Get.currentRoute == RouteName.postDetail) {
-                    postDetailController = Get.find<PostDetailController>();
+                    if (i == 0) {
+                      postDetailController = Get.find<PostDetailController>();
+                    }
+                    i++;
                     postDetailController.focusNode.requestFocus();
                   } else {
                     controller.oldSelectedImage.value =

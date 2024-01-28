@@ -12,28 +12,29 @@ class ListViewPopular extends StatelessWidget {
     List<Map<String, dynamic>> popular = [
       {
         "type": "topic".tr,
-        "title": "UI/IX Design",
-        "info":
-            "Diikuti oleh Percy Hedinson, Riska Nur, Lia Dahlia dan 9 Lainnya"
+        "title": "programming".tr,
+        "image": "assets/images/programming.jpg",
+        "info": "recommended_for_you".tr
       },
       {
         "type": "Forum",
-        "title": "Programming",
-        "info": "Disarankan untuk anda"
+        "title": "math".tr,
+        "image": "assets/images/math.jpg",
+        "info": "recommended_for_you".tr
       },
       {
         "type": "topic".tr,
-        "title": "UI/IX Design",
-        "info":
-            "Diikuti oleh Percy Hedinson, Riska Nur, Lia Dahlia dan 9 Lainnya"
+        "title": "algebra".tr,
+        "image": "assets/images/algebra.jpg",
+        "info": "recommended_for_you".tr
       },
       {
         "type": "Forum",
-        "title": "Programming",
-        "info": "Disarankan untuk anda"
-      },
+        "title": "economy".tr,
+        "image": "assets/images/economy.jpg",
+        "info": "recommended_for_you".tr
+      }
     ];
-
     const double containerWidth = 180;
     return SizedBox(
       height: 280,
@@ -42,9 +43,7 @@ class ListViewPopular extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        separatorBuilder: (context, index) => const SizedBox(
-          width: 20,
-        ),
+        separatorBuilder: (context, index) => const SizedBox(width: 20),
         itemCount: popular.length,
         itemBuilder: (context, index) {
           return Container(
@@ -56,7 +55,7 @@ class ListViewPopular extends StatelessWidget {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                Image.asset("assets/images/ui_ux.jpg", fit: BoxFit.cover),
+                Image.asset(popular[index]["image"], fit: BoxFit.cover),
                 Positioned(
                   top: 10,
                   left: 10,
@@ -76,9 +75,8 @@ class ListViewPopular extends StatelessWidget {
                           child: Text(
                             popular[index]["type"],
                             style: AppFont.text12.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -108,9 +106,8 @@ class ListViewPopular extends StatelessWidget {
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(height: 3),
                                   Text(

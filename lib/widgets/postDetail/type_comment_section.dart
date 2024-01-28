@@ -90,29 +90,26 @@ class PostDetailTypeComment extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            controller.isShowEmoji.toggle();
-                            controller.focusNode.unfocus();
-                            controller.update();
-                          },
-                          child: Icon(
-                              controller.isShowEmoji.value
-                                  ? Icons.emoji_emotions_rounded
-                                  : Icons.emoji_emotions_outlined,
-                              size: 28),
-                        ),
-                        const SizedBox(width: 10),
-                        controller.isTextFieldEmpty.value
-                            ? const Icon(Icons.camera_alt_outlined, size: 28)
-                            : GestureDetector(
-                                onTap: () async =>
-                                    await controller.addComment(post),
-                                child: const Icon(Icons.send_rounded, size: 28),
-                              ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: controller.isTextFieldEmpty.value
+                          ? GestureDetector(
+                              onTap: () {
+                                controller.isShowEmoji.toggle();
+                                controller.focusNode.unfocus();
+                                controller.update();
+                              },
+                              child: Icon(
+                                  controller.isShowEmoji.value
+                                      ? Icons.emoji_emotions_rounded
+                                      : Icons.emoji_emotions_outlined,
+                                  size: 28),
+                            )
+                          : GestureDetector(
+                              onTap: () async =>
+                                  await controller.addComment(post),
+                              child: const Icon(Icons.send_rounded, size: 28),
+                            ),
                     )
                   ],
                 ),

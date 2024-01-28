@@ -60,6 +60,8 @@ class PostDetailController extends GetxController {
     );
     await PostRepository().addComment(commentModel);
     textEditingController.clear();
+    isTextFieldEmpty.value = true;
+    update();
     await post.getComment();
     Get.forceAppUpdate();
   }
