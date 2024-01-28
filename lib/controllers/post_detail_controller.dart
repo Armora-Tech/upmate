@@ -16,6 +16,7 @@ class PostDetailController extends GetxController {
   late final HomeController _homeController;
   late final StartController _startController;
   RxInt selectedIndex = 0.obs;
+  RxInt i = 0.obs;
   RxBool isTextFieldEmpty = true.obs;
   RxBool isShowEmoji = false.obs;
   RxBool isDeleting = false.obs;

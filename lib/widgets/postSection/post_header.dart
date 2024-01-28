@@ -21,10 +21,8 @@ class PostHeader extends StatelessWidget {
     return GestureDetector(
       onTap: controller.isLoading.value
           ? () {}
-          : () {
-              Get.toNamed(RouteName.profile,
-                  arguments: {"otherUser": controller.posts![index].user});
-            },
+          : () => Get.toNamed(RouteName.profile,
+              arguments: {"otherUser": controller.posts![index].user}),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(

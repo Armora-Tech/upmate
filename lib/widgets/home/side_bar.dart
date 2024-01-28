@@ -141,7 +141,6 @@ class SideBar extends StatelessWidget {
                         } else if (key == "settings".tr) {
                           Get.toNamed(RouteName.settings);
                         } else if (key == "logout".tr) {
-                          Get.offAllNamed(RouteName.login);
                           await loginController.signOut();
                         }
                       },

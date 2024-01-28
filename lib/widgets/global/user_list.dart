@@ -41,8 +41,11 @@ class UserList extends StatelessWidget {
                 onTap: () async {
                   if (selectedPage == SearchPage.createChatPage) {
                     controller.selectedContact = contact;
+                    // debugPrint("${controller.selectedChat}");
+                    // debugPrint(contact.displayName);
                     await controller.createChat();
-                    Get.toNamed(RouteName.chatRoom);
+                    Get.back();
+                    // Get.toNamed(RouteName.chatRoom);
                   } else if (selectedPage == SearchPage.searchPage) {
                     Get.toNamed(RouteName.profile,
                         arguments: {"otherUser": contact});

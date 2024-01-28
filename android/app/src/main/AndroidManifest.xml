@@ -15,7 +15,7 @@
     </queries>
 
     <application
-        android:label="Upmate"
+        android:label="UpMate"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
         android:requestLegacyExternalStorage="true">

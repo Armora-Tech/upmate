@@ -8,8 +8,8 @@ import 'package:upmatev2/widgets/profile/my_post.dart';
 class ProfileController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late final TabController tabController;
-  late final UserModel otherUser;
   late final StartController _startController;
+  late UserModel otherUser;
   RxInt selectedTab = 0.obs;
   RxBool isFullText = false.obs;
   RxBool isLoading = false.obs;
@@ -21,8 +21,7 @@ class ProfileController extends GetxController
   Future<void> onInit() async {
     _startController = Get.find<StartController>();
     tabController = TabController(length: pages.length, vsync: this);
-
-    await getOtherUserData();
+    await _getOtherUserData();
     super.onInit();
   }
 
@@ -32,7 +31,7 @@ class ProfileController extends GetxController
     super.dispose();
   }
 
-  Future<void> getOtherUserData() async {
+  Future<void> _getOtherUserData() async {
     isLoading.value = true;
     if (Get.arguments == null) {
       otherUser = _startController.user!;

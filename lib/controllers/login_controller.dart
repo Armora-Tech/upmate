@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../repositories/auth.dart';
+import '../routes/route_name.dart';
 import '../utils/cancellation.dart';
 
 enum LoginProvider { email, google, facebook }
@@ -73,5 +74,8 @@ class LoginController extends GetxController {
       }
     }
     isLoading.value = false;
+    update();
+    Get.offAllNamed(RouteName.login);
+    Get.forceAppUpdate();
   }
 }

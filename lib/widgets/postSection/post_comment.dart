@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:get/get_instance/get_instance.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/models/post_model.dart';
 import 'package:upmatev2/routes/route_name.dart';
@@ -58,32 +56,36 @@ class PostCommentSection extends StatelessWidget {
                                   fit: BoxFit.cover),
                             ),
                             Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  RichText(
-                                    text: TextSpan(
-                                      style: AppFont.text14,
-                                      children: [
-                                        TextSpan(
-                                          text:
-                                              "${comment.user!.username.replaceAll("@", "")} ",
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        TextSpan(
-                                          text: comment.text,
-                                        ),
-                                      ],
+                              child: GestureDetector(
+                                onTap: () => Get.toNamed(RouteName.postDetail,
+                                    arguments: post),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(
+                                        style: AppFont.text14,
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                "${comment.user!.username.replaceAll("@", "")} ",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          TextSpan(
+                                            text: comment.text,
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    controller.commentTimePassed(comment),
-                                    maxLines: 2,
-                                    style: AppFont.text10
-                                        .copyWith(color: Colors.grey),
-                                  )
-                                ],
+                                    Text(
+                                      controller.commentTimePassed(comment),
+                                      maxLines: 2,
+                                      style: AppFont.text10
+                                          .copyWith(color: Colors.grey),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ],

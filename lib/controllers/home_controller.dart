@@ -8,30 +8,52 @@ import '../widgets/global/snack_bar.dart';
 
 class HomeController extends GetxController {
   late final StartController _startController;
+  late final ScrollController scrollController;
+  late final PostRepository _postRepository;
   List<PostModel>? posts;
+  late PostModel lastPost;
   RxInt selectedIndex = 0.obs;
   RxInt oldSelectedImage = 0.obs;
   RxInt perPage = 3.obs;
   RxBool isFullText = false.obs;
   RxBool isLoading = false.obs;
   RxBool isDeleting = false.obs;
+  RxBool isLoadMore = false.obs;
 
   @override
   Future<void> onInit() async {
     _startController = Get.find<StartController>();
+    scrollController = ScrollController();
+    _postRepository = PostRepository();
     await _getPosts();
+    if (!(isLoading.value && isLoadMore.value)) await _getMorePosts();
     super.onInit();
   }
 
   Future<void> _getPosts() async {
     isLoading.value = true;
-    posts = await PostRepository().getPosts();
+    posts = await _postRepository.getPosts();
     isLoading.value = false;
     update();
   }
 
+  Future<void> _getMorePosts() async {
+    scrollController.addListener(() async {
+      if (scrollController.position.pixels ==
+              scrollController.position.maxScrollExtent &&
+          !isLoadMore.value) {
+        isLoadMore.value = true;
+        final additionalPost = await _postRepository.getMorePosts();
+        posts!.addAll(additionalPost);
+        isLoadMore.value = false;
+        update();
+      }
+    });
+  }
+
   Future<void> toggleLike(PostModel post) async {
     await post.toggleLike();
+    update();
   }
 
   Future<void> toggleBookmark(PostModel post) async {
@@ -41,7 +63,7 @@ class HomeController extends GetxController {
   Future<void> deletePost(PostModel post, int index) async {
     isDeleting.value = true;
     try {
-      await PostRepository().deletePost(post.ref.path);
+      await _postRepository.deletePost(post.ref.path);
       if (post.ref.id.contains(posts![index].ref.id)) {
         posts!.removeAt(index);
       }

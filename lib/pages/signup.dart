@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/signup/signup_form.dart';
-import '../routes/route_name.dart';
 
 class SignupView extends StatelessWidget {
   const SignupView({super.key});
@@ -88,7 +87,7 @@ class SignupView extends StatelessWidget {
                     ),
                     const SizedBox(width: 2),
                     GestureDetector(
-                      onTap: () => Get.toNamed(RouteName.login),
+                      onTap: () => Get.back(),
                       child: Text(
                         "sign_in".tr,
                         style: const TextStyle(fontWeight: FontWeight.bold),
