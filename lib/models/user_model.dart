@@ -72,74 +72,15 @@ class UserModel {
     };
   }
 
-  Future<void> getPosts() async {
-    List<PostModel> posts = [];
-    QuerySnapshot querySnapshots = await FirebaseFirestore.instance
-        .collection("posts")
-        .where("post_user", isEqualTo: _ref.id)
-        .orderBy("timestamp", descending: true)
-        .withConverter(
-            fromFirestore: PostModel.fromFirestore,
-            toFirestore: (PostModel post, _) => post.toFirestore())
-        .get();
-
-    for (var e in querySnapshots.docs) {
-      var td = e.data() as PostModel;
-      await td.initPhotos();
-      await td.initUsers();
-      await td.getComment();
-      posts.add(td);
-    }
-    _posts = posts;
-  }
-
-  Future<void> updateBanner(File asset) async {
-    Map<String, dynamic> data = <String, dynamic>{};
-    try {
-      final response = await Upload().uploadImage(asset);
-      if (response.statusCode == 200) {
-        final responseData = response.body;
-        final jsonResponse = jsonDecode(responseData);
-        data["banner_url"] = (jsonResponse['url']);
-        await _ref
-            .update(data)
-            .whenComplete(() => print("data updated"))
-            .catchError((e) => print(e));
-        _banner_url = data["banner_url"];
-      } else {
-        //error
-        return;
-      }
-    } catch (error) {
-      return;
-    }
-  }
-
-  Future<void> updateProfile(File asset) async {
-    Map<String, dynamic> data = <String, dynamic>{};
-    try {
-      final response = await Upload().uploadImage(asset);
-      if (response.statusCode == 200) {
-        final responseData = response.body;
-        final jsonResponse = jsonDecode(responseData);
-        data["photo_url"] = (jsonResponse['url']);
-        await _ref
-            .update(data)
-            .whenComplete(() => print("data updated"))
-            .catchError((e) => print(e));
-        _photo_url = data["photo_url"];
-      } else {
-        //error
-        return;
-      }
-    } catch (error) {
-      return;
-    }
-  }
 
   DocumentReference get ref => _ref;
 
   String get uid => _uid;
+
+  List<PostModel>? get posts => _posts;
+  set posts(List<PostModel>? newPosts) {
+    _posts = newPosts;
+  }
 
   String get displayName => _display_name;
 
@@ -149,9 +90,13 @@ class UserModel {
 
   String get username => _username;
 
-  List<PostModel>? get posts => _posts;
-
   String? get photoUrl => _photo_url;
+  set photoUrl(String? newUrl) {
+    _photo_url = newUrl;
+  }
 
   String? get bannerUrl => _banner_url;
+  set bannerUrl(String? newUrl) {
+    _banner_url = newUrl;
+  }
 }

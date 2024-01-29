@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
+import 'package:upmatev2/repositories/chat_repository.dart';
+import 'package:upmatev2/repositories/user_repository.dart';
 import '../main.dart';
 import '../repositories/auth.dart';
 import '../routes/route_name.dart';
@@ -137,10 +139,9 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
           Get.until(
             (route) => Get.previousRoute == RouteName.editProfile,
           );
-          final user = await Auth().getUserModel();
           isEditBanner
-              ? await user!.updateBanner(image!)
-              : await user!.updateProfile(image!);
+              ? await UserRepository().updateBanner(image!)
+              : await UserRepository().updateProfile(image!);
           await _startController.refreshStart();
           await _homeController.refreshPosts();
           isTakingPicture.value = false;

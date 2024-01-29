@@ -8,6 +8,7 @@ import 'package:photo_manager/photo_manager.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/repositories/auth.dart';
+import 'package:upmatev2/repositories/user_repository.dart';
 
 import '../routes/route_name.dart';
 import '../utils/pick_image.dart';
@@ -102,8 +103,8 @@ class GalleryController extends GetxController {
         image = File(croppedImage.path);
         isLoading.value = true;
         Get.until((route) => Get.previousRoute == RouteName.editProfile);
-        final user = await Auth().getUserModel();
-        await user!.updateProfile(image!);
+
+        await UserRepository().updateProfile(image!);
         await _startController.refreshStart();
         await _homeController.refreshPosts();
         Get.forceAppUpdate();
@@ -124,8 +125,8 @@ class GalleryController extends GetxController {
         image = File(croppedImage.path);
         isLoading.value = true;
         Get.until((route) => Get.previousRoute == RouteName.editProfile);
-        final user = await Auth().getUserModel();
-        await user!.updateBanner(image!);
+
+        await UserRepository().updateBanner(image!);
         await _startController.refreshStart();
         Get.forceAppUpdate();
         isLoading.value = false;

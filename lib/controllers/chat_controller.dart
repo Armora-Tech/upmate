@@ -45,7 +45,11 @@ class ChatController extends GetxController {
           _startController.user!.ref as DocumentReference<Map<String, dynamic>>,
           selectedContact!.ref as DocumentReference<Map<String, dynamic>>
         ]);
-    await ChatRepository().createChat(chatModel);
+    final isNew = await ChatRepository().isNewChat(chatModel);
+    debugPrint("ISNEW: $isNew");
+    if (isNew) {
+      await ChatRepository().createChat(chatModel);
+    }
     chats = await ChatRepository().getChats();
     isLoading.value = false;
     update();

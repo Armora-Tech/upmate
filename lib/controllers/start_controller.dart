@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:upmatev2/repositories/auth.dart';
+import 'package:upmatev2/repositories/user_repository.dart';
 
 import '../models/post_model.dart';
 import '../models/user_model.dart';
@@ -19,8 +20,7 @@ class StartController extends GetxController {
   Future<void> _getUser() async {
     isLoading.value = true;
     user = await _auth.getUserModel();
-    await user!.getPosts();
-    myPosts = user!.posts;
+    myPosts = await UserRepository().getUserPosts();
     isLoading.value = false;
     update();
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/models/user_model.dart';
+import 'package:upmatev2/repositories/user_repository.dart';
 import 'package:upmatev2/widgets/profile/my_bookmark.dart';
 import 'package:upmatev2/widgets/profile/my_post.dart';
 
@@ -39,7 +40,7 @@ class ProfileController extends GetxController
     } else {
       final Map<String, dynamic> arguments = Get.arguments;
       otherUser = arguments["otherUser"];
-      await otherUser.getPosts();
+      otherUser.posts = await UserRepository().getUserPosts(userRef: otherUser.ref);
     }
     isLoading.value = false;
     update();

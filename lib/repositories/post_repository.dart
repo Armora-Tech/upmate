@@ -52,6 +52,25 @@ class PostRepository {
     }
   }
 
+  Stream<Map<String, int>> getActionsStream(DocumentReference postRef) {
+    return postRef
+        .withConverter(
+            fromFirestore: PostModel.fromFirestore,
+            toFirestore: (PostModel post, _) => post.toFirestore())
+        .snapshots()
+        .asyncMap((post) async {
+      var postData = post.data() as PostModel;
+      await postData.getComment();
+
+      return {
+        "likes": postData.likes.length,
+        "comments": postData.comments?.length ?? 0,
+        "bookmarks": postData.bookmarks.length,
+        "shares": 0
+      };
+    });
+  }
+
   Future<List<PostModel>> getPosts() async {
     try {
       UserModel? currentUser = await _auth.getUserModel();

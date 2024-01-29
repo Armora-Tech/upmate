@@ -9,6 +9,30 @@ import 'auth.dart';
 class ChatRepository {
   final Auth _auth = Auth();
 
+  Future<bool> isNewChat(ChatModel chatModel) async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('chats')
+          .where('users', arrayContains: chatModel.userRaw[0])
+          .withConverter(
+              fromFirestore: ChatModel.fromFirestore,
+              toFirestore: (ChatModel chat, _) => chat.toFirestore())
+          .get();
+      debugPrint("ACC: ${chatModel.userRaw}");
+      bool isNew = true;
+      for (var data in querySnapshot.docs) {
+        var dataChat = data.data() as ChatModel;
+        debugPrint("RES: ${dataChat.userRaw}");
+        if (dataChat.userRaw.contains(chatModel.userRaw[0]) &&
+            dataChat.userRaw.contains(chatModel.userRaw[1])) isNew = false;
+      }
+      return isNew;
+    } catch (e) {
+      debugPrint("ERROR : $e");
+      return false;
+    }
+  }
+
   Future<void> createChat(ChatModel chatModel) async {
     try {
       await FirebaseFirestore.instance
