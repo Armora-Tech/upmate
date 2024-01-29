@@ -48,11 +48,15 @@ class EditProfileView extends StatelessWidget {
                                 Positioned(
                                   top: 0,
                                   child: GestureDetector(
-                                      onTap: () => Get.to(
-                                          () => const DetailBanner(),
-                                          opaque: false,
-                                          fullscreenDialog: true,
-                                          transition: Transition.noTransition),
+                                      onTap: startController.user!.bannerUrl ==
+                                              null
+                                          ? () {}
+                                          : () => Get.to(
+                                              () => const DetailBanner(),
+                                              opaque: false,
+                                              fullscreenDialog: true,
+                                              transition:
+                                                  Transition.noTransition),
                                       child: const Hero(
                                           tag: "banner_edit_profile",
                                           child: MyBanner())),
@@ -74,15 +78,15 @@ class EditProfileView extends StatelessWidget {
                                             height: 130,
                                             width: 130,
                                             decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                    width: 4,
-                                                    color: Colors.white)),
-                                            child: ProfilePicture(
-                                              imageURL: startController
-                                                  .user!.photoUrl,
-                                              size: 120,
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                  width: 4,
+                                                  color: Colors.white),
                                             ),
+                                            child: ProfilePicture(
+                                                imageURL: startController
+                                                    .user!.photoUrl,
+                                                size: 120),
                                           ),
                                         ),
                                       ),
@@ -94,8 +98,7 @@ class EditProfileView extends StatelessWidget {
                                         child: Text(
                                           "change_picture".tr,
                                           style: const TextStyle(
-                                            color: Colors.blueAccent,
-                                          ),
+                                              color: Colors.blueAccent),
                                         ),
                                       ),
                                     ],

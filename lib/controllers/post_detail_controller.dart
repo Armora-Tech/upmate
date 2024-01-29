@@ -13,6 +13,7 @@ class PostDetailController extends GetxController {
   // the name should be textEditingController for the needs of the emoji section
   late final TextEditingController textEditingController;
   late final PostModel post;
+  late final int postIndex;
   late final HomeController _homeController;
   late final StartController _startController;
   RxInt selectedIndex = 0.obs;
@@ -64,12 +65,11 @@ class PostDetailController extends GetxController {
     isTextFieldEmpty.value = true;
     update();
     await post.getComment();
-    Get.forceAppUpdate();
+    update();
   }
 
   Future<void> deletePost(PostModel post) async {
     isDeleting.value = true;
-    debugPrint(" post id : ${post.ref.id}");
     try {
       await PostRepository().deletePost(post.ref.path);
       await _homeController.refreshPosts();

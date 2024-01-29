@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/post_detail_controller.dart';
+import 'package:upmatev2/models/comment_model.dart';
+import 'package:upmatev2/widgets/postSection/bookmarks_button.dart';
+import 'package:upmatev2/widgets/postSection/comment_button.dart';
+import 'package:upmatev2/widgets/postSection/likes_button.dart';
 
 import '../../controllers/home_controller.dart';
-import '../../controllers/observer/action_post_controller.dart';
 import '../../controllers/start_controller.dart';
 import '../../models/post_model.dart';
 import '../../routes/route_name.dart';
@@ -18,7 +21,6 @@ class PostAction extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
     final startController = Get.find<StartController>();
-    final actionPostController = Get.find<ActionPostController>();
     late final PostDetailController postDetailController;
     int i = 0;
     return Row(
@@ -27,30 +29,26 @@ class PostAction extends StatelessWidget {
         GestureDetector(
           onTap: () async {
             await controller.toggleLike(post);
-            actionPostController.update();
+            if (Get.previousRoute != RouteName.profile) {
+              await startController.refreshMyPosts();
+            }
           },
           child: Container(
             color: Colors.white,
-            child: GetBuilder<ActionPostController>(
-              builder: (_) => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    !controller.isLoading.value &&
-                            post.likes.contains(startController.user!.uid)
-                        ? "assets/svg/favorite.svg"
-                        : "assets/svg/favorite_outlined.svg",
-                    semanticsLabel: 'favorite',
-                    height: 27,
-                    width: 27,
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    "${controller.isLoading.value ? 0 : post.likes.length}",
-                    style: AppFont.text10,
-                  )
-                ],
-              ),
+            child: StreamBuilder<List<dynamic>>(
+              stream: controller.postRepository.getLikesStream(post.ref),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<dynamic>> snapshot) {
+                if (snapshot.hasError) {
+                  return LikesButton(likes: post.likes);
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return LikesButton(likes: post.likes);
+                }
+                final likes = snapshot.data;
+                post.likes = likes!;
+                return LikesButton(likes: likes);
+              },
             ),
           ),
         ),
@@ -73,46 +71,43 @@ class PostAction extends StatelessWidget {
                 },
           child: Container(
             color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset("assets/svg/comment.svg",
-                    height: 27, width: 27, semanticsLabel: 'comment'),
-                const SizedBox(height: 2),
-                Text(
-                  "${controller.isLoading.value ? 0 : post.comments?.length}",
-                  style: AppFont.text10,
-                )
-              ],
+            child: StreamBuilder<List<CommentModel>?>(
+              stream: controller.postRepository.getCommentsStream(post.ref),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<CommentModel>?> snapshot) {
+                if (snapshot.hasError) {
+                  return CommentButton(comments: post.comments!);
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CommentButton(comments: post.comments!);
+                }
+                final comments = snapshot.data;
+                return CommentButton(comments: comments!);
+              },
             ),
           ),
         ),
         GestureDetector(
           onTap: () async {
             await controller.toggleBookmark(post);
-            actionPostController.update();
+            await startController.refreshMyBookmarks();
+            startController.update();
           },
           child: Container(
             color: Colors.white,
-            child: GetBuilder<ActionPostController>(
-              builder: (_) => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                      !controller.isLoading.value &&
-                              post.bookmarks.contains(startController.user!.uid)
-                          ? "assets/svg/bookmark.svg"
-                          : "assets/svg/bookmark_outlined.svg",
-                      height: 27,
-                      width: 27,
-                      semanticsLabel: 'bookmark'),
-                  const SizedBox(height: 2),
-                  Text(
-                    "${controller.isLoading.value ? 0 : post.bookmarks.length}",
-                    style: AppFont.text10,
-                  )
-                ],
-              ),
+            child: StreamBuilder<List<dynamic>>(
+              stream: controller.postRepository.getBookmarksStream(post.ref),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<dynamic>> snapshot) {
+                if (snapshot.hasError) {
+                  return BookmarksButton(bookmarks: post.bookmarks);
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return BookmarksButton(bookmarks: post.bookmarks);
+                }
+                final bookmarks = snapshot.data;
+                return BookmarksButton(bookmarks: bookmarks!);
+              },
             ),
           ),
         ),

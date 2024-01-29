@@ -2,7 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
+import 'package:upmatev2/controllers/observer/action_post_controller.dart';
 import 'package:upmatev2/controllers/observer/dots_indicator_controller.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/models/post_model.dart';
 import '../../themes/app_color.dart';
 import '../global/cached_network_image.dart';
@@ -16,6 +18,8 @@ class PostImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final dotsController = Get.find<DostIndicatorController>();
     final controller = Get.find<HomeController>();
+    final actionPostController = Get.find<ActionPostController>();
+    final startController = Get.find<StartController>();
     return Column(
       children: [
         Container(
@@ -35,7 +39,11 @@ class PostImage extends StatelessWidget {
             items: post.postPhoto!.map<Widget>(
               (image) {
                 return GestureDetector(
-                  onDoubleTap: () => controller.toggleLike(post),
+                  onDoubleTap: () async {
+                    await controller.toggleLike(post);
+                    actionPostController.update();
+                    await startController.refreshMyPosts();
+                  },
                   onTap: () => Get.to(() => DetailImage(image: image),
                       opaque: false,
                       fullscreenDialog: true,

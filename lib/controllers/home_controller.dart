@@ -9,12 +9,13 @@ import '../widgets/global/snack_bar.dart';
 class HomeController extends GetxController {
   late final StartController _startController;
   late final ScrollController scrollController;
-  late final PostRepository _postRepository;
+  late final PostRepository postRepository;
+  late final String _thisUser;
   List<PostModel>? posts;
   late PostModel lastPost;
   RxInt selectedIndex = 0.obs;
   RxInt oldSelectedImage = 0.obs;
-  RxInt perPage = 3.obs;
+  RxInt selectedPostIndex = 0.obs;
   RxBool isFullText = false.obs;
   RxBool isLoading = false.obs;
   RxBool isDeleting = false.obs;
@@ -24,15 +25,16 @@ class HomeController extends GetxController {
   Future<void> onInit() async {
     _startController = Get.find<StartController>();
     scrollController = ScrollController();
-    _postRepository = PostRepository();
+    postRepository = PostRepository();
     await _getPosts();
     if (!(isLoading.value && isLoadMore.value)) await _getMorePosts();
+    _thisUser = _startController.user!.uid;
     super.onInit();
   }
 
   Future<void> _getPosts() async {
     isLoading.value = true;
-    posts = await _postRepository.getPosts();
+    posts = await postRepository.getPosts();
     isLoading.value = false;
     update();
   }
@@ -43,7 +45,7 @@ class HomeController extends GetxController {
               scrollController.position.maxScrollExtent &&
           !isLoadMore.value) {
         isLoadMore.value = true;
-        final additionalPost = await _postRepository.getMorePosts();
+        final additionalPost = await postRepository.getMorePosts();
         posts!.addAll(additionalPost);
         isLoadMore.value = false;
         update();
@@ -52,18 +54,27 @@ class HomeController extends GetxController {
   }
 
   Future<void> toggleLike(PostModel post) async {
+    if (post.likes.contains(_thisUser)) {
+      post.likes.remove(_thisUser);
+    } else {
+      post.likes.add(_thisUser);
+    }
     await post.toggleLike();
-    update();
   }
 
   Future<void> toggleBookmark(PostModel post) async {
+    if (post.bookmarks.contains(_thisUser)) {
+      post.bookmarks.remove(_thisUser);
+    } else {
+      post.bookmarks.add(_thisUser);
+    }
     await post.toggleBookmark();
   }
 
   Future<void> deletePost(PostModel post, int index) async {
     isDeleting.value = true;
     try {
-      await _postRepository.deletePost(post.ref.path);
+      await postRepository.deletePost(post.ref.path);
       if (post.ref.id.contains(posts![index].ref.id)) {
         posts!.removeAt(index);
       }

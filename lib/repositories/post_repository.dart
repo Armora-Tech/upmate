@@ -53,7 +53,7 @@ class PostRepository {
     }
   }
 
-  Stream<Map<String, int>> getActionsStream(DocumentReference postRef) {
+  Stream<List<dynamic>> getLikesStream(DocumentReference postRef) {
     return postRef
         .withConverter(
             fromFirestore: PostModel.fromFirestore,
@@ -63,12 +63,35 @@ class PostRepository {
       var postData = post.data() as PostModel;
       await postData.getComment();
 
-      return {
-        "likes": postData.likes.length,
-        "comments": postData.comments?.length ?? 0,
-        "bookmarks": postData.bookmarks.length,
-        "shares": 0
-      };
+      return postData.likes;
+    });
+  }
+
+  Stream<List<dynamic>> getBookmarksStream(DocumentReference postRef) {
+    return postRef
+        .withConverter(
+            fromFirestore: PostModel.fromFirestore,
+            toFirestore: (PostModel post, _) => post.toFirestore())
+        .snapshots()
+        .asyncMap((post) async {
+      var postData = post.data() as PostModel;
+      await postData.getComment();
+
+      return postData.bookmarks;
+    });
+  }
+
+  Stream<List<CommentModel>?> getCommentsStream(DocumentReference postRef) {
+    return postRef
+        .withConverter(
+            fromFirestore: PostModel.fromFirestore,
+            toFirestore: (PostModel post, _) => post.toFirestore())
+        .snapshots()
+        .asyncMap((post) async {
+      var postData = post.data() as PostModel;
+      await postData.getComment();
+
+      return postData.comments;
     });
   }
 

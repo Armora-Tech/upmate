@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:upmatev2/controllers/chat_room_controller.dart';
 import 'package:upmatev2/models/chat_message_model.dart';
 import 'package:upmatev2/repositories/chat_repository.dart';
+import 'package:upmatev2/widgets/chatRoom/shimmer_chat_bar.dart';
 
 import '../../controllers/chat_controller.dart';
 import '../../themes/app_color.dart';
@@ -24,13 +25,12 @@ class ChatRoomChatSection extends StatelessWidget {
         stream: ChatRepository()
             .getChatMessagesStream(chatController.selectedChat!.ref),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          debugPrint("REBUILD");
           if (snapshot.hasError) {
             return const Text('Something went wrong');
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text("Loading");
+            return const ShimmerChatBar();
           }
           controller.snapshot = snapshot;
           return ListView.separated(

@@ -39,7 +39,8 @@ class ProfileController extends GetxController
     } else {
       final Map<String, dynamic> arguments = Get.arguments;
       otherUser = arguments["otherUser"];
-      otherUser.posts = await UserRepository().getUserPosts(userRef: otherUser.ref);
+      otherUser.posts =
+          await UserRepository().getUserPosts(userRef: otherUser.ref);
     }
     isLoading.value = false;
     update();

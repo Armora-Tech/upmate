@@ -129,11 +129,11 @@ class PostModel {
   Future<void> toggleLike() async {
     var thisUser = FirebaseAuth.instance.currentUser?.uid;
 
-    if (likes.contains(thisUser)) {
-      _likes.remove(thisUser);
-    } else {
-      _likes.add(thisUser);
-    }
+    // if (likes.contains(thisUser)) {
+    //   _likes.remove(thisUser);
+    // } else {
+    //   _likes.add(thisUser);
+    // }
 
     await _ref.update({
       "likes": (likes.contains(thisUser))
@@ -145,11 +145,11 @@ class PostModel {
   Future<void> toggleBookmark() async {
     var thisUser = FirebaseAuth.instance.currentUser?.uid;
 
-    if (bookmarks.contains(thisUser)) {
-      _bookmarks.remove(thisUser);
-    } else {
-      _bookmarks.add(thisUser);
-    }
+    // if (bookmarks.contains(thisUser)) {
+    //   _bookmarks.remove(thisUser);
+    // } else {
+    //   _bookmarks.add(thisUser);
+    // }
 
     await _ref.update({
       "bookmarks": (bookmarks.contains(thisUser))
@@ -191,13 +191,13 @@ class PostModel {
     }
   }
 
-  set selectedDotsIndicator(int value) {
-    _selectedDotsIndicator = value;
-  }
+  set selectedDotsIndicator(int value) => _selectedDotsIndicator = value;
 
-  set isFullDesc(bool value) {
-    _isFullDesc = value;
-  }
+  set isFullDesc(bool value) => _isFullDesc = value;
+
+  set likes(List<dynamic> likes) => _likes = likes;
+  
+  set comments(List<CommentModel>? comments) => _comments = comments;
 
   void _updateLocalFields(Map<String, dynamic> updatedData) {
     if (updatedData.containsKey('forumRef')) {

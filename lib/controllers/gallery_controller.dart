@@ -7,7 +7,6 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
-import 'package:upmatev2/repositories/auth.dart';
 import 'package:upmatev2/repositories/user_repository.dart';
 
 import '../routes/route_name.dart';
