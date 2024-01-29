@@ -105,10 +105,14 @@ class PostDetailTypeComment extends StatelessWidget {
                                       : Icons.emoji_emotions_outlined,
                                   size: 28),
                             )
-                          : GestureDetector(
-                              onTap: () async =>
-                                  await controller.addComment(post),
-                              child: const Icon(Icons.send_rounded, size: 28),
+                          : Obx(
+                              () => GestureDetector(
+                                onTap: controller.isSendingComment.value
+                                    ? () {}
+                                    : () async =>
+                                        await controller.addComment(post),
+                                child: const Icon(Icons.send_rounded, size: 28),
+                              ),
                             ),
                     )
                   ],

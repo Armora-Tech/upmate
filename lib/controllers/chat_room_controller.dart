@@ -74,8 +74,6 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   }
 
   Future<void> sendChat() async {
-    debugPrint("IMAGGE; $imgUrl");
-    isSendingPicture.value = true;
     if (_cameraViewController.image != null &&
         _galleryController.selectedAssetList.isEmpty) {
       imgUrl = await Upload().uploadFromCamera(_cameraViewController);
@@ -93,7 +91,6 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     imgUrl = null;
     _cameraViewController.image = null;
     _galleryController.selectedAssetList.clear();
-    isSendingPicture.value = false;
     update();
     await ChatRepository().addMessage(chatMessage!);
   }
@@ -102,6 +99,8 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     Get.back();
     for (var asset in _galleryController.selectedAssetList) {
       try {
+        Get.forceAppUpdate();
+        isSendingPicture.value = true;
         File? assetData = await asset.loadFile();
         final Directory tempDir = await getTemporaryDirectory();
         File newAsset = File(
@@ -126,6 +125,8 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
               user: _startController.user!.ref,
               image: imgUrl);
           await ChatRepository().addMessage(chatMessage!);
+          isSendingPicture.value = false;
+          Get.forceAppUpdate();
         } else {
           //error
           return;

@@ -29,7 +29,7 @@ class ChatRoomChatSection extends StatelessWidget {
             return const Text('Something went wrong');
           }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (!snapshot.hasData) {
             return const ShimmerChatBar();
           }
           controller.snapshot = snapshot;
@@ -141,6 +141,26 @@ class ChatRoomChatSection extends StatelessWidget {
                           ],
                         ),
                       ),
+                    ),
+                    GetBuilder<ChatRoomController>(
+                      builder: (_) =>
+                          index == 0 && controller.isSendingPicture.value
+                              ? Container(
+                                  clipBehavior: Clip.hardEdge,
+                                  width: Get.width * 0.75,
+                                  margin: const EdgeInsets.only(top: 2),
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                      color: AppColor.lightGrey,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: const Center(
+                                    child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                        strokeWidth: 1.5,
+                                        backgroundColor: Colors.grey),
+                                  ),
+                                )
+                              : const SizedBox(),
                     )
                   ],
                 ),

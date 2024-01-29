@@ -22,6 +22,7 @@ class PostDetailController extends GetxController {
   RxBool isShowEmoji = false.obs;
   RxBool isDeleting = false.obs;
   RxBool isLoading = false.obs;
+  RxBool isSendingComment = false.obs;
 
   @override
   Future<void> onInit() async {
@@ -53,6 +54,7 @@ class PostDetailController extends GetxController {
   }
 
   Future<void> addComment(PostModel post) async {
+    isSendingComment.value = true;
     final commentModel = CommentModel(
       ref: FirebaseFirestore.instance.collection("comments").doc(),
       date: DateTime.now(),
@@ -65,6 +67,8 @@ class PostDetailController extends GetxController {
     isTextFieldEmpty.value = true;
     update();
     await post.getComment();
+    await Future.delayed(const Duration(seconds: 2));
+    isSendingComment.value = false;
     update();
   }
 
