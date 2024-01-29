@@ -48,6 +48,8 @@ class ChatRepository {
   }
 
   Future<void> addMessage(ChatMessageModel chatMessageModel) async {
+    debugPrint("AUTH: ${Auth().getCurrentUserReference()}");
+    debugPrint("CHATREF: ${chatMessageModel.chatRef}");
     try {
       await chatMessageModel.chatRef.update({
         "last_message": chatMessageModel.text,
