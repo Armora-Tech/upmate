@@ -78,13 +78,11 @@ class StartView extends StatelessWidget {
                               botNavController.textSize.value =
                                   botNavController.initialTextSize.value;
                             },
-                            onTapDown: homeController.isLoading.value
-                                ? (details) {}
-                                : (details) {
-                                    botNavController.iconSize.value = 23;
-                                    botNavController.textSize.value = 8;
-                                    botNavController.selectTab(index);
-                                  },
+                            onTapDown: (details) {
+                              botNavController.iconSize.value = 23;
+                              botNavController.textSize.value = 8;
+                              botNavController.selectTab(index);
+                            },
                             onTapCancel: () {
                               botNavController.iconSize.value =
                                   botNavController.initialIconSize.value;

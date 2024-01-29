@@ -6,7 +6,7 @@ import '../controllers/bottom_nav_controller.dart';
 class LoginBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<LoginController>(() => LoginController());
+    Get.lazyPut<LoginController>(() => LoginController(), fenix: true);
     Get.lazyPut<BottomNavController>(() => BottomNavController());
   }
 }

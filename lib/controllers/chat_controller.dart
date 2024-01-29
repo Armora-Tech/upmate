@@ -59,6 +59,7 @@ class ChatController extends GetxController {
     isLoading.value = true;
     chats = await ChatRepository().getChats();
     contacts = await ChatRepository().getContact();
+    listSearchResult = List.from(contacts);
     isLoading.value = false;
     update();
   }

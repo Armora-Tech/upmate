@@ -189,25 +189,16 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
 // function untuk mengatur margin antara chat user dan lawannya
   void setMargin(int index) {
     final data = snapshot!.data!.docs;
-
+    debugPrint("keng: ${data.length - 1}");
     // chatnya user
     if (isUser(index)) {
       if (index == 0) {
         marginTop.value = 0;
         marginBottom.value = 0;
-      }
-      // kalau sebelumnya chat lawan
-      else if (index != 0 && !isUser(index - 1)) {
-        marginTop.value = 10;
-        marginBottom.value = 0;
-      }
-      // kalau setelahnya chat lawan
-      else if (index != data.length - 1 && !isUser(index + 1)) {
-        marginBottom.value = 10;
+      } else if (!isUser(index - 1)) {
         marginTop.value = 0;
-      }
-      // kalau chat sebelumnya dan setelahnya masih chatnya user
-      else {
+        marginBottom.value = 10;
+      } else {
         marginTop.value = 0;
         marginBottom.value = 0;
       }
@@ -218,19 +209,10 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
       if (index == 0) {
         marginTop.value = 0;
         marginBottom.value = 0;
-      }
-      // kalau sebelumnya chat user
-      else if (index != 0 && isUser(index - 1)) {
-        marginTop.value = 10;
-        marginBottom.value = 0;
-      }
-      // bawah beda
-      else if (index != data.length - 1 && isUser(index + 1)) {
-        marginBottom.value = 10;
+      } else if (isUser(index - 1)) {
         marginTop.value = 0;
-      }
-      // kalau chat sebelumnya dan setelahnya masih chatnya lawan
-      else {
+        marginBottom.value = 10;
+      } else {
         marginTop.value = 0;
         marginBottom.value = 0;
       }

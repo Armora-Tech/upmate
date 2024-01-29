@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/controllers/observer/dots_indicator_controller.dart';
 import 'package:upmatev2/models/post_model.dart';
 import '../../themes/app_color.dart';
@@ -14,6 +15,7 @@ class PostImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dotsController = Get.find<DostIndicatorController>();
+    final controller = Get.find<HomeController>();
     return Column(
       children: [
         Container(
@@ -33,6 +35,7 @@ class PostImage extends StatelessWidget {
             items: post.postPhoto!.map<Widget>(
               (image) {
                 return GestureDetector(
+                  onDoubleTap: () => controller.toggleLike(post),
                   onTap: () => Get.to(() => DetailImage(image: image),
                       opaque: false,
                       fullscreenDialog: true,

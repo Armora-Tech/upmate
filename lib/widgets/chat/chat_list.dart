@@ -38,71 +38,75 @@ class ChatList extends StatelessWidget {
             separatorBuilder: (context, index) => const SizedBox(height: 20),
             itemBuilder: (context, index) {
               ChatModel data = snapshot.data![index];
-              return GestureDetector(
-                onTap: () {
-                  controller.selectedContact =
-                      data.users![1];
-                  controller.selectedChat = snapshot.data![index];
-                  Get.toNamed(RouteName.chatRoom);
-                },
-                child: Column(
-                  children: [
-                    Container(
-                      color: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      width: Get.width,
-                      height: 50,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                ProfilePicture(
-                                    size: 50,
-                                    imageURL: data.users![1].photoUrl),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(data.users![1].displayName,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: AppFont.text16.copyWith(
-                                              fontWeight: FontWeight.bold)),
-                                      Expanded(
-                                        child: Text(data.lastMessage,
+              return Padding(
+                padding: EdgeInsets.only(
+                    bottom: index == snapshot.data!.length - 1 ? 65 : 0),
+                child: GestureDetector(
+                  onTap: () {
+                    controller.selectedContact = data.users![1];
+                    controller.selectedChat = snapshot.data![index];
+                    Get.toNamed(RouteName.chatRoom);
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        color: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        width: Get.width,
+                        height: 50,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  ProfilePicture(
+                                      size: 50,
+                                      imageURL: data.users![1].photoUrl),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(data.users![1].displayName,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
-                                            style: AppFont.text12
-                                                .copyWith(color: Colors.grey)),
-                                      ),
-                                    ],
+                                            style: AppFont.text16.copyWith(
+                                                fontWeight: FontWeight.bold)),
+                                        Expanded(
+                                          child: Text(data.lastMessage,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: AppFont.text12.copyWith(
+                                                  color: Colors.grey)),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(data.lastMessageTime!,
-                                  style: AppFont.text12
-                                      .copyWith(color: Colors.grey)),
-                              const SizedBox(height: 3),
-                            ],
-                          )
-                        ],
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(data.lastMessageTime!,
+                                    style: AppFont.text12
+                                        .copyWith(color: Colors.grey)),
+                                const SizedBox(height: 3),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    const Line()
-                  ],
+                      const SizedBox(height: 10),
+                      const Line()
+                    ],
+                  ),
                 ),
               );
             },

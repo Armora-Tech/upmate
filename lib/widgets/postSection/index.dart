@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:upmatev2/widgets/home/popular.dart';
 import 'package:upmatev2/widgets/postSection/shimmer_post_section.dart';
 import '../../controllers/home_controller.dart';
@@ -28,11 +29,23 @@ class HomePostSection extends StatelessWidget {
           itemBuilder: (context, index) {
             return controller.isLoading.value
                 ? const ShimmerPostSection()
-                : PostSection(index: index);
+                : Column(
+                    children: [
+                      PostSection(index: index),
+                      Obx(() => controller.isLoadMore.value &&
+                              index == controller.posts!.length - 1
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 40, top: 20),
+                              child: LoadingAnimationWidget.stretchedDots(
+                                  size: 30, color: Colors.black),
+                            )
+                          : const SizedBox()),
+                    ],
+                  );
           },
         );
       },
     );
   }
 }
-

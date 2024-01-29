@@ -136,9 +136,7 @@ class CameraViewController extends GetxController with WidgetsBindingObserver {
           isFlashOn.value = false;
           await cameraController.setFlashMode(FlashMode.off);
           _galleryController.isLoading.value = true;
-          Get.until(
-            (route) => Get.previousRoute == RouteName.editProfile,
-          );
+          Get.until((route) => Get.previousRoute == RouteName.editProfile);
           isEditBanner
               ? await UserRepository().updateBanner(image!)
               : await UserRepository().updateProfile(image!);

@@ -8,6 +8,7 @@ import 'auth.dart';
 
 class PostRepository {
   final Auth _auth = Auth();
+  QueryDocumentSnapshot<PostModel>? lastPost;
 
   Future<void> addPost(PostModel postModel) async {
     try {
@@ -80,10 +81,18 @@ class PostRepository {
           .collection('posts')
           .where('interests', arrayContainsAny: currentUser?.interests)
           .orderBy("timestamp", descending: true)
+          .limit(5)
           .withConverter(
               fromFirestore: PostModel.fromFirestore,
               toFirestore: (PostModel post, _) => post.toFirestore())
           .get();
+
+      lastPost = querySnapshot.docs[querySnapshot.docs.length - 1]
+          as QueryDocumentSnapshot<PostModel>;
+      final lastPostData = lastPost!.data();
+      await lastPostData.initUsers();
+      await lastPostData.initPhotos();
+      await lastPostData.getComment();
 
       for (var e in querySnapshot.docs) {
         var post = e.data() as PostModel;
@@ -105,6 +114,56 @@ class PostRepository {
       }
       return data;
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<PostModel>> getMorePosts() async {
+    try {
+      UserModel? currentUser = await _auth.getUserModel();
+      List<PostModel> data = [];
+      debugPrint("Interest: ${currentUser?.interests}");
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('posts')
+          .where('interests', arrayContainsAny: currentUser?.interests)
+          .orderBy("timestamp", descending: true)
+          .startAfterDocument(lastPost!)
+          .limit(2)
+          .withConverter(
+              fromFirestore: PostModel.fromFirestore,
+              toFirestore: (PostModel post, _) => post.toFirestore())
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        lastPost = querySnapshot.docs[querySnapshot.docs.length - 1]
+            as QueryDocumentSnapshot<PostModel>;
+        final lastPostData = lastPost!.data();
+        await lastPostData.initUsers();
+        await lastPostData.initPhotos();
+        await lastPostData.getComment();
+        for (var e in querySnapshot.docs) {
+          var post = e.data() as PostModel;
+          await post.initUsers();
+          await post.initPhotos();
+          await post.getComment();
+
+          if (kDebugMode) {
+            print(post);
+            print("PostModel: ${post.interests}");
+            debugPrint("Likes: ${post.likes}");
+            if (post.comments!.isNotEmpty) {
+              print("Comment: ${post.comments?[0].text}");
+            }
+          }
+          if (post.timestamp != null) {
+            data.add(post);
+          }
+        }
+        return data;
+      }
+      return [];
+    } catch (e) {
+      debugPrint(e.toString());
       rethrow;
     }
   }
