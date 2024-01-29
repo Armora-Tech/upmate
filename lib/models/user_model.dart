@@ -18,7 +18,7 @@ class UserModel {
   List<PostModel>? _posts;
   String? _banner_url;
 
-  UserModel._(
+  UserModel(
       {required DocumentReference ref,
       required DateTime? createdTime,
       required String displayName,
@@ -44,7 +44,7 @@ class UserModel {
   ) {
     final data = snapshot.data();
 
-    return UserModel._(
+    return UserModel(
         ref: snapshot.reference,
         createdTime: (data?['created_time'] as Timestamp?)?.toDate(),
         displayName: data?['display_name'] ?? '',
