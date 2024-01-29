@@ -42,7 +42,7 @@ class GalleryController extends GetxController {
       }
       update();
     });
-    assetList = await PickImage().loadAssets();
+    assetList = await PickImage().loadAssets(_startController.permission);
     update();
     super.onInit();
   }

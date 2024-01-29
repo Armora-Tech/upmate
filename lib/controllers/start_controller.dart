@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:photo_manager/photo_manager.dart';
 import 'package:upmatev2/repositories/auth.dart';
 import 'package:upmatev2/repositories/user_repository.dart';
 
@@ -6,6 +7,7 @@ import '../models/post_model.dart';
 import '../models/user_model.dart';
 
 class StartController extends GetxController {
+  late final PermissionState permission;
   final Auth _auth = Auth();
   final UserRepository _userRepository = UserRepository();
   UserModel? user;
@@ -17,6 +19,7 @@ class StartController extends GetxController {
   @override
   void onInit() async {
     await _getUser();
+    permission = await PhotoManager.requestPermissionExtend();
     super.onInit();
   }
 

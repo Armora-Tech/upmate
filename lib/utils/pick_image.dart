@@ -72,8 +72,7 @@ class PickImage {
     );
   }
 
-  Future<List<AssetEntity>> loadAssets() async {
-    final permission = await PhotoManager.requestPermissionExtend();
+  Future<List<AssetEntity>> loadAssets(PermissionState permission) async {
     List<AssetEntity> assets = [];
 
     if (permission.isAuth) {
