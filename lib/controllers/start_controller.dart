@@ -19,12 +19,12 @@ class StartController extends GetxController {
   @override
   void onInit() async {
     await _getUser();
-    permission = await PhotoManager.requestPermissionExtend();
     super.onInit();
   }
 
   Future<void> _getUser() async {
     isLoading.value = true;
+    permission = await PhotoManager.requestPermissionExtend();
     user = await _auth.getUserModel();
     await refreshMyPosts();
     isLoading.value = false;

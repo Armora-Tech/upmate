@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/chat_controller.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/models/chat_model.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_font.dart';
@@ -16,6 +17,7 @@ class ChatList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ChatController>();
+    final startController = Get.find<StartController>();
     return SizedBox(
       width: Get.width,
       child: StreamBuilder<List<ChatModel>>(
@@ -41,71 +43,75 @@ class ChatList extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.only(
                     bottom: index == snapshot.data!.length - 1 ? 65 : 0),
-                child: GestureDetector(
-                  onTap: () {
-                    controller.selectedContact = data.chatRecipient!;
-                    controller.selectedChat = snapshot.data![index];
-                    Get.toNamed(RouteName.chatRoom);
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                        color: Colors.white,
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        width: Get.width,
-                        height: 50,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  ProfilePicture(
-                                      size: 50,
-                                      imageURL: data.chatRecipient!.photoUrl),
-                                  const SizedBox(width: 8),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(data.chatRecipient!.displayName,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: AppFont.text16.copyWith(
-                                                fontWeight: FontWeight.bold)),
-                                        Expanded(
-                                          child: Text(data.lastMessage,
+                child: Obx(
+                  () => GestureDetector(
+                    onTap: startController.isLoading.value
+                        ? () {}
+                        : () {
+                            controller.selectedContact = data.chatRecipient!;
+                            controller.selectedChat = snapshot.data![index];
+                            Get.toNamed(RouteName.chatRoom);
+                          },
+                    child: Column(
+                      children: [
+                        Container(
+                          color: Colors.white,
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          width: Get.width,
+                          height: 50,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    ProfilePicture(
+                                        size: 50,
+                                        imageURL: data.chatRecipient!.photoUrl),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(data.chatRecipient!.displayName,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
-                                              style: AppFont.text12.copyWith(
-                                                  color: Colors.grey)),
-                                        ),
-                                      ],
+                                              style: AppFont.text16.copyWith(
+                                                  fontWeight: FontWeight.bold)),
+                                          Expanded(
+                                            child: Text(data.lastMessage,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: AppFont.text12.copyWith(
+                                                    color: Colors.grey)),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(data.lastMessageTime!,
-                                    style: AppFont.text12
-                                        .copyWith(color: Colors.grey)),
-                                const SizedBox(height: 3),
-                              ],
-                            )
-                          ],
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(data.lastMessageTime!,
+                                      style: AppFont.text12
+                                          .copyWith(color: Colors.grey)),
+                                  const SizedBox(height: 3),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      const Line()
-                    ],
+                        const SizedBox(height: 10),
+                        const Line()
+                      ],
+                    ),
                   ),
                 ),
               );

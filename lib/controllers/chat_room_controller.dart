@@ -76,13 +76,15 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   Future<void> sendChat() async {
     if (_cameraViewController.image != null &&
         _galleryController.selectedAssetList.isEmpty) {
+      isSendingPicture.value = true;
+      Get.forceAppUpdate();
       imgUrl = await Upload().uploadFromCamera(_cameraViewController);
       Get.until((route) => Get.previousRoute == RouteName.chatRoom);
     }
     chatMessage = ChatMessageModel(
         ref: FirebaseFirestore.instance.collection("chat_messages").doc(),
         chat: _chatController.selectedChat!.ref,
-        text: textEditingController.text,
+        text: imgUrl == null ? textEditingController.text : "send_a_picture".tr,
         timestamp: DateTime.now(),
         user: _startController.user!.ref,
         image: imgUrl);
@@ -91,8 +93,9 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     imgUrl = null;
     _cameraViewController.image = null;
     _galleryController.selectedAssetList.clear();
-    update();
     await ChatRepository().addMessage(chatMessage!);
+    isSendingPicture.value = false;
+    Get.forceAppUpdate();
   }
 
   Future<void> sendImageFromGallery() async {
@@ -120,7 +123,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
           chatMessage = ChatMessageModel(
               ref: FirebaseFirestore.instance.collection("chat_messages").doc(),
               chat: _chatController.selectedChat!.ref,
-              text: "Send a picture",
+              text: "send_a_picture".tr,
               timestamp: DateTime.now(),
               user: _startController.user!.ref,
               image: imgUrl);

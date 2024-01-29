@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/chat/app_bar.dart';
@@ -14,6 +15,7 @@ class ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ChatController>();
+    final startController = Get.find<StartController>();
     return Stack(
       children: [
         GetBuilder<ChatController>(
@@ -42,11 +44,12 @@ class ChatView extends StatelessWidget {
         Positioned(
           bottom: 80,
           right: 20,
-          child: GetBuilder<ChatController>(
-            builder: (_) => FloatingActionButton(
-              onPressed: controller.isLoading.value
-                  ? () {}
-                  : () => Get.toNamed(RouteName.createChat),
+          child: Obx(
+            () => FloatingActionButton(
+              onPressed:
+                  startController.isLoading.value && controller.isLoading.value
+                      ? () {}
+                      : () => Get.toNamed(RouteName.createChat),
               child: const Icon(Icons.add, color: Colors.white),
             ),
           ),

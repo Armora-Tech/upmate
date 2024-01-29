@@ -31,7 +31,7 @@ class Message extends Translations {
           "username_must_be_in_all_lowercase_letters_and_without_spaces":
               "Username must be in all lowercase letters and without spaces",
           "not_receiving_emails": "not receiving emails?",
-          "resend_email" : "Resend email",
+          "resend_email": "Resend email",
           // ========= HOME PAGE =========
           "more": "more",
           "less": "less",
@@ -151,6 +151,8 @@ class Message extends Translations {
           "create_a_new_chat": "Create a new chat",
           // =========== CHAT =============
           "no_chats": "No chats",
+          // =========== CHAT ROOM PAGE =============
+          "send_a_picture": "Send a picture",
         },
         "id": {
           // ========= LOGIN SIGNUP PAGE ========
@@ -179,8 +181,8 @@ class Message extends Translations {
           "your_email_or_password_is_wrong": "Email atau password Anda salah",
           "username_must_be_in_all_lowercase_letters_and_without_spaces":
               "Nama pengguna harus menggunakan huruf kecil dan tanpa spasi",
-               "not_receiving_emails": "Tidak menerima email?",
-          "resend_email" : "Kirim ulang email",
+          "not_receiving_emails": "Tidak menerima email?",
+          "resend_email": "Kirim ulang email",
           // ========= HOME PAGE =========
           "more": "selengkapnya",
           "less": "sembunyikan",
@@ -299,6 +301,8 @@ class Message extends Translations {
           "create_a_new_chat": "Buat obrolan baru",
           // =========== CHAT =============
           "no_chats": "Tidak ada obrolan",
+          // =========== CHAT ROOM PAGE =============
+          "send_a_picture": "Mengirim gambar",
         }
       };
 }

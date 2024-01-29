@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:upmatev2/controllers/chat_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 
+import '../../controllers/start_controller.dart';
 import '../../themes/app_color.dart';
 import '../../themes/app_font.dart';
 import '../global/line.dart';
@@ -14,6 +15,7 @@ class ChatViewAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ChatController>();
+    final startController = Get.find<StartController>();
     return Positioned(
       top: 0,
       child: SafeArea(
@@ -35,9 +37,10 @@ class ChatViewAppBar extends StatelessWidget {
                                 .copyWith(fontWeight: FontWeight.bold)),
                         Row(
                           children: [
-                            GetBuilder<ChatController>(
-                              builder: (_) => GestureDetector(
-                                onTap: controller.isLoading.value
+                            Obx(
+                              () => GestureDetector(
+                                onTap: startController.isLoading.value &&
+                                        controller.isLoading.value
                                     ? () {}
                                     : () => Get.toNamed(RouteName.searchChat),
                                 child: SvgPicture.asset(
