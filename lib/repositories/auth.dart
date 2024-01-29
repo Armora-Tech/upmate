@@ -57,7 +57,7 @@ class Auth {
 
       if (userCredential.user != null) {
         return userCredential.user;
-      } 
+      }
 
       return null;
     } catch (e) {
@@ -153,26 +153,17 @@ class Auth {
 
   Future<void> addUser(UserModel userModel) async {
     try {
-      var docRef = FirebaseFirestore.instance
+      // doc.data() will be undefined in this case
+      debugPrint("No such document!");
+      await FirebaseFirestore.instance
           .collection("users")
-          .doc(userModel.ref.path);
-      docRef.get().then((doc) async {
-        if (doc.exists) {
-          debugPrint("Document data: ${doc.data()}");
-        } else {
-          // doc.data() will be undefined in this case
-          debugPrint("No such document!");
-          await FirebaseFirestore.instance
-              .collection("users")
-              .add(userModel.toFirestore())
-              .then(
-                (DocumentReference doc) => {
-                  if (kDebugMode)
-                    {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
-                },
-              );
-        }
-      }).onError((error, stackTrace) => null);
+          .add(userModel.toFirestore())
+          .then(
+            (DocumentReference doc) => {
+              if (kDebugMode)
+                {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
+            },
+          );
     } catch (e) {
       debugPrint("ERROR : $e");
     }
@@ -262,14 +253,14 @@ class Auth {
   }
 
   Future<UserModel?> getUserModel() async {
-    DocumentSnapshot<UserModel> querySnapshot = await FirebaseFirestore.instance
+    QuerySnapshot<UserModel> querySnapshot = await FirebaseFirestore.instance
         .collection('users')
+        .where('uid', isEqualTo: getCurrentUserReference().id)
         .withConverter(
             fromFirestore: UserModel.fromFirestore,
             toFirestore: (UserModel userModel, _) => userModel.toFirestore())
-        .doc(getCurrentUserReference().id)
         .get();
-    return querySnapshot.data();
+    return querySnapshot.docs[0].data();
   }
 
   DocumentReference<Map<String, dynamic>> getCurrentUserReference() {

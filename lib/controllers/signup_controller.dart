@@ -83,7 +83,7 @@ class SignupController extends GetxController {
       final userCredential =
           await _auth.signUpWithEmailAndPassword(email.text, pass.text);
       UserModel newUser = UserModel(
-        ref: FirebaseFirestore.instance.doc(userCredential!.uid),
+        ref: FirebaseFirestore.instance.collection("users").doc(userCredential!.uid),
         createdTime: DateTime.now(),
         displayName: fullName.text,
         email: email.text,
