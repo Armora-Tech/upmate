@@ -28,6 +28,10 @@ class Message extends Translations {
               "Password and confirm password must be the same",
           "sign_in_failed": "Sign In Failed",
           "your_email_or_password_is_wrong": "Your email or password is wrong",
+          "username_must_be_in_all_lowercase_letters_and_without_spaces":
+              "Username must be in all lowercase letters and without spaces",
+          "not_receiving_emails": "not receiving emails?",
+          "resend_email" : "Resend email",
           // ========= HOME PAGE =========
           "more": "more",
           "less": "less",
@@ -76,6 +80,7 @@ class Message extends Translations {
           "today": "Today",
           "liked_your_post": "liked your post.",
           "yesterday": "Yesterday",
+          "no_activity": "No Activity",
           // ========= POST ===========
           "next": "Next",
           "no_picture": "No picture",
@@ -142,8 +147,10 @@ class Message extends Translations {
           "verify_your_email": "Verify your email",
           "please_enter_the_4_digit_code_sent_to_youremail@example.com":
               "Please enter the 4 digit code sent to youremail@example.com",
-          // =========== ADD NEW CHAT =============
-          "create_a_new_chat": "Create a new chat"
+          // =========== CREATE NEW CHAT =============
+          "create_a_new_chat": "Create a new chat",
+          // =========== CHAT =============
+          "no_chats": "No chats",
         },
         "id": {
           // ========= LOGIN SIGNUP PAGE ========
@@ -170,6 +177,10 @@ class Message extends Translations {
               "Kata sandi and konfirmasi kata sandi harus sama",
           "sign_in_failed": "Gagal masuk",
           "your_email_or_password_is_wrong": "Email atau password Anda salah",
+          "username_must_be_in_all_lowercase_letters_and_without_spaces":
+              "Nama pengguna harus menggunakan huruf kecil dan tanpa spasi",
+               "not_receiving_emails": "Tidak menerima email?",
+          "resend_email" : "Kirim ulang email",
           // ========= HOME PAGE =========
           "more": "selengkapnya",
           "less": "sembunyikan",
@@ -219,6 +230,7 @@ class Message extends Translations {
           "today": "Hari ini",
           "liked_your_post": "menyukai postingan Anda.",
           "yesterday": "Kemarin",
+          "no_activity": "Tidak ada aktivitas",
           // ========= POST ===========
           "next": "Selanjutnya",
           "no_picture": "Tidak ada gambar",
@@ -283,8 +295,10 @@ class Message extends Translations {
           "verify_your_email": "Verifikasi email Anda",
           "please_enter_the_4_digit_code_sent_to_youremail@example.com":
               "Masukkan 4 digit kode yang dikirimkan ke emailanda@contoh.com",
-          // =========== ADD NEW CHAT =============
-          "create_a_new_chat": "Buat obrolan baru"
+          // =========== CREATE NEW CHAT =============
+          "create_a_new_chat": "Buat obrolan baru",
+          // =========== CHAT =============
+          "no_chats": "Tidak ada obrolan",
         }
       };
 }

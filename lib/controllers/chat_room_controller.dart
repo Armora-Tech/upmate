@@ -74,6 +74,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   }
 
   Future<void> sendChat() async {
+    debugPrint("IMAGGE; $imgUrl");
     isSendingPicture.value = true;
     if (_cameraViewController.image != null &&
         _galleryController.selectedAssetList.isEmpty) {
@@ -120,7 +121,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
           chatMessage = ChatMessageModel(
               ref: FirebaseFirestore.instance.collection("chat_messages").doc(),
               chat: _chatController.selectedChat!.ref,
-              text: textEditingController.text,
+              text: "Send a picture",
               timestamp: DateTime.now(),
               user: _startController.user!.ref,
               image: imgUrl);

@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/widgets/global/snack_bar.dart';
+import '../models/user_model.dart';
 import '../routes/route_name.dart';
 import '../repositories/auth.dart';
 
@@ -26,7 +28,6 @@ class SignupController extends GetxController {
   RxBool isEmailInvalid = false.obs;
   RxBool isPassInvalid = false.obs;
   RxBool isConfPassInvalid = false.obs;
-
 
   List<String> selectedTags = [];
   Map<String, String> tags = {
@@ -76,7 +77,32 @@ class SignupController extends GetxController {
     super.onClose();
   }
 
-  Future<void> signup() async {
+  Future<void> signUp() async {
+    isLoading.value = true;
+    try {
+      final userCredential =
+          await _auth.signUpWithEmailAndPassword(email.text, pass.text);
+      UserModel newUser = UserModel(
+        ref: FirebaseFirestore.instance.doc(userCredential!.uid),
+        createdTime: DateTime.now(),
+        displayName: fullName.text,
+        email: email.text,
+        interests: selectedTags,
+        uid: userCredential.uid,
+        username: username.text,
+        photoUrl: '',
+        bannerUrl: null,
+      );
+      await _auth.addUser(newUser);
+      Get.offAllNamed(RouteName.start);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+
+    isLoading.value = false;
+  }
+
+  Future<void> verifyEmail() async {
     isLoading.value = true;
     await Future.delayed(const Duration(milliseconds: 1000));
     await _auth.sendOTP(email.text);
@@ -86,12 +112,14 @@ class SignupController extends GetxController {
   }
 
   Future<void> verifyOTP() async {
+    isLoading.value = true;
     bool isVerified = await _auth.checkOTP(inputOTP.value);
     if (isVerified) {
+      isLoading.value = false;
       Get.toNamed(RouteName.tagInterest);
     } else {
-      SnackBarWidget.showSnackBar(
-          false, "${"verify_otp".tr} ${"otp_verification_failed".tr}");
+      isLoading.value = false;
+      SnackBarWidget.showSnackBar(false, "otp_verification_failed".tr);
     }
   }
 

@@ -4,7 +4,7 @@ import 'package:upmatev2/controllers/chat_controller.dart';
 import 'package:upmatev2/widgets/global/search_template.dart';
 import 'package:upmatev2/widgets/global/user_list.dart';
 
-import '../widgets/global/users_shimmer.dart';
+import '../../widgets/global/users_shimmer.dart';
 
 class SearchChatView extends StatelessWidget {
   const SearchChatView({super.key});
@@ -20,13 +20,14 @@ class SearchChatView extends StatelessWidget {
       },
       child: GetBuilder<ChatController>(
         builder: (_) => SearchTemplate(
-            title: "search".tr,
-            controller: controller,
-            child: controller.isLoading.value
-                ? const UsersShimmer()
-                : UserList(
-                    selectedPage: SearchPage.searchChatPage,
-                    controller: controller)),
+          title: "search".tr,
+          controller: controller,
+          child: controller.isLoading.value
+              ? const UsersShimmer()
+              : UserList(
+                  selectedPage: SearchPage.searchChatPage,
+                  controller: controller),
+        ),
       ),
     );
   }

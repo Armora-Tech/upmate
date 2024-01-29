@@ -60,6 +60,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_image_compress: ^2.1.0
   cached_network_image: ^3.3.1
+  lottie: ^3.0.0
 
 dependency_overrides: 
   photo_manager: ^3.0.0-dev.2

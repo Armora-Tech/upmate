@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../models/user_model.dart';
 import '../repositories/auth.dart';
 import '../routes/route_name.dart';
 import '../utils/cancellation.dart';
@@ -46,7 +47,12 @@ class LoginController extends GetxController {
     await Future.delayed(const Duration(milliseconds: 2000));
     try {
       if (loginProvider == LoginProvider.google) {
-        await _auth.signInWithGoogle();
+        final userCredential = await _auth.signInWithGoogle();
+        _auth.getCurrentUserReference();
+        final UserModel? user = await _auth.getUserModel();
+        if (userCredential != null && user!.interests.isNotEmpty) {
+          Get.offAllNamed(RouteName.start);
+        }
       } else if (loginProvider == LoginProvider.facebook) {
         await _auth.signInWithFacebook();
       } else if (loginProvider == LoginProvider.email) {
@@ -67,15 +73,15 @@ class LoginController extends GetxController {
     isLoading.value = true;
     try {
       await _auth.signOut();
+      isLoading.value = false;
+      update();
+      Get.offAllNamed(RouteName.login);
+      Get.forceAppUpdate();
     } catch (e) {
       if (kDebugMode) {
         print('Error navigating to start page: $e');
         print("Sign out failed!");
       }
     }
-    isLoading.value = false;
-    update();
-    Get.offAllNamed(RouteName.login);
-    Get.forceAppUpdate();
   }
 }

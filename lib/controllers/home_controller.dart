@@ -20,6 +20,7 @@ class HomeController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isDeleting = false.obs;
   RxBool isLoadMore = false.obs;
+  RxBool isLiked = false.obs;
 
   @override
   Future<void> onInit() async {

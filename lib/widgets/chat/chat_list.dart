@@ -43,7 +43,7 @@ class ChatList extends StatelessWidget {
                     bottom: index == snapshot.data!.length - 1 ? 65 : 0),
                 child: GestureDetector(
                   onTap: () {
-                    controller.selectedContact = data.users![1];
+                    controller.selectedContact = data.chatRecipient!;
                     controller.selectedChat = snapshot.data![index];
                     Get.toNamed(RouteName.chatRoom);
                   },
@@ -63,7 +63,7 @@ class ChatList extends StatelessWidget {
                                 children: [
                                   ProfilePicture(
                                       size: 50,
-                                      imageURL: data.users![1].photoUrl),
+                                      imageURL: data.chatRecipient!.photoUrl),
                                   const SizedBox(width: 8),
                                   Expanded(
                                     child: Column(
@@ -72,7 +72,7 @@ class ChatList extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text(data.users![1].displayName,
+                                        Text(data.chatRecipient!.displayName,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: AppFont.text16.copyWith(

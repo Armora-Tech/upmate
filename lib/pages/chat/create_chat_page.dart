@@ -18,11 +18,11 @@ class CreateChatView extends StatelessWidget {
       },
       child: GetBuilder<ChatController>(
         builder: (_) => SearchTemplate(
-            title: "create_a_new_chat".tr,
-            controller: controller,
-            child: UserList(
-                selectedPage: SearchPage.createChatPage,
-                controller: controller)),
+          title: "create_a_new_chat".tr,
+          controller: controller,
+          child: UserList(
+              selectedPage: SearchPage.createChatPage, controller: controller),
+        ),
       ),
     );
   }

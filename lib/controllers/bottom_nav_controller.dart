@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/pages/createPost/create_post_page.dart';
 import 'package:upmatev2/routes/route_name.dart';
-import 'package:upmatev2/pages/chat.dart';
+import 'package:upmatev2/pages/chat/chat.dart';
 import 'package:upmatev2/pages/home.dart';
 import 'package:upmatev2/pages/notification_page.dart';
 

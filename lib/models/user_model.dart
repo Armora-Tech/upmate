@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:upmatev2/models/post_model.dart';
 
-
 class UserModel {
   DocumentReference _ref;
   DateTime? _created_time;
@@ -47,11 +46,11 @@ class UserModel {
         email: data?['email'] ?? '',
         interests: data?['interests'] ?? [],
         uid: data?['uid'] ?? '',
-        username:
-            data?['display_name']==null? "" :
-            "@${data?['display_name'].replaceAll(" ", "").toLowerCase()}",
+        username: data?['display_name'] == null
+            ? ""
+            : "@${data?['display_name'].replaceAll(" ", "").toLowerCase()}",
         photoUrl: data?['photo_url'] ??
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Pnt1rnG5_oeghvwAVvVBhcLrR5yZRqLRFw&usqp=CAU",
+            "https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/user_account_profile-2-512.png",
         bannerUrl: data?['banner_url']);
   }
 
@@ -67,7 +66,6 @@ class UserModel {
       "banner_url": _banner_url
     };
   }
-
 
   DocumentReference get ref => _ref;
 

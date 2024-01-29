@@ -38,11 +38,11 @@ class Auth {
     }
   }
 
-  Future<void> signInWithGoogle() async {
+  Future<User?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
           await googleSignIn.signIn();
-      if (googleSignInAccount == null) return;
+      if (googleSignInAccount == null) return null;
 
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
@@ -56,18 +56,16 @@ class Auth {
           await _auth.signInWithCredential(credential);
 
       if (userCredential.user != null) {
-        await Get.offAllNamed(RouteName.start);
-      } else {
-        //TODO: SHOW ERROR HERE
-      }
+        return userCredential.user;
+      } 
 
-      return;
+      return null;
     } catch (e) {
       if (kDebugMode) {
         print('Error signing in with Google: $e');
       }
       //TODO: SHOW ERROR HERE
-      return;
+      return null;
     }
   }
 
@@ -169,13 +167,12 @@ class Auth {
               .add(userModel.toFirestore())
               .then(
                 (DocumentReference doc) => {
-              if (kDebugMode)
-                {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
-            },
-          );
+                  if (kDebugMode)
+                    {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
+                },
+              );
         }
       }).onError((error, stackTrace) => null);
-
     } catch (e) {
       debugPrint("ERROR : $e");
     }
@@ -189,18 +186,6 @@ class Auth {
         email: email,
         password: password,
       );
-      // UserModel newUser = UserModel(
-      //   ref: FirebaseFirestore.instance.doc('users/${userCredential.user?.uid}'),
-      //   createdTime: DateTime.now(),
-      //   displayName: '',
-      //   email: email,
-      //   interests: [],
-      //   uid: userCredential.user!.uid,
-      //   username: '@',
-      //   photoUrl: '',
-      //   bannerUrl: null,
-      // );
-      // await addUser(newUser);
       return userCredential.user;
     } catch (e) {
       if (kDebugMode) {

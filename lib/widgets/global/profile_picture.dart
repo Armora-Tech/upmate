@@ -15,7 +15,7 @@ class ProfilePicture extends StatelessWidget {
       decoration: const BoxDecoration(shape: BoxShape.circle),
       child: CachedNetworkImageWidget(
           imageUrl: imageURL ??
-              "https://i.pinimg.com/736x/e5/93/09/e593098f04ed9c1f5fa05749ff0aff26.jpg",
+              "https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/user_account_profile-2-512.png",
           circularProgressSize: 20,
           heightPlaceHolder: size,
           widthPlaceHolder: size,

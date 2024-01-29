@@ -23,7 +23,7 @@ class PostCommentSection extends StatelessWidget {
               if (snapshot.hasError) {
                 return _commentSection(post.comments, controller);
               }
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (!snapshot.hasData) {
                 return _commentSection(post.comments, controller);
               }
               var comments = snapshot.data;

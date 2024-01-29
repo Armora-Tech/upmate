@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:upmatev2/controllers/signup_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
 
+import '../widgets/global/loading.dart';
+
 class VerifyView extends StatelessWidget {
   const VerifyView({super.key});
 
@@ -23,7 +25,7 @@ class VerifyView extends StatelessWidget {
                 Center(
                   child: SizedBox(
                     height: 200,
-                    child: Image.asset("assets/images/verif.png",
+                    child: Image.asset("assets/images/verify.png",
                         fit: BoxFit.cover),
                   ),
                 ),
@@ -53,9 +55,43 @@ class VerifyView extends StatelessWidget {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
                             }
-                            debugPrint(value);
-                            controller.inputOTP.value =
-                                controller.inputOTP.value + value;
+                            if (value.isEmpty) {
+                              controller.inputOTP.value =
+                                  controller.inputOTP.value.substring(
+                                      0, controller.inputOTP.value.length - 1);
+                            } else {
+                              controller.inputOTP.value =
+                                  controller.inputOTP.value + value;
+                            }
+                          },
+                          keyboardType: TextInputType.number,
+                          textAlign: TextAlign.center,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(1),
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 68,
+                        width: 64,
+                        child: TextFormField(
+                          onChanged: (value) {
+                            if (value.length == 1) {
+                              FocusScope.of(context).nextFocus();
+                            } else {
+                              controller.inputOTP.value =
+                                  controller.inputOTP.value + value;
+                              FocusScope.of(context).previousFocus();
+                            }
+                            if (value.isEmpty) {
+                              controller.inputOTP.value =
+                                  controller.inputOTP.value.substring(
+                                      0, controller.inputOTP.value.length - 1);
+                            } else {
+                              controller.inputOTP.value =
+                                  controller.inputOTP.value + value;
+                            }
                           },
                           keyboardType: TextInputType.number,
                           textAlign: TextAlign.center,
@@ -75,31 +111,14 @@ class VerifyView extends StatelessWidget {
                             } else {
                               FocusScope.of(context).previousFocus();
                             }
-                            debugPrint(value);
-                            controller.inputOTP.value =
-                                controller.inputOTP.value + value;
-                          },
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(1),
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 68,
-                        width: 64,
-                        child: TextFormField(
-                          onChanged: (value) {
-                            if (value.length == 1) {
-                              FocusScope.of(context).nextFocus();
+                            if (value.isEmpty) {
+                              controller.inputOTP.value =
+                                  controller.inputOTP.value.substring(
+                                      0, controller.inputOTP.value.length - 1);
                             } else {
-                              FocusScope.of(context).previousFocus();
+                              controller.inputOTP.value =
+                                  controller.inputOTP.value + value;
                             }
-                            debugPrint(value);
-                            controller.inputOTP.value =
-                                controller.inputOTP.value + value;
                           },
                           keyboardType: TextInputType.number,
                           textAlign: TextAlign.center,
@@ -115,11 +134,14 @@ class VerifyView extends StatelessWidget {
                         child: TextFormField(
                           onChanged: (value) {
                             if (value.isEmpty) {
+                              controller.inputOTP.value =
+                                  controller.inputOTP.value.substring(
+                                      0, controller.inputOTP.value.length - 1);
                               FocusScope.of(context).previousFocus();
+                            } else {
+                              controller.inputOTP.value =
+                                  controller.inputOTP.value + value;
                             }
-                            debugPrint(value);
-                            controller.inputOTP.value =
-                                controller.inputOTP.value + value;
                           },
                           keyboardType: TextInputType.number,
                           textAlign: TextAlign.center,
@@ -135,36 +157,42 @@ class VerifyView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      "Tidak menerima email?",
-                      style: TextStyle(color: Color(0xFF505050)),
+                    Text(
+                      "not_receiving_emails".tr,
+                      style: const TextStyle(color: Color(0xFF505050)),
                     ),
                     const SizedBox(width: 2),
                     GestureDetector(
                       onTap: () {},
-                      child: const Text("Kirim ulang email",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      child: Text("resend_email".tr,
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
                 const SizedBox(height: 40),
-                ElevatedButton(
-                  onPressed: () async {
-                    debugPrint("${controller.inputOTP}");
-                    await controller.verifyOTP();
-                    // final isOK = await authControl.checkOTP("123");
-                    // print("CECK: $isOK");
+                Obx(
+                  () => ElevatedButton(
+                    onPressed: controller.isLoading.value
+                        ? () {}
+                        : () async {
+                            await controller.verifyOTP();
+                            // final isOK = await authControl.checkOTP("123");
+                            // print("CECK: $isOK");
 
-                    // if(authControl.checkOTP(string)){
-                    //
-                    // }
-                    // Get.toNamed(RouteName.takeSurvey)
-                  },
-                  child: Center(
-                    child: Text(
-                      "Verify",
-                      style: AppFont.text16.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.w500),
+                            // if(authControl.checkOTP(string)){
+                            //
+                            // }
+                            // Get.toNamed(RouteName.takeSurvey)
+                          },
+                    child: Center(
+                      child: controller.isLoading.value
+                          ? const Loading(size: 23, color: Colors.white)
+                          : Text(
+                              "Verify",
+                              style: AppFont.text16.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            ),
                     ),
                   ),
                 )

@@ -43,9 +43,8 @@ class AppTheme {
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(width: 1, color: Colors.black)),
           errorStyle: AppFont.text10.copyWith(
-            color: Colors.redAccent,
-            overflow: TextOverflow.visible,
-          ),
+              color: Colors.redAccent, overflow: TextOverflow.visible),
+          errorMaxLines: 3,
           errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(width: 0.5, color: Colors.grey)),

@@ -199,6 +199,8 @@ class PostModel {
   
   set comments(List<CommentModel>? comments) => _comments = comments;
 
+  set bookmarks(List<dynamic> bookmarks) => _bookmarks = bookmarks;
+
   void _updateLocalFields(Map<String, dynamic> updatedData) {
     if (updatedData.containsKey('forumRef')) {
       _forumRef = updatedData['forumRef'];

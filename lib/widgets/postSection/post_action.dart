@@ -42,7 +42,7 @@ class PostAction extends StatelessWidget {
                 if (snapshot.hasError) {
                   return LikesButton(likes: post.likes);
                 }
-                if (snapshot.connectionState == ConnectionState.waiting) {
+                if (!snapshot.hasData) {
                   return LikesButton(likes: post.likes);
                 }
                 final likes = snapshot.data;
@@ -78,7 +78,7 @@ class PostAction extends StatelessWidget {
                 if (snapshot.hasError) {
                   return CommentButton(comments: post.comments!);
                 }
-                if (snapshot.connectionState == ConnectionState.waiting) {
+                if (!snapshot.hasData) {
                   return CommentButton(comments: post.comments!);
                 }
                 final comments = snapshot.data;
@@ -102,11 +102,12 @@ class PostAction extends StatelessWidget {
                 if (snapshot.hasError) {
                   return BookmarksButton(bookmarks: post.bookmarks);
                 }
-                if (snapshot.connectionState == ConnectionState.waiting) {
+                if (!snapshot.hasData) {
                   return BookmarksButton(bookmarks: post.bookmarks);
                 }
                 final bookmarks = snapshot.data;
-                return BookmarksButton(bookmarks: bookmarks!);
+                post.bookmarks = bookmarks!;
+                return BookmarksButton(bookmarks: bookmarks);
               },
             ),
           ),

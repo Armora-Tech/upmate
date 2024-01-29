@@ -5,6 +5,7 @@ import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/models/chat_model.dart';
 import 'package:upmatev2/models/user_model.dart';
 import 'package:upmatev2/repositories/chat_repository.dart';
+import 'package:upmatev2/routes/route_name.dart';
 
 class ChatController extends GetxController {
   late final StartController _startController;
@@ -51,6 +52,12 @@ class ChatController extends GetxController {
       await ChatRepository().createChat(chatModel);
     }
     chats = await ChatRepository().getChats();
+    for (var i in chats) {
+      if (i.chatRecipient!.uid == selectedContact!.uid) {
+        selectedChat = i;
+        Get.toNamed(RouteName.chatRoom);
+      }
+    }
     isLoading.value = false;
     update();
   }

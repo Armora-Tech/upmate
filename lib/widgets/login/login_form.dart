@@ -63,17 +63,17 @@ class LoginForm extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: controller.isLoading.value
-                  ? () => {}
-                  : () async {
-                      if (formField.currentState!.validate()) {
-                        await controller.login(LoginProvider.email);
-                      }
-                    },
-              child: Center(
-                child: Obx(
-                  () => controller.isLoading.value
+            Obx(
+              () => ElevatedButton(
+                onPressed: controller.isLoading.value
+                    ? () => {}
+                    : () async {
+                        if (formField.currentState!.validate()) {
+                          await controller.login(LoginProvider.email);
+                        }
+                      },
+                child: Center(
+                  child: controller.isLoading.value
                       ? const Loading(size: 23, color: Colors.white)
                       : Text(
                           "sign_in".tr,

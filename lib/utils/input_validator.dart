@@ -46,6 +46,8 @@ class InputValidator {
       controller.isUsernameInvalid.value = true;
       controller.update();
       return minMessage(usernameInput, minUsernameLength);
+    } else if (!RegExp(r'^[a-z_]+$').hasMatch(value)) {
+      return "username_must_be_in_all_lowercase_letters_and_without_spaces".tr;
     }
     controller.isUsernameInvalid.value = false;
     controller.update();
