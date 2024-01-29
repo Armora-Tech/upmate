@@ -148,9 +148,37 @@ class Auth {
         .doc(signupController.email.text)
         .get();
     final data = snapshot.get('otp');
-    print("OTP: $data");
+    debugPrint("OTP: $data");
 
     return s == data;
+  }
+
+  Future<void> addUser(UserModel userModel) async {
+    try {
+      var docRef = FirebaseFirestore.instance
+          .collection("users")
+          .doc(userModel.ref.path);
+      docRef.get().then((doc) async {
+        if (doc.exists) {
+          debugPrint("Document data: ${doc.data()}");
+        } else {
+          // doc.data() will be undefined in this case
+          debugPrint("No such document!");
+          await FirebaseFirestore.instance
+              .collection("users")
+              .add(userModel.toFirestore())
+              .then(
+                (DocumentReference doc) => {
+              if (kDebugMode)
+                {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
+            },
+          );
+        }
+      }).onError((error, stackTrace) => null);
+
+    } catch (e) {
+      debugPrint("ERROR : $e");
+    }
   }
 
   Future<User?> signUpWithEmailAndPassword(
@@ -161,6 +189,18 @@ class Auth {
         email: email,
         password: password,
       );
+      // UserModel newUser = UserModel(
+      //   ref: FirebaseFirestore.instance.doc('users/${userCredential.user?.uid}'),
+      //   createdTime: DateTime.now(),
+      //   displayName: '',
+      //   email: email,
+      //   interests: [],
+      //   uid: userCredential.user!.uid,
+      //   username: '@',
+      //   photoUrl: '',
+      //   bannerUrl: null,
+      // );
+      // await addUser(newUser);
       return userCredential.user;
     } catch (e) {
       if (kDebugMode) {
