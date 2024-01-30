@@ -61,6 +61,7 @@ dependencies:
   flutter_image_compress: ^2.1.0
   cached_network_image: ^3.3.1
   lottie: ^3.0.0
+  profanity_filter: ^2.0.0
 
 dependency_overrides: 
   photo_manager: ^3.0.0-dev.2

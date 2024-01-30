@@ -32,4 +32,6 @@ class UtilsModel {
       "joblist": _jobList,
     };
   }
+
+  List<String> get badWords => _badWords;
 }

@@ -109,33 +109,35 @@ class PostRepository {
               fromFirestore: PostModel.fromFirestore,
               toFirestore: (PostModel post, _) => post.toFirestore())
           .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        lastPost = querySnapshot.docs[querySnapshot.docs.length - 1]
+        as QueryDocumentSnapshot<PostModel>;
+        final lastPostData = lastPost!.data();
+        await lastPostData.initUsers();
+        await lastPostData.initPhotos();
+        await lastPostData.getComment();
 
-      lastPost = querySnapshot.docs[querySnapshot.docs.length - 1]
-          as QueryDocumentSnapshot<PostModel>;
-      final lastPostData = lastPost!.data();
-      await lastPostData.initUsers();
-      await lastPostData.initPhotos();
-      await lastPostData.getComment();
+        for (var e in querySnapshot.docs) {
+          var post = e.data() as PostModel;
+          await post.initUsers();
+          await post.initPhotos();
+          await post.getComment();
 
-      for (var e in querySnapshot.docs) {
-        var post = e.data() as PostModel;
-        await post.initUsers();
-        await post.initPhotos();
-        await post.getComment();
-
-        if (kDebugMode) {
-          print(post);
-          print("PostModel: ${post.interests}");
-          debugPrint("Likes: ${post.likes}");
-          if (post.comments!.isNotEmpty) {
-            print("Comment: ${post.comments?[0].text}");
+          if (kDebugMode) {
+            print(post);
+            print("PostModel: ${post.interests}");
+            debugPrint("Likes: ${post.likes}");
+            if (post.comments!.isNotEmpty) {
+              print("Comment: ${post.comments?[0].text}");
+            }
+          }
+          if (post.timestamp != null) {
+            data.add(post);
           }
         }
-        if (post.timestamp != null) {
-          data.add(post);
-        }
+        return data;
       }
-      return data;
+      return [];
     } catch (e) {
       rethrow;
     }

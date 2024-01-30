@@ -255,7 +255,7 @@ class Auth {
   Future<UserModel?> getUserModel() async {
     QuerySnapshot<UserModel> querySnapshot = await FirebaseFirestore.instance
         .collection('users')
-        .where('uid', isEqualTo: getCurrentUserReference().id)
+        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
         .withConverter(
             fromFirestore: UserModel.fromFirestore,
             toFirestore: (UserModel userModel, _) => userModel.toFirestore())
