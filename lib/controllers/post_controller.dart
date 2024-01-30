@@ -1,10 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:upmatev2/controllers/camera_controller.dart';
 import 'package:upmatev2/models/post_model.dart';
+import 'package:upmatev2/utils/pick_image.dart';
 
 import '../repositories/auth.dart';
 import '../repositories/post_repository.dart';
@@ -65,8 +69,31 @@ class PostController extends GetxController {
     isLoading.value = true;
     List<String> imgUrl = [];
     if (_cameraViewController.image == null) {
-      final imgUploaded = await Upload().uploadFromGallery(_galleryController);
-      imgUrl.add(imgUploaded);
+      for (var asset in _galleryController.selectedAssetList) {
+        try {
+          File? assetData = await asset.loadFile();
+          final Directory tempDir = await getTemporaryDirectory();
+          File newAsset = File(
+              "${tempDir.path}/IMG-${Auth().getCurrentUserReference().id}${DateTime.now()}");
+          await newAsset.create();
+          List<int> bytes = await assetData!.readAsBytes();
+
+          final uint8List = Uint8List.fromList(bytes);
+          final result = await PickImage().compressImage(uint8List);
+          newAsset.writeAsBytesSync(result!);
+          final response = await Upload().uploadImage(newAsset);
+          if (response.statusCode == 200) {
+            final responseData = response.body;
+            final jsonResponse = jsonDecode(responseData);
+            imgUrl.add(jsonResponse['url']);
+          } else {
+            //error
+            return;
+          }
+        } catch (error) {
+          return;
+        }
+      }
     } else {
       final imgUploaded =
           await Upload().uploadFromCamera(_cameraViewController);
