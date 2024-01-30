@@ -95,10 +95,20 @@ class ChatRoomTypeMessage extends StatelessWidget {
                           child:
                               const Icon(Icons.camera_alt_outlined, size: 28),
                         )
-                      : GestureDetector(
-                          onTap: () => controller.sendChat(),
-                          child: const Icon(Icons.send_rounded, size: 28),
-                        ),
+                      : Obx(
+                          () => GestureDetector(
+                            onTap: controller.isSendingMessage.value
+                                ? () {}
+                                : () async {
+                                    if (!(controller.imgUrl == null &&
+                                        controller.textEditingController.text ==
+                                            "")) {
+                                      await controller.sendChat();
+                                    }
+                                  },
+                            child: const Icon(Icons.send_rounded, size: 28),
+                          ),
+                        )
                 ],
               ),
             ),

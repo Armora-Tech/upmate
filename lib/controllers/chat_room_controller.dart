@@ -33,6 +33,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
   RxBool isShowEmoji = false.obs;
   RxBool isLoading = true.obs;
   RxBool isSendingPicture = false.obs;
+  RxBool isSendingMessage = false.obs;
   String? imgUrl;
   AsyncSnapshot<QuerySnapshot>? snapshot;
 
@@ -80,6 +81,8 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
       Get.forceAppUpdate();
       imgUrl = await Upload().uploadFromCamera(_cameraViewController);
       Get.until((route) => Get.previousRoute == RouteName.chatRoom);
+    } else {
+      isSendingMessage.value = true;
     }
     chatMessage = ChatMessageModel(
         ref: FirebaseFirestore.instance.collection("chat_messages").doc(),
@@ -95,6 +98,7 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
     _galleryController.selectedAssetList.clear();
     await ChatRepository().addMessage(chatMessage!);
     isSendingPicture.value = false;
+    isSendingMessage.value = false;
     Get.forceAppUpdate();
   }
 
