@@ -56,8 +56,6 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
         isShowEmoji.value = false;
       }
     });
-    // final badWords = await UtilsRepository().getBadwords();
-    // debugPrint("TESS: ${badWords}");
     await _getChatMessages();
     isLoading.value = false;
     update();
