@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UtilsModel {
   DocumentReference _ref;
-  List<String> _badWords;
-  List<String> _jobList;
+  List<dynamic> _badWords;
+  List<dynamic> _jobList;
 
   UtilsModel._(
       {required DocumentReference ref,
@@ -33,5 +33,5 @@ class UtilsModel {
     };
   }
 
-  List<String> get badWords => _badWords;
+  List<String> get badWords => _badWords.map((e) => e.toString()).toList();
 }

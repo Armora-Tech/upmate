@@ -12,6 +12,7 @@ import 'package:upmatev2/repositories/chat_repository.dart';
 import 'package:upmatev2/utils/pick_image.dart';
 
 import '../repositories/auth.dart';
+import '../repositories/utils_repository.dart';
 import '../routes/route_name.dart';
 import '../utils/upload.dart';
 import 'camera_controller.dart';
@@ -55,6 +56,8 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
         isShowEmoji.value = false;
       }
     });
+    // final badWords = await UtilsRepository().getBadwords();
+    // debugPrint("TESS: ${badWords}");
     await _getChatMessages();
     isLoading.value = false;
     update();
@@ -83,11 +86,14 @@ class ChatRoomController extends GetxController with WidgetsBindingObserver {
       Get.until((route) => Get.previousRoute == RouteName.chatRoom);
     } else {
       isSendingMessage.value = true;
+      Get.forceAppUpdate();
     }
+    final String textMessage =
+        await UtilsRepository().censorWords(textEditingController.text);
     chatMessage = ChatMessageModel(
         ref: FirebaseFirestore.instance.collection("chat_messages").doc(),
         chat: _chatController.selectedChat!.ref,
-        text: imgUrl == null ? textEditingController.text : "send_a_picture".tr,
+        text: imgUrl == null ? textMessage : "send_a_picture".tr,
         timestamp: DateTime.now(),
         user: _startController.user!.ref,
         image: imgUrl);
