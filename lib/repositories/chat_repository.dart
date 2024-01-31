@@ -81,9 +81,13 @@ class ChatRepository {
           .get();
 
       for (var data in querySnapshot.docs) {
-        var dataChat = data.data() as ChatModel;
-        await dataChat.initUsers();
-        datas.add(dataChat);
+        try {
+          var dataChat = data.data() as ChatModel;
+          await dataChat.initUsers();
+          datas.add(dataChat);
+        }catch(e){
+          //skip error document
+        }
       }
 
       return datas;
