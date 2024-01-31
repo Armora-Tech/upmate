@@ -14,16 +14,15 @@ class UtilsModel {
         _jobList = jobList;
 
   factory UtilsModel.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot,
-      SnapshotOptions? options,
-      ) {
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
     final data = snapshot.data();
 
     return UtilsModel._(
         ref: snapshot.reference,
         badWords: data?['bad_words'] ?? [],
-        jobList: data?['joblist'] ?? []
-    );
+        jobList: data?['joblist'] ?? []);
   }
 
   Map<String, dynamic> toFirestore() {
@@ -33,5 +32,6 @@ class UtilsModel {
     };
   }
 
-  List<String> get badWords => _badWords.map((e) => e.toString()).toList();
+  List<String> get badWords =>
+      _badWords.map((e) => e.toString().toLowerCase()).toList();
 }

@@ -85,7 +85,7 @@ class ChatRepository {
           var dataChat = data.data() as ChatModel;
           await dataChat.initUsers();
           datas.add(dataChat);
-        }catch(e){
+        } catch (e) {
           //skip error document
         }
       }
@@ -146,7 +146,7 @@ class ChatRepository {
     return datas;
   }
 
-  Stream<List<ChatModel>> getChatsStream() {
+ Stream<List<ChatModel>> getChatsStream() {
     DocumentReference docRef = _auth.getCurrentUserReference();
 
     return FirebaseFirestore.instance
@@ -159,10 +159,14 @@ class ChatRepository {
         .asyncMap((chats) async {
       List<ChatModel> datas = [];
       for (var data in chats.docs) {
-        var chat = data.data() as ChatModel;
-        debugPrint("CHAT: $chat");
-        await chat.initUsers();
-        datas.add(chat);
+        try {
+          var chat = data.data() as ChatModel;
+          debugPrint("CHAT: $chat");
+          await chat.initUsers();
+          datas.add(chat);
+        }catch(e){
+          //skip error documents
+        }
       }
       return datas;
     });
