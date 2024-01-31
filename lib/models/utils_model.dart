@@ -7,8 +7,8 @@ class UtilsModel {
 
   UtilsModel._(
       {required DocumentReference ref,
-      required List<String> badWords,
-      required List<String> jobList})
+      required List<dynamic> badWords,
+      required List<dynamic> jobList})
       : _ref = ref,
         _badWords = badWords,
         _jobList = jobList;
