@@ -133,6 +133,7 @@ class ChatRepository {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection("users")
         .where('interests', arrayContainsAny: user?.interests)
+        .where('uid', isNotEqualTo: user?.uid)
         .withConverter(
             fromFirestore: UserModel.fromFirestore,
             toFirestore: (UserModel user, _) => user.toFirestore())
