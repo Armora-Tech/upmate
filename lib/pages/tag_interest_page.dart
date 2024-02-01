@@ -6,6 +6,7 @@ import 'package:upmatev2/widgets/global/blur_loading.dart';
 
 import '../themes/app_font.dart';
 import '../widgets/global/dialog_interest.dart';
+import '../widgets/global/snack_bar.dart';
 
 class TagInterestView extends StatelessWidget {
   const TagInterestView({super.key});
@@ -21,38 +22,38 @@ class TagInterestView extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Stack(
-                  children: [
-                    SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 20),
-                          Text("tag_interest".tr,
-                              style: AppFont.text28
-                                  .copyWith(fontWeight: FontWeight.bold)),
-                          const SizedBox(height: 5),
-                          Text(
-                              "get_your_personalized_content_recommendations"
-                                  .tr,
-                              style:
-                                  AppFont.text12.copyWith(color: Colors.grey),
-                              overflow: TextOverflow.clip),
-                          const SizedBox(height: 30),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Wrap(
-                              runSpacing: 20,
-                              spacing: 20,
-                              runAlignment: WrapAlignment.center,
-                              direction: Axis.horizontal,
-                              children: List.generate(
-                                controller.tags.length,
-                                (index) => GetBuilder<SignupController>(
-                                  builder: (_) {
+            GetBuilder<SignupController>(
+              builder: (_) => SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Stack(
+                    children: [
+                      SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 20),
+                            Text("tag_interest".tr,
+                                style: AppFont.text28
+                                    .copyWith(fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 5),
+                            Text(
+                                "get_your_personalized_content_recommendations"
+                                    .tr,
+                                style:
+                                    AppFont.text12.copyWith(color: Colors.grey),
+                                overflow: TextOverflow.clip),
+                            const SizedBox(height: 30),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Wrap(
+                                runSpacing: 20,
+                                spacing: 20,
+                                runAlignment: WrapAlignment.center,
+                                direction: Axis.horizontal,
+                                children: List.generate(
+                                  controller.tags.length,
+                                  (index) {
                                     bool isSelectedTags = controller
                                         .selectedTags
                                         .contains(controller.tags.values
@@ -117,70 +118,75 @@ class TagInterestView extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                              "type_your_interest_if_there_is_no_tag_you_are_interested_in"
-                                  .tr,
-                              overflow: TextOverflow.visible,
-                              style: AppFont.text14),
-                          const SizedBox(height: 10),
-                          Material(
-                            clipBehavior: Clip.hardEdge,
-                            elevation: 0,
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            child: InkWell(
-                              onTap: controller.isLoading.value
-                                  ? () {}
-                                  : () => DialogInterest.showPopup(controller),
-                              child: IntrinsicWidth(
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          width: 1, color: AppColor.lightGrey)),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          "add_your_tag_interest".tr,
-                                          overflow: TextOverflow.visible,
-                                          style: AppFont.text12.copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.black),
+                            const SizedBox(height: 20),
+                            Text(
+                                "type_your_interest_if_there_is_no_tag_you_are_interested_in"
+                                    .tr,
+                                overflow: TextOverflow.visible,
+                                style: AppFont.text14),
+                            const SizedBox(height: 10),
+                            Material(
+                              clipBehavior: Clip.hardEdge,
+                              elevation: 0,
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              child: InkWell(
+                                onTap: controller.isLoading.value
+                                    ? () {}
+                                    : () =>
+                                        DialogInterest.showPopup(controller),
+                                child: IntrinsicWidth(
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            width: 1,
+                                            color: AppColor.lightGrey)),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            "add_your_tag_interest".tr,
+                                            overflow: TextOverflow.visible,
+                                            style: AppFont.text12.copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.black),
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 5),
-                                      const Icon(Icons.add, size: 15),
-                                    ],
+                                        const SizedBox(width: 5),
+                                        const Icon(Icons.add, size: 15),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 130)
-                        ],
+                            const SizedBox(height: 130)
+                          ],
+                        ),
                       ),
-                    ),
-                    Positioned(
-                      bottom: 20,
-                      width: Get.width - 40,
-                      child: ElevatedButton(
-                        onPressed: () async => await controller.signUp(),
-                        child: Center(
-                          child: Text(
-                            "next".tr,
-                            style: const TextStyle(color: Colors.white),
+                      Positioned(
+                        bottom: 20,
+                        width: Get.width - 40,
+                        child: ElevatedButton(
+                          onPressed: controller.selectedTags.isEmpty
+                              ? () => SnackBarWidget.showSnackBar(
+                                  false, "you_must_choose_your_interest".tr)
+                              : () async => await controller.signUp(),
+                          child: Center(
+                            child: Text(
+                              "next".tr,
+                              style: const TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
-                    )
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -32,6 +32,7 @@ class Message extends Translations {
               "Username must be in all lowercase letters and without spaces",
           "not_receiving_emails": "not receiving emails?",
           "resend_email": "Resend email",
+          "you_must_choose_your_interest": "You must choose your interest",
           // ========= HOME PAGE =========
           "more": "more",
           "less": "less",
@@ -214,6 +215,7 @@ class Message extends Translations {
           "successfully_deleted_the_post": "Berhasil menghapus postingan",
           "failed_to_delete_post": "Gagal menghapus postingan",
           "recommended_for_you": "Disarankan untuk anda",
+          "you_must_choose_your_interest": "Anda harus memilih minat anda",
           // ======= Settings =========
           "select_language": "Pilih Bahasa",
           // ======== BOTTOM NAVBAR =========

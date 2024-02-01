@@ -79,7 +79,7 @@ class SignupController extends GetxController {
 
   Future<void> signUp() async {
     isLoading.value = true;
-    DocumentReference userDocument = usersCollection.doc(uid);
+    // DocumentReference userDocument = usersCollection.doc(uid);
     try {
       final userCredential =
           await _auth.signUpWithEmailAndPassword(email.text, pass.text);

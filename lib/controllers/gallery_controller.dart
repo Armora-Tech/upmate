@@ -102,7 +102,6 @@ class GalleryController extends GetxController {
         image = File(croppedImage.path);
         isLoading.value = true;
         Get.until((route) => Get.previousRoute == RouteName.editProfile);
-
         await UserRepository().updateProfile(image!);
         await _startController.refreshStart();
         await _homeController.refreshPosts();
@@ -124,9 +123,9 @@ class GalleryController extends GetxController {
         image = File(croppedImage.path);
         isLoading.value = true;
         Get.until((route) => Get.previousRoute == RouteName.editProfile);
-
         await UserRepository().updateBanner(image!);
         await _startController.refreshStart();
+        await _homeController.refreshPosts();
         Get.forceAppUpdate();
         isLoading.value = false;
         SnackBarWidget.showSnackBar(
