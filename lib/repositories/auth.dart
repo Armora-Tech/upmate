@@ -155,13 +155,9 @@ class Auth {
     try {
       // doc.data() will be undefined in this case
       debugPrint("No such document!");
-      await FirebaseFirestore.instance
-          .collection("users")
-          .add(userModel.toFirestore())
-          .then(
-            (DocumentReference doc) => {
-              if (kDebugMode)
-                {debugPrint('DocumentSnapshot added with ID: ${doc.id}')}
+      await userModel.ref.set(userModel.toFirestore()).then(
+            (value) => {
+              if (kDebugMode) {debugPrint('User Added')}
             },
           );
     } catch (e) {
