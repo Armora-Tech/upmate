@@ -50,7 +50,7 @@ class UserModel {
             ? ""
             : "@${data?['display_name'].replaceAll(" ", "").toLowerCase()}",
         photoUrl: data?['photo_url'] ??
-            "https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/user_account_profile-2-512.png",
+            "https://t3.ftcdn.net/jpg/00/64/67/80/360_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg",
         bannerUrl: data?['banner_url']);
   }
 
