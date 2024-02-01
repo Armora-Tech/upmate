@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -104,7 +105,7 @@ class PostController extends GetxController {
         ref: FirebaseFirestore.instance.collection("posts").doc(),
         interests: selectedTags,
         postDescription: description.text,
-        userRaw: Auth().getCurrentUserReference().id,
+        userRaw: FirebaseAuth.instance.currentUser!.uid,
         timestamp: DateTime.now(),
         bookmarks: [],
         likes: [],
