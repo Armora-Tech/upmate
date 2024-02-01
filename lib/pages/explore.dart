@@ -1,61 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/explore/app_bar.dart';
-import 'package:upmatev2/widgets/explore/interest_box.dart';
+import 'package:upmatev2/widgets/explore/tag_interest_section.dart';
+import 'package:upmatev2/widgets/explore/news_section.dart';
+
+import '../widgets/explore/other_tag_interest_section.dart';
+import '../widgets/explore/trending_section.dart';
 
 class ExploreView extends StatelessWidget {
   const ExploreView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<String> tags = [
-      "Machine Learning",
-      "physics".tr,
-      "robotic".tr,
-      "statistics".tr
-    ];
-    return Stack(
+    return const Stack(
       children: [
         SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 100),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  child: Text("your_interest_tag".tr,
-                      style:
-                          AppFont.text16.copyWith(fontWeight: FontWeight.bold)),
-                ),
-                const InterestBox(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  child: Text("other_interest_tags".tr,
-                      style:
-                          AppFont.text16.copyWith(fontWeight: FontWeight.bold)),
-                ),
-                Column(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 100),
+              TrendingSection(),
+              NewsSection(),
+              SizedBox(height: 10),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(
-                    tags.length,
-                    (index) => Column(
-                      children: [
-                        Text("#${tags[index]}",
-                            style: const TextStyle(color: Colors.grey)),
-                        const SizedBox(height: 5)
-                      ],
-                    ),
-                  ),
+                  children: [
+                    TagInterestSection(),
+                    OtherTagInterestSection(),
+                  ],
                 ),
-                const SizedBox(height: 90)
-              ],
-            ),
+              ),
+              SizedBox(height: 90)
+            ],
           ),
         ),
-        const ExploreAppBar()
+        ExploreAppBar()
       ],
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/signup_controller.dart';
+import 'package:upmatev2/controllers/login_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
 
 import '../widgets/global/loading.dart';
@@ -11,7 +11,7 @@ class VerifyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<SignupController>();
+    final loginController = Get.find<LoginController>();
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -56,12 +56,14 @@ class VerifyView extends StatelessWidget {
                               FocusScope.of(context).nextFocus();
                             }
                             if (value.isEmpty) {
-                              controller.inputOTP.value =
-                                  controller.inputOTP.value.substring(
-                                      0, controller.inputOTP.value.length - 1);
+                              loginController.inputOTP.value =
+                                  loginController.inputOTP.value.substring(
+                                      0,
+                                      loginController.inputOTP.value.length -
+                                          1);
                             } else {
-                              controller.inputOTP.value =
-                                  controller.inputOTP.value + value;
+                              loginController.inputOTP.value =
+                                  loginController.inputOTP.value + value;
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -80,17 +82,19 @@ class VerifyView extends StatelessWidget {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
                             } else {
-                              controller.inputOTP.value =
-                                  controller.inputOTP.value + value;
+                              loginController.inputOTP.value =
+                                  loginController.inputOTP.value + value;
                               FocusScope.of(context).previousFocus();
                             }
                             if (value.isEmpty) {
-                              controller.inputOTP.value =
-                                  controller.inputOTP.value.substring(
-                                      0, controller.inputOTP.value.length - 1);
+                              loginController.inputOTP.value =
+                                  loginController.inputOTP.value.substring(
+                                      0,
+                                      loginController.inputOTP.value.length -
+                                          1);
                             } else {
-                              controller.inputOTP.value =
-                                  controller.inputOTP.value + value;
+                              loginController.inputOTP.value =
+                                  loginController.inputOTP.value + value;
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -112,12 +116,14 @@ class VerifyView extends StatelessWidget {
                               FocusScope.of(context).previousFocus();
                             }
                             if (value.isEmpty) {
-                              controller.inputOTP.value =
-                                  controller.inputOTP.value.substring(
-                                      0, controller.inputOTP.value.length - 1);
+                              loginController.inputOTP.value =
+                                  loginController.inputOTP.value.substring(
+                                      0,
+                                      loginController.inputOTP.value.length -
+                                          1);
                             } else {
-                              controller.inputOTP.value =
-                                  controller.inputOTP.value + value;
+                              loginController.inputOTP.value =
+                                  loginController.inputOTP.value + value;
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -134,13 +140,15 @@ class VerifyView extends StatelessWidget {
                         child: TextFormField(
                           onChanged: (value) {
                             if (value.isEmpty) {
-                              controller.inputOTP.value =
-                                  controller.inputOTP.value.substring(
-                                      0, controller.inputOTP.value.length - 1);
+                              loginController.inputOTP.value =
+                                  loginController.inputOTP.value.substring(
+                                      0,
+                                      loginController.inputOTP.value.length -
+                                          1);
                               FocusScope.of(context).previousFocus();
                             } else {
-                              controller.inputOTP.value =
-                                  controller.inputOTP.value + value;
+                              loginController.inputOTP.value =
+                                  loginController.inputOTP.value + value;
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -172,20 +180,14 @@ class VerifyView extends StatelessWidget {
                 const SizedBox(height: 40),
                 Obx(
                   () => ElevatedButton(
-                    onPressed: controller.isLoading.value
+                    onPressed: loginController.isLoading.value
                         ? () {}
                         : () async {
-                            await controller.verifyOTP();
-                            // final isOK = await authControl.checkOTP("123");
-                            // print("CECK: $isOK");
-
-                            // if(authControl.checkOTP(string)){
-                            //
-                            // }
-                            // Get.toNamed(RouteName.takeSurvey)
+                            debugPrint("waw ${loginController.inputOTP.value}");
+                            // await loginController.verifyOTP();
                           },
                     child: Center(
-                      child: controller.isLoading.value
+                      child: loginController.isLoading.value
                           ? const Loading(size: 23, color: Colors.white)
                           : Text(
                               "Verify",

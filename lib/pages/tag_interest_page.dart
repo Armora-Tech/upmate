@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/login_controller.dart';
 import 'package:upmatev2/controllers/signup_controller.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/global/blur_loading.dart';
@@ -13,7 +14,9 @@ class TagInterestView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<SignupController>();
+    final loginController = Get.find<LoginController>();
+    late SignupController signUpController;
+    int i = 0;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SizedBox(
@@ -22,7 +25,7 @@ class TagInterestView extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            GetBuilder<SignupController>(
+            GetBuilder<LoginController>(
               builder: (_) => SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -52,11 +55,11 @@ class TagInterestView extends StatelessWidget {
                                 runAlignment: WrapAlignment.center,
                                 direction: Axis.horizontal,
                                 children: List.generate(
-                                  controller.tags.length,
+                                  loginController.tags.length,
                                   (index) {
-                                    bool isSelectedTags = controller
+                                    bool isSelectedTags = loginController
                                         .selectedTags
-                                        .contains(controller.tags.values
+                                        .contains(loginController.tags.values
                                             .elementAt(index));
                                     return Material(
                                       clipBehavior: Clip.hardEdge,
@@ -66,8 +69,8 @@ class TagInterestView extends StatelessWidget {
                                           : Colors.white,
                                       borderRadius: BorderRadius.circular(10),
                                       child: InkWell(
-                                        onTap: () =>
-                                            controller.toggleInterest(index),
+                                        onTap: () => loginController
+                                            .toggleInterest(index),
                                         child: Container(
                                           width: Get.width / 2 - 30,
                                           padding: const EdgeInsets.symmetric(
@@ -96,7 +99,7 @@ class TagInterestView extends StatelessWidget {
                                               const SizedBox(width: 3),
                                               Expanded(
                                                 child: Text(
-                                                  controller.tags.keys
+                                                  loginController.tags.keys
                                                       .elementAt(index),
                                                   overflow:
                                                       TextOverflow.visible,
@@ -131,10 +134,10 @@ class TagInterestView extends StatelessWidget {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
                               child: InkWell(
-                                onTap: controller.isLoading.value
+                                onTap: loginController.isLoading.value
                                     ? () {}
-                                    : () =>
-                                        DialogInterest.showPopup(controller),
+                                    : () => DialogInterest.showPopup(
+                                        loginController),
                                 child: IntrinsicWidth(
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
@@ -173,10 +176,23 @@ class TagInterestView extends StatelessWidget {
                         bottom: 20,
                         width: Get.width - 40,
                         child: ElevatedButton(
-                          onPressed: controller.selectedTags.isEmpty
+                          onPressed: loginController.selectedTags.isEmpty
                               ? () => SnackBarWidget.showSnackBar(
                                   false, "you_must_choose_your_interest".tr)
-                              : () async => await controller.signUp(),
+                              : () async {
+                                  if (loginController.isLoading.value) {
+                                    await loginController.login(
+                                        loginController.selectedLoginProvider!);
+                                  } else {
+                                    if (i == 0) {
+                                      signUpController =
+                                          Get.find<SignupController>();
+                                    }
+                                    i++;
+                                    await signUpController.signup(
+                                        loginController.selectedLoginProvider!);
+                                  }
+                                },
                           child: Center(
                             child: Text(
                               "next".tr,
@@ -190,7 +206,7 @@ class TagInterestView extends StatelessWidget {
                 ),
               ),
             ),
-            Obx(() => controller.isLoading.value
+            Obx(() => loginController.isLoading.value
                 ? const BlurLoading()
                 : const SizedBox())
           ],

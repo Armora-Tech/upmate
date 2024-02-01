@@ -81,7 +81,10 @@ class LoginView extends StatelessWidget {
                       height: 50,
                       child: IconButton(
                         onPressed: () async {
-                          await controller.login(LoginProvider.google);
+                          controller.selectedLoginProvider =
+                              LoginProvider.google;
+                          await controller
+                              .verifyEmail(controller.selectedLoginProvider!);
                         },
                         icon: Image.asset("assets/images/google.png",
                             fit: BoxFit.cover),
@@ -109,7 +112,10 @@ class LoginView extends StatelessWidget {
                     ),
                     const SizedBox(width: 2),
                     GestureDetector(
-                      onTap: () => Get.toNamed(RouteName.signup),
+                      onTap: () {
+                        controller.isLogin.value = false;
+                        Get.toNamed(RouteName.signup);
+                      },
                       child: Text("sign_up".tr,
                           style: const TextStyle(fontWeight: FontWeight.bold)),
                     ),

@@ -26,7 +26,8 @@ class ProfileView extends StatelessWidget {
                 SliverAppBar(
                   automaticallyImplyLeading: false,
                   backgroundColor: Colors.white,
-                  expandedHeight: controller.isFullText.value ? 485.0 : 440.0,
+                  // expandedHeight: controller.isFullText.value ? 485.0 : 440.0,
+                  expandedHeight: controller.isFullText.value ? 485.0 : 425.0,
                   flexibleSpace: const FlexibleSpaceBar(
                     background: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

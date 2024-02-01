@@ -12,6 +12,7 @@ class HomeController extends GetxController {
   late final PostRepository postRepository;
   late final String _thisUser;
   List<PostModel>? posts;
+  List<PostModel>? trendingPost;
   late PostModel lastPost;
   RxInt selectedIndex = 0.obs;
   RxInt oldSelectedImage = 0.obs;
@@ -36,6 +37,8 @@ class HomeController extends GetxController {
   Future<void> _getPosts() async {
     isLoading.value = true;
     posts = await postRepository.getPosts();
+    trendingPost = List.from(posts!);
+    trendingPost!.shuffle();
     isLoading.value = false;
     update();
   }

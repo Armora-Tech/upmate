@@ -69,7 +69,10 @@ class LoginForm extends StatelessWidget {
                     ? () => {}
                     : () async {
                         if (formField.currentState!.validate()) {
-                          await controller.login(LoginProvider.email);
+                          controller.selectedLoginProvider =
+                              LoginProvider.email;
+                          await controller
+                              .login(controller.selectedLoginProvider!);
                         }
                       },
                 child: Center(

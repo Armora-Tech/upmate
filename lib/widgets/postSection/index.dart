@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/home/popular.dart';
 import 'package:upmatev2/widgets/postSection/shimmer_post_section.dart';
 import '../../controllers/home_controller.dart';
@@ -17,7 +18,7 @@ class HomePostSection extends StatelessWidget {
         return ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: controller.isLoading.value ? 3 : controller.posts!.length,
+          itemCount: controller.isLoading.value ? 1 : controller.posts!.length,
           separatorBuilder: (context, index) {
             return !controller.isLoading.value &&
                     controller.posts!.length > 2 &&
@@ -29,20 +30,23 @@ class HomePostSection extends StatelessWidget {
           itemBuilder: (context, index) {
             return controller.isLoading.value
                 ? const ShimmerPostSection()
-                : Column(
-                    children: [
-                      PostSection(index: index),
-                      Obx(() => controller.isLoadMore.value &&
-                              index == controller.posts!.length - 1
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 40, top: 20),
-                              child: LoadingAnimationWidget.stretchedDots(
-                                  size: 30, color: Colors.black),
-                            )
-                          : const SizedBox()),
-                    ],
-                  );
+                : controller.posts!.isEmpty
+                    ? Text("No posts",
+                        style: AppFont.text14.copyWith(color: Colors.grey))
+                    : Column(
+                        children: [
+                          PostSection(index: index),
+                          Obx(() => controller.isLoadMore.value &&
+                                  index == controller.posts!.length - 1
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 40, top: 20),
+                                  child: LoadingAnimationWidget.stretchedDots(
+                                      size: 30, color: Colors.black),
+                                )
+                              : const SizedBox()),
+                        ],
+                      );
           },
         );
       },

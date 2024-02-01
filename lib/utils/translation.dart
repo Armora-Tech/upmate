@@ -72,7 +72,7 @@ class Message extends Translations {
           "chat": "Chat",
           // ========= EXPLORE ===========
           "search": "Search",
-          "your_interest_tag": "Your interest tag",
+          "your_interest_tags": "Your interest tags",
           "other_interest_tags": "Other interest tags",
           // ========= NOTIFICATION ==========
           "latest": "Latest",

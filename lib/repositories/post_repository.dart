@@ -104,7 +104,7 @@ class PostRepository {
           .collection('posts')
           .where('interests', arrayContainsAny: currentUser?.interests)
           .orderBy("timestamp", descending: true)
-          .limit(3)
+          .limit(4)
           .withConverter(
               fromFirestore: PostModel.fromFirestore,
               toFirestore: (PostModel post, _) => post.toFirestore())

@@ -18,7 +18,7 @@ class DescriptionProfile extends StatelessWidget {
       builder: (_) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: SizedBox(
-          height: controller.isFullText.value ? 230 : 180,
+          height: controller.isFullText.value ? 230 : 165,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,33 +32,46 @@ class DescriptionProfile extends StatelessWidget {
                           AppFont.text16.copyWith(fontWeight: FontWeight.bold)),
                   Text(controller.otherUser.username,
                       maxLines: 1, style: const TextStyle(color: Colors.grey)),
-                  RichText(
-                    text: TextSpan(
-                      style: AppFont.text14,
-                      children: [
-                        TextSpan(
-                          text: controller.handleText(controller.text),
-                        ),
-                        controller.text.length > 80
-                            ? WidgetSpan(
-                                alignment: PlaceholderAlignment.middle,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    controller.isFullText.toggle();
-                                    controller.update();
-                                  },
-                                  child: Text(
-                                      controller.isFullText.value
-                                          ? ""
-                                          : "more".tr,
-                                      style: AppFont.text14
-                                          .copyWith(color: Colors.grey)),
-                                ),
-                              )
-                            : const WidgetSpan(child: SizedBox()),
-                      ],
-                    ),
-                  )
+                  Wrap(
+                      runSpacing: 5,
+                      spacing: 5,
+                      direction: Axis.horizontal,
+                      children: controller.otherUser.interests
+                          .map(
+                            (interest) => Text(
+                              "#$interest",
+                              style:
+                                  AppFont.text14.copyWith(color: Colors.grey),
+                            ),
+                          )
+                          .toList())
+                  // RichText(
+                  //   text: TextSpan(
+                  //     style: AppFont.text14,
+                  //     children: [
+                  //       TextSpan(
+                  //         text: controller.handleText(controller.text),
+                  //       ),
+                  //       controller.text.length > 80
+                  //           ? WidgetSpan(
+                  //               alignment: PlaceholderAlignment.middle,
+                  //               child: GestureDetector(
+                  //                 onTap: () {
+                  //                   controller.isFullText.toggle();
+                  //                   controller.update();
+                  //                 },
+                  //                 child: Text(
+                  //                     controller.isFullText.value
+                  //                         ? ""
+                  //                         : "more".tr,
+                  //                     style: AppFont.text14
+                  //                         .copyWith(color: Colors.grey)),
+                  //               ),
+                  //             )
+                  //           : const WidgetSpan(child: SizedBox()),
+                  //     ],
+                  //   ),
+                  // )
                 ],
               ),
               Column(
