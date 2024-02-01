@@ -91,7 +91,7 @@ class SignupController extends GetxController {
         interests: selectedTags,
         uid: userCredential.uid,
         username: username.text,
-        photoUrl: '',
+        photoUrl: null,
         bannerUrl: null,
       );
       await _auth.addUser(newUser);

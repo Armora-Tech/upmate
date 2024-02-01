@@ -15,8 +15,7 @@ class ProfileController extends GetxController
   RxBool isFullText = false.obs;
   RxBool isLoading = false.obs;
   List pages = [const MyPost(), const MyBookmark()];
-  String text =
-      "Ada yang mau ikut aku???, ayo ikut ke dunia Flora simsalabim akan ku buat harimu menjadi penuh cinta. Hai Semuanya aku Flora fjshafjhdjhsdakjhfkdjshafkhkdashfkhjshafkhdkhsahdkhkshasjsdhfhjdhfjddjfhfjf";
+  String text = "";
 
   @override
   Future<void> onInit() async {
