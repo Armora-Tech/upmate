@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/login_controller.dart';
 import '../../controllers/signup_controller.dart';
 import '../../themes/app_color.dart';
 import '../../themes/app_font.dart';
@@ -14,7 +13,6 @@ class SignupForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<SignupController>();
-    final loginController = Get.find<LoginController>();
     final formField = GlobalKey<FormState>();
     return GetBuilder<SignupController>(
       builder: (_) => Form(
@@ -114,9 +112,7 @@ class SignupForm extends StatelessWidget {
                     ? () {}
                     : () async {
                         if (formField.currentState!.validate()) {
-                          loginController.selectedLoginProvider =
-                              LoginProvider.email;
-                          await controller.verifyEmail(loginController.selectedLoginProvider!);
+                          await controller.verifyEmail();
                         }
                       },
                 child: Center(
