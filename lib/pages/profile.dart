@@ -27,7 +27,9 @@ class ProfileView extends StatelessWidget {
                   automaticallyImplyLeading: false,
                   backgroundColor: Colors.white,
                   // expandedHeight: controller.isFullText.value ? 485.0 : 440.0,
-                  expandedHeight: controller.isFullText.value ? 485.0 : 425.0,
+                  expandedHeight: controller.isFullText.value
+                      ? Get.width * 9 / 16 + 460
+                      : Get.width * 9 / 16 + 230,
                   flexibleSpace: const FlexibleSpaceBar(
                     background: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

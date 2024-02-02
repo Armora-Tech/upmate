@@ -14,7 +14,7 @@ class HeaderProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<ProfileController>();
     return SizedBox(
-      height: 250,
+      height: Get.width * 9 / 16 + 50,
       width: Get.width,
       child: Stack(
         fit: StackFit.expand,

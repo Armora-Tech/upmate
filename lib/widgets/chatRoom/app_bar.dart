@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/chat_controller.dart';
 
+import '../../routes/route_name.dart';
 import '../../themes/app_color.dart';
 import '../../themes/app_font.dart';
 import '../global/line.dart';
@@ -36,34 +37,47 @@ class ChatRoomAppBar extends StatelessWidget {
                                 color: Colors.white, size: 25),
                           ),
                           const SizedBox(width: 15),
-                          ProfilePicture(
-                            size: 40,
-                            imageURL:
-                                chatController.selectedContact!.photoUrl,
-                          ),
-                          const SizedBox(width: 10),
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  chatController
-                                      .selectedContact!.displayName,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                                Text(
-                                  "online".tr,
-                                  style: AppFont.text12.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w300),
-                                )
-                              ],
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(RouteName.profile, arguments: {
+                                  "otherUser": chatController.selectedContact!
+                                });
+                              },
+                              child: Row(
+                                children: [
+                                  ProfilePicture(
+                                      size: 40,
+                                      imageURL: chatController
+                                          .selectedContact!.photoUrl),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          chatController
+                                              .selectedContact!.displayName,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                        Text(
+                                          "online".tr,
+                                          style: AppFont.text12.copyWith(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w300),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),

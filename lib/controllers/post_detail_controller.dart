@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/home_controller.dart';
 import 'package:upmatev2/models/post_model.dart';
+import 'package:upmatev2/repositories/utils_repository.dart';
 import 'package:upmatev2/widgets/global/snack_bar.dart';
 import '../models/comment_model.dart';
 import '../repositories/post_repository.dart';
@@ -55,11 +56,13 @@ class PostDetailController extends GetxController {
 
   Future<void> addComment(PostModel post) async {
     isSendingComment.value = true;
+    final String comment =
+        await UtilsRepository().censorWords(textEditingController.text.trim());
     final commentModel = CommentModel(
       ref: FirebaseFirestore.instance.collection("comments").doc(),
       date: DateTime.now(),
       postRef: post.ref,
-      text: textEditingController.text.trim(),
+      text: comment,
       userRef: _startController.user!.ref,
     );
     await PostRepository().addComment(commentModel);
@@ -67,6 +70,7 @@ class PostDetailController extends GetxController {
     isTextFieldEmpty.value = true;
     update();
     await post.getComment();
+    Get.forceAppUpdate();
     await Future.delayed(const Duration(seconds: 2));
     isSendingComment.value = false;
     update();
