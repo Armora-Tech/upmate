@@ -54,6 +54,7 @@ class HomeAppBar extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Text(startController.user?.displayName ?? "",
+                                textAlign: TextAlign.center,
                                 style: AppFont.text20.copyWith(
                                     fontWeight: FontWeight.bold,
                                     overflow: TextOverflow.ellipsis)),
