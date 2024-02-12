@@ -4,6 +4,8 @@ import 'package:upmatev2/bindings/login_binding.dart';
 import 'package:upmatev2/bindings/settings_binding.dart';
 import 'package:upmatev2/bindings/signup_binding.dart';
 import 'package:upmatev2/bindings/start_binding.dart';
+import 'package:upmatev2/bindings/tag_interest_binding.dart';
+import 'package:upmatev2/bindings/verify_binding.dart';
 import 'package:upmatev2/pages/chat/create_chat_page.dart';
 import 'package:upmatev2/pages/chatRoom/chat_room.dart';
 import 'package:upmatev2/pages/chatRoom/confirm_send_image_page.dart';
@@ -44,7 +46,8 @@ class AppPage {
     GetPage(
         name: RouteName.verify,
         page: () => const VerifyView(),
-        transition: Transition.rightToLeft),
+        transition: Transition.rightToLeft,
+        binding: VerifyBinding()),
     GetPage(
         name: RouteName.takeSurvey,
         page: () => const TakeSurveyView(),
@@ -52,7 +55,8 @@ class AppPage {
     GetPage(
         name: RouteName.tagInterest,
         page: () => const TagInterestView(),
-        transition: Transition.rightToLeft),
+        transition: Transition.rightToLeft,
+        binding: TagInterestBinding()),
     GetPage(
       name: RouteName.start,
       page: () => const StartView(),

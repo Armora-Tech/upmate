@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/signup_controller.dart';
+import 'package:upmatev2/controllers/login_controller.dart';
+import 'package:upmatev2/controllers/tag_interest_controller.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/widgets/global/blur_loading.dart';
 
+import '../controllers/signup_controller.dart';
 import '../themes/app_font.dart';
 import '../widgets/global/dialog_interest.dart';
 import '../widgets/global/snack_bar.dart';
@@ -13,7 +15,7 @@ class TagInterestView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<SignupController>();
+    final controller = Get.find<TagInterestController>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SizedBox(
@@ -22,7 +24,7 @@ class TagInterestView extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            GetBuilder<SignupController>(
+            GetBuilder<TagInterestController>(
               builder: (_) => SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -176,7 +178,17 @@ class TagInterestView extends StatelessWidget {
                           onPressed: controller.selectedTags.isEmpty
                               ? () => SnackBarWidget.showSnackBar(
                                   false, "you_must_choose_your_interest".tr)
-                              : () async => await controller.signUp(),
+                              : () async {
+                                  if (controller.isLogin) {
+                                    final loginController =
+                                        Get.find<LoginController>();
+                                    await loginController.signInWithGoogle();
+                                  } else {
+                                    final signUpController =
+                                        Get.find<SignupController>();
+                                    await signUpController.signUpWithEmailAndPassword();
+                                  }
+                                },
                           child: Center(
                             child: Text(
                               "next".tr,

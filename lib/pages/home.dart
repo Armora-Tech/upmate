@@ -19,7 +19,7 @@ class HomeView extends StatelessWidget {
             children: [
               SizedBox(height: 75),
               HomePostSection(),
-              SizedBox(height: 60),
+              SizedBox(height: 60)
             ],
           ),
         ),

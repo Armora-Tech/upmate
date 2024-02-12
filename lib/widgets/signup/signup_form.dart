@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/login_controller.dart';
 
 import '../../controllers/signup_controller.dart';
 import '../../themes/app_color.dart';
@@ -112,7 +113,7 @@ class SignupForm extends StatelessWidget {
                     ? () {}
                     : () async {
                         if (formField.currentState!.validate()) {
-                          await controller.verifyEmail();
+                          await controller.signUp(LoginProvider.email);
                         }
                       },
                 child: Center(

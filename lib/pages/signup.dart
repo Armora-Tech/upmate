@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/login_controller.dart';
+import 'package:upmatev2/controllers/signup_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/signup/signup_form.dart';
 
@@ -8,6 +10,7 @@ class SignupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<SignupController>();
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -64,17 +67,25 @@ class SignupView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 30,
-                      child: Image.asset("assets/images/google.png",
-                          fit: BoxFit.cover),
+                    GestureDetector(
+                      onTap: () async =>
+                          await controller.signUp(LoginProvider.google),
+                      child: SizedBox(
+                        height: 30,
+                        child: Image.asset("assets/images/google.png",
+                            fit: BoxFit.cover),
+                      ),
                     ),
                     const SizedBox(width: 20),
-                    SizedBox(
-                      height: 30,
-                      child: Image.asset("assets/images/facebook.png",
-                          fit: BoxFit.cover),
-                    )
+                    GestureDetector(
+                      onTap: () async =>
+                          await controller.signUp(LoginProvider.facebook),
+                      child: SizedBox(
+                        height: 30,
+                        child: Image.asset("assets/images/facebook.png",
+                            fit: BoxFit.cover),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 30),

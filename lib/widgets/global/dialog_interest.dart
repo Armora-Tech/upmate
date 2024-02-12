@@ -58,13 +58,14 @@ class DialogInterest {
                             controller.isEmptyText.value
                         ? () {}
                         : () {
-                            controller.tags[controller.edtTagInterest.text] =
-                                controller.edtTagInterest.text;
-                            controller.selectedTags
-                                .add(controller.edtTagInterest.text);
+                            controller.tags[controller.edtTagInterest.text
+                                  ..toLowerCase()] =
+                                controller.edtTagInterest.text.toLowerCase();
+                            controller.selectedTags.add(
+                                controller.edtTagInterest.text.toLowerCase());
                             controller.edtTagInterest.clear();
                             Get.back();
-                            Get.forceAppUpdate();
+                            controller.update();
                           },
                     child: Text(
                       "add".tr,

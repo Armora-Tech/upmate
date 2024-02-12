@@ -7,7 +7,6 @@ import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/users_shimmer.dart';
 
-import '../../repositories/chat_repository.dart';
 import '../global/line.dart';
 import '../global/profile_picture.dart';
 
@@ -21,7 +20,8 @@ class ChatList extends StatelessWidget {
     return SizedBox(
       width: Get.width,
       child: StreamBuilder<List<ChatModel>>(
-        stream: ChatRepository().getChatsStream(),
+        initialData: controller.chats,
+        stream: controller.chatStream,
         builder:
             (BuildContext context, AsyncSnapshot<List<ChatModel>> snapshot) {
           if (snapshot.hasError) {
@@ -30,9 +30,10 @@ class ChatList extends StatelessWidget {
             );
           }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (!snapshot.hasData) {
             return const UsersShimmer();
           }
+          controller.chats = snapshot.data!;
 
           return ListView.separated(
             scrollDirection: Axis.vertical,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/signup_controller.dart';
+import 'package:upmatev2/controllers/verify_controller.dart';
 import 'package:upmatev2/themes/app_font.dart';
 
 import '../widgets/global/loading.dart';
@@ -11,7 +11,7 @@ class VerifyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<SignupController>();
+    final controller = Get.find<VerifyController>();
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(

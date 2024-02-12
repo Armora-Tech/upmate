@@ -7,6 +7,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:upmatev2/controllers/login_controller.dart';
 
 import '../controllers/signup_controller.dart';
 import '../models/user_model.dart';
@@ -139,16 +140,17 @@ class Auth {
     }
   }
 
-  Future<bool> checkOTP(String s) async {
-    final signupController = Get.find<SignupController>();
+  Future<bool> checkOTP(String inputOTP, bool isLogin) async {
+    final dynamic controller =
+        isLogin ? Get.find<LoginController>() : Get.find<SignupController>();
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("otps")
-        .doc(signupController.email.text)
+        .doc(isLogin ? controller.userCredential.email! : controller.email.text)
         .get();
     final data = snapshot.get('otp');
     debugPrint("OTP: $data");
 
-    return s == data;
+    return inputOTP == data;
   }
 
   Future<void> addUser(UserModel userModel) async {
