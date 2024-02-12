@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/tag_interest_controller.dart';
+import 'package:upmatev2/widgets/global/snack_bar.dart';
 import '../models/user_model.dart';
 import '../routes/route_name.dart';
 import '../repositories/auth.dart';
@@ -72,11 +73,17 @@ class SignupController extends GetxController {
     try {
       if (loginProvider == LoginProvider.google) {
         _loginController.userCredential = await _auth.signUpWithGoogle();
+        _loginController.isNewUser.value = await _auth.isNewUser(_loginController.userCredential!.email!);
         await _loginController.verifyEmail();
       } else if (loginProvider == LoginProvider.facebook) {
         await _auth.signUpWithFacebook();
       } else if (loginProvider == LoginProvider.email) {
-        await verifyEmail();
+        final bool isNewUser = await _auth.isNewUser(email.text);
+        if (isNewUser) {
+          await verifyEmail();
+        } else {
+          SnackBarWidget.showSnackBar(false, "email_has_been_registered".tr);
+        }
       }
     } catch (e) {
       if (kDebugMode) {
@@ -91,7 +98,6 @@ class SignupController extends GetxController {
 
   Future<void> signUpWithEmailAndPassword() async {
     _tagInterestController = Get.find<TagInterestController>();
-
     isLoading.value = true;
     try {
       final userCredential =

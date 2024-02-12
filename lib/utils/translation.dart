@@ -33,8 +33,9 @@ class Message extends Translations {
           "not_receiving_emails": "not receiving emails?",
           "resend_email": "Resend email",
           "you_must_choose_your_interest": "You must choose your interest",
-          // ========= HOME PAGE =========
-          "more": "more",
+          "email_has_been_registered": "Email has been registered",
+              // ========= HOME PAGE =========
+              "more": "more",
           "less": "less",
           "see_all": "See all",
           "comment": "comment",
@@ -155,6 +156,8 @@ class Message extends Translations {
           // =========== CHAT ROOM PAGE =============
           "send_a_picture": "Send a picture",
         },
+
+//================================INDONESIA================================================= 
         "id": {
           // ========= LOGIN SIGNUP PAGE ========
           "sign_in": "Masuk",
@@ -184,6 +187,7 @@ class Message extends Translations {
               "Nama pengguna harus menggunakan huruf kecil dan tanpa spasi",
           "not_receiving_emails": "Tidak menerima email?",
           "resend_email": "Kirim ulang email",
+          "email_has_been_registered": "Email telah terdaftar",
           // ========= HOME PAGE =========
           "more": "selengkapnya",
           "less": "sembunyikan",

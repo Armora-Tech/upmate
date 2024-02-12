@@ -50,9 +50,15 @@ class HomeAppBar extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Text(startController.user?.displayName ?? "",
-                            style: AppFont.text20
-                                .copyWith(fontWeight: FontWeight.bold)),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Text(startController.user?.displayName ?? "",
+                                style: AppFont.text20.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    overflow: TextOverflow.ellipsis)),
+                          ),
+                        ),
                         startController.isLoading.value
                             ? const ShimmerSkelton(
                                 height: 35, width: 35, isCircle: true)

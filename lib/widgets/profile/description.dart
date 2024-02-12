@@ -32,19 +32,22 @@ class DescriptionProfile extends StatelessWidget {
                           AppFont.text16.copyWith(fontWeight: FontWeight.bold)),
                   Text(controller.otherUser.username,
                       maxLines: 1, style: const TextStyle(color: Colors.grey)),
-                  Wrap(
-                      runSpacing: 5,
-                      spacing: 5,
-                      direction: Axis.horizontal,
-                      children: controller.otherUser.interests
-                          .map(
-                            (interest) => Text(
-                              "#$interest",
-                              style:
-                                  AppFont.text14.copyWith(color: Colors.grey),
-                            ),
-                          )
-                          .toList())
+                  RichText(
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(
+                        style: AppFont.text14,
+                        children: controller.otherUser.interests
+                            .map<InlineSpan>(
+                              (interest) => TextSpan(
+                                text: "#$interest ",
+                                style:
+                                    AppFont.text14.copyWith(color: Colors.grey),
+                              ),
+                            )
+                            .toList()),
+                  ),
+                  const SizedBox(height: 4)
                   // RichText(
                   //   text: TextSpan(
                   //     style: AppFont.text14,

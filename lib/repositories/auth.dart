@@ -154,12 +154,16 @@ class Auth {
   }
 
   Future<bool> isNewUser(String email) async {
-    final signupController = Get.find<SignupController>();
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection("users")
-        .where('email', isEqualTo:signupController.email.text)
-        .get();
-    return snapshot.docs.isEmpty;
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .where('email', isEqualTo: email)
+          .get();
+      return snapshot.docs.isEmpty;
+    } catch (e) {
+      debugPrint("ERRRORRR : $e");
+      return false;
+    }
   }
 
   Future<void> addUser(UserModel userModel) async {

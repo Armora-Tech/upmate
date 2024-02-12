@@ -24,6 +24,7 @@ class LoginController extends GetxController {
   RxBool isVisible = true.obs;
   RxBool isFocused = false.obs;
   RxBool isLoading = false.obs;
+  RxBool isNewUser = false.obs;
 
   @override
   void onInit() {
@@ -53,6 +54,7 @@ class LoginController extends GetxController {
     try {
       if (loginProvider == LoginProvider.google) {
         userCredential = await _auth.signInWithGoogle();
+        isNewUser.value = await _auth.isNewUser(userCredential!.email!);
         await verifyEmail();
       } else if (loginProvider == LoginProvider.facebook) {
         await _auth.signInWithFacebook();
