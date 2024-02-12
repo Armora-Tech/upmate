@@ -153,6 +153,15 @@ class Auth {
     return inputOTP == data;
   }
 
+  Future<bool> isNewUser(String email) async {
+    final signupController = Get.find<SignupController>();
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection("users")
+        .where('email', isEqualTo:signupController.email.text)
+        .get();
+    return snapshot.docs.isEmpty;
+  }
+
   Future<void> addUser(UserModel userModel) async {
     try {
       // doc.data() will be undefined in this case
