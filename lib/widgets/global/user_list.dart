@@ -31,6 +31,7 @@ class UserList extends StatelessWidget {
             ),
           )
         : ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemCount: controller.listSearchResult.length,

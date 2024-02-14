@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'verify_controller.dart';
-
 class TagInterestController extends GetxController {
-  late final VerifyController _verifyController;
-  late final bool isLogin;
   late TextEditingController edtTagInterest;
   List<String> selectedTags = [];
   RxBool isLoading = false.obs;
   RxBool isEmptyText = true.obs;
+  RxBool isSignInWithGoogle = false.obs;
   Map<String, String> tags = {
     "math".tr: "math",
     "calculus".tr: "calculus",
@@ -26,9 +23,9 @@ class TagInterestController extends GetxController {
 
   @override
   void onInit() {
-    _verifyController = Get.find<VerifyController>();
     edtTagInterest = TextEditingController();
-    isLogin = _verifyController.isLogin;
+    final argument = Get.arguments;
+    isSignInWithGoogle.value = argument ?? false;
     super.onInit();
   }
 

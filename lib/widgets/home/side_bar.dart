@@ -3,12 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/login_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/routes/route_name.dart';
 import 'package:upmatev2/themes/app_color.dart';
 import 'package:upmatev2/themes/app_font.dart';
 import 'package:upmatev2/widgets/global/detail_profile_picture.dart';
+import 'package:upmatev2/widgets/home/confirm_logout.dart';
 import '../global/cached_network_image.dart';
 import '../global/line.dart';
 
@@ -18,7 +18,6 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<StartController>();
-    final loginController = Get.find<LoginController>();
     final startController = Get.find<StartController>();
     Map<dynamic, dynamic> content = {
       "account".tr: "assets/svg/profile_outlined.svg",
@@ -141,7 +140,7 @@ class SideBar extends StatelessWidget {
                         } else if (key == "settings".tr) {
                           Get.toNamed(RouteName.settings);
                         } else if (key == "logout".tr) {
-                          await loginController.signOut();
+                          ConfirmLogoutDialog.showDialog();
                         }
                       },
                       child: Column(

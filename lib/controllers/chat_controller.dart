@@ -10,7 +10,7 @@ import 'package:upmatev2/routes/route_name.dart';
 class ChatController extends GetxController {
   late final StartController _startController;
   late final Stream<List<ChatModel>> chatStream;
-  late List<UserModel> listSearchResult;
+  List<UserModel> listSearchResult = [];
   late final TextEditingController searchText;
   List<ChatModel> chats = [];
   List<UserModel> contacts = [];
@@ -47,7 +47,6 @@ class ChatController extends GetxController {
           selectedContact!.ref as DocumentReference<Map<String, dynamic>>
         ]);
     final isNew = await ChatRepository().isNewChat(chatModel);
-    debugPrint("ISNEW: $isNew");
     if (isNew) {
       await ChatRepository().createChat(chatModel);
     }

@@ -73,13 +73,16 @@ class SignupController extends GetxController {
     try {
       if (loginProvider == LoginProvider.google) {
         _loginController.userCredential = await _auth.signUpWithGoogle();
-        _loginController.isNewUser.value = await _auth.isNewUser(_loginController.userCredential!.email!);
-        await _loginController.verifyEmail();
+        _loginController.isNewUser.value =
+            await _auth.isNewUser(_loginController.userCredential!.email!);
+        _loginController.isNewUser.value
+            ? Get.toNamed(RouteName.tagInterest, arguments: true)
+            : Get.offAllNamed(RouteName.start);
       } else if (loginProvider == LoginProvider.facebook) {
         await _auth.signUpWithFacebook();
       } else if (loginProvider == LoginProvider.email) {
-        final bool isNewUser = await _auth.isNewUser(email.text);
-        if (isNewUser) {
+        _loginController.isNewUser.value = await _auth.isNewUser(email.text);
+        if (_loginController.isNewUser.value) {
           await verifyEmail();
         } else {
           SnackBarWidget.showSnackBar(false, "email_has_been_registered".tr);

@@ -34,8 +34,9 @@ class Message extends Translations {
           "resend_email": "Resend email",
           "you_must_choose_your_interest": "You must choose your interest",
           "email_has_been_registered": "Email has been registered",
-              // ========= HOME PAGE =========
-              "more": "more",
+          "are_you_sure_you_want_to_logout": "Are you sure you want to logout?",
+          // ========= HOME PAGE =========
+          "more": "more",
           "less": "less",
           "see_all": "See all",
           "comment": "comment",
@@ -157,7 +158,7 @@ class Message extends Translations {
           "send_a_picture": "Send a picture",
         },
 
-//================================INDONESIA================================================= 
+//================================INDONESIA=================================================
         "id": {
           // ========= LOGIN SIGNUP PAGE ========
           "sign_in": "Masuk",
@@ -220,6 +221,7 @@ class Message extends Translations {
           "failed_to_delete_post": "Gagal menghapus postingan",
           "recommended_for_you": "Disarankan untuk anda",
           "you_must_choose_your_interest": "Anda harus memilih minat anda",
+          "are_you_sure_you_want_to_logout": "Apakah Anda yakin ingin keluar?",
           // ======= Settings =========
           "select_language": "Pilih Bahasa",
           // ======== BOTTOM NAVBAR =========

@@ -20,6 +20,7 @@ class ProfileController extends GetxController
   @override
   Future<void> onInit() async {
     _startController = Get.find<StartController>();
+    
     tabController = TabController(length: pages.length, vsync: this);
     await _getOtherUserData();
     super.onInit();

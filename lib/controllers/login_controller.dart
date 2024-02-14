@@ -55,7 +55,10 @@ class LoginController extends GetxController {
       if (loginProvider == LoginProvider.google) {
         userCredential = await _auth.signInWithGoogle();
         isNewUser.value = await _auth.isNewUser(userCredential!.email!);
-        await verifyEmail();
+        isNewUser.value
+            ? Get.toNamed(RouteName.tagInterest,
+                arguments: {"isSignInWGoogle": true})
+            : Get.offAllNamed(RouteName.start);
       } else if (loginProvider == LoginProvider.facebook) {
         await _auth.signInWithFacebook();
       } else if (loginProvider == LoginProvider.email) {
@@ -109,17 +112,18 @@ class LoginController extends GetxController {
 
   Future<void> signOut() async {
     isLoading.value = true;
+    update();
     try {
-      await _auth.signOut();
-      update();
+      Get.back();
+      Future.delayed(const Duration(milliseconds: 300));
+      await Auth().signOut();
+      userCredential = null;
       Get.offAllNamed(RouteName.login);
       Get.forceAppUpdate();
       isLoading.value = false;
     } catch (e) {
-      if (kDebugMode) {
-        print('Error navigating to start page: $e');
-        print("Sign out failed!");
-      }
+      print('Error navigating to start page: $e');
+      print("Sign out failed!");
     }
     Get.forceAppUpdate();
   }

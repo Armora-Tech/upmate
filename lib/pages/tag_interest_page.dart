@@ -179,14 +179,15 @@ class TagInterestView extends StatelessWidget {
                               ? () => SnackBarWidget.showSnackBar(
                                   false, "you_must_choose_your_interest".tr)
                               : () async {
-                                  if (controller.isLogin) {
+                                  if (controller.isSignInWithGoogle.value) {
                                     final loginController =
                                         Get.find<LoginController>();
                                     await loginController.signInWithGoogle();
                                   } else {
                                     final signUpController =
                                         Get.find<SignupController>();
-                                    await signUpController.signUpWithEmailAndPassword();
+                                    await signUpController
+                                        .signUpWithEmailAndPassword();
                                   }
                                 },
                           child: Center(

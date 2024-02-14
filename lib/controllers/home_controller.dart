@@ -152,4 +152,6 @@ class HomeController extends GetxController {
       return "${difference.inDays} $day $ago";
     }
   }
+
+ 
 }

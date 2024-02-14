@@ -15,40 +15,51 @@ class HomePostSection extends StatelessWidget {
     final controller = Get.find<HomeController>();
     return GetBuilder<HomeController>(
       builder: (_) {
-        return ListView.separated(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: controller.isLoading.value ? 1 : controller.posts!.length,
-          separatorBuilder: (context, index) {
-            return !controller.isLoading.value &&
-                    controller.posts!.length > 2 &&
-                    index == 2
-                ? const Padding(
-                    padding: EdgeInsets.only(bottom: 10.0), child: Popular())
-                : const SizedBox(height: 10);
-          },
-          itemBuilder: (context, index) {
-            return controller.isLoading.value
-                ? const ShimmerPostSection()
-                : controller.posts!.isEmpty
-                    ? Text("No posts",
-                        style: AppFont.text14.copyWith(color: Colors.grey))
-                    : Column(
-                        children: [
-                          PostSection(index: index),
-                          Obx(() => controller.isLoadMore.value &&
-                                  index == controller.posts!.length - 1
-                              ? Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 40, top: 20),
-                                  child: LoadingAnimationWidget.stretchedDots(
-                                      size: 30, color: Colors.black),
-                                )
-                              : const SizedBox()),
-                        ],
-                      );
-          },
-        );
+        return !controller.isLoading.value && controller.posts!.isEmpty
+            ? Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Column(
+                  children: [
+                    const Popular(),
+                    const SizedBox(height: 30),
+                    Text("no_posts".tr,
+                        style: AppFont.text14.copyWith(color: Colors.grey)),
+                  ],
+                ),
+              )
+            : ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount:
+                    controller.isLoading.value ? 1 : controller.posts!.length,
+                separatorBuilder: (context, index) {
+                  return !controller.isLoading.value &&
+                          controller.posts!.length > 2 &&
+                          index == 2
+                      ? const Padding(
+                          padding: EdgeInsets.only(bottom: 10.0),
+                          child: Popular())
+                      : const SizedBox(height: 10);
+                },
+                itemBuilder: (context, index) {
+                  return controller.isLoading.value
+                      ? const ShimmerPostSection()
+                      : Column(
+                          children: [
+                            PostSection(index: index),
+                            Obx(() => controller.isLoadMore.value &&
+                                    index == controller.posts!.length - 1
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: 40, top: 20),
+                                    child: LoadingAnimationWidget.stretchedDots(
+                                        size: 30, color: Colors.black),
+                                  )
+                                : const SizedBox()),
+                          ],
+                        );
+                },
+              );
       },
     );
   }

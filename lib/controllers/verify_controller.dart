@@ -6,20 +6,18 @@ import '../widgets/global/snack_bar.dart';
 
 class VerifyController extends GetxController {
   late final LoginController _loginController;
-  late final bool isLogin;
   RxString inputOTP = "".obs;
   RxBool isLoading = false.obs;
 
   @override
   void onInit() {
     _loginController = Get.find<LoginController>();
-    isLogin = Get.arguments ?? false;
     super.onInit();
   }
 
   Future<void> verifyOTP() async {
     isLoading.value = true;
-    bool isVerified = await Auth().checkOTP(inputOTP.value, isLogin);
+    bool isVerified = await Auth().checkOTP(inputOTP.value);
     if (isVerified) {
       isLoading.value = false;
       if (_loginController.isNewUser.value) {

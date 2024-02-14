@@ -27,7 +27,7 @@ class SearchTemplate extends StatelessWidget {
           children: [
             SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [const SizedBox(height: 128), child],
@@ -108,9 +108,8 @@ class SearchTemplate extends StatelessWidget {
                                       ),
                                 hintText: "search".tr,
                                 hintStyle: AppFont.text14.copyWith(
-                                  color: AppColor.black,
-                                  fontFamily: "Nunito",
-                                ),
+                                    color: AppColor.black,
+                                    fontFamily: "Nunito"),
                               ),
                             ),
                           ],
