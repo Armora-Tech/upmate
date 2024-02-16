@@ -134,12 +134,9 @@ class TrendingSection extends StatelessWidget {
                                         top: 10,
                                         left: 10,
                                         child: GestureDetector(
-                                          onTap: () => Get.toNamed(
-                                              RouteName.profile,
-                                              arguments: {
-                                                "otherUser": homeController
-                                                    .trendingPost![index].user
-                                              }),
+                                          onTap: () => homeController
+                                              .goToProfilePage(homeController
+                                                  .trendingPost![index].user!),
                                           child: Container(
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,

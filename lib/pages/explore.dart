@@ -25,10 +25,7 @@ class ExploreView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TagInterestSection(),
-                    OtherTagInterestSection(),
-                  ],
+                  children: [TagInterestSection(), OtherTagInterestSection()],
                 ),
               ),
               SizedBox(height: 90)
