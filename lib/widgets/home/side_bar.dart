@@ -18,7 +18,6 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<StartController>();
-    final startController = Get.find<StartController>();
     Map<dynamic, dynamic> content = {
       "account".tr: "assets/svg/profile_outlined.svg",
       "settings".tr: "assets/svg/settings_outlined.svg",
@@ -55,16 +54,16 @@ class SideBar extends StatelessWidget {
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      startController.user!.bannerUrl == null
+                      controller.user!.bannerUrl == null
                           ? const SizedBox()
                           : CachedNetworkImageWidget(
-                              imageUrl: startController.user!.bannerUrl!,
+                              imageUrl: controller.user!.bannerUrl!,
                               circularProgressSize: 20,
                               heightPlaceHolder: Get.height,
                               widthPlaceHolder: Get.width,
                               radiusPlaceHolder: 0,
                               fit: BoxFit.cover),
-                      startController.user!.bannerUrl == null
+                      controller.user!.bannerUrl == null
                           ? const SizedBox()
                           : BackdropFilter(
                               filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
@@ -141,6 +140,9 @@ class SideBar extends StatelessWidget {
                           Get.toNamed(RouteName.settings);
                         } else if (key == "logout".tr) {
                           ConfirmLogoutDialog.showDialog();
+                        } else if (key == "bookmarks".tr) {
+                          controller.isShowingBookmarks.value = true;
+                          Get.toNamed(RouteName.profile);
                         }
                       },
                       child: Column(

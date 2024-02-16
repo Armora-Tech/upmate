@@ -15,6 +15,7 @@ class StartController extends GetxController {
   RxBool isGettingMyPosts = false.obs;
   List<PostModel>? myPosts = [];
   List<PostModel>? myBookmarks = [];
+  RxBool isShowingBookmarks = false.obs;
 
   @override
   void onInit() async {

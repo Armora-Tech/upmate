@@ -3,9 +3,12 @@ import 'package:get/get.dart';
 import 'package:upmatev2/widgets/profile/my_bookmark.dart';
 import 'package:upmatev2/widgets/profile/my_post.dart';
 
+import 'start_controller.dart';
+
 class ProfileController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late final TabController tabController;
+  late final StartController _startController;
   RxInt selectedTab = 0.obs;
   RxBool isFullText = false.obs;
   RxBool isLoading = false.obs;
@@ -14,7 +17,15 @@ class ProfileController extends GetxController
 
   @override
   Future<void> onInit() async {
-    tabController = TabController(length: pages.length, vsync: this);
+    _startController = Get.find<StartController>();
+    if (_startController.isShowingBookmarks.value) {
+      selectedTab.value = 1;
+    } else {
+      selectedTab.value = 0;
+    }
+    tabController = TabController(
+        length: pages.length, vsync: this, initialIndex: selectedTab.value);
+    _startController.isShowingBookmarks.value = false;
     super.onInit();
   }
 
