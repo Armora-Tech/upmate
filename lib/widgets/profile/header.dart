@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:upmatev2/controllers/profile_controller.dart';
+import 'package:upmatev2/models/user_model.dart';
 import 'package:upmatev2/widgets/global/banner.dart';
 
 import '../global/detail_banner.dart';
@@ -8,11 +8,11 @@ import '../global/detail_profile_picture.dart';
 import '../global/profile_picture.dart';
 
 class HeaderProfile extends StatelessWidget {
-  const HeaderProfile({super.key});
+  final UserModel user;
+  const HeaderProfile({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<ProfileController>();
     return SizedBox(
       height: Get.width * 9 / 16 + 50,
       width: Get.width,
@@ -23,21 +23,16 @@ class HeaderProfile extends StatelessWidget {
           Positioned(
             top: 0,
             child: GestureDetector(
-              onTap: controller.otherUser.bannerUrl == null
+              onTap: user.bannerUrl == null
                   ? () {}
                   : () => Get.to(
-                      () => DetailBanner(
-                            otherUserPhoto: controller.otherUser.bannerUrl,
-                          ),
+                      () => DetailBanner(otherUserPhoto: user.bannerUrl),
                       opaque: false,
                       fullscreenDialog: true,
                       transition: Transition.noTransition),
               child: Hero(
-                tag: "banner_profile",
-                child: MyBanner(
-                  otherUserPhoto: controller.otherUser.bannerUrl,
-                ),
-              ),
+                  tag: "banner_profile",
+                  child: MyBanner(bannerUrl: user.bannerUrl)),
             ),
           ),
           Positioned(
@@ -62,12 +57,10 @@ class HeaderProfile extends StatelessWidget {
             left: 15,
             child: GestureDetector(
               onTap: () => Get.to(
-                () => DetailProfilePicture(
-                    otherUserPhoto: controller.otherUser.photoUrl),
-                opaque: false,
-                fullscreenDialog: true,
-                transition: Transition.noTransition,
-              ),
+                  () => DetailProfilePicture(otherUserPhoto: user.photoUrl),
+                  opaque: false,
+                  fullscreenDialog: true,
+                  transition: Transition.noTransition),
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -75,8 +68,7 @@ class HeaderProfile extends StatelessWidget {
                 ),
                 child: Hero(
                   tag: "profile",
-                  child: ProfilePicture(
-                      imageURL: controller.otherUser.photoUrl, size: 75),
+                  child: ProfilePicture(imageURL: user.photoUrl, size: 75),
                 ),
               ),
             ),

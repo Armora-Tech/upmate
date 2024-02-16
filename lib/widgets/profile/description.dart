@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/profile_controller.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
+import 'package:upmatev2/models/user_model.dart';
 
 import '../../routes/route_name.dart';
 import '../../themes/app_color.dart';
 import '../../themes/app_font.dart';
 
 class DescriptionProfile extends StatelessWidget {
-  const DescriptionProfile({super.key});
+  final UserModel user;
+  const DescriptionProfile({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -26,18 +28,18 @@ class DescriptionProfile extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(controller.otherUser.displayName,
+                  Text(user.displayName,
                       maxLines: 1,
                       style:
                           AppFont.text16.copyWith(fontWeight: FontWeight.bold)),
-                  Text(controller.otherUser.username,
+                  Text(user.username,
                       maxLines: 1, style: const TextStyle(color: Colors.grey)),
                   RichText(
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     text: TextSpan(
                         style: AppFont.text14,
-                        children: controller.otherUser.interests
+                        children: user.interests
                             .map<InlineSpan>(
                               (interest) => TextSpan(
                                 text: "#$interest ",
@@ -157,7 +159,7 @@ class DescriptionProfile extends StatelessWidget {
                     height: 35,
                     child: ElevatedButton(
                       onPressed:
-                          controller.otherUser.uid == startController.user!.uid
+                          user.uid == startController.user!.uid
                               ? () => Get.toNamed(RouteName.editProfile)
                               : () {},
                       style: ElevatedButton.styleFrom(
@@ -167,7 +169,7 @@ class DescriptionProfile extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          controller.otherUser.uid == startController.user!.uid
+                          user.uid == startController.user!.uid
                               ? "edit_profile".tr
                               : "follow".tr,
                           style: AppFont.text14.copyWith(

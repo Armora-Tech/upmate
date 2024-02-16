@@ -22,11 +22,17 @@ class PostDescription extends StatelessWidget {
                   text: TextSpan(
                     style: AppFont.text14,
                     children: [
-                      TextSpan(
-                        text:
+                      WidgetSpan(
+                        child: GestureDetector(
+                          onTap: controller.isLoading.value
+                              ? () {}
+                              : () => controller.goToProfilePage(post.user!),
+                          child: Text(
                             "${post.user!.displayName.replaceAll(" ", "").toLowerCase()}  ",
-                        style: AppFont.text14
-                            .copyWith(fontWeight: FontWeight.bold),
+                            style: AppFont.text14
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                       TextSpan(text: controller.handleText(post)),
                       post.postDescription.length > 80

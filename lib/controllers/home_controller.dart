@@ -4,6 +4,9 @@ import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/models/comment_model.dart';
 import 'package:upmatev2/repositories/post_repository.dart';
 import '../models/post_model.dart';
+import '../models/user_model.dart';
+import '../pages/other_user_profile.dart';
+import '../routes/route_name.dart';
 import '../widgets/global/snack_bar.dart';
 
 class HomeController extends GetxController {
@@ -14,6 +17,7 @@ class HomeController extends GetxController {
   List<PostModel>? posts;
   List<PostModel>? trendingPost;
   late PostModel lastPost;
+  UserModel? otherUser;
   RxInt selectedIndex = 0.obs;
   RxInt oldSelectedImage = 0.obs;
   RxInt selectedPostIndex = 0.obs;
@@ -32,6 +36,14 @@ class HomeController extends GetxController {
     if (!(isLoading.value && isLoadMore.value)) await _getMorePosts();
     _thisUser = _startController.user!.uid;
     super.onInit();
+  }
+
+  void goToProfilePage(UserModel user) {
+    final currentUserUid = _startController.user!.uid;
+    user.uid == currentUserUid
+        ? Get.toNamed(RouteName.profile)
+        : Get.to(() => OtherUserProfileView(otherUser: user),
+            transition: Transition.rightToLeft);
   }
 
   Future<void> _getPosts() async {
@@ -152,6 +164,4 @@ class HomeController extends GetxController {
       return "${difference.inDays} $day $ago";
     }
   }
-
- 
 }

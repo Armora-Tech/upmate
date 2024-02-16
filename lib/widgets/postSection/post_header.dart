@@ -5,7 +5,6 @@ import 'package:upmatev2/widgets/home/pop_up_delete_post.dart';
 
 import '../../controllers/home_controller.dart';
 import '../../controllers/start_controller.dart';
-import '../../routes/route_name.dart';
 import '../../themes/app_color.dart';
 import '../global/cached_network_image.dart';
 import '../global/skelton.dart';
@@ -21,8 +20,7 @@ class PostHeader extends StatelessWidget {
     return GestureDetector(
       onTap: controller.isLoading.value
           ? () {}
-          : () => Get.toNamed(RouteName.profile,
-              arguments: {"otherUser": controller.posts![index].user}),
+          : () => controller.goToProfilePage(controller.posts![index].user!),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(

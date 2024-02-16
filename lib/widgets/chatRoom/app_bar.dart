@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/chat_controller.dart';
+import 'package:upmatev2/controllers/home_controller.dart';
 
-import '../../routes/route_name.dart';
 import '../../themes/app_color.dart';
 import '../../themes/app_font.dart';
 import '../global/line.dart';
@@ -14,6 +14,8 @@ class ChatRoomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final chatController = Get.find<ChatController>();
+    final homeController = Get.find<HomeController>();
+
     return Positioned(
       top: 0,
       child: Container(
@@ -39,11 +41,8 @@ class ChatRoomAppBar extends StatelessWidget {
                           const SizedBox(width: 15),
                           Expanded(
                             child: GestureDetector(
-                              onTap: () {
-                                Get.toNamed(RouteName.profile, arguments: {
-                                  "otherUser": chatController.selectedContact!
-                                });
-                              },
+                              onTap: () => homeController.goToProfilePage(
+                                  chatController.selectedContact!),
                               child: Row(
                                 children: [
                                   ProfilePicture(

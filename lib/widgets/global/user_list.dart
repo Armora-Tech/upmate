@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:upmatev2/controllers/home_controller.dart';
 
 import '../../models/user_model.dart';
 import '../../routes/route_name.dart';
@@ -7,11 +8,7 @@ import '../../themes/app_font.dart';
 import 'line.dart';
 import 'profile_picture.dart';
 
-enum SearchPage {
-  createChatPage,
-  searchChatPage,
-  searchPage,
-}
+enum SearchPage { createChatPage, searchChatPage, searchPage }
 
 class UserList extends StatelessWidget {
   final SearchPage selectedPage;
@@ -21,6 +18,7 @@ class UserList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final homeController = Get.find<HomeController>();
     return controller.listSearchResult.isEmpty
         ? Container(
             margin: const EdgeInsets.only(top: 40),
@@ -44,8 +42,7 @@ class UserList extends StatelessWidget {
                     controller.selectedContact = contact;
                     await controller.createChat();
                   } else if (selectedPage == SearchPage.searchPage) {
-                    Get.toNamed(RouteName.profile,
-                        arguments: {"otherUser": contact});
+                    homeController.goToProfilePage(contact);
                   } else {
                     controller.selectedContact = contact;
                     await controller.createChat();

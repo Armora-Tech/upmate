@@ -13,7 +13,7 @@ class PostDetailController extends GetxController {
   late FocusNode focusNode;
   // the name should be textEditingController for the needs of the emoji section
   late final TextEditingController textEditingController;
-  late final PostModel post;
+  PostModel? post;
   late final int postIndex;
   late final HomeController _homeController;
   late final StartController _startController;
@@ -36,18 +36,12 @@ class PostDetailController extends GetxController {
         isShowEmoji.value = false;
       }
     });
-    post = Get.arguments;
-    post.selectedDotsIndicator = 0;
-    isLoading.value = true;
-    await post.getComment();
-    isLoading.value = false;
-
     super.onInit();
   }
 
   @override
   void onClose() {
-    post.selectedDotsIndicator = _homeController.oldSelectedImage.value;
+    post!.selectedDotsIndicator = _homeController.oldSelectedImage.value;
     _homeController.update();
     textEditingController.dispose();
     focusNode.dispose();

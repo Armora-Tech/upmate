@@ -71,6 +71,8 @@ class LoginController extends GetxController {
       _cancellationToken = CancellationToken();
     }
     _cancellationToken = CancellationToken();
+    email.clear();
+    pass.clear();
     isLoading.value = false;
     update();
   }
