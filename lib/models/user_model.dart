@@ -12,6 +12,7 @@ class UserModel {
   String? _photo_url;
   List<PostModel>? _posts;
   String? _banner_url;
+  String? _bio;
 
   UserModel(
       {required DocumentReference ref,
@@ -22,7 +23,8 @@ class UserModel {
       required String uid,
       required String username,
       String? photoUrl,
-      String? bannerUrl})
+      String? bannerUrl,
+      String? bio})
       : _ref = ref,
         _created_time = createdTime,
         _display_name = displayName,
@@ -31,7 +33,8 @@ class UserModel {
         _uid = uid,
         _username = username,
         _photo_url = photoUrl,
-        _banner_url = bannerUrl;
+        _banner_url = bannerUrl,
+        _bio = bio;
 
   factory UserModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -51,7 +54,8 @@ class UserModel {
             : "@${data?['display_name'].replaceAll(" ", "").toLowerCase()}",
         photoUrl: data?['photo_url'] ??
             "https://t3.ftcdn.net/jpg/00/64/67/80/360_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg",
-        bannerUrl: data?['banner_url']);
+        bannerUrl: data?['banner_url'],
+        bio: data?['bio']);
   }
 
   Map<String, dynamic> toFirestore() {
@@ -63,7 +67,8 @@ class UserModel {
       "uid": _uid,
       "username": _username,
       "photo_url": _photo_url,
-      "banner_url": _banner_url
+      "banner_url": _banner_url,
+      "bio": _bio
     };
   }
 
@@ -72,6 +77,7 @@ class UserModel {
   String get uid => _uid;
 
   List<PostModel>? get posts => _posts;
+
   set posts(List<PostModel>? newPosts) {
     _posts = newPosts;
   }
@@ -81,16 +87,26 @@ class UserModel {
   List get interests => _interests;
 
   String get email => _email;
+  set email(String newEmail) {
+    _email = newEmail;
+  }
 
   String get username => _username;
 
   String? get photoUrl => _photo_url;
+
   set photoUrl(String? newUrl) {
     _photo_url = newUrl;
   }
 
   String? get bannerUrl => _banner_url;
+
   set bannerUrl(String? newUrl) {
     _banner_url = newUrl;
+  }
+
+  String? get bio => _bio;
+  set bio(String? newBio) {
+    _bio = newBio;
   }
 }

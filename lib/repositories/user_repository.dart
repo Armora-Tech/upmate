@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/post_model.dart';
 import '../utils/upload.dart';
@@ -100,5 +101,30 @@ class UserRepository {
     } catch (error) {
       return;
     }
+  }
+
+  Future<void> updateBio(String bio) async {
+    final userModel = await _auth.getUserModel();
+    Map<String, dynamic> data = <String, dynamic>{};
+    data["bio"] = bio;
+    await _auth
+        .getCurrentUserReference()
+        .update(data)
+        .whenComplete(() => print("data updated"))
+        .catchError((e) => print(e));
+    userModel?.bio = data["bio"];
+  }
+
+  Future<void> updateEmail(String newEmail) async {
+    FirebaseAuth.instance.currentUser?.updateEmail(newEmail);
+    final userModel = await _auth.getUserModel();
+    Map<String, dynamic> data = <String, dynamic>{};
+    data["email"] = newEmail;
+    await _auth
+        .getCurrentUserReference()
+        .update(data)
+        .whenComplete(() => print("data updated"))
+        .catchError((e) => print(e));
+    userModel?.email = data["email"];
   }
 }
