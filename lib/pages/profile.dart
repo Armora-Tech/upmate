@@ -14,6 +14,7 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<ProfileController>();
     final startController = Get.find<StartController>();
+    controller.isFullText.value = false;
     return SafeArea(
       child: Scaffold(
         body: GetBuilder<ProfileController>(
@@ -26,8 +27,11 @@ class ProfileView extends StatelessWidget {
                   backgroundColor: Colors.white,
                   // expandedHeight: controller.isFullText.value ? 485.0 : 440.0,
                   expandedHeight: controller.isFullText.value
-                      ? Get.width * 9 / 16 + 460
-                      : Get.width * 9 / 16 + 230,
+                      ? Get.width * 9 / 16 + 305
+                      : (startController.user!.bio == null ||
+                              startController.user!.bio == "")
+                          ? Get.width * 9 / 16 + 195
+                          : Get.width * 9 / 16 + 245,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,10 +53,8 @@ class ProfileView extends StatelessWidget {
                   child: TabBarView(
                     physics: const NeverScrollableScrollPhysics(),
                     controller: controller.tabController,
-                    children: List.generate(
-                      controller.pages.length,
-                      (index) => controller.pages[index],
-                    ),
+                    children: List.generate(controller.pages.length,
+                        (index) => controller.pages[index]),
                   ),
                 ),
               ],

@@ -48,18 +48,22 @@ class EditProfileView extends StatelessWidget {
                                 Positioned(
                                   top: 0,
                                   child: GestureDetector(
-                                      onTap: startController.user!.bannerUrl ==
-                                              null
-                                          ? () {}
-                                          : () => Get.to(
-                                              () => const DetailBanner(),
-                                              opaque: false,
-                                              fullscreenDialog: true,
-                                              transition:
-                                                  Transition.noTransition),
-                                      child: const Hero(
-                                          tag: "banner_edit_profile",
-                                          child: MyBanner())),
+                                    onTap:
+                                        startController.user!.bannerUrl == null
+                                            ? () {}
+                                            : () => Get.to(
+                                                () => const DetailBanner(),
+                                                opaque: false,
+                                                fullscreenDialog: true,
+                                                transition:
+                                                    Transition.noTransition),
+                                    child: Hero(
+                                      tag: "banner_edit_profile",
+                                      child: MyBanner(
+                                          bannerUrl:
+                                              startController.user!.bannerUrl!),
+                                    ),
+                                  ),
                                 ),
                                 Positioned(
                                   bottom: 0,

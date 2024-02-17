@@ -54,10 +54,7 @@ class UserDataEditProfile extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     Container(
-                      width: Get.width,
-                      height: 0.5,
-                      color: Colors.black,
-                    )
+                        width: Get.width, height: 0.5, color: Colors.black)
                   ],
                 ),
               ),

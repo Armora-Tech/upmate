@@ -144,11 +144,8 @@ class EditPage extends StatelessWidget {
                                     child: Container(
                                       alignment: Alignment.centerLeft,
                                       width: 40,
-                                      child: const Icon(
-                                        Icons.arrow_back,
-                                        size: 25,
-                                        color: Colors.black,
-                                      ),
+                                      child: const Icon(Icons.arrow_back,
+                                          size: 25, color: Colors.black),
                                     ),
                                   ),
                                   Expanded(
@@ -160,15 +157,20 @@ class EditPage extends StatelessWidget {
                                     ),
                                   ),
                                   GestureDetector(
-                                    onTap: controller.inputText.text.isEmpty &&
-                                            controller.data!.keys
-                                                    .elementAt(index)
-                                                    .toLowerCase() !=
-                                                "bio"
+                                    onTap: controller.inputText.text.isEmpty
                                         ? () {}
                                         : () {
+                                            final isBio = controller.data!.keys
+                                                    .elementAt(index)
+                                                    .toLowerCase() ==
+                                                "bio";
                                             if (formField.currentState!
-                                                .validate()) {
+                                                    .validate() &&
+                                                !isBio) {
+                                              controller.save(controller
+                                                  .data!.keys
+                                                  .elementAt(index));
+                                            } else if (isBio) {
                                               controller.save(controller
                                                   .data!.keys
                                                   .elementAt(index));
@@ -179,10 +181,10 @@ class EditPage extends StatelessWidget {
                                           ? const SizedBox(
                                               width: 50,
                                               child: Center(
-                                                  child: Loading(
-                                                      size: 25,
-                                                      color:
-                                                          Colors.blueAccent)),
+                                                child: Loading(
+                                                    size: 25,
+                                                    color: Colors.blueAccent),
+                                              ),
                                             )
                                           : SizedBox(
                                               width: 50,

@@ -10,6 +10,7 @@ class ProfileController extends GetxController
   late final TabController tabController;
   late final StartController _startController;
   RxInt selectedTab = 0.obs;
+  RxInt highlightDescLength = 80.obs;
   RxBool isFullText = false.obs;
   RxBool isLoading = false.obs;
   List pages = [const MyPost(), const MyBookmark()];
@@ -46,8 +47,8 @@ class ProfileController extends GetxController
     if (isFullText.value) {
       return text;
     } else {
-      if (text.length > 80) {
-        return "${text.substring(0, 80)}...";
+      if (text.length > highlightDescLength.value) {
+        return "${text.substring(0, highlightDescLength.value)}...";
       }
     }
     return text;

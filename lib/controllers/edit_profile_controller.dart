@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upmatev2/controllers/start_controller.dart';
 import 'package:upmatev2/widgets/global/snack_bar.dart';
+import '../repositories/user_repository.dart';
 import '../utils/input_validator.dart';
 
 class EditProfileController extends GetxController {
@@ -55,7 +56,7 @@ class EditProfileController extends GetxController {
           ? _startController.user!.displayName
           : _startController.user!.username,
       "full_name".tr: _startController.user!.displayName,
-      "Bio": "",
+      "Bio": _startController.user!.bio ?? "",
       "Email": _startController.user!.email,
       "password".tr: "*****"
     };
@@ -75,7 +76,12 @@ class EditProfileController extends GetxController {
 
   Future<void> save(String input) async {
     isLoading.value = true;
-    await Future.delayed(const Duration(milliseconds: 2000));
+    if (input.toLowerCase() == "bio") {
+      await UserRepository().updateBio(bio.text);
+    } else {
+      await Future.delayed(const Duration(milliseconds: 2000));
+    }
+    await _startController.refreshStart();
     inputText.clear();
     Get.back();
     if (Get.locale!.languageCode == "id") {
@@ -86,7 +92,7 @@ class EditProfileController extends GetxController {
           true, "Successfully update ${input.toLowerCase()}");
     }
     isLoading.value = false;
-    update();
+    Get.forceAppUpdate();
   }
 
   String? inputValidation(String? value, String input) {

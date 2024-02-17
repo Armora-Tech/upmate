@@ -24,10 +24,7 @@ class MainContent extends StatelessWidget {
                   width: Get.width / 2,
                   child: const Padding(
                     padding: EdgeInsets.only(right: 10),
-                    child: Icon(
-                      Icons.grid_view_outlined,
-                      size: 28,
-                    ),
+                    child: Icon(Icons.grid_view_outlined, size: 28),
                   ),
                 ),
               ),
