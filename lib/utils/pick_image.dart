@@ -72,6 +72,29 @@ class PickImage {
     );
   }
 
+  Future<List<AssetPathEntity>> loadAlbums(PermissionState permission) async {
+    List<AssetPathEntity> albumList = [];
+    if (permission.isAuth) {
+      albumList = await PhotoManager.getAssetPathList(type: RequestType.image);
+    } else {
+      await PhotoManager.openSetting();
+      permission = await PhotoManager.requestPermissionExtend();
+      if (permission.isAuth) {
+        albumList =
+            await PhotoManager.getAssetPathList(type: RequestType.image);
+      }
+    }
+
+    return albumList;
+  }
+
+  Future<List<AssetEntity>> loadAsset(AssetPathEntity selectedAlbum) async {
+    List<AssetEntity> assetList = await selectedAlbum.getAssetListRange(
+        start: 0, end: await selectedAlbum.assetCountAsync);
+
+    return assetList;
+  }
+
   Future<List<AssetEntity>> loadAssets(PermissionState permission) async {
     List<AssetEntity> assets = [];
 
@@ -100,7 +123,7 @@ class PickImage {
     return assets;
   }
 
-    Future<Uint8List?> compressImage(Uint8List file) async {
+  Future<Uint8List?> compressImage(Uint8List file) async {
     try {
       final Uint8List compressedFile =
           await FlutterImageCompress.compressWithList(

@@ -23,9 +23,11 @@ class GalleryController extends GetxController {
   RxInt oldSelectedIndex = 0.obs;
 
   File? image;
-  AssetEntity? selectedEntity;
   List<AssetEntity> assetList = [];
   List<AssetEntity> selectedAssetList = [];
+  List<AssetPathEntity> albumList = [];
+  AssetEntity? selectedEntity;
+  AssetPathEntity? selectedAlbum;
 
   @override
   Future<void> onInit() async {
@@ -42,7 +44,9 @@ class GalleryController extends GetxController {
       }
       update();
     });
-    assetList = await PickImage().loadAssets(_startController.permission);
+    albumList = await PickImage().loadAlbums(_startController.permission);
+    selectedAlbum = albumList[0];
+    assetList = await PickImage().loadAsset(selectedAlbum!);
     update();
     super.onInit();
   }

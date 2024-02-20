@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
+import 'package:upmatev2/utils/pick_image.dart';
 
 import '../../controllers/camera_controller.dart';
 import '../../themes/app_color.dart';
@@ -57,11 +58,48 @@ class CreatePostGallery extends StatelessWidget {
                 ),
               ),
             ),
+            GetBuilder<GalleryController>(
+              builder: (_) => galleryController.assetList.isEmpty
+                  ? const SizedBox()
+                  : Container(
+                      margin: const EdgeInsets.only(left: 10),
+                      constraints: const BoxConstraints(maxWidth: 150),
+                      child: IntrinsicWidth(
+                        child: DropdownButton(
+                          isExpanded: true,
+                          value: galleryController.selectedAlbum,
+                          onChanged: (value) async {
+                            galleryController.selectedAlbum = value;
+                            galleryController.isLoading.value = true;
+                            galleryController.update();
+                            galleryController.assetList = await PickImage()
+                                .loadAsset(galleryController.selectedAlbum!);
+                            galleryController.isLoading.value = false;
+                            galleryController.update();
+                          },
+                          items: galleryController.albumList.map(
+                            (album) {
+                              return DropdownMenuItem(
+                                value: album,
+                                child: Text(
+                                  album.name,
+                                  style: AppFont.text14
+                                      .copyWith(color: Colors.black),
+                                ),
+                              );
+                            },
+                          ).toList(),
+                        ),
+                      ),
+                    ),
+            ),
             Expanded(
               child: GetBuilder<GalleryController>(
                 builder: (_) => GridView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 2),
-                  itemCount: galleryController.assetList.isEmpty
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+                  itemCount: galleryController.assetList.isEmpty ||
+                          galleryController.isLoading.value
                       ? 50
                       : galleryController.assetList.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -71,7 +109,8 @@ class CreatePostGallery extends StatelessWidget {
                   ),
                   itemBuilder: (context, index) {
                     final double size = Get.width / 4;
-                    return galleryController.assetList.isEmpty
+                    return galleryController.assetList.isEmpty ||
+                            galleryController.isLoading.value
                         ? ShimmerSkelton(
                             height: size, width: size, borderRadius: 0)
                         : GestureDetector(
@@ -87,6 +126,7 @@ class CreatePostGallery extends StatelessWidget {
                                   AssetEntityImage(
                                       galleryController.assetList[index],
                                       isOriginal: false,
+                                      filterQuality: FilterQuality.medium,
                                       thumbnailSize:
                                           const ThumbnailSize.square(250),
                                       fit: BoxFit.cover),

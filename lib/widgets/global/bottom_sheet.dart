@@ -14,6 +14,8 @@ import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/scroll_up.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 
+import '../../utils/pick_image.dart';
+
 class BottomSheetWidget {
   static void showGalleryChat(
       GalleryController controller, ChatRoomController chatRoomController) {
@@ -46,72 +48,106 @@ class BottomSheetWidget {
                   const SizedBox(height: 10),
                   Text("select_from_gallery".tr,
                       style: const TextStyle(fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 20),
-                  GetBuilder<GalleryController>(
-                    builder: (_) => Expanded(
-                      child: GridView.builder(
-                        controller: controller.scrollController,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 5),
-                        itemCount: controller.assetList.isEmpty
-                            ? 50
-                            : controller.assetList.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 2,
-                          mainAxisSpacing: 2,
+                  const SizedBox(height: 10),
+                  controller.assetList.isEmpty
+                      ? const SizedBox()
+                      : Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 10),
+                            constraints: const BoxConstraints(maxWidth: 150),
+                            child: IntrinsicWidth(
+                              child: DropdownButton(
+                                isExpanded: true,
+                                value: controller.selectedAlbum,
+                                onChanged: (value) async {
+                                  controller.selectedAlbum = value;
+                                  controller.isLoading.value = true;
+                                  controller.update();
+                                  controller.assetList = await PickImage()
+                                      .loadAsset(controller.selectedAlbum!);
+                                  controller.isLoading.value = false;
+                                  controller.update();
+                                },
+                                items: controller.albumList.map(
+                                  (album) {
+                                    return DropdownMenuItem(
+                                      value: album,
+                                      child: Text(
+                                        album.name,
+                                        style: AppFont.text14
+                                            .copyWith(color: Colors.black),
+                                      ),
+                                    );
+                                  },
+                                ).toList(),
+                              ),
+                            ),
+                          ),
                         ),
-                        itemBuilder: (context, index) {
-                          final double size = Get.width / 3;
-                          return controller.assetList.isEmpty
-                              ? ShimmerSkelton(
-                                  height: size, width: size, borderRadius: 0)
-                              : GestureDetector(
-                                  onTap: () => controller
-                                      .addImage(controller.assetList[index]),
-                                  child: Container(
-                                    height: size,
-                                    width: size,
-                                    color: AppColor.greyShimmer,
-                                    child: Stack(
-                                      fit: StackFit.expand,
-                                      children: [
-                                        AssetEntityImage(
-                                          controller.assetList[index],
-                                          isOriginal: false,
-                                          thumbnailSize:
-                                              const ThumbnailSize.square(250),
-                                          fit: BoxFit.cover,
-                                        ),
-                                        controller.selectedAssetList.contains(
-                                                controller.assetList[index])
-                                            ? Positioned(
-                                                top: 5,
-                                                right: 5,
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                          color: Colors.white,
-                                                          shape:
-                                                              BoxShape.circle),
-                                                  child: const Icon(
-                                                      Icons
-                                                          .check_circle_rounded,
-                                                      color: Colors.blueAccent,
-                                                      size: 25),
-                                                ),
-                                              )
-                                            : const SizedBox()
-                                      ],
-                                    ),
-                                  ),
-                                );
-                        },
+                  Expanded(
+                    child: GridView.builder(
+                      controller: controller.scrollController,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 5),
+                      itemCount: controller.assetList.isEmpty ||
+                              controller.isLoading.value
+                          ? 50
+                          : controller.assetList.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 2,
+                        mainAxisSpacing: 2,
                       ),
+                      itemBuilder: (context, index) {
+                        final double size = Get.width / 3;
+                        return controller.assetList.isEmpty ||
+                                controller.isLoading.value
+                            ? ShimmerSkelton(
+                                height: size, width: size, borderRadius: 0)
+                            : GestureDetector(
+                                onTap: () => controller
+                                    .addImage(controller.assetList[index]),
+                                child: Container(
+                                  height: size,
+                                  width: size,
+                                  color: AppColor.greyShimmer,
+                                  child: Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      AssetEntityImage(
+                                        controller.assetList[index],
+                                        isOriginal: false,
+                                        filterQuality: FilterQuality.medium,
+                                        thumbnailSize:
+                                            const ThumbnailSize.square(250),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      controller.selectedAssetList.contains(
+                                              controller.assetList[index])
+                                          ? Positioned(
+                                              top: 5,
+                                              right: 5,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                decoration: const BoxDecoration(
+                                                    color: Colors.white,
+                                                    shape: BoxShape.circle),
+                                                child: const Icon(
+                                                    Icons.check_circle_rounded,
+                                                    color: Colors.blueAccent,
+                                                    size: 25),
+                                              ),
+                                            )
+                                          : const SizedBox()
+                                    ],
+                                  ),
+                                ),
+                              );
+                      },
                     ),
-                  )
+                  ),
                 ],
               ),
               AnimatedPositioned(
@@ -205,9 +241,7 @@ class BottomSheetWidget {
                 onTap: () {
                   controller.isEditBanner.value = isEditBanner;
                   Get.to(
-                    () => const CameraView(
-                      page: CameraPage.profile,
-                    ),
+                    () => const CameraView(page: CameraPage.profile),
                   );
                 },
                 child: Container(
