@@ -76,6 +76,7 @@ class Message extends Translations {
           "search": "Search",
           "your_interest_tags": "Your interest tags",
           "other_interest_tags": "Other interest tags",
+          "type_in_search" : "Type in search",
           // ========= NOTIFICATION ==========
           "latest": "Latest",
           "has_followed_you": "has followed you.",
@@ -231,8 +232,9 @@ class Message extends Translations {
           "chat": "Obrolan",
           // ========= EXPLORE ===========
           "search": "Cari",
-          "your_interest_tag": "Tag interest mu",
+          "your_interest_tags": "Tag interest mu",
           "other_interest_tags": "Tag interest lainnya",
+          "type_in_search" : "Ketik pencarian",
           // ========= NOTIFICATION ==========
           "latest": "Baru",
           "has_followed_you": "telah mengikuti anda.",

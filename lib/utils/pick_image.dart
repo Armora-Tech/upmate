@@ -88,39 +88,11 @@ class PickImage {
     return albumList;
   }
 
-  Future<List<AssetEntity>> loadAsset(AssetPathEntity selectedAlbum) async {
+  Future<List<AssetEntity>> loadAssets(AssetPathEntity selectedAlbum) async {
     List<AssetEntity> assetList = await selectedAlbum.getAssetListRange(
         start: 0, end: await selectedAlbum.assetCountAsync);
 
     return assetList;
-  }
-
-  Future<List<AssetEntity>> loadAssets(PermissionState permission) async {
-    List<AssetEntity> assets = [];
-
-    if (permission.isAuth) {
-      int pageCount = 100;
-      bool hasNext = true;
-      int page = 0;
-
-      while (hasNext) {
-        List<AssetEntity> assetsPaged = await PhotoManager.getAssetListPaged(
-          page: page,
-          pageCount: pageCount,
-          type: RequestType.image,
-        );
-
-        if (assetsPaged.isEmpty) {
-          hasNext = false;
-        } else {
-          assets.addAll(assetsPaged);
-          page++;
-        }
-      }
-    } else {
-      PhotoManager.openSetting();
-    }
-    return assets;
   }
 
   Future<Uint8List?> compressImage(Uint8List file) async {

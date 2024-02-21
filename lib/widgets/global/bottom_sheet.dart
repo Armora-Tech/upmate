@@ -14,8 +14,6 @@ import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/scroll_up.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 
-import '../../utils/pick_image.dart';
-
 class BottomSheetWidget {
   static void showGalleryChat(
       GalleryController controller, ChatRoomController chatRoomController) {
@@ -36,39 +34,40 @@ class BottomSheetWidget {
             alignment: Alignment.center,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 5),
-                  Container(
-                    height: 4,
-                    width: 40,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: AppColor.primaryColor),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 4,
+                          width: 40,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: AppColor.primaryColor),
+                        ),
+                        const SizedBox(height: 10),
+                        Text("select_from_gallery".tr,
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 10),
-                  Text("select_from_gallery".tr,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 10),
-                  controller.assetList.isEmpty
-                      ? const SizedBox()
-                      : Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
+                  GetBuilder<GalleryController>(
+                    builder: (_) => controller.assetList.isEmpty
+                        ? const SizedBox()
+                        : Container(
                             margin: const EdgeInsets.only(left: 10),
                             constraints: const BoxConstraints(maxWidth: 150),
                             child: IntrinsicWidth(
                               child: DropdownButton(
                                 isExpanded: true,
                                 value: controller.selectedAlbum,
-                                onChanged: (value) async {
-                                  controller.selectedAlbum = value;
-                                  controller.isLoading.value = true;
-                                  controller.update();
-                                  controller.assetList = await PickImage()
-                                      .loadAsset(controller.selectedAlbum!);
-                                  controller.isLoading.value = false;
-                                  controller.update();
-                                },
+                                onChanged: (value) async =>
+                                    await controller.selectAlbum(value!),
                                 items: controller.albumList.map(
                                   (album) {
                                     return DropdownMenuItem(
@@ -84,7 +83,7 @@ class BottomSheetWidget {
                               ),
                             ),
                           ),
-                        ),
+                  ),
                   Expanded(
                     child: GridView.builder(
                       controller: controller.scrollController,
@@ -92,7 +91,7 @@ class BottomSheetWidget {
                           horizontal: 5, vertical: 5),
                       itemCount: controller.assetList.isEmpty ||
                               controller.isLoading.value
-                          ? 50
+                          ? 51
                           : controller.assetList.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(

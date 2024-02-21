@@ -24,14 +24,44 @@ class GalleryView extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 90),
+                GetBuilder<GalleryController>(
+                  builder: (_) => controller.assetList.isEmpty
+                      ? const SizedBox()
+                      : Container(
+                          margin: const EdgeInsets.only(left: 10),
+                          constraints: const BoxConstraints(maxWidth: 150),
+                          child: IntrinsicWidth(
+                            child: DropdownButton(
+                              isExpanded: true,
+                              value: controller.selectedAlbum,
+                              onChanged: (value) async =>
+                                  await controller.selectAlbum(value!),
+                              items: controller.albumList.map(
+                                (album) {
+                                  return DropdownMenuItem(
+                                    value: album,
+                                    child: Text(
+                                      album.name,
+                                      style: AppFont.text14
+                                          .copyWith(color: Colors.black),
+                                    ),
+                                  );
+                                },
+                              ).toList(),
+                            ),
+                          ),
+                        ),
+                ),
                 Expanded(
                   child: GridView.builder(
                     controller: controller.scrollController,
                     padding: const EdgeInsets.symmetric(horizontal: 2),
-                    itemCount: controller.assetList.isEmpty
-                        ? 30
+                    itemCount: controller.assetList.isEmpty ||
+                            controller.isLoading.value
+                        ? 51
                         : controller.assetList.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -41,12 +71,10 @@ class GalleryView extends StatelessWidget {
                     ),
                     itemBuilder: (context, index) {
                       final double size = Get.width / 3;
-                      return controller.assetList.isEmpty
+                      return controller.assetList.isEmpty ||
+                              controller.isLoading.value
                           ? ShimmerSkelton(
-                              height: size,
-                              width: size,
-                              borderRadius: 0,
-                            )
+                              height: size, width: size, borderRadius: 0)
                           : GestureDetector(
                               onTap: () => controller.selectPhotoProfile(
                                   controller.assetList[index]),
@@ -79,7 +107,8 @@ class GalleryView extends StatelessWidget {
                                                 color: Colors.blueAccent,
                                                 size: 25,
                                               ),
-                                            ))
+                                            ),
+                                          )
                                         : const SizedBox()
                                   ],
                                 ),

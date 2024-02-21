@@ -46,7 +46,7 @@ class GalleryController extends GetxController {
     });
     albumList = await PickImage().loadAlbums(_startController.permission);
     selectedAlbum = albumList[0];
-    assetList = await PickImage().loadAsset(selectedAlbum!);
+    assetList = await PickImage().loadAssets(selectedAlbum!);
     update();
     super.onInit();
   }
@@ -115,6 +115,15 @@ class GalleryController extends GetxController {
             true, "${"success".tr} ${"update_photo_profile".tr}");
       }
     }
+  }
+
+  Future<void> selectAlbum(AssetPathEntity value) async {
+    selectedAlbum = value;
+    isLoading.value = true;
+    update();
+    assetList = await PickImage().loadAssets(selectedAlbum!);
+    isLoading.value = false;
+    update();
   }
 
   Future<void> updateBanner() async {

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
-import 'package:upmatev2/utils/pick_image.dart';
 
 import '../../controllers/camera_controller.dart';
 import '../../themes/app_color.dart';
@@ -68,15 +67,8 @@ class CreatePostGallery extends StatelessWidget {
                         child: DropdownButton(
                           isExpanded: true,
                           value: galleryController.selectedAlbum,
-                          onChanged: (value) async {
-                            galleryController.selectedAlbum = value;
-                            galleryController.isLoading.value = true;
-                            galleryController.update();
-                            galleryController.assetList = await PickImage()
-                                .loadAsset(galleryController.selectedAlbum!);
-                            galleryController.isLoading.value = false;
-                            galleryController.update();
-                          },
+                          onChanged: (value) async =>
+                              await galleryController.selectAlbum(value!),
                           items: galleryController.albumList.map(
                             (album) {
                               return DropdownMenuItem(
@@ -100,7 +92,7 @@ class CreatePostGallery extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
                   itemCount: galleryController.assetList.isEmpty ||
                           galleryController.isLoading.value
-                      ? 50
+                      ? 52
                       : galleryController.assetList.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,

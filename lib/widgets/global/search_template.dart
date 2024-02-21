@@ -106,7 +106,7 @@ class SearchTemplate extends StatelessWidget {
                                               color: AppColor.black, size: 20),
                                         ),
                                       ),
-                                hintText: "search".tr,
+                                hintText: "type_in_search".tr,
                                 hintStyle: AppFont.text14.copyWith(
                                     color: AppColor.black,
                                     fontFamily: "Nunito"),
