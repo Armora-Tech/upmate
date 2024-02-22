@@ -134,7 +134,7 @@ class EditProfileView extends StatelessWidget {
                           const SizedBox(height: 40),
                           const UserDataEditProfile()
                         ],
-                      )),
+                      ),),
               const AppBarEditProfile(),
               Obx(() => galleryController.isLoading.value
                   ? const BlurLoading()
