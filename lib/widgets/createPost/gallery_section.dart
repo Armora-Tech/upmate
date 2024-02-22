@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 import 'package:upmatev2/controllers/gallery_controller.dart';
 
@@ -28,31 +27,32 @@ class CreatePostGallery extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 5),
               alignment: Alignment.center,
               child: IntrinsicWidth(
-                child: ElevatedButton(
-                  onPressed: galleryController.assetList.isEmpty
-                      ? () {}
-                      : () => Get.to(() => const CameraView(
-                            page: CameraPage.post,
-                          )),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 10),
-                    elevation: 0,
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      side: const BorderSide(
-                          width: 0.5, color: AppColor.lightGrey),
+                child: GetBuilder<GalleryController>(
+                  builder: (_) => ElevatedButton(
+                    onPressed: galleryController.assetList.isEmpty
+                        ? () {}
+                        : () => Get.to(
+                            () => const CameraView(page: CameraPage.post)),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 10),
+                      elevation: 0,
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: const BorderSide(
+                            width: 0.5, color: AppColor.lightGrey),
+                      ),
                     ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.camera_alt_rounded,
-                          size: 23, color: AppColor.black),
-                      const SizedBox(width: 10),
-                      Text("take_a_picture".tr, style: AppFont.text14),
-                    ],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.camera_alt_rounded,
+                            size: 23, color: AppColor.black),
+                        const SizedBox(width: 10),
+                        Text("take_a_picture".tr, style: AppFont.text14),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -118,9 +118,7 @@ class CreatePostGallery extends StatelessWidget {
                                   AssetEntityImage(
                                       galleryController.assetList[index],
                                       isOriginal: false,
-                                      filterQuality: FilterQuality.medium,
-                                      thumbnailSize:
-                                          const ThumbnailSize.square(250),
+                                      filterQuality: FilterQuality.low,
                                       fit: BoxFit.cover),
                                   galleryController.assetList.isEmpty
                                       ? const SizedBox()

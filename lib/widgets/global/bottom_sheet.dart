@@ -14,78 +14,80 @@ import 'package:upmatev2/widgets/global/line.dart';
 import 'package:upmatev2/widgets/global/scroll_up.dart';
 import 'package:upmatev2/widgets/global/skelton.dart';
 
+import '../../controllers/observer/scroll_up_controller.dart';
+
 class BottomSheetWidget {
   static void showGalleryChat(
       GalleryController controller, ChatRoomController chatRoomController) {
+    final scrollUpController = Get.find<ScrollUpController>();
     Get.bottomSheet(
       isScrollControlled: true,
-      GetBuilder<GalleryController>(
-        builder: (_) => Container(
-          width: Get.width,
-          height: Get.height * 0.85,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
+      Container(
+        width: Get.width,
+        height: Get.height * 0.85,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 5),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 4,
-                          width: 40,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: AppColor.primaryColor),
-                        ),
-                        const SizedBox(height: 10),
-                        Text("select_from_gallery".tr,
-                            style:
-                                const TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    ),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 5),
+                Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 4,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: AppColor.primaryColor),
+                      ),
+                      const SizedBox(height: 10),
+                      Text("select_from_gallery".tr,
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                    ],
                   ),
-                  const SizedBox(height: 10),
-                  GetBuilder<GalleryController>(
-                    builder: (_) => controller.assetList.isEmpty
-                        ? const SizedBox()
-                        : Container(
-                            margin: const EdgeInsets.only(left: 10),
-                            constraints: const BoxConstraints(maxWidth: 150),
-                            child: IntrinsicWidth(
-                              child: DropdownButton(
-                                isExpanded: true,
-                                value: controller.selectedAlbum,
-                                onChanged: (value) async =>
-                                    await controller.selectAlbum(value!),
-                                items: controller.albumList.map(
-                                  (album) {
-                                    return DropdownMenuItem(
-                                      value: album,
-                                      child: Text(
-                                        album.name,
-                                        style: AppFont.text14
-                                            .copyWith(color: Colors.black),
-                                      ),
-                                    );
-                                  },
-                                ).toList(),
-                              ),
+                ),
+                const SizedBox(height: 10),
+                GetBuilder<GalleryController>(
+                  builder: (_) => controller.assetList.isEmpty
+                      ? const SizedBox()
+                      : Container(
+                          margin: const EdgeInsets.only(left: 10),
+                          constraints: const BoxConstraints(maxWidth: 150),
+                          child: IntrinsicWidth(
+                            child: DropdownButton(
+                              isExpanded: true,
+                              value: controller.selectedAlbum,
+                              onChanged: (value) async =>
+                                  await controller.selectAlbum(value!),
+                              items: controller.albumList.map(
+                                (album) {
+                                  return DropdownMenuItem(
+                                    value: album,
+                                    child: Text(
+                                      album.name,
+                                      style: AppFont.text14
+                                          .copyWith(color: Colors.black),
+                                    ),
+                                  );
+                                },
+                              ).toList(),
                             ),
                           ),
-                  ),
-                  Expanded(
-                    child: GridView.builder(
+                        ),
+                ),
+                Expanded(
+                  child: GetBuilder<GalleryController>(
+                    builder: (_) => GridView.builder(
                       controller: controller.scrollController,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 5, vertical: 5),
@@ -106,8 +108,11 @@ class BottomSheetWidget {
                             ? ShimmerSkelton(
                                 height: size, width: size, borderRadius: 0)
                             : GestureDetector(
-                                onTap: () => controller
-                                    .addImage(controller.assetList[index]),
+                                onTap: () {
+                                  controller
+                                      .addImage(controller.assetList[index]);
+                                  scrollUpController.update();
+                                },
                                 child: Container(
                                   height: size,
                                   width: size,
@@ -147,9 +152,11 @@ class BottomSheetWidget {
                       },
                     ),
                   ),
-                ],
-              ),
-              AnimatedPositioned(
+                ),
+              ],
+            ),
+            GetBuilder<ScrollUpController>(
+              builder: (_) => AnimatedPositioned(
                 duration: const Duration(milliseconds: 300),
                 bottom: controller.selectedAssetList.isEmpty &&
                         !controller.isBtnShown.value
@@ -184,7 +191,9 @@ class BottomSheetWidget {
                   ),
                 ),
               ),
-              AnimatedPositioned(
+            ),
+            GetBuilder<ScrollUpController>(
+              builder: (_) => AnimatedPositioned(
                 duration: const Duration(milliseconds: 300),
                 bottom: controller.selectedAssetList.isEmpty ||
                         controller.isBtnShown.value
@@ -199,20 +208,20 @@ class BottomSheetWidget {
                   child: IntrinsicWidth(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Text(
-                        "${"send".tr} "
-                        "(${controller.selectedAssetList.length})",
-                        style: AppFont.text16.copyWith(color: Colors.white),
+                      child: GetBuilder<GalleryController>(
+                        builder: (_) => Text(
+                          "${"send".tr} "
+                          "(${controller.selectedAssetList.length})",
+                          style: AppFont.text16.copyWith(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-              ScrollUp(
-                controller: controller,
-              )
-            ],
-          ),
+            ),
+            ScrollUp(controller: controller)
+          ],
         ),
       ),
     );

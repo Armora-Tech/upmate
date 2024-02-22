@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import '../controllers/camera_controller.dart';
 import '../controllers/gallery_controller.dart';
+import '../controllers/observer/scroll_up_controller.dart';
 import '../controllers/post_controller.dart';
 
 class PostBinding implements Bindings {
@@ -10,5 +11,6 @@ class PostBinding implements Bindings {
     Get.lazyPut<CameraViewController>(() => CameraViewController(),
         fenix: true);
     Get.lazyPut<GalleryController>(() => GalleryController(), fenix: true);
+        Get.lazyPut<ScrollUpController>(() => ScrollUpController(), fenix: true);
   }
 }

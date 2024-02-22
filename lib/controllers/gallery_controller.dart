@@ -12,8 +12,10 @@ import 'package:upmatev2/repositories/user_repository.dart';
 import '../routes/route_name.dart';
 import '../utils/pick_image.dart';
 import '../widgets/global/snack_bar.dart';
+import 'observer/scroll_up_controller.dart';
 
 class GalleryController extends GetxController {
+  late final ScrollUpController _scrollUpController;
   late final ScrollController scrollController;
   late final StartController _startController;
   late final HomeController _homeController;
@@ -31,6 +33,7 @@ class GalleryController extends GetxController {
 
   @override
   Future<void> onInit() async {
+    _scrollUpController = Get.find<ScrollUpController>();
     scrollController = ScrollController();
     _startController = Get.find<StartController>();
     _homeController = Get.find<HomeController>();
@@ -42,7 +45,7 @@ class GalleryController extends GetxController {
       } else {
         isBtnShown.value = true;
       }
-      update();
+      _scrollUpController.update();
     });
     albumList = await PickImage().loadAlbums(_startController.permission);
     selectedAlbum = albumList[0];
@@ -54,7 +57,6 @@ class GalleryController extends GetxController {
   @override
   void onClose() {
     scrollController.dispose();
-    scrollController.removeListener(() {});
     super.onClose();
   }
 
